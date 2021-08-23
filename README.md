@@ -7,7 +7,7 @@
 A vue plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js). Only additional dependency is [mitt](https://github.com/developit/mitt).
 Customizable Style switch is included. Support for custom controls.
 
-Size: [31 KB)](https://bundlephobia.com/package/vue-maplibre-gl)
+Size: [31 KB](https://bundlephobia.com/package/vue-maplibre-gl)
 
 ## Table of contents
 
