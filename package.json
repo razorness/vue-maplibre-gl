@@ -1,0 +1,101 @@
+{
+	"name": "vue-maplibre-gl",
+	"version": "1.0.0-beta.1",
+	"description": "Vue 3 plugin for maplibre-gl",
+	"keywords": [
+		"vue",
+		"vue3",
+		"vuejs",
+		"vue3js",
+		"vue-component",
+		"vue3-component",
+		"maplibre",
+		"maplibre-gl"
+	],
+	"author": {
+		"name": "Volker Nauruhn",
+		"email": "mensch.meier@live.de",
+		"url": "razorness.de"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/razorness/vue-maplibre-gl.git"
+	},
+	"license": "MIT",
+	"main": "dist/vue-maplibre-gl.ssr.js",
+	"browser": "dist/vue-maplibre-gl.esm.js",
+	"module": "dist/vue-maplibre-gl.esm.js",
+	"unpkg": "dist/vue-maplibre-gl.min.js",
+	"types": "dist/types/src/entry.esm.d.ts",
+	"files": [
+		"dist/*",
+		"src/**/*.vue"
+	],
+	"sideEffects": false,
+	"scripts": {
+		"serve": "vue-cli-service serve dev/serve.ts",
+		"prebuild": "rimraf ./dist",
+		"build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
+		"build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
+		"build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
+		"build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
+		"postbuild": "rimraf ./dist/types/dev ./dist/types/src/entry.d.ts"
+	},
+	"dependencies": {
+		"mitt": "^3.0.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.15.0",
+		"@babel/preset-env": "^7.15.0",
+		"@babel/preset-typescript": "^7.15.0",
+		"@mdi/js": "^5.9.55",
+		"@rollup/plugin-alias": "^3.1.5",
+		"@rollup/plugin-babel": "^5.3.0",
+		"@rollup/plugin-commonjs": "^20.0.0",
+		"@rollup/plugin-node-resolve": "^13.0.4",
+		"@rollup/plugin-replace": "^3.0.0",
+		"@types/geojson": "^7946.0.8",
+		"@vue/cli-plugin-babel": "^4.5.13",
+		"@vue/cli-plugin-typescript": "^4.5.13",
+		"@vue/cli-service": "^4.5.13",
+		"@vue/compiler-sfc": "^3.2.4",
+		"@zerollup/ts-transform-paths": "^1.7.18",
+		"autoprefixer": "^9.8.6",
+		"cross-env": "^7.0.3",
+		"geojson": "^0.5.0",
+		"maplibre-gl": "^1.15.2",
+		"minimist": "^1.2.5",
+		"postcss": "^8.3.6",
+		"rimraf": "^3.0.2",
+		"rollup": "^2.56.2",
+		"rollup-plugin-analyzer": "^4.0.0",
+		"rollup-plugin-postcss": "^4.0.1",
+		"rollup-plugin-scss": "^3.0.0",
+		"rollup-plugin-terser": "^7.0.2",
+		"rollup-plugin-typescript2": "^0.30.0",
+		"rollup-plugin-vue": "^6.0.0",
+		"sass": "^1.38.0",
+		"sass-loader": "^10.2.0",
+		"ttypescript": "^1.5.12",
+		"typescript": "^4.3.5",
+		"vue": "^3.0.5",
+		"vue-cli-plugin-webpack-bundle-analyzer": "~4.0.0"
+	},
+	"peerDependencies": {
+		"maplibre-gl": "^1.15.2",
+		"vue": "^3.0.5"
+	},
+	"engines": {
+		"node": ">=12"
+	},
+	"postcss": {
+		"plugins": {
+			"autoprefixer": {}
+		}
+	},
+	"prettier": {
+		"singleQuote": true,
+		"endOfLine": "lf",
+		"useTabs": true
+	}
+}
