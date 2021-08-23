@@ -54,20 +54,25 @@
 
 <script lang="ts">
 	import { defineComponent } from 'vue';
-	import { MglAttributionControl, MglDefaults, MglMap, StyleSwitchItem } from '@/entry.esm';
-	import MglNavigationControl from '@/components/controls/navigation.control';
-	import MglScaleControl from '@/components/controls/scale.control';
-	import MglFullscreenControl from '@/components/controls/fullscreen.control';
-	import { MglEvent } from '@/components/types';
-	import MglGeolocationControl from '@/components/controls/geolocation.control';
-	import MglCustomControl from '@/components/controls/custom.control';
-	import MglStyleSwitchControl from '@/components/controls/styleSwitch.control';
-	import MglButton from '@/components/button.component';
+	import {
+		MglAttributionControl,
+		MglButton,
+		MglCustomControl,
+		MglDefaults,
+		MglEvent,
+		MglFullscreenControl,
+		MglGeoJsonSource,
+		MglGeolocationControl,
+		MglLineLayer,
+		MglMap,
+		MglMarker,
+		MglNavigationControl,
+		MglScaleControl,
+		MglStyleSwitchControl,
+		StyleSwitchItem
+	} from '@/entry.esm';
 	import { mdiCursorDefaultClick } from '@mdi/js';
-	import MglMarker from '@/components/marker.component';
-	import MglGeoJsonSource from '@/components/sources/geojson.source';
 	import { LineLayout, LinePaint } from 'maplibre-gl';
-	import MglLineLayer from '@/components/layers/line.layer';
 
 	MglDefaults.style = 'https://api.maptiler.com/maps/streets/style.json?key=cQX2iET1gmOW38bedbUh';
 	console.log('MglDefaults', MglDefaults);
