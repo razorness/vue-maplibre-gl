@@ -10,7 +10,8 @@
 		"vue-component",
 		"vue3-component",
 		"maplibre",
-		"maplibre-gl"
+		"maplibre-gl",
+		"map"
 	],
 	"author": {
 		"name": "Volker Nauruhn",
