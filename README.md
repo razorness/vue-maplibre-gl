@@ -84,6 +84,7 @@ If you have ideas, improvements, suggestions etc. don't hesitate to open a pull 
 - [ ] API documentation
 - [ ] Support `v-model:...` for some basic props
 - [ ] Add layer events
+- [ ] Add [Web-types](https://github.com/JetBrains/web-types)
 
 ## License
 
