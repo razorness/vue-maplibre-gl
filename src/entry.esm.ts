@@ -1,19 +1,12 @@
-import { App, Component, Plugin } from 'vue';
+import { App, Plugin } from 'vue';
 
 // Import vue components
 import * as components from '@/components/index';
 
-export function isComponent(c: any): c is Component {
-	return c && !!(c as Component).name && !!(c as Component).call;
-}
-
 // install function executed by Vue.use()
 const install: Exclude<Plugin['install'], undefined> = function installVueMaplibreGl(app: App) {
 	Object.entries(components).forEach(([ componentName, component ]) => {
-		console.log('install', isComponent(component), componentName, component);
-		if (isComponent(component)) {
-			app.component(componentName, component);
-		}
+		app.component(componentName, component);
 	});
 };
 
@@ -23,4 +16,10 @@ export default install;
 // To allow individual component use, export components
 // each can be registered via Vue.component()
 export * from '@/components/index';
+
+// addition exports
 export * from '@/components/types';
+export { useMap } from './components/mapRegistry';
+export { defaults as MglDefaults } from './components/defaults';
+export { usePositionWatcher, Position } from './components/controls/shared';
+

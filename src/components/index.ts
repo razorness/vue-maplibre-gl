@@ -1,7 +1,5 @@
 /* eslint-disable import/prefer-default-export */
 export { default as MglMap } from './map.component';
-export { useMap } from './mapRegistry';
-export { defaults as MglDefaults } from './defaults';
 export { default as MglAttributionControl } from './controls/attribution.control';
 export { default as MglNavigationControl } from './controls/navigation.control';
 export { default as MglScaleControl } from './controls/scale.control';
@@ -9,7 +7,6 @@ export { default as MglFullscreenControl } from './controls/fullscreen.control';
 export { default as MglGeolocationControl } from './controls/geolocation.control';
 export { default as MglCustomControl } from './controls/custom.control';
 export { default as MglStyleSwitchControl } from './controls/styleSwitch.control';
-export { usePositionWatcher, Position } from './controls/shared';
 export { default as MglButton } from './button.component';
 export { default as MglMarker } from './marker.component';
 export { default as MglCanvasSource } from './sources/canvas.source';
@@ -28,4 +25,3 @@ export { default as MglHillshadeLayer } from './layers/hillshade.layer';
 export { default as MglLineLayer } from './layers/line.layer';
 export { default as MglRasterLayer } from './layers/raster.layer';
 export { default as MglSymbolLayer } from './layers/smybol.layer';
-// export { StyleSwitchItem } from './types';
