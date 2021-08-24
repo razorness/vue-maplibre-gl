@@ -10,6 +10,7 @@ export function isComponent(c: any): c is Component {
 // install function executed by Vue.use()
 const install: Exclude<Plugin['install'], undefined> = function installVueMaplibreGl(app: App) {
 	Object.entries(components).forEach(([ componentName, component ]) => {
+		console.log('install', isComponent(component), componentName, component);
 		if (isComponent(component)) {
 			app.component(componentName, component);
 		}
