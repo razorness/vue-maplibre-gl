@@ -139,10 +139,11 @@ export default defineComponent({
 			return createCommentVNode('style-switch-control');
 		}
 		const slotProps = {
-			isOpen    : this.intIsOpen,
-			toggleOpen: this.toggleOpen,
-			mapStyles : this.mapStyles,
-			setStyle  : this.setStyle
+			isOpen      : this.intIsOpen,
+			currentStyle: this.intModelValue,
+			mapStyles   : this.mapStyles,
+			toggleOpen  : this.toggleOpen,
+			setStyle    : this.setStyle
 		};
 		return h(
 			Teleport as any,
