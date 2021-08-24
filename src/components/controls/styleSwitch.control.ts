@@ -136,17 +136,23 @@ export default defineComponent({
 		if (!this.isAdded) {
 			return createCommentVNode('style-switch-control');
 		}
+		const slotProps = {
+			isOpen    : this.intIsOpen,
+			toggleOpen: this.toggleOpen,
+			mapStyles : this.mapStyles,
+			setStyle  : this.setStyle
+		};
 		return h(
 			Teleport as any,
 			{ to: this.container },
-			[
-				renderSlot(this.$slots, 'button', { isOpen: this.intIsOpen, toggleOpen: this.toggleOpen }, () => [ h(MglButton, {
+			renderSlot(this.$slots, 'default', slotProps, () => [
+				renderSlot(this.$slots, 'button', slotProps, () => [ h(MglButton, {
 					type   : ButtonType.MDI,
 					path   : mdiLayersOutline,
 					'class': [ 'maplibregl-ctrl-icon maplibregl-style-switch', this.intIsOpen ? 'is-open' : '' ],
 					onClick: this.toggleOpen.bind(null, true)
 				}) ]),
-				renderSlot(this.$slots, 'styleList', { mapStyles: this.mapStyles, setStyle: this.setStyle }, () => [
+				renderSlot(this.$slots, 'styleList', slotProps, () => [
 					h(
 						'div',
 						{ 'class': [ 'maplibregl-style-list', this.intIsOpen ? 'is-open' : '' ] },
@@ -167,7 +173,7 @@ export default defineComponent({
 						})
 					)
 				])
-			]
+			])
 		);
 	}
 });
