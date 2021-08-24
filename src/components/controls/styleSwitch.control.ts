@@ -6,7 +6,7 @@ import { ButtonType, default as MglButton } from '@/components/button.component'
 import { mdiLayersOutline } from '@mdi/js';
 
 function isEvent(e: any): e is Event {
-	return !!(e as Event).stopPropagation;
+	return e && !!(e as Event).stopPropagation;
 }
 
 export default defineComponent({
