@@ -53,8 +53,8 @@
 </template>
 
 <script lang="ts">
-	import { defineComponent } from 'vue';
-	import { MglDefaults, MglEvent, StyleSwitchItem } from '@/entry.esm';
+	import { defineComponent, toRef, watch } from 'vue';
+	import { MglDefaults, MglEvent, StyleSwitchItem, useMap } from '@/entry.esm';
 	import { mdiCursorDefaultClick } from '@mdi/js';
 	import { LineLayout, LinePaint } from 'maplibre-gl';
 
@@ -63,7 +63,13 @@
 
 	export default defineComponent({
 		name: 'ServeDev',
-		data() {
+		setup() {
+
+			const map = useMap();
+
+			watch(toRef(map, 'isLoaded'), () => (console.log('IS LOADED', map)), { immediate: true });
+			watch(toRef(map, 'isMounted'), v => (console.log('IS MOUNTED', v)), { immediate: true });
+
 			return {
 				loaded           : 0,
 				isZooming        : false,

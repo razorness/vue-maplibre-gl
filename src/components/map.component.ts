@@ -2,10 +2,10 @@ import { defineComponent, getCurrentInstance, h, onBeforeUnmount, onMounted, Pro
 import { FitBoundsOptions, LngLatBoundsLike, LngLatLike, Map as MaplibreMap, MapboxOptions, Style, TransformRequestFunction } from 'maplibre-gl';
 import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, MglEvents, sourceIdSymbol } from '@/components/types';
 import { defaults } from '@/components/defaults';
-import { registerMap } from '@/components/mapRegistry';
 import { MapLib } from '@/components/map.lib';
 import { Position } from '@/components/controls/shared';
 import mitt from 'mitt';
+import { registerMap } from '@/components/mapRegistry';
 
 export default defineComponent({
 	name : 'MglMap',
@@ -78,7 +78,8 @@ export default defineComponent({
 			  isInitialized      = ref(false),
 			  isLoaded           = ref(false),
 			  boundMapEvents     = new Map<string, Function>(),
-			  emitter            = mitt<MglEvents>();
+			  emitter            = mitt<MglEvents>(),
+			  registryItem       = registerMap(component as any, props.mapKey);
 
 		let resizeObserver: ResizeObserver;
 
@@ -110,6 +111,8 @@ export default defineComponent({
 		 * init map
 		 */
 		onMounted(() => {
+			registryItem.isMounted = true;
+
 			// build options
 			const opts: MapboxOptions = Object.keys(props)
 											  .filter(opt => (props as any)[ opt ] !== undefined && MapLib.MAP_OPTION_KEYS.indexOf(opt as keyof MapboxOptions) !== -1)
@@ -121,8 +124,9 @@ export default defineComponent({
 			// init map
 			// @ts-ignore
 			map.value           = new MaplibreMap(opts);
+			registryItem.map    = map.value;
 			isInitialized.value = true;
-			boundMapEvents.set('__load', () => (isLoaded.value = true));
+			boundMapEvents.set('__load', () => (isLoaded.value = true, registryItem.isLoaded = true));
 			map.value.on('load', boundMapEvents.get('__load') as any);
 
 			// bind events
@@ -146,6 +150,8 @@ export default defineComponent({
 		 * Dispose component
 		 */
 		onBeforeUnmount(() => {
+			registryItem.isMounted = false;
+			registryItem.isLoaded  = false;
 
 			// unbind resize observer
 			if (resizeObserver) {
@@ -164,9 +170,6 @@ export default defineComponent({
 		return {
 			map, componentContainer, container, isLoaded, isInitialized
 		};
-	},
-	created() {
-		registerMap(this, this.mapKey);
 	},
 	render() {
 		return h(
