@@ -71,8 +71,6 @@ export default defineComponent({
 	],
 	setup(props, ctx) {
 
-		console.log('PROPS', props);
-
 		const component          = getCurrentInstance()!,
 			  componentContainer = ref<HTMLDivElement | null>(null),
 			  container          = ref<HTMLDivElement | null>(null),
@@ -119,8 +117,6 @@ export default defineComponent({
 												  (obj as any)[ opt === 'mapStyle' ? 'style' : opt ] = (props as any)[ opt ];
 												  return obj;
 											  }, { container: container.value as HTMLDivElement } as MapboxOptions);
-
-			console.log('map opts', opts);
 
 			// init map
 			// @ts-ignore

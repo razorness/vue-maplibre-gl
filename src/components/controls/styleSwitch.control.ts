@@ -103,7 +103,6 @@ export default defineComponent({
 			if (props.isOpen !== undefined && props.isOpen === forceIsOpen || isOpen.value === forceIsOpen) {
 				return;
 			}
-			console.log('toggleOpen', forceIsOpen, e);
 			if (props.isOpen === undefined) {
 				isOpen.value = typeof forceIsOpen === 'boolean' ? forceIsOpen : !isOpen.value;
 				ctx.emit('update:isOpen', isOpen.value);
