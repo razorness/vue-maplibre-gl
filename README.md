@@ -30,6 +30,11 @@ import VueMaplibreGl from 'vue-maplibre-gl'
 app.use(VueMaplibreGl)
 ```
 
+Add SCSS:
+```scss
+@import "~vue-maplibre-gl/src/css/maplibre";
+```
+
 Use specific components:
 
 ```typescript
