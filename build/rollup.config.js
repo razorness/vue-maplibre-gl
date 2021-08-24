@@ -14,6 +14,7 @@ import typescript from 'rollup-plugin-typescript2';
 import minimist from 'minimist';
 import Scss from 'rollup-plugin-scss';
 import analyze from 'rollup-plugin-analyzer';
+import Autoprefixer from 'autoprefixer';
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs.readFileSync('./.browserslistrc')
@@ -46,13 +47,24 @@ const baseConfig = {
 			'process.env.NODE_ENV': JSON.stringify('production')
 		},
 		vue    : {
-			preprocessStyles: true
+			target           : 'browser',
+			css              : false,
+			preprocessStyles : true,
+			preprocessOptions: {
+				css: {
+					additionalData: `@import 'src/css/maplibre.scss';`
+				}
+			}
 		},
 		postVue: [
 			resolve({
-				extensions: [ '.js', '.jsx', '.ts', '.tsx', '.vue' ]
+				extensions: [ '.js', '.jsx', '.ts', '.tsx', '.vue', '.scss' ]
 			}),
 			Scss({
+				output      : 'maplibre.css',
+				include     : [ 'src/css/maplibre.scss' ],
+				watch       : 'src/css',
+				processor   : () => PostCSS([ Autoprefixer() ]),
 				includePaths: [
 					path.join(__dirname, '../../node_modules/'),
 					'node_modules/'
@@ -60,6 +72,7 @@ const baseConfig = {
 			}),
 			// Process only `<style module>` blocks.
 			PostCSS({
+				extract: true,
 				modules: {
 					generateScopedName: '[local]___[hash:base64:5]'
 				},

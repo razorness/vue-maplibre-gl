@@ -73,6 +73,7 @@ If you have ideas, improvements, suggestions etc. don't hesitate to open a pull 
 
 ### Todos
 
+- [ ] Generate separate css file to be included (currently, you have to use scss)
 - [ ] Usage examples
 - [ ] Demo
 - [ ] API documentation
