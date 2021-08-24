@@ -118,17 +118,19 @@ export default defineComponent({
 	// just only for code assist
 	template: `
 		<div class="maplibregl-ctrl maplibregl-ctrl-group">
-		<slot name="button">
-			<button type="button" class="maplibregl-ctrl-icon maplibregl-style-switch"></button>
-		</slot>
-		<slot name="styleList">
-			<div class="maplibregl-style-list" style="display: none;">
-				<button type="button" class="Dark" data-uri="&quot;mapbox://styles/mapbox/dark-v10&quot;">Dark</button>
-				<button type="button" class="Light" data-uri="&quot;mapbox://styles/mapbox/light-v10&quot;">Light</button>
-				<button type="button" class="Outdoors" data-uri="&quot;mapbox://styles/mapbox/outdoors-v11&quot;">Outdoors</button>
-				<button type="button" class="Satellite" data-uri="&quot;mapbox://styles/mapbox/satellite-streets-v11&quot;">Satellite</button>
-				<button type="button" class="Streets active" data-uri="&quot;mapbox://styles/mapbox/streets-v11&quot;">Streets</button>
-			</div>
+		<slot>
+			<slot name="button">
+				<button type="button" class="maplibregl-ctrl-icon maplibregl-style-switch"></button>
+			</slot>
+			<slot name="styleList">
+				<div class="maplibregl-style-list" style="display: none;">
+					<button type="button" class="Dark" data-uri="&quot;mapbox://styles/mapbox/dark-v10&quot;">Dark</button>
+					<button type="button" class="Light" data-uri="&quot;mapbox://styles/mapbox/light-v10&quot;">Light</button>
+					<button type="button" class="Outdoors" data-uri="&quot;mapbox://styles/mapbox/outdoors-v11&quot;">Outdoors</button>
+					<button type="button" class="Satellite" data-uri="&quot;mapbox://styles/mapbox/satellite-streets-v11&quot;">Satellite</button>
+					<button type="button" class="Streets active" data-uri="&quot;mapbox://styles/mapbox/streets-v11&quot;">Streets</button>
+				</div>
+			</slot>
 		</slot>
 		</div>
 	`,
