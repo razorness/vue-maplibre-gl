@@ -54,23 +54,7 @@
 
 <script lang="ts">
 	import { defineComponent } from 'vue';
-	import {
-		MglAttributionControl,
-		MglButton,
-		MglCustomControl,
-		MglDefaults,
-		MglEvent,
-		MglFullscreenControl,
-		MglGeoJsonSource,
-		MglGeolocationControl,
-		MglLineLayer,
-		MglMap,
-		MglMarker,
-		MglNavigationControl,
-		MglScaleControl,
-		MglStyleSwitchControl,
-		StyleSwitchItem
-	} from '@/entry.esm';
+	import { MglDefaults, MglEvent, StyleSwitchItem } from '@/entry.esm';
 	import { mdiCursorDefaultClick } from '@mdi/js';
 	import { LineLayout, LinePaint } from 'maplibre-gl';
 
@@ -144,21 +128,7 @@
 				}
 			};
 		},
-		components: {
-			MglLineLayer,
-			MglGeoJsonSource,
-			MglMarker,
-			MglButton,
-			MglStyleSwitchControl,
-			MglCustomControl,
-			MglGeolocationControl,
-			MglFullscreenControl,
-			MglScaleControl,
-			MglNavigationControl,
-			MglAttributionControl,
-			MglMap
-		},
-		methods   : {
+		methods: {
 			onLoad(e: MglEvent) {
 				this.loaded++;
 				console.log(e.type, e);

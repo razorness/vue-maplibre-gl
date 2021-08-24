@@ -2,9 +2,8 @@ import { createCommentVNode, createTextVNode, defineComponent, h, inject, onBefo
 import { Position, PositionValue, PositionValues, usePositionWatcher } from '@/components/controls/shared';
 import { emitterSymbol, isLoadedSymbol, mapSymbol, StyleSwitchItem } from '@/components/types';
 import { CustomControl } from '@/components/controls/custom.control';
-import { ButtonType } from '@/components/button.component';
+import { ButtonType, default as MglButton } from '@/components/button.component';
 import { mdiLayersOutline } from '@mdi/js';
-import { default as MglButton } from '@/components/button.component';
 
 function isEvent(e: any): e is Event {
 	return !!(e as Event).stopPropagation;
@@ -156,12 +155,12 @@ export default defineComponent({
 								? h(MglButton, {
 									type   : ButtonType.MDI,
 									path   : s.icon.path,
-									'class': this.intModelValue === s ? 'is-active' : '',
+									'class': this.intModelValue?.name === s.name ? 'is-active' : '',
 									onClick: () => this.setStyle(s)
 								}, createTextVNode(s.label))
 								: h('button', {
 									type   : 'button',
-									'class': this.intModelValue === s ? 'is-active' : '',
+									'class': this.intModelValue?.name === s.name ? 'is-active' : '',
 									onClick: () => this.setStyle(s)
 								}, createTextVNode(s.label));
 
