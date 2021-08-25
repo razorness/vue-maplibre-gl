@@ -1,4 +1,4 @@
-import { defineComponent, getCurrentInstance, h, onBeforeUnmount, onMounted, PropType, provide, ref, watch } from 'vue';
+import { defineComponent, getCurrentInstance, h, onBeforeUnmount, onMounted, PropType, provide, ref, shallowRef, watch } from 'vue';
 import { FitBoundsOptions, LngLatBoundsLike, LngLatLike, Map as MaplibreMap, MapboxOptions, Style, TransformRequestFunction } from 'maplibre-gl';
 import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, MglEvents, sourceIdSymbol } from '@/components/types';
 import { defaults } from '@/components/defaults';
@@ -72,9 +72,9 @@ export default defineComponent({
 	setup(props, ctx) {
 
 		const component          = getCurrentInstance()!,
-			  componentContainer = ref<HTMLDivElement | null>(null),
-			  container          = ref<HTMLDivElement | null>(null),
-			  map                = ref<MaplibreMap | null>(null),
+			  componentContainer = shallowRef<HTMLDivElement | null>(null),
+			  container          = shallowRef<HTMLDivElement | null>(null),
+			  map                = shallowRef<MaplibreMap | null>(null),
 			  isInitialized      = ref(false),
 			  isLoaded           = ref(false),
 			  boundMapEvents     = new Map<string, Function>(),

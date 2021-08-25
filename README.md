@@ -5,9 +5,16 @@
 [![vue2](https://img.shields.io/badge/vue-3.x-brightgreen.svg?style=flat-square)](https://vuejs.org/)
 
 A vue plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js). Only additional dependency is [mitt](https://github.com/developit/mitt).
-Customizable Style switch is included. Support for custom controls.
 
 Size: [31 KB](https://bundlephobia.com/package/vue-maplibre-gl)
+
+## Features
+
+- Components for map, controls, sources and layers
+- Support for custom controls
+- Customizable style switch which reloads sources and layers automatically
+- Frame rate control included
+- Support for multiple instances and global access by `useMap(key: string | symbol)`
 
 ## Table of contents
 
@@ -31,6 +38,7 @@ app.use(VueMaplibreGl)
 ```
 
 Add SCSS:
+
 ```scss
 @import "~vue-maplibre-gl/src/css/maplibre";
 ```
@@ -85,6 +93,7 @@ If you have ideas, improvements, suggestions etc. don't hesitate to open a pull 
 - [ ] Support `v-model:...` for some basic props
 - [ ] Add layer events
 - [ ] Add [Web-types](https://github.com/JetBrains/web-types)
+- [x] Add [frame rate control](https://github.com/mapbox/mapbox-gl-framerate)
 
 ## License
 

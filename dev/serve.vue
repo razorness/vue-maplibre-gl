@@ -11,6 +11,7 @@
 			@map:zoomstart="isZooming = true"
 			@map:zoomend="isZooming = false"
 		>
+			<mgl-frame-rate-control/>
 			<mgl-fullscreen-control/>
 			<mgl-attribution-control/>
 			<mgl-navigation-control/>
