@@ -1,4 +1,4 @@
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, unref } from 'vue';
 import { AnySourceData, BackgroundLayer, Layer } from 'maplibre-gl';
 
 const sourceOpts: Array<keyof (Omit<BackgroundLayer, 'source-layer'> & { sourceLayer?: string })> = [
@@ -27,7 +27,7 @@ export function genLayerOpts<T extends Layer>(id: string, type: string, props: a
 	return Object.keys(props)
 				 .filter(opt => (props as any)[ opt ] !== undefined && sourceOpts.indexOf(opt as any) !== -1)
 				 .reduce((obj, opt) => {
-					 (obj as any)[ opt === 'sourceLayer' ? 'source-layer' : opt ] = (props as any)[ opt ];
+					 (obj as any)[ opt === 'sourceLayer' ? 'source-layer' : opt ] = unref((props as any)[ opt ]);
 					 return obj;
 				 }, { type, source: props.source || source, id } as T);
 }

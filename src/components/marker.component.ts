@@ -1,4 +1,4 @@
-import { defineComponent, inject, onBeforeUnmount, PropType, watch } from 'vue';
+import { defineComponent, inject, onBeforeUnmount, PropType, unref, watch } from 'vue';
 import { Alignment, Anchor, LngLatLike, Marker, MarkerOptions, PointLike } from 'maplibre-gl';
 import { MapLib } from '@/components/map.lib';
 import { mapSymbol } from '@/components/types';
@@ -25,7 +25,7 @@ export default defineComponent({
 			  opts: MarkerOptions = Object.keys(props)
 										  .filter(opt => (props as any)[ opt ] !== undefined && MapLib.MARKER_OPTION_KEYS.indexOf(opt as keyof MarkerOptions) !== -1)
 										  .reduce((obj, opt) => {
-											  (obj as any)[ opt ] = (props as any)[ opt ];
+											  (obj as any)[ opt ] = unref((props as any)[ opt ]);
 											  return obj;
 										  }, {});
 

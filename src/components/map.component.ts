@@ -1,4 +1,4 @@
-import { defineComponent, getCurrentInstance, h, onBeforeUnmount, onMounted, PropType, provide, ref, shallowRef, watch } from 'vue';
+import { defineComponent, getCurrentInstance, h, onBeforeUnmount, onMounted, PropType, provide, ref, shallowRef, unref, watch } from 'vue';
 import { FitBoundsOptions, LngLatBoundsLike, LngLatLike, Map as MaplibreMap, MapboxOptions, Style, TransformRequestFunction } from 'maplibre-gl';
 import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, MglEvents, sourceIdSymbol } from '@/components/types';
 import { defaults } from '@/components/defaults';
@@ -117,7 +117,7 @@ export default defineComponent({
 			const opts: MapboxOptions = Object.keys(props)
 											  .filter(opt => (props as any)[ opt ] !== undefined && MapLib.MAP_OPTION_KEYS.indexOf(opt as keyof MapboxOptions) !== -1)
 											  .reduce((obj, opt) => {
-												  (obj as any)[ opt === 'mapStyle' ? 'style' : opt ] = (props as any)[ opt ];
+												  (obj as any)[ opt === 'mapStyle' ? 'style' : opt ] = unref((props as any)[ opt ]);
 												  return obj;
 											  }, { container: container.value as HTMLDivElement } as MapboxOptions);
 
