@@ -6,7 +6,7 @@
 
 A vue plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js). Only additional dependency is [mitt](https://github.com/developit/mitt).
 
-Size: [31 KB](https://bundlephobia.com/package/vue-maplibre-gl)
+Size: [36 KB](https://bundlephobia.com/package/vue-maplibre-gl)
 
 ## Features
 
