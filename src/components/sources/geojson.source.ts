@@ -1,4 +1,4 @@
-import { createCommentVNode, defineComponent, inject, PropType, provide, watch } from 'vue';
+import { createCommentVNode, defineComponent, inject, isRef, PropType, provide, watch } from 'vue';
 import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/components/types';
 import { GeoJSONSource, GeoJSONSourceOptions, PromoteIdSpecification } from 'maplibre-gl';
 import { bindSource, getSourceRef } from '@/components/sources/shared';
@@ -41,7 +41,7 @@ export default defineComponent({
 		provide(sourceIdSymbol, props.sourceId);
 
 		bindSource(map, source, isLoaded, emitter, props, 'geojson', sourceOpts);
-		watch(() => props.data, v => source.value?.setData(v || ''));
+		watch(isRef(props.data) ? props.data : () => props.data, v => source.value?.setData(v as any || { type: 'FeatureCollection', features: [] }));
 
 		return { source };
 	},
