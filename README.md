@@ -10,7 +10,8 @@ Size: [31 KB](https://bundlephobia.com/package/vue-maplibre-gl)
 
 ## Features
 
-- Components for map, controls, sources and layers
+- Typescript support
+- Components for map, controls, sources, marker and layers
 - Support for custom controls
 - Customizable style switch which reloads sources and layers automatically
 - Frame rate control included
