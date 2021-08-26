@@ -6,6 +6,7 @@ import { MapLib } from '@/components/map.lib';
 import { Position } from '@/components/controls/shared';
 import mitt from 'mitt';
 import { registerMap } from '@/components/mapRegistry';
+import { debounce } from '@/util/debounce';
 
 export default defineComponent({
 	name : 'MglMap',
@@ -141,7 +142,7 @@ export default defineComponent({
 			}
 
 			// bind resize observer
-			resizeObserver = new ResizeObserver(map.value.resize.bind(map.value));
+			resizeObserver = new ResizeObserver(debounce(map.value.resize.bind(map.value), 100));
 			resizeObserver.observe(componentContainer.value as HTMLDivElement);
 
 		});
