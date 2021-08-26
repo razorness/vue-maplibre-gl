@@ -1,6 +1,6 @@
 import { HillshadeLayer, HillshadeLayout, HillshadePaint } from 'maplibre-gl';
-import { genLayerOpts, Shared } from '@/components/layers/shared';
-import { createCommentVNode, defineComponent, inject, onBeforeUnmount, PropType, warn, watch } from 'vue';
+import { genLayerOpts, registerLayerEvents, Shared, unregisterLayerEvents } from '@/components/layers/shared';
+import { createCommentVNode, defineComponent, getCurrentInstance, inject, onBeforeUnmount, PropType, warn, watch } from 'vue';
 import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/components/types';
 import { getSourceRef } from '@/components/sources/shared';
 
@@ -20,7 +20,8 @@ export default defineComponent({
 			return;
 		}
 
-		const map       = inject(mapSymbol)!,
+		const ci        = getCurrentInstance()!,
+			  map       = inject(mapSymbol)!,
 			  isLoaded  = inject(isLoadedSymbol)!,
 			  cid       = inject(componentIdSymbol)!,
 			  sourceRef = getSourceRef(cid, props.source || sourceId);
@@ -28,13 +29,16 @@ export default defineComponent({
 		watch([ isLoaded, sourceRef ], ([ il, src ]) => {
 			if (il && (src || src === undefined)) {
 				map.value.addLayer(genLayerOpts<HillshadeLayer>(props.layerId, 'hillshade', props, sourceId), props.before || undefined);
+				registerLayerEvents(map.value, props.layerId, ci.vnode);
 			}
 		}, { immediate: true });
 
 		onBeforeUnmount(() => {
-			if (isLoaded.value) map.value.removeLayer(props.layerId);
+			if (isLoaded.value) {
+				map.value.removeLayer(props.layerId);
+				unregisterLayerEvents(map.value, props.layerId, ci.vnode);
+			}
 		});
-
 
 	},
 	render() {

@@ -41,7 +41,6 @@ export default defineComponent({
 			}
 		});
 
-
 	},
 	render() {
 		return createCommentVNode('Line Layer');
