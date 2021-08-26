@@ -1,4 +1,4 @@
-import { defineComponent, getCurrentInstance, h, onBeforeUnmount, onMounted, PropType, provide, ref, shallowRef, unref, watch } from 'vue';
+import { defineComponent, getCurrentInstance, h, markRaw, onBeforeUnmount, onMounted, PropType, provide, ref, shallowRef, unref, watch } from 'vue';
 import { FitBoundsOptions, LngLatBoundsLike, LngLatLike, Map as MaplibreMap, MapboxOptions, Style, TransformRequestFunction } from 'maplibre-gl';
 import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, MglEvents, sourceIdSymbol } from '@/components/types';
 import { defaults } from '@/components/defaults';
@@ -124,7 +124,7 @@ export default defineComponent({
 
 			// init map
 			// @ts-ignore
-			map.value           = new MaplibreMap(opts);
+			map.value           = markRaw(new MaplibreMap(opts));
 			registryItem.map    = map.value;
 			isInitialized.value = true;
 			boundMapEvents.set('__load', () => (isLoaded.value = true, registryItem.isLoaded = true));
