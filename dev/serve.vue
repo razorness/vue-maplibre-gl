@@ -25,7 +25,13 @@
 			<mgl-marker :coordinates="markerCoordinates" color="#cc0000" :scale="0.5"/>
 
 			<mgl-geo-json-source source-id="geojson" :data="geoJsonSource.data">
-				<mgl-line-layer v-if="geoJsonSource.show" layer-id="geojson" :layout="geoJsonSource.layout" :paint="geoJsonSource.paint"/>
+				<mgl-line-layer
+					v-if="geoJsonSource.show"
+					layer-id="geojson"
+					:layout="geoJsonSource.layout"
+					:paint="geoJsonSource.paint"
+					@mouseenter="onMouseenter"
+				/>
 			</mgl-geo-json-source>
 
 		</mgl-map>
@@ -57,7 +63,7 @@
 	import { defineComponent, toRef, watch } from 'vue';
 	import { MglDefaults, MglEvent, StyleSwitchItem, useMap } from '@/entry.esm';
 	import { mdiCursorDefaultClick } from '@mdi/js';
-	import { LineLayout, LinePaint } from 'maplibre-gl';
+	import { LineLayout, LinePaint, MapLayerMouseEvent } from 'maplibre-gl';
 
 	MglDefaults.style = 'https://api.maptiler.com/maps/streets/style.json?key=cQX2iET1gmOW38bedbUh';
 	console.log('MglDefaults', MglDefaults);
@@ -144,6 +150,9 @@
 			onLoad(e: MglEvent) {
 				this.loaded++;
 				console.log(e.type, e);
+			},
+			onMouseenter(e: MapLayerMouseEvent) {
+				console.log('EVENT', e.type, e.lngLat);
 			}
 		},
 		mounted() {

@@ -1,8 +1,13 @@
-import { defineComponent, PropType, unref } from 'vue';
-import { AnySourceData, BackgroundLayer, Layer } from 'maplibre-gl';
+import { defineComponent, PropType, unref, VNode } from 'vue';
+import { AnySourceData, BackgroundLayer, Layer, Map, MapLayerEventType } from 'maplibre-gl';
 
 const sourceOpts: Array<keyof (Omit<BackgroundLayer, 'source-layer'> & { sourceLayer?: string })> = [
 	'metadata', 'ref', 'source', 'sourceLayer', 'minzoom', 'maxzoom', 'interactive', 'filter', 'layout', 'paint'
+];
+
+const layerEvents: Array<keyof MapLayerEventType> = [
+	'click', 'dblclick', 'mousedown', 'mouseup', 'mousemove', 'mouseenter', 'mouseleave', 'mouseover', 'mouseout', 'contextmenu', 'touchstart', 'touchend',
+	'touchcancel'
 ];
 
 export const Shared = defineComponent({
@@ -20,7 +25,11 @@ export const Shared = defineComponent({
 		interactive: Boolean as PropType<boolean>,
 		filter     : Array as PropType<any[ ]>,
 		before     : String as PropType<string>
-	}
+	},
+	emit : [
+		'click', 'dblclick', 'mousedown', 'mouseup', 'mousemove', 'mouseenter', 'mouseleave', 'mouseover', 'mouseout', 'contextmenu', 'touchstart', 'touchend',
+		'touchcancel'
+	]
 });
 
 export function genLayerOpts<T extends Layer>(id: string, type: string, props: any, source: any): T {
@@ -30,4 +39,28 @@ export function genLayerOpts<T extends Layer>(id: string, type: string, props: a
 					 (obj as any)[ opt === 'sourceLayer' ? 'source-layer' : opt ] = unref((props as any)[ opt ]);
 					 return obj;
 				 }, { type, source: props.source || source, id } as T);
+}
+
+export function registerLayerEvents(map: Map, layerId: string, vn: VNode) {
+	if (!vn.props) {
+		return;
+	}
+	for (let i = 0, len = layerEvents.length; i < len; i++) {
+		const evProp = 'on' + layerEvents[ i ].charAt(0).toUpperCase() + layerEvents[ i ].substr(1);
+		if (vn.props[ evProp ]) {
+			map.on(layerEvents[ i ], layerId, vn.props[ evProp ]);
+		}
+	}
+}
+
+export function unregisterLayerEvents(map: Map, layerId: string, vn: VNode) {
+	if (!vn.props) {
+		return;
+	}
+	for (let i = 0, len = layerEvents.length; i < len; i++) {
+		const evProp = 'on' + layerEvents[ i ].charAt(0).toUpperCase() + layerEvents[ i ].substr(1);
+		if (vn.props[ evProp ]) {
+			map.off(layerEvents[ i ], layerId, vn.props[ evProp ]);
+		}
+	}
 }
