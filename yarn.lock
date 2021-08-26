@@ -9467,6 +9467,13 @@ vue-loader@^15.9.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-maplibre-gl@^1.0.0-beta.17:
+  version "1.0.0-beta.17"
+  resolved "https://registry.yarnpkg.com/vue-maplibre-gl/-/vue-maplibre-gl-1.0.0-beta.17.tgz#5b4275a4f46141abfe2f2b187f9e8d3f948ccc61"
+  integrity sha512-sGp9WzsF4dWb7WKtqbPKiRAb/Knqg5EJXqt1bT2kyPaO4AaxFvH9VuoGRme1B5WUKhYtjcphoWSsfqOdQGK0IQ==
+  dependencies:
+    mitt "^3.0.0"
+
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/vue-style-loader/-/vue-style-loader-4.1.3.tgz#6d55863a51fa757ab24e89d9371465072aa7bc35"

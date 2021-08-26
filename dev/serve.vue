@@ -60,7 +60,7 @@
 </template>
 
 <script lang="ts">
-	import { defineComponent, toRef, watch } from 'vue';
+	import { defineComponent, ref, toRef, watch } from 'vue';
 	import { MglDefaults, MglEvent, StyleSwitchItem, useMap } from '@/entry.esm';
 	import { mdiCursorDefaultClick } from '@mdi/js';
 	import { LineLayout, LinePaint, MapLayerMouseEvent } from 'maplibre-gl';
@@ -78,9 +78,9 @@
 			watch(toRef(map, 'isMounted'), v => (console.log('IS MOUNTED', v)), { immediate: true });
 
 			return {
-				loaded           : 0,
+				loaded           : ref(0),
 				isZooming        : false,
-				controlPosition  : 'top-left',
+				controlPosition  : ref('top-left'),
 				center           : [ 10.288107, 49.405078 ],
 				zoom             : 3,
 				useClasses       : true,

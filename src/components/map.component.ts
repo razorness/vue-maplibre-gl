@@ -72,7 +72,7 @@ export default defineComponent({
 	],
 	setup(props, ctx) {
 
-		const component          = getCurrentInstance()!,
+		const component          = markRaw(getCurrentInstance()!),
 			  componentContainer = shallowRef<HTMLDivElement | null>(null),
 			  container          = shallowRef<HTMLDivElement | null>(null),
 			  map                = shallowRef<MaplibreMap | null>(null),
