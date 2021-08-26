@@ -92,7 +92,7 @@ If you have ideas, improvements, suggestions etc. don't hesitate to open a pull 
 - [ ] Demo
 - [ ] API documentation
 - [ ] Support `v-model:...` for some basic props
-- [ ] Add layer events
+- [x] Add layer events
 - [ ] Add [Web-types](https://github.com/JetBrains/web-types)
 - [x] Add [frame rate control](https://github.com/mapbox/mapbox-gl-framerate)
 
