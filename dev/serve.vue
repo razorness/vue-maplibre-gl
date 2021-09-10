@@ -17,7 +17,7 @@
 			<mgl-navigation-control/>
 			<mgl-scale-control/>
 			<mgl-geolocation-control/>
-			<mgl-custom-control position="top-left" :no-classes="!useClasses">
+			<mgl-custom-control v-if="showCustomControl" position="top-left" :no-classes="!useClasses">
 				<mgl-button type="mdi" :path="buttonIcon" style="color: deepskyblue"/>
 			</mgl-custom-control>
 			<mgl-style-switch-control :map-styles="mapStyles" :position="controlPosition"/>
@@ -56,6 +56,10 @@
 			<input type="checkbox" v-model="useClasses" id="noclasses">
 			<label for="noclasses">Use Custom Control Classes</label>
 		</div>
+		<div>
+			<input type="checkbox" v-model="showCustomControl" id="showcustom">
+			<label for="showcustom">Show Custom Control</label>
+		</div>
 	</div>
 </template>
 
@@ -72,12 +76,14 @@
 		name: 'ServeDev',
 		setup() {
 
-			const map = useMap();
+			const map               = useMap(),
+				  showCustomControl = ref(true);
 
 			watch(toRef(map, 'isLoaded'), () => (console.log('IS LOADED', map)), { immediate: true });
 			watch(toRef(map, 'isMounted'), v => (console.log('IS MOUNTED', v)), { immediate: true });
 
 			return {
+				showCustomControl,
 				loaded           : ref(0),
 				isZooming        : false,
 				controlPosition  : ref('top-left'),

@@ -27,6 +27,7 @@ export class CustomControl implements IControl {
 
 	onRemove(): void {
 		this.isAdded.value = false;
+		this.container.remove();
 	}
 
 	setClasses(noClasses: boolean) {
@@ -62,7 +63,10 @@ export default defineComponent({
 			  control = new CustomControl(isAdded, props.noClasses);
 		usePositionWatcher(() => props.position, map, control);
 		watch(() => props.noClasses, v => control.setClasses(v));
-		onBeforeUnmount(() => map.value.removeControl(control));
+		onBeforeUnmount(() => {
+			console.log('onBeforeUnmount');
+			map.value.removeControl(control);
+		});
 
 		return { isAdded, container: control.container };
 
