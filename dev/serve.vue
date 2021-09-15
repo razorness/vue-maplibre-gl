@@ -28,7 +28,7 @@
 
 				<mgl-geo-json-source source-id="geojson" :data="geoJsonSource.data">
 					<mgl-line-layer
-						v-if="geoJsonSource.show"
+						v-if="geoJsonSource.show.value"
 						layer-id="geojson"
 						:layout="geoJsonSource.layout"
 						:paint="geoJsonSource.paint"
@@ -113,7 +113,7 @@
 				buttonIcon       : mdiCursorDefaultClick,
 				markerCoordinates: [ 13.377507, 52.516267 ],
 				geoJsonSource    : {
-					show  : true,
+					show  : ref(true),
 					data  : {
 						type    : 'FeatureCollection',
 						features: [
@@ -171,7 +171,7 @@
 		},
 		mounted() {
 			setTimeout(() => (this.markerCoordinates = [ 13.377507, 42.516267 ]), 5000);
-			// setInterval(() => (this.geoJsonSource.show = !this.geoJsonSource.show), 1000);
+			setInterval(() => (this.geoJsonSource.show.value = !this.geoJsonSource.show.value), 1000);
 		}
 	});
 </script>

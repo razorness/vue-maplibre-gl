@@ -1,6 +1,6 @@
 import { BackgroundLayer, BackgroundLayout, BackgroundPaint } from 'maplibre-gl';
 import { genLayerOpts, Shared } from '@/components/layers/shared';
-import { createCommentVNode, defineComponent, inject, PropType, warn, watch } from 'vue';
+import { createCommentVNode, defineComponent, inject, onBeforeUnmount, PropType, warn, watch } from 'vue';
 import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
 import { getSourceRef } from '@/components/sources/shared';
 
@@ -32,12 +32,16 @@ export default defineComponent({
 			}
 		}, { immediate: true });
 
-		registry.addUnmountHandler(() => {
+		function removeLayer() {
 			if (isLoaded.value) {
 				map.value.removeLayer(props.layerId);
 			}
-		});
+		}
 
+		registry.registerUnmountHandler(props.layerId, removeLayer);
+		onBeforeUnmount(() => {
+			removeLayer();
+		});
 
 	},
 	render() {

@@ -1,5 +1,7 @@
-import { defineComponent, PropType, unref, VNode } from 'vue';
+import { defineComponent, onBeforeUnmount, PropType, Ref, unref, VNode } from 'vue';
 import { AnySourceData, BackgroundLayer, Layer, Map, MapLayerEventType } from 'maplibre-gl';
+import { ComponentInternalInstance } from '@vue/runtime-core';
+import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
 
 const sourceOpts: Array<keyof (Omit<BackgroundLayer, 'source-layer'> & { sourceLayer?: string })> = [
 	'metadata', 'ref', 'source', 'sourceLayer', 'minzoom', 'maxzoom', 'interactive', 'filter', 'layout', 'paint'
@@ -63,4 +65,19 @@ export function unregisterLayerEvents(map: Map, layerId: string, vn: VNode) {
 			map.off(layerEvents[ i ], layerId, vn.props[ evProp ]);
 		}
 	}
+}
+
+export function handleDispose(isLoaded: Ref<boolean>, map: Ref<Map>, ci: ComponentInternalInstance, props: { layerId: string }, registry: SourceLayerRegistry) {
+	function removeLayer() {
+		if (isLoaded.value) {
+			unregisterLayerEvents(map.value, props.layerId, ci.vnode);
+			map.value.removeLayer(props.layerId);
+		}
+	}
+
+	registry.registerUnmountHandler(props.layerId, removeLayer);
+	onBeforeUnmount(() => {
+		registry.unregisterUnmountHandler(props.layerId);
+		removeLayer();
+	});
 }

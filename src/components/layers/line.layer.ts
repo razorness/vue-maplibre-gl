@@ -1,5 +1,5 @@
 import { LineLayer, LineLayout, LinePaint } from 'maplibre-gl';
-import { genLayerOpts, registerLayerEvents, Shared, unregisterLayerEvents } from '@/components/layers/shared';
+import { genLayerOpts, handleDispose, registerLayerEvents, Shared } from '@/components/layers/shared';
 import { createCommentVNode, defineComponent, getCurrentInstance, inject, PropType, warn, watch } from 'vue';
 import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
 import { getSourceRef } from '@/components/sources/shared';
@@ -34,12 +34,7 @@ export default defineComponent({
 			}
 		}, { immediate: true });
 
-		registry.addUnmountHandler(() => {
-			if (isLoaded.value) {
-				unregisterLayerEvents(map.value, props.layerId, ci.vnode);
-				map.value.removeLayer(props.layerId);
-			}
-		});
+		handleDispose(isLoaded, map, ci, props, registry);
 
 	},
 	render() {

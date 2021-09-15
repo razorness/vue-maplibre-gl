@@ -2,16 +2,18 @@ export type SourceLayerRegistryHandler = () => void
 
 export class SourceLayerRegistry {
 
-	private unmountHandlers: SourceLayerRegistryHandler[] = [];
+	private unmountHandlers = new Map<string, SourceLayerRegistryHandler>();
 
-	addUnmountHandler(handler: SourceLayerRegistryHandler) {
-		this.unmountHandlers.push(handler);
+	registerUnmountHandler(id: string, handler: SourceLayerRegistryHandler) {
+		this.unmountHandlers.set(id, handler);
+	}
+
+	unregisterUnmountHandler(id: string) {
+		this.unmountHandlers.delete(id);
 	}
 
 	unmount() {
-		for (let i = 0, len = this.unmountHandlers.length; i < len; i++) {
-			this.unmountHandlers[ i ]();
-		}
+		this.unmountHandlers.forEach((h) => h());
 	}
 
 }
