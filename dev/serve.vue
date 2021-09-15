@@ -1,40 +1,43 @@
 <template>
 	<div>
-		<mgl-map
-			ref="map"
-			height="400px" width="800px"
-			style="margin-bottom: 20px"
-			:center="center"
-			:zoom="zoom"
-			:attribution-control="false"
-			@map:load="onLoad"
-			@map:zoomstart="isZooming = true"
-			@map:zoomend="isZooming = false"
-		>
-			<mgl-frame-rate-control/>
-			<mgl-fullscreen-control/>
-			<mgl-attribution-control/>
-			<mgl-navigation-control/>
-			<mgl-scale-control/>
-			<mgl-geolocation-control/>
-			<mgl-custom-control v-if="showCustomControl" position="top-left" :no-classes="!useClasses">
-				<mgl-button type="mdi" :path="buttonIcon" style="color: deepskyblue"/>
-			</mgl-custom-control>
-			<mgl-style-switch-control :map-styles="mapStyles" :position="controlPosition"/>
+		<div style="height: 400px; width: 800px">
+			<mgl-map
+				v-if="showMap"
+				ref="map"
+				height="400px" width="800px"
+				style="margin-bottom: 20px"
+				:center="center"
+				:zoom="zoom"
+				:attribution-control="false"
+				@map:load="onLoad"
+				@map:zoomstart="isZooming = true"
+				@map:zoomend="isZooming = false"
+			>
+				<mgl-frame-rate-control/>
+				<mgl-fullscreen-control/>
+				<mgl-attribution-control/>
+				<mgl-navigation-control/>
+				<mgl-scale-control/>
+				<mgl-geolocation-control/>
+				<mgl-custom-control v-if="showCustomControl" position="top-left" :no-classes="!useClasses">
+					<mgl-button type="mdi" :path="buttonIcon" style="color: deepskyblue"/>
+				</mgl-custom-control>
+				<mgl-style-switch-control :map-styles="mapStyles" :position="controlPosition"/>
 
-			<mgl-marker :coordinates="markerCoordinates" color="#cc0000" :scale="0.5"/>
+				<mgl-marker :coordinates="markerCoordinates" color="#cc0000" :scale="0.5"/>
 
-			<mgl-geo-json-source source-id="geojson" :data="geoJsonSource.data">
-				<mgl-line-layer
-					v-if="geoJsonSource.show"
-					layer-id="geojson"
-					:layout="geoJsonSource.layout"
-					:paint="geoJsonSource.paint"
-					@mouseenter="onMouseenter"
-				/>
-			</mgl-geo-json-source>
+				<mgl-geo-json-source source-id="geojson" :data="geoJsonSource.data">
+					<mgl-line-layer
+						v-if="geoJsonSource.show"
+						layer-id="geojson"
+						:layout="geoJsonSource.layout"
+						:paint="geoJsonSource.paint"
+						@mouseenter="onMouseenter"
+					/>
+				</mgl-geo-json-source>
 
-		</mgl-map>
+			</mgl-map>
+		</div>
 		Loaded Count: {{ loaded }}<br>
 		Is Zooming: {{ isZooming }}<br>
 		<div>
@@ -59,6 +62,10 @@
 		<div>
 			<input type="checkbox" v-model="showCustomControl" id="showcustom">
 			<label for="showcustom">Show Custom Control</label>
+		</div>
+		<div>
+			<input type="checkbox" v-model="showMap" id="showmap">
+			<label for="showmap">Show Map</label>
 		</div>
 	</div>
 </template>
@@ -87,6 +94,7 @@
 				loaded           : ref(0),
 				isZooming        : false,
 				controlPosition  : ref('top-left'),
+				showMap          : ref(true),
 				center           : [ 10.288107, 49.405078 ],
 				zoom             : 3,
 				useClasses       : true,

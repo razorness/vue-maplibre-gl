@@ -1,7 +1,8 @@
 import { createCommentVNode, defineComponent, inject, isRef, PropType, provide, watch } from 'vue';
-import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/components/types';
+import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
 import { GeoJSONSource, GeoJSONSourceOptions, PromoteIdSpecification } from 'maplibre-gl';
 import { bindSource, getSourceRef } from '@/components/sources/shared';
+import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
 
 const sourceOpts: Array<keyof GeoJSONSourceOptions> = [
 	'data', 'maxzoom', 'attribution', 'buffer', 'tolerance', 'cluster', 'clusterRadius', 'clusterMaxZoom', 'clusterMinPoints', 'clusterProperties',
@@ -36,11 +37,13 @@ export default defineComponent({
 			  isLoaded = inject(isLoadedSymbol)!,
 			  emitter  = inject(emitterSymbol)!,
 			  cid      = inject(componentIdSymbol)!,
-			  source   = getSourceRef<GeoJSONSource>(cid, props.sourceId);
+			  source   = getSourceRef<GeoJSONSource>(cid, props.sourceId),
+			  registry = new SourceLayerRegistry();
 
 		provide(sourceIdSymbol, props.sourceId);
+		provide(sourceLayerRegistry, registry);
 
-		bindSource(map, source, isLoaded, emitter, props, 'geojson', sourceOpts);
+		bindSource(map, source, isLoaded, emitter, props, 'geojson', sourceOpts, registry);
 		watch(isRef(props.data) ? props.data : () => props.data, v => source.value?.setData(v as any || { type: 'FeatureCollection', features: [] }));
 
 		return { source };

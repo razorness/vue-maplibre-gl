@@ -2,6 +2,7 @@ import { onBeforeUnmount, ref, Ref, unref, watch } from 'vue';
 import { AnySourceData, AnySourceImpl, Map as GlMap } from 'maplibre-gl';
 import { MglEvents } from '@/components/types';
 import { Emitter } from 'mitt';
+import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
 
 export function genSourceOpts<T extends object, O extends object>(type: string, props: object, sourceOpts: Array<keyof O>): T {
 	return Object.keys(props)
@@ -25,7 +26,7 @@ export function getSourceRef<T = AnySourceImpl>(mcid: number, source: any): Ref<
 	return r as Ref<T | undefined | null>;
 }
 
-export function bindSource<T extends object, O extends object>(map: Ref<GlMap>, source: Ref<AnySourceImpl | undefined | null>, isLoaded: Ref<boolean>, emitter: Emitter<MglEvents>, props: any, type: string, sourceOpts: Array<keyof O>) {
+export function bindSource<T extends object, O extends object>(map: Ref<GlMap>, source: Ref<AnySourceImpl | undefined | null>, isLoaded: Ref<boolean>, emitter: Emitter<MglEvents>, props: any, type: string, sourceOpts: Array<keyof O>, registry: SourceLayerRegistry) {
 
 	function addSource() {
 		if (isLoaded.value) {
@@ -43,7 +44,10 @@ export function bindSource<T extends object, O extends object>(map: Ref<GlMap>, 
 	emitter.on('styleSwitched', resetSource);
 
 	return onBeforeUnmount(() => {
-		if (isLoaded.value) map.value.removeSource(props.sourceId);
+		if (isLoaded.value) {
+			registry.unmount();
+			map.value.removeSource(props.sourceId);
+		}
 		map.value.off('style.load', addSource);
 		emitter.off('styleSwitched', resetSource);
 	});

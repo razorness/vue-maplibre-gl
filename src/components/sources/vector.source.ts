@@ -1,7 +1,8 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide, watch } from 'vue';
-import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/components/types';
+import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
 import { PromoteIdSpecification, VectorSource, VectorSourceImpl } from 'maplibre-gl';
 import { bindSource, getSourceRef } from '@/components/sources/shared';
+import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
 
 const sourceOpts: Array<keyof VectorSource> = [ 'url', 'tiles', 'bounds', 'scheme', 'minzoom', 'maxzoom', 'attribution', 'promoteId' ];
 
@@ -27,11 +28,13 @@ export default defineComponent({
 			  isLoaded = inject(isLoadedSymbol)!,
 			  emitter  = inject(emitterSymbol)!,
 			  cid      = inject(componentIdSymbol)!,
-			  source   = getSourceRef<VectorSourceImpl>(cid, props.sourceId);
+			  source   = getSourceRef<VectorSourceImpl>(cid, props.sourceId),
+			  registry = new SourceLayerRegistry();
 
 		provide(sourceIdSymbol, props.sourceId);
+		provide(sourceLayerRegistry, registry);
 
-		bindSource(map, source, isLoaded, emitter, props, 'vector', sourceOpts);
+		bindSource(map, source, isLoaded, emitter, props, 'vector', sourceOpts, registry);
 		watch(() => props.tiles, v => source.value?.setTiles(v || []));
 		watch(() => props.url, v => source.value?.setUrl(v || ''));
 

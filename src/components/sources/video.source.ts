@@ -1,7 +1,8 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide, watch } from 'vue';
-import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/components/types';
+import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
 import { VideoSource, VideoSourceOptions } from 'maplibre-gl';
 import { bindSource, getSourceRef } from '@/components/sources/shared';
+import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
 
 const sourceOpts: Array<keyof VideoSourceOptions> = [ 'urls', 'coordinates' ];
 
@@ -21,11 +22,13 @@ export default defineComponent({
 			  isLoaded = inject(isLoadedSymbol)!,
 			  emitter  = inject(emitterSymbol)!,
 			  cid      = inject(componentIdSymbol)!,
-			  source   = getSourceRef<VideoSource>(cid, props.sourceId);
+			  source   = getSourceRef<VideoSource>(cid, props.sourceId),
+			  registry = new SourceLayerRegistry();
 
 		provide(sourceIdSymbol, props.sourceId);
+		provide(sourceLayerRegistry, registry);
 
-		bindSource(map, source, isLoaded, emitter, props, 'video', sourceOpts);
+		bindSource(map, source, isLoaded, emitter, props, 'video', sourceOpts, registry);
 		watch(() => props.coordinates, v => source.value?.setCoordinates(v || []));
 
 		return { source };

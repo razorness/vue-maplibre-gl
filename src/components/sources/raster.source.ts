@@ -1,7 +1,8 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide } from 'vue';
-import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/components/types';
+import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
 import { RasterSource } from 'maplibre-gl';
 import { bindSource, getSourceRef } from '@/components/sources/shared';
+import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
 
 const sourceOpts: Array<keyof RasterSource> = [ 'url', 'tiles', 'bounds', 'minzoom', 'maxzoom', 'tileSize', 'scheme', 'attribution' ];
 
@@ -27,11 +28,13 @@ export default defineComponent({
 			  isLoaded = inject(isLoadedSymbol)!,
 			  emitter  = inject(emitterSymbol)!,
 			  cid      = inject(componentIdSymbol)!,
-			  source   = getSourceRef<RasterSource>(cid, props.sourceId);
+			  source   = getSourceRef<RasterSource>(cid, props.sourceId),
+			  registry = new SourceLayerRegistry();
 
 		provide(sourceIdSymbol, props.sourceId);
+		provide(sourceLayerRegistry, registry);
 
-		bindSource(map, source, isLoaded, emitter, props, 'raster', sourceOpts);
+		bindSource(map, source, isLoaded, emitter, props, 'raster', sourceOpts, registry);
 
 		return { source };
 	},
