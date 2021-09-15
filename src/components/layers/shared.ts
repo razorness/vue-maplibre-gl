@@ -71,10 +71,9 @@ export function handleDispose(isLoaded: Ref<boolean>, map: Ref<Map>, ci: Compone
 	function removeLayer() {
 		if (isLoaded.value) {
 			unregisterLayerEvents(map.value, props.layerId, ci.vnode);
-			try {
+			const layer = map.value.getLayer(props.layerId);
+			if (layer) {
 				map.value.removeLayer(props.layerId);
-			} catch (e) {
-				// silently fail
 			}
 		}
 	}
