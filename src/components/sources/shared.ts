@@ -44,7 +44,6 @@ export function bindSource<T extends object, O extends object>(map: Ref<GlMap>, 
 	emitter.on('styleSwitched', resetSource);
 
 	return onBeforeUnmount(() => {
-		console.log('UMOUNT SOURC')
 		if (isLoaded.value) {
 			registry.unmount();
 			map.value.removeSource(props.sourceId);
