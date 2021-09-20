@@ -93,20 +93,76 @@ export default defineComponent({
 		/*
 		 * bind prop watchers
 		 */
-		watch(() => props.bearing, v => map.value?.setBearing(v));
-		watch(() => props.bounds, v => map.value?.fitBounds(v, props.fitBoundsOptions));
-		watch(() => props.center, v => map.value?.setCenter(v));
-		watch(() => props.maxBounds, v => map.value?.setMaxBounds(v));
-		watch(() => props.maxPitch, v => map.value?.setMaxPitch(v));
-		watch(() => props.maxZoom, v => map.value?.setMaxZoom(v));
-		watch(() => props.minPitch, v => map.value?.setMinPitch(v));
-		watch(() => props.minZoom, v => map.value?.setMinZoom(v));
-		watch(() => props.pitch, v => map.value?.setPitch(v));
-		watch(() => props.renderWorldCopies, v => map.value?.setRenderWorldCopies(v));
-		watch(() => props.mapStyle, v => map.value?.setStyle(v));
-		watch(() => props.transformRequest, v => map.value?.setTransformRequest(v));
-		watch(() => props.zoom, v => map.value?.setZoom(v));
-		watch(() => props.zoom, v => map.value?.setZoom(v));
+		watch(() => props.bearing, v => {
+			if (v) {
+				map.value?.setBearing(v);
+			}
+		});
+		watch(() => props.bounds, v => {
+			if (v) {
+				map.value?.fitBounds(v, props.fitBoundsOptions);
+			}
+		});
+		watch(() => props.center, v => {
+			if (v) {
+				map.value?.setCenter(v);
+			}
+		});
+		watch(() => props.maxBounds, v => {
+			if (v) {
+				map.value?.setMaxBounds(v);
+			}
+		});
+		watch(() => props.maxPitch, v => {
+			if (v) {
+				map.value?.setMaxPitch(v);
+			}
+		});
+		watch(() => props.maxZoom, v => {
+			if (v) {
+				map.value?.setMaxZoom(v);
+			}
+		});
+		watch(() => props.minPitch, v => {
+			if (v) {
+				map.value?.setMinPitch(v);
+			}
+		});
+		watch(() => props.minZoom, v => {
+			if (v) {
+				map.value?.setMinZoom(v);
+			}
+		});
+		watch(() => props.pitch, v => {
+			if (v) {
+				map.value?.setPitch(v);
+			}
+		});
+		watch(() => props.renderWorldCopies, v => {
+			if (v) {
+				map.value?.setRenderWorldCopies(v);
+			}
+		});
+		watch(() => props.mapStyle, v => {
+			if (v) {
+				map.value?.setStyle(v);
+			}
+		});
+		watch(() => props.transformRequest, v => {
+			if (v) {
+				map.value?.setTransformRequest(v);
+			}
+		});
+		watch(() => props.zoom, v => {
+			if (v) {
+				map.value?.setZoom(v);
+			}
+		});
+		watch(() => props.zoom, v => {
+			if (v) {
+				map.value?.setZoom(v);
+			}
+		});
 
 		/*
 		 * init map
