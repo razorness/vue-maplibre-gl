@@ -199,7 +199,7 @@ export default defineComponent({
 
 			// bind resize observer
 			resizeObserver = new ResizeObserver(debounce(map.value.resize.bind(map.value), 100));
-			resizeObserver.observe(componentContainer.value as HTMLDivElement);
+			resizeObserver.observe(container.value as HTMLDivElement);
 
 		});
 

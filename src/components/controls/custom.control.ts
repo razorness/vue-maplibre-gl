@@ -64,7 +64,6 @@ export default defineComponent({
 		usePositionWatcher(() => props.position, map, control);
 		watch(() => props.noClasses, v => control.setClasses(v));
 		onBeforeUnmount(() => {
-			console.log('onBeforeUnmount');
 			map.value.removeControl(control);
 		});
 

@@ -4,7 +4,6 @@
 			<mgl-map
 				v-if="showMap"
 				ref="map"
-				height="400px" width="800px"
 				style="margin-bottom: 20px"
 				:center="center"
 				:zoom="zoom"
