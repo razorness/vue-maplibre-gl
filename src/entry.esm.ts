@@ -1,4 +1,4 @@
-import { App, Plugin } from 'vue';
+import type { App, Plugin } from 'vue';
 
 // Import vue components
 import * as components from '@/components/index';

@@ -20,18 +20,8 @@
 			"vue"
 		],
 		"paths": {
-			"@/*": [
-				"src/*"
-			]
+			"@": ["src"]
 		},
-		"plugins": [
-			{
-				"transform": "@zerollup/ts-transform-paths",
-				"exclude": [
-					"*"
-				]
-			}
-		],
 		"lib": [
 			"esnext",
 			"dom",

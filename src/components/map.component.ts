@@ -7,6 +7,7 @@ import { Position } from '@/components/controls/shared';
 import mitt from 'mitt';
 import { registerMap } from '@/components/mapRegistry';
 import { debounce } from '@/util/debounce';
+import '@/css/maplibre.scss'
 
 export default defineComponent({
 	name : 'MglMap',
