@@ -49,6 +49,7 @@
 		"mitt": "^3.0.0"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.0.0",
 		"@mdi/js": "^7.0.96",
 		"@rollup/plugin-alias": "^3.1.9",
 		"@rollup/plugin-commonjs": "^22.0.2",
