@@ -62,7 +62,6 @@
 		"geojson": "^0.5.0",
 		"maplibre-gl": "^2.3.0",
 		"minimist": "^1.2.6",
-		"node-sass": "^7.0.1",
 		"postcss": "^8.4.16",
 		"rimraf": "^3.0.2",
 		"rollup": "^2.78.1",
