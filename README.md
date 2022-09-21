@@ -41,7 +41,7 @@ app.use(VueMaplibreGl)
 Add CSS:
 
 ```css
-@import 'vue-maplibre-gl/dist/maplibre.css';
+@import 'vue-maplibre-gl/dist/style.css';
 ```
 
 Use specific components:

@@ -176,7 +176,7 @@
 </script>
 
 <style lang="scss">
-	@import "~@/css/maplibre";
+	@import "@/css/maplibre";
 
 	body {
 		margin: 0;
