@@ -25,6 +25,7 @@
 		"url": "https://github.com/razorness/vue-maplibre-gl.git"
 	},
 	"license": "MIT",
+	"packageManager": "yarn@3.2.3",
 	"main": "dist/vue-maplibre-gl.ssr.js",
 	"browser": "dist/vue-maplibre-gl.esm.js",
 	"module": "dist/vue-maplibre-gl.esm.js",
@@ -71,11 +72,12 @@
 		"rollup-plugin-scss": "^3.0.0",
 		"rollup-plugin-terser": "^7.0.2",
 		"rollup-plugin-vue": "^6.0.0",
-		"typescript": "^4.7.4",
+		"tslib": "^2.4.0",
+		"typescript": "^4.8.3",
 		"vue": "^3.2.37"
 	},
 	"peerDependencies": {
-		"maplibre-gl": "^2.2.0",
+		"maplibre-gl": "^2.4.0",
 		"vue": "^3.2.0"
 	},
 	"engines": {
