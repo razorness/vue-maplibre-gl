@@ -71,7 +71,7 @@
 
 <script lang="ts">
 	import { defineComponent, ref, toRef, watch } from 'vue';
-	import { MglDefaults, MglEvent, StyleSwitchItem, useMap } from '@/entry.esm';
+	import { MglDefaults, MglEvent, StyleSwitchItem, useMap } from '@/entry';
 	import { mdiCursorDefaultClick } from '@mdi/js';
 	import { LineLayout, LinePaint, MapLayerMouseEvent } from 'maplibre-gl';
 

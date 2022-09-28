@@ -1,18 +1,24 @@
-// iife/cjs usage extends esm default export - so import it all
-import plugin, * as components from '@/entry.esm';
+import type { App } from 'vue';
 
-// Attach named exports directly to plugin. IIFE/CJS will
-// only expose one global var, with component exports exposed as properties of
-// that global var (eg. plugin.component)
-type NamedExports = Exclude<typeof components, 'default'>;
-type ExtendedPlugin = typeof plugin & NamedExports;
-Object.entries(components).forEach(([ componentName, component ]) => {
-	if (componentName !== 'default') {
-		const key                                = componentName as Exclude<keyof NamedExports, 'default'>;
-		const val                                = component as Exclude<ExtendedPlugin, typeof plugin>;
-		// @ts-ignore
-		(plugin as ExtendedPlugin)[ key ] = val;
-	}
-});
+// Import vue components
+import * as components from '@/components/index';
 
-export default plugin;
+// install function executed by Vue.use()
+// Can be passed as either Vue.use(install) or Vue.use(thisModule)
+export function install(app: App) {
+	Object.entries(components).forEach(([componentName, component]) => {
+		app.component(componentName, component);
+	});
+}
+
+// To allow individual component use, export components
+// each can be registered via Vue.component()
+export * from '@/components/index';
+
+// addition exports
+export * from '@/components/types';
+export { useMap } from './components/mapRegistry';
+export { defaults as MglDefaults } from './components/defaults';
+export { usePositionWatcher, Position } from './components/controls/shared';
+
+export default module.exports;

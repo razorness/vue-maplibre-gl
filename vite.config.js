@@ -14,7 +14,7 @@ export default defineConfig({
 
 	build: {
 		lib: {
-			entry: resolve(__dirname, 'src/entry.esm.ts'),
+			entry: resolve(__dirname, 'src/entry.ts'),
 			name: 'VueMaplibreGl',
 			fileName: (format) => {
 				let desc = { cjs: 'ssr', es: 'esm', iife: 'min' }[format] || format;
