@@ -14,7 +14,7 @@ export default defineConfig({
 
 	build: {
 		lib: {
-			entry: resolve(__dirname, 'src/entry.ts'),
+			entry: resolve(__dirname, 'src/entry.esm.ts'),
 			name: 'VueMaplibreGl',
 			fileName: (format) => {
 				let desc = { cjs: 'ssr', es: 'esm', iife: 'min' }[format] || format;
@@ -26,6 +26,7 @@ export default defineConfig({
 		rollupOptions: {
 			external: ['vue', 'maplibre-gl'],
 			output: {
+				exports: 'named',
 				globals: {
 					vue: 'Vue',
 					'maplibre-gl': 'maplibregl',
