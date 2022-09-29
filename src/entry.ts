@@ -21,4 +21,4 @@ export { useMap } from './components/mapRegistry';
 export { defaults as MglDefaults } from './components/defaults';
 export { usePositionWatcher, Position } from './components/controls/shared';
 
-export default module.exports;
+export default install;
