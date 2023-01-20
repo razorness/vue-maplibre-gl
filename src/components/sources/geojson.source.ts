@@ -28,7 +28,7 @@ export default defineComponent({
 		clusterProperties: Object as PropType<object>,
 		lineMetrics      : Boolean as PropType<boolean>,
 		generateId       : Boolean as PropType<boolean>,
-		promoteId        : Object as PropType<PromoteIdSpecification>,
+		promoteId        : [ Object, String ] as PropType<PromoteIdSpecification>,
 		filter           : [ Array, String, Object ] as PropType<any>
 	},
 	setup(props) {

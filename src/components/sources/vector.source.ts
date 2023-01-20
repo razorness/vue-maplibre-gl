@@ -20,7 +20,7 @@ export default defineComponent({
 		minzoom    : Number as PropType<number>,
 		maxzoom    : Number as PropType<number>,
 		attribution: String as PropType<string>,
-		promoteId  : Object as PropType<PromoteIdSpecification>
+		promoteId  : [ Object, String ] as PropType<PromoteIdSpecification>
 	},
 	setup(props) {
 
