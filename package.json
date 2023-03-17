@@ -35,7 +35,7 @@
 	"files": [
 		"dist/*",
 		"src/**/*.vue",
-		"src/css/*"
+		"src/lib/css/*"
 	],
 	"exports": {
 		".": {
@@ -49,9 +49,12 @@
 	},
 	"scripts": {
 		"dev": "vite",
-		"build": "vue-tsc && vite build",
+		"build": "vue-tsc --noEmit && vite build",
 		"preview": "vite preview",
 		"up": "taze major -I"
+	},
+	"dependencies": {
+		"mitt": "^3.0.0"
 	},
 	"devDependencies": {
 		"@mdi/js": "^7.1.96",
@@ -73,8 +76,5 @@
 	},
 	"engines": {
 		"node": ">=16"
-	},
-	"dependencies": {
-		"mitt": "^3.0.0"
 	}
 }

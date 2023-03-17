@@ -14,8 +14,9 @@ export default defineConfig({
 	plugins     : [ vue(), dts({ insertTypesEntry: true }) ],
 	build       : {
 		cssCodeSplit : true,
+		target       : 'esnext',
 		lib          : {
-			entry   : resolve(__dirname, 'src/components/main.ts'),
+			entry   : resolve(__dirname, 'src/lib/main.ts'),
 			name    : 'VueMaplibreGl',
 			formats : [ 'es', 'cjs', 'umd' ],
 			fileName: format => `vue-maplibre-gl.${format}.js`
@@ -24,9 +25,9 @@ export default defineConfig({
 			// make sure to externalize deps that shouldn't be bundled
 			// into your library
 			input   : {
-				main: resolve(__dirname, 'src/components/main.ts')
+				main: resolve(__dirname, 'src/lib/main.ts')
 			},
-			external: [ 'vue' ],
+			external: [ 'vue', 'maplibre-gl' ],
 			output  : {
 				assetFileNames: (assetInfo) => {
 					if (assetInfo.name === 'main.css') {
@@ -38,7 +39,8 @@ export default defineConfig({
 				// Provide global variables to use in the UMD build
 				// for externalized deps
 				globals: {
-					vue: 'Vue',
+					vue          : 'Vue',
+					'maplibre-gl': 'maplibregl'
 				},
 			},
 		}
@@ -50,6 +52,6 @@ export default defineConfig({
 		}
 	},
 	optimizeDeps: {
-		exclude: [ 'vue' ],
+		exclude: [ 'vue', 'maplibre-gl' ],
 	}
 });

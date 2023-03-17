@@ -27,10 +27,10 @@
 
 				<mgl-geo-json-source source-id="geojson" :data="geoJsonSource.data">
 					<mgl-line-layer
-						v-if="geoJsonSource.show.value"
+						v-if="geoJsonSource.show"
 						layer-id="geojson"
-						:layout="geoJsonSource.layout"
-						:paint="geoJsonSource.paint"
+						:layout="layout"
+						:paint="paint"
 						@mouseenter="onMouseenter"
 					/>
 				</mgl-geo-json-source>
@@ -71,22 +71,23 @@
 
 <script lang="ts">
 	import { defineComponent, onMounted, ref, toRef, watch } from 'vue';
-	import { MglDefaults, MglEvent, StyleSwitchItem, useMap } from '@/components/main';
+	import { MglDefaults, MglEvent, Position, StyleSwitchItem, useMap } from '@/lib/main';
 	import { mdiCursorDefaultClick } from '@mdi/js';
-	import { LineLayout, LinePaint, MapLayerMouseEvent } from 'maplibre-gl';
-	import MglMap from '@/components/map.component';
-	import MglFrameRateControl from '@/components/controls/frameRate.control';
-	import MglFullscreenControl from '@/components/controls/fullscreen.control';
-	import MglAttributionControl from '@/components/controls/attribution.control';
-	import MglNavigationControl from '@/components/controls/navigation.control';
-	import MglScaleControl from '@/components/controls/scale.control';
-	import MglGeolocationControl from '@/components/controls/geolocation.control';
-	import MglCustomControl from '@/components/controls/custom.control';
-	import MglButton from '@/components/button.component';
-	import MglStyleSwitchControl from '@/components/controls/styleSwitch.control';
-	import MglMarker from '@/components/marker.component';
-	import MglGeoJsonSource from '@/components/sources/geojson.source';
-	import MglLineLayer from '@/components/layers/line.layer';
+	import { LineLayout, LinePaint, LngLatLike, MapLayerMouseEvent } from 'maplibre-gl';
+	import MglMap from '@/lib/components/map.component';
+	import MglFrameRateControl from '@/lib/components/controls/frameRate.control';
+	import MglFullscreenControl from '@/lib/components/controls/fullscreen.control';
+	import MglAttributionControl from '@/lib/components/controls/attribution.control';
+	import MglNavigationControl from '@/lib/components/controls/navigation.control';
+	import MglScaleControl from '@/lib/components/controls/scale.control';
+	import MglGeolocationControl from '@/lib/components/controls/geolocation.control';
+	import MglCustomControl from '@/lib/components/controls/custom.control';
+	import MglButton from '@/lib/components/button.component';
+	import MglStyleSwitchControl from '@/lib/components/controls/styleSwitch.control';
+	import MglMarker from '@/lib/components/marker.component';
+	import MglGeoJsonSource from '@/lib/components/sources/geojson.source';
+	import MglLineLayer from '@/lib/components/layers/line.layer';
+	import { FeatureCollection } from 'geojson';
 
 	MglDefaults.style = 'https://api.maptiler.com/maps/streets/style.json?key=cQX2iET1gmOW38bedbUh';
 	console.log('MglDefaults', MglDefaults);
@@ -102,10 +103,10 @@
 			const map               = useMap(),
 				  showCustomControl = ref(true),
 				  loaded            = ref(0),
-				  markerCoordinates = ref([ 13.377507, 52.516267 ]),
+				  markerCoordinates = ref<LngLatLike>([ 13.377507, 52.516267 ]),
 				  geoJsonSource     = ref({
 					  show: true,
-					  data: {
+					  data: <FeatureCollection>{
 						  type    : 'FeatureCollection',
 						  features: [
 							  {
@@ -163,9 +164,9 @@
 			return {
 				showCustomControl, loaded, markerCoordinates, geoJsonSource, onLoad, onMouseenter,
 				isZooming      : false,
-				controlPosition: ref('top-left'),
+				controlPosition: ref(Position.TOP_LEFT),
 				showMap        : ref(true),
-				center         : [ 10.288107, 49.405078 ],
+				center         : [ 10.288107, 49.405078 ] as LngLatLike,
 				zoom           : 3,
 				useClasses     : ref(true),
 				mapStyles      : [
