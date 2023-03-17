@@ -1,6 +1,6 @@
 import { FillLayer, FillLayout, FillPaint } from 'maplibre-gl';
 import { createCommentVNode, defineComponent, getCurrentInstance, inject, PropType, warn, watch } from 'vue';
-import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
+import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/lib/types';
 import { LayerLib } from '@/lib/lib/layer.lib';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useDisposableLayer } from '@/lib/composable/useDisposableLayer';
