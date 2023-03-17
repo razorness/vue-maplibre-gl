@@ -6,11 +6,12 @@ import { getSourceRef } from '@/components/sources/shared';
 
 export default defineComponent({
 	name  : 'MglBackgroundLayer',
-	mixins: [ Shared ],
 	props : {
+		...Shared.props,
 		layout: Object as PropType<BackgroundLayout>,
 		paint : Object as PropType<BackgroundPaint>
 	},
+	emits : [ ...Shared.emits ],
 	setup(props) {
 
 		const sourceId = inject(sourceIdSymbol);
@@ -28,17 +29,17 @@ export default defineComponent({
 
 		watch([ isLoaded, sourceRef ], ([ il, src ]) => {
 			if (il && (src || src === undefined)) {
-				map.value.addLayer(genLayerOpts<BackgroundLayer>(props.layerId, 'background', props, sourceId), props.before || undefined);
+				map.value.addLayer(genLayerOpts<BackgroundLayer>(props.layerId!, 'background', props, sourceId), props.before || undefined);
 			}
 		}, { immediate: true });
 
 		function removeLayer() {
 			if (isLoaded.value) {
-				map.value.removeLayer(props.layerId);
+				map.value.removeLayer(props.layerId!);
 			}
 		}
 
-		registry.registerUnmountHandler(props.layerId, removeLayer);
+		registry.registerUnmountHandler(props.layerId!, removeLayer);
 		onBeforeUnmount(() => {
 			removeLayer();
 		});
