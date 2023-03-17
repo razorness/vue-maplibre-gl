@@ -1,18 +1,101 @@
-# Vue 3 + TypeScript + Vite
+# vue-maplibre-gl
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+[![npm](https://img.shields.io/npm/v/vue-maplibre-gl.svg?style=flat-square)](https://www.npmjs.com/package/vue-maplibre-gl)
+[![TypeScript](https://img.shields.io/badge/-Typescript-informational?style=flat-square)](https://www.typescriptlang.org/)
+[![vue2](https://img.shields.io/badge/vue-3.x-brightgreen.svg?style=flat-square)](https://vuejs.org/)
 
-## Recommended IDE Setup
+A vue plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js). Only additional dependency is [mitt](https://github.com/developit/mitt).
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Size: [36 KB](https://bundlephobia.com/package/vue-maplibre-gl)
 
-## Type Support For `.vue` Imports in TS
+## Features
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+- Typescript support
+- Components for map, controls, sources, marker and layers
+- Support for custom controls
+- Customizable style switch which reloads sources and layers automatically
+- Frame rate control included
+- Support for multiple instances and global access by `useMap(key: string | symbol)`
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## Table of contents
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+- [Installation](#installation)
+- [Usage](#usage)
+
+# Installation
+
+```shell
+yarn add vue-maplibre-gl maplibre-gl
+```
+
+## Default import
+
+Global Install:
+
+```typescript
+import VueMaplibreGl from 'vue-maplibre-gl'
+
+app.use(VueMaplibreGl)
+```
+
+Add SCSS:
+
+```scss
+@import "~vue-maplibre-gl/src/css/maplibre";
+```
+
+Use specific components:
+
+```typescript
+import { MglMap } from 'vue-maplibre-gl'
+
+app.component('MglMap', MglMap)
+```
+
+or in a parent components `.vue` file
+
+```html
+
+<script>
+	import { MglMap } from 'vue-maplibre-gl'
+
+	export default {
+		components: {
+			MglMap
+		},
+		// ...
+	}
+</script>
+```
+
+# Usage
+
+See [/dev/serve.vue](https://github.com/razorness/vue-maplibre-gl/blob/master/dev/serve.vue) for a real world example.
+
+# Demo
+
+```shell
+git clone https://github.com/razorness/vue-maplibre-gl.git
+cd vue-maplibre-gl
+yarn
+yarn serve
+```
+
+## PRs welcome ♥
+
+If you have ideas, improvements, suggestions etc. don't hesitate to open a pull request.
+
+### Todos
+
+- [ ] Generate separate css file to be included (currently, you have to use scss)
+- [ ] Usage examples
+- [ ] Demo
+- [ ] API documentation
+- [ ] Support `v-model:...` for some basic props
+- [x] Add layer events
+- [ ] Add [Web-types](https://github.com/JetBrains/web-types)
+- [x] Add [frame rate control](https://github.com/mapbox/mapbox-gl-framerate)
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
