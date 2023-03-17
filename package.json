@@ -54,10 +54,11 @@
 		"up": "taze major -I"
 	},
 	"dependencies": {
-		"mitt": "^3.0.0"
+		"mitt": "^3.0.0",
+		"@mdi/js": "^7.1.96",
+		"geojson": "^0.5.0"
 	},
 	"devDependencies": {
-		"@mdi/js": "^7.1.96",
 		"@types/geojson": "^7946.0.10",
 		"@types/node": "^18.15.3",
 		"@vitejs/plugin-vue": "^4.1.0",

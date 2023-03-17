@@ -196,6 +196,10 @@
 </script>
 
 <style lang="scss">
+
+	@import "~maplibre-gl/dist/maplibre-gl.css";
+	@import "@/lib/css/maplibre.scss";
+
 	body {
 		margin: 0;
 	}

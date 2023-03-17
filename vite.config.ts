@@ -14,7 +14,7 @@ export default defineConfig({
 	plugins     : [ vue(), dts({ insertTypesEntry: true }) ],
 	build       : {
 		cssCodeSplit : true,
-		target       : 'esnext',
+		// target       : 'esnext',
 		lib          : {
 			entry   : resolve(__dirname, 'src/lib/main.ts'),
 			name    : 'VueMaplibreGl',
@@ -52,6 +52,6 @@ export default defineConfig({
 		}
 	},
 	optimizeDeps: {
-		exclude: [ 'vue', 'maplibre-gl' ],
+		exclude: [ 'vue' ],
 	}
 });
