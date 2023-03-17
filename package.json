@@ -27,15 +27,13 @@
 	"license": "MIT",
 	"type": "module",
 	"sideEffects": false,
-	"main": "dist/vue-maplibre-gl.ssr.js",
-	"browser": "dist/vue-maplibre-gl.esm.js",
-	"module": "dist/vue-maplibre-gl.esm.js",
-	"unpkg": "dist/vue-maplibre-gl.min.js",
+	"main": "dist/vue-maplibre-gl.umd.js",
+	"browser": "dist/vue-maplibre-gl.es.js",
+	"module": "dist/vue-maplibre-gl.es.js",
 	"types": "dist/main.d.ts",
 	"files": [
 		"dist/*",
-		"src/**/*.vue",
-		"src/lib/css/*"
+		"src/lib/**/*"
 	],
 	"exports": {
 		".": {

@@ -26,7 +26,6 @@ export default defineComponent({
 			  map       = inject(mapSymbol)!,
 			  isLoaded  = inject(isLoadedSymbol)!,
 			  cid       = inject(componentIdSymbol)!,
-			  registry  = inject(sourceLayerRegistry)!,
 			  sourceRef = SourceLib.getSourceRef(cid, props.source || sourceId);
 
 		useDisposableLayer(props.layerId!, ci);
