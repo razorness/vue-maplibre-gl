@@ -36,9 +36,9 @@ export default defineComponent({
 		locale                      : { type: Object as PropType<Record<string, string>>, default: () => defaults.locale },
 		localIdeographFontFamily    : { type: String as PropType<string>, default: () => defaults.localIdeographFontFamily },
 		logoPosition                : {
-			type    : [ String ] as PropType<Position>,
-			validate: (val: any) => val in Position,
-			default : () => defaults.logoPosition
+			type     : [ String ] as PropType<Position>,
+			validator: (val: any) => val in Position,
+			default  : () => defaults.logoPosition,
 		},
 		maxBounds                   : { type: [ Array, Object ] as PropType<LngLatBoundsLike>, default: () => defaults.maxBounds },
 		maxPitch                    : { type: Number as PropType<number>, default: () => defaults.maxPitch },
@@ -218,7 +218,7 @@ export default defineComponent({
 			// unbind events
 			if (map.value) {
 				boundMapEvents.forEach((func, en) => {
-					map.value!.off(en.startsWith('__') ? en.substr(2) : en, func as any);
+					map.value!.off(en.startsWith('__') ? en.substring(2) : en, func as any);
 				});
 			}
 

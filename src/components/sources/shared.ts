@@ -26,7 +26,15 @@ export function getSourceRef<T = AnySourceImpl>(mcid: number, source: any): Ref<
 	return r as Ref<T | undefined | null>;
 }
 
-export function bindSource<T extends object, O extends object>(map: Ref<GlMap>, source: Ref<AnySourceImpl | undefined | null>, isLoaded: Ref<boolean>, emitter: Emitter<MglEvents>, props: any, type: string, sourceOpts: Array<keyof O>, registry: SourceLayerRegistry) {
+export function bindSource<T extends object, O extends object>(
+	map: Ref<GlMap>,
+	source: Ref<AnySourceImpl | undefined | null>,
+	isLoaded: Ref<boolean>,
+	emitter: Emitter<MglEvents>,
+	props: any, type: string,
+	sourceOpts: Array<keyof O>,
+	registry: SourceLayerRegistry
+) {
 
 	function addSource() {
 		if (isLoaded.value) {

@@ -34,7 +34,7 @@ export default defineComponent({
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		bindSource(map, source, isLoaded, emitter, props, 'raster-dem', sourceOpts, registry);
+		bindSource<object, RasterDemSource>(map, source, isLoaded, emitter, props, 'raster-dem', sourceOpts, registry);
 
 		return { source };
 	},

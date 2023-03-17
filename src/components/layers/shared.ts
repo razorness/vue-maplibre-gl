@@ -1,4 +1,4 @@
-import { defineComponent, onBeforeUnmount, PropType, Ref, unref, VNode } from 'vue';
+import { onBeforeUnmount, PropType, Ref, unref, VNode } from 'vue';
 import { AnySourceData, BackgroundLayer, Layer, Map, MapLayerEventType } from 'maplibre-gl';
 import { ComponentInternalInstance } from '@vue/runtime-core';
 import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
@@ -12,7 +12,7 @@ const layerEvents: Array<keyof MapLayerEventType> = [
 	'touchcancel'
 ];
 
-export const Shared = defineComponent({
+export const Shared = {
 	props: {
 		layerId    : {
 			type    : String as PropType<string>,
@@ -28,11 +28,11 @@ export const Shared = defineComponent({
 		filter     : Array as PropType<any[ ]>,
 		before     : String as PropType<string>
 	},
-	emit : [
+	emits: [
 		'click', 'dblclick', 'mousedown', 'mouseup', 'mousemove', 'mouseenter', 'mouseleave', 'mouseover', 'mouseout', 'contextmenu', 'touchstart', 'touchend',
 		'touchcancel'
 	]
-});
+};
 
 export function genLayerOpts<T extends Layer>(id: string, type: string, props: any, source: any): T {
 	return Object.keys(props)
@@ -67,20 +67,20 @@ export function unregisterLayerEvents(map: Map, layerId: string, vn: VNode) {
 	}
 }
 
-export function handleDispose(isLoaded: Ref<boolean>, map: Ref<Map>, ci: ComponentInternalInstance, props: { layerId: string }, registry: SourceLayerRegistry) {
+export function handleDispose(isLoaded: Ref<boolean>, map: Ref<Map>, ci: ComponentInternalInstance, layerId: string, registry: SourceLayerRegistry) {
 	function removeLayer() {
 		if (isLoaded.value) {
-			unregisterLayerEvents(map.value, props.layerId, ci.vnode);
-			const layer = map.value.getLayer(props.layerId);
+			unregisterLayerEvents(map.value, layerId, ci.vnode);
+			const layer = map.value.getLayer(layerId);
 			if (layer) {
-				map.value.removeLayer(props.layerId);
+				map.value.removeLayer(layerId);
 			}
 		}
 	}
 
-	registry.registerUnmountHandler(props.layerId, removeLayer);
+	registry.registerUnmountHandler(layerId, removeLayer);
 	onBeforeUnmount(() => {
-		registry.unregisterUnmountHandler(props.layerId);
+		registry.unregisterUnmountHandler(layerId);
 		removeLayer();
 	});
 }

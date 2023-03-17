@@ -1,5 +1,19 @@
-import { createCommentVNode, createTextVNode, defineComponent, h, inject, onBeforeUnmount, PropType, ref, renderSlot, Teleport, watch } from 'vue';
-import { Position, PositionValue, PositionValues, usePositionWatcher } from '@/components/controls/shared';
+import {
+	createCommentVNode,
+	createTextVNode,
+	defineComponent,
+	h,
+	inject,
+	onBeforeUnmount,
+	PropType,
+	ref,
+	renderSlot,
+	shallowRef,
+	Teleport,
+	toRef,
+	watch
+} from 'vue';
+import { Position, PositionValues, usePositionWatcher } from '@/components/controls/shared';
 import { emitterSymbol, isLoadedSymbol, mapSymbol, StyleSwitchItem } from '@/components/types';
 import { CustomControl } from '@/components/controls/custom.control';
 import { ButtonType, default as MglButton } from '@/components/button.component';
@@ -13,7 +27,7 @@ export default defineComponent({
 	name : 'MglStyleSwitchControl',
 	props: {
 		position  : {
-			type     : String as PropType<PositionValue>,
+			type     : String as PropType<Position>,
 			validator: (v: Position) => {
 				return PositionValues.indexOf(v) !== -1;
 			}
@@ -39,7 +53,7 @@ export default defineComponent({
 			  emitter     = inject(emitterSymbol)!,
 			  isAdded     = ref(false),
 			  isOpen      = ref(props.isOpen === undefined ? false : props.isOpen),
-			  modelValue  = ref(props.modelValue === undefined ? (props.mapStyles.length ? props.mapStyles[ 0 ] : null) : props.modelValue),
+			  modelValue  = shallowRef(props.modelValue === undefined ? (props.mapStyles.length ? props.mapStyles[ 0 ] : null) : props.modelValue),
 			  control     = new CustomControl(isAdded, false),
 			  closer      = toggleOpen.bind(null, false);
 
@@ -62,14 +76,13 @@ export default defineComponent({
 
 		usePositionWatcher(() => props.position, map, control);
 
-
 		if (props.modelValue !== undefined) {
-			watch(() => props.modelValue, v => {
+			watch(toRef(props, 'modelValue'), v => {
 				if (v !== undefined) modelValue.value = v;
 			});
 		}
 		if (props.isOpen !== undefined) {
-			watch(() => props.isOpen, v => {
+			watch(toRef(props, 'isOpen'), v => {
 				if (v !== undefined) isOpen.value = v;
 			});
 		}

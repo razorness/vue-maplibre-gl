@@ -1,15 +1,15 @@
-import { InjectionKey, Ref } from 'vue';
+import { InjectionKey, Ref, ShallowRef } from 'vue';
 import { Map, Style } from 'maplibre-gl';
 import { MglMap } from '@/components/index';
 import { Emitter } from 'mitt';
 import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
 
-export const mapSymbol: InjectionKey<Ref<Map>>                      = Symbol('map'),
-			 isLoadedSymbol: InjectionKey<Ref<boolean>>             = Symbol('isLoaded'),
-			 componentIdSymbol: InjectionKey<number>                = Symbol('componentId'),
-			 sourceIdSymbol: InjectionKey<string>                   = Symbol('sourceId'),
-			 sourceLayerRegistry: InjectionKey<SourceLayerRegistry> = Symbol('sourceLayerRegistry'),
-			 emitterSymbol: InjectionKey<Emitter<MglEvents>>        = Symbol('emitter');
+export const mapSymbol           = Symbol('map') as InjectionKey<ShallowRef<Map>>,
+			 isLoadedSymbol      = Symbol('isLoaded') as InjectionKey<Ref<boolean>>,
+			 componentIdSymbol   = Symbol('componentId') as InjectionKey<number>,
+			 sourceIdSymbol      = Symbol('sourceId') as InjectionKey<string>,
+			 sourceLayerRegistry = Symbol('sourceLayerRegistry') as InjectionKey<SourceLayerRegistry>,
+			 emitterSymbol       = Symbol('emitter') as InjectionKey<Emitter<MglEvents>>;
 
 export interface MglEvent<T = any> {
 	type: string;

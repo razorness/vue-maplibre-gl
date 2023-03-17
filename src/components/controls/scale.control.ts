@@ -1,5 +1,5 @@
 import { defineComponent, inject, onBeforeUnmount, PropType } from 'vue';
-import { Position, PositionValue, PositionValues, usePositionWatcher } from '@/components/controls/shared';
+import { Position, PositionValues, usePositionWatcher } from '@/components/controls/shared';
 import { mapSymbol } from '@/components/types';
 import { ScaleControl } from 'maplibre-gl';
 
@@ -17,7 +17,7 @@ export default defineComponent({
 	name : 'MglScaleControl',
 	props: {
 		position: {
-			type: String as PropType<PositionValue>,
+			type     : String as PropType<Position>,
 			validator: (v: Position) => {
 				return PositionValues.indexOf(v) !== -1;
 			}

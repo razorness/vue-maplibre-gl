@@ -1,6 +1,6 @@
 import { defineComponent, inject, onBeforeUnmount, PropType } from 'vue';
 import { IControl, Map as MMap } from 'maplibre-gl';
-import { Position, PositionValue, PositionValues, usePositionWatcher } from '@/components/controls/shared';
+import { Position, PositionValues, usePositionWatcher } from '@/components/controls/shared';
 import { mapSymbol } from '@/components/types';
 
 export class FrameRateControl implements IControl {
@@ -150,7 +150,7 @@ export default defineComponent({
 	name : 'MglFrameRateControl',
 	props: {
 		position   : {
-			type     : String as PropType<PositionValue>,
+			type     : String as PropType<Position>,
 			validator: (v: Position) => {
 				return PositionValues.indexOf(v) !== -1;
 			}

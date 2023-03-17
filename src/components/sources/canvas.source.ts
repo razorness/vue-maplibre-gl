@@ -29,7 +29,7 @@ export default defineComponent({
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		bindSource(map, source, isLoaded, emitter, props, 'canvas', sourceOpts, registry);
+		bindSource<object, CanvasSourceOptions>(map, source, isLoaded, emitter, props, 'canvas', sourceOpts, registry);
 		watch(() => props.coordinates, v => source.value?.setCoordinates(v || []));
 
 		return { source };

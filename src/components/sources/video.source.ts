@@ -28,7 +28,7 @@ export default defineComponent({
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		bindSource(map, source, isLoaded, emitter, props, 'video', sourceOpts, registry);
+		bindSource<object, VideoSourceOptions>(map, source, isLoaded, emitter, props, 'video', sourceOpts, registry);
 		watch(() => props.coordinates, v => source.value?.setCoordinates(v || []));
 
 		return { source };

@@ -19,7 +19,7 @@ export * from '@/components/index';
 
 // addition exports
 export * from '@/components/types';
-export { useMap } from './components/mapRegistry';
-export { defaults as MglDefaults } from './components/defaults';
-export { usePositionWatcher, Position } from './components/controls/shared';
+export { useMap } from '@/components/mapRegistry';
+export { defaults as MglDefaults } from '@/components/defaults';
+export { usePositionWatcher, Position } from '@/components/controls/shared';
 

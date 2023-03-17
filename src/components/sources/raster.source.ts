@@ -34,7 +34,7 @@ export default defineComponent({
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		bindSource(map, source, isLoaded, emitter, props, 'raster', sourceOpts, registry);
+		bindSource<object, RasterSource>(map, source, isLoaded, emitter, props, 'raster', sourceOpts, registry);
 
 		return { source };
 	},

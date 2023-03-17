@@ -1,46 +1,46 @@
 {
 	"compilerOptions": {
-		"target": "esnext",
-		"module": "esnext",
-		"strict": true,
-		"declaration": true,
-		"declarationDir": "dist/types",
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"importHelpers": true,
-		"moduleResolution": "node",
-		"experimentalDecorators": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"sourceMap": true,
-		"baseUrl": ".",
-		"newLine": "lf",
-		"types": [
-			"node",
-			"vue"
+		"target"                 : "ESNext",
+		"useDefineForClassFields": true,
+		"module"                 : "ESNext",
+		"moduleResolution"       : "Node",
+		"strict"                 : true,
+		"jsx"                    : "preserve",
+		"resolveJsonModule"      : true,
+		"isolatedModules"        : true,
+		"esModuleInterop"        : true,
+		"declaration"            : true,
+		"newLine"                : "lf",
+		"declarationDir"         : "dist",
+		"outDir"                 : "dist",
+		"lib"                    : [
+			"ESNext",
+			"DOM",
+			"dom.iterable",
+			"scripthost"
 		],
-		"paths": {
+		"skipLibCheck"           : true,
+		"noEmit"                 : true,
+		"baseUrl"                : ".",
+		"paths"                  : {
 			"@/*": [
 				"src/*"
 			]
 		},
-		"plugins": [
-			{
-				"transform": "@zerollup/ts-transform-paths",
-				"exclude": [
-					"*"
-				]
-			}
-		],
-		"lib": [
-			"esnext",
-			"dom",
-			"dom.iterable",
-			"scripthost"
+		"types": [
+			"node",
+			"vue"
 		]
 	},
-	"exclude": [
-		"node_modules",
-		"dist"
+	"include"        : [
+		"src/**/*.ts",
+		"src/**/*.d.ts",
+		"src/**/*.tsx",
+		"src/**/*.vue"
+	],
+	"references"     : [
+		{
+			"path": "./tsconfig.node.json"
+		}
 	]
 }

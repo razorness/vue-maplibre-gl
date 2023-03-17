@@ -15,7 +15,7 @@ interface Default {
 	viewbox: string;
 }
 
-const types: Record<ButtonType, Default | undefined> = {
+const types: { [key in ButtonType]?: Default } = {
 	[ ButtonType.TEXT ]       : undefined,
 	[ ButtonType.MDI ]        : {
 		size   : 21,

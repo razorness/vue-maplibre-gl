@@ -1,5 +1,5 @@
 import { createCommentVNode, defineComponent, h, inject, nextTick, onBeforeUnmount, PropType, ref, Ref, Teleport, watch } from 'vue';
-import { Position, PositionValue, PositionValues, usePositionWatcher } from '@/components/controls/shared';
+import { Position, PositionValues, usePositionWatcher } from '@/components/controls/shared';
 import { IControl } from 'maplibre-gl';
 import { mapSymbol } from '@/components/types';
 
@@ -46,7 +46,7 @@ export default defineComponent({
 	name : 'MglCustomControl',
 	props: {
 		position : {
-			type     : String as PropType<PositionValue>,
+			type     : String as PropType<Position>,
 			validator: (v: Position) => {
 				return PositionValues.indexOf(v) !== -1;
 			}
@@ -60,9 +60,9 @@ export default defineComponent({
 
 		const map     = inject(mapSymbol)!,
 			  isAdded = ref(false),
-			  control = new CustomControl(isAdded, props.noClasses);
+			  control = new CustomControl(isAdded, props.noClasses!);
 		usePositionWatcher(() => props.position, map, control);
-		watch(() => props.noClasses, v => control.setClasses(v));
+		watch(() => props.noClasses, v => control.setClasses(v!));
 		onBeforeUnmount(() => {
 			map.value.removeControl(control);
 		});

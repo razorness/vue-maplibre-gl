@@ -1,13 +1,13 @@
 import { defineComponent, inject, onBeforeUnmount, PropType } from 'vue';
 import { AttributionControl } from 'maplibre-gl';
-import { Position, PositionValue, PositionValues, usePositionWatcher } from '@/components/controls/shared';
+import { Position, PositionValues, usePositionWatcher } from '@/components/controls/shared';
 import { mapSymbol } from '@/components/types';
 
 export default defineComponent({
 	name : 'MglAttributionControl',
 	props: {
 		position         : {
-			type     : String as PropType<PositionValue>,
+			type     : String as PropType<Position>,
 			validator: (v: Position) => {
 				return PositionValues.indexOf(v) !== -1;
 			}

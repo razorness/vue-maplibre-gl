@@ -1,5 +1,5 @@
 import { defineComponent, inject, onBeforeUnmount, PropType } from 'vue';
-import { Position, PositionValue, PositionValues, usePositionWatcher } from '@/components/controls/shared';
+import { Position, PositionValues, usePositionWatcher } from '@/components/controls/shared';
 import { mapSymbol } from '@/components/types';
 import { FitBoundsOptions, GeolocateControl, PositionOptions } from 'maplibre-gl';
 
@@ -7,7 +7,7 @@ export default defineComponent({
 	name : 'MglGeolocationControl',
 	props: {
 		position          : {
-			type     : String as PropType<PositionValue>,
+			type     : String as PropType<Position>,
 			default  : Position.TOP_RIGHT,
 			validator: (v: Position) => {
 				return PositionValues.indexOf(v) !== -1;

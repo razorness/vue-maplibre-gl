@@ -12,7 +12,7 @@ export function debounce(fn: Function, wait = 250, immediate = false) {
 			}
 		};
 
-		clearTimeout(timeout);
+		clearTimeout(timeout!);
 		if (immediate === true && timeout === undefined) {
 			// @ts-ignore
 			fn.apply(this, args);
@@ -21,7 +21,7 @@ export function debounce(fn: Function, wait = 250, immediate = false) {
 	}
 
 	debounced.cancel = () => {
-		clearTimeout(timeout);
+		clearTimeout(timeout!);
 	};
 
 	return debounced;

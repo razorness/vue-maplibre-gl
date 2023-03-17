@@ -5,12 +5,13 @@ import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol, sourceLay
 import { getSourceRef } from '@/components/sources/shared';
 
 export default defineComponent({
-	name  : 'MglHeatmapLayer',
-	mixins: [ Shared ],
-	props : {
+	name : 'MglHeatmapLayer',
+	props: {
+		...Shared.props,
 		layout: Object as PropType<HeatmapLayout>,
 		paint : Object as PropType<HeatmapPaint>
 	},
+	emits: [ ...Shared.emits ],
 	setup(props) {
 
 		const sourceId = inject(sourceIdSymbol);
@@ -29,12 +30,12 @@ export default defineComponent({
 
 		watch([ isLoaded, sourceRef ], ([ il, src ]) => {
 			if (il && (src || src === undefined)) {
-				map.value.addLayer(genLayerOpts<HeatmapLayer>(props.layerId, 'heatmap', props, sourceId), props.before || undefined);
-				registerLayerEvents(map.value, props.layerId, ci.vnode);
+				map.value.addLayer(genLayerOpts<HeatmapLayer>(props.layerId!, 'heatmap', props, sourceId), props.before || undefined);
+				registerLayerEvents(map.value, props.layerId!, ci.vnode);
 			}
 		}, { immediate: true });
 
-		handleDispose(isLoaded, map, ci, props, registry);
+		handleDispose(isLoaded, map, ci, props.layerId!, registry);
 
 	},
 	render() {

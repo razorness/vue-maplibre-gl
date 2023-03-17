@@ -28,7 +28,7 @@ export default defineComponent({
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		bindSource(map, source, isLoaded, emitter, props, 'image', sourceOpts, registry);
+		bindSource<object, ImageSourceOptions>(map, source, isLoaded, emitter, props, 'image', sourceOpts, registry);
 		watch(() => props.coordinates, v => source.value?.setCoordinates(v || []));
 
 		return { source };

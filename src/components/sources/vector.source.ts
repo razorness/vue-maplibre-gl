@@ -20,7 +20,7 @@ export default defineComponent({
 		minzoom    : Number as PropType<number>,
 		maxzoom    : Number as PropType<number>,
 		attribution: String as PropType<string>,
-		promoteId  : Object as PropType<PromoteIdSpecification>
+		promoteId  : [ Object, String ] as PropType<PromoteIdSpecification>
 	},
 	setup(props) {
 
@@ -34,7 +34,7 @@ export default defineComponent({
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		bindSource(map, source, isLoaded, emitter, props, 'vector', sourceOpts, registry);
+		bindSource<object, VectorSource>(map, source, isLoaded, emitter, props, 'vector', sourceOpts, registry);
 		watch(() => props.tiles, v => source.value?.setTiles(v || []));
 		watch(() => props.url, v => source.value?.setUrl(v || ''));
 

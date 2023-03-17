@@ -9,7 +9,6 @@ export enum Position {
 	BOTTOM_RIGHT = 'bottom-right'
 }
 
-export type PositionValue = keyof Record<Position, any>;
 export const PositionValues = Object.values(Position);
 
 export function usePositionWatcher(source: WatchSource<Position | undefined>, map: Ref<Map>, control: IControl) {

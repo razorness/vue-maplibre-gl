@@ -3,6 +3,7 @@ import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSy
 import { GeoJSONSource, GeoJSONSourceOptions, PromoteIdSpecification } from 'maplibre-gl';
 import { bindSource, getSourceRef } from '@/components/sources/shared';
 import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
+import GeoJSON from 'geojson';
 
 const sourceOpts: Array<keyof GeoJSONSourceOptions> = [
 	'data', 'maxzoom', 'attribution', 'buffer', 'tolerance', 'cluster', 'clusterRadius', 'clusterMaxZoom', 'clusterMinPoints', 'clusterProperties',
@@ -28,7 +29,7 @@ export default defineComponent({
 		clusterProperties: Object as PropType<object>,
 		lineMetrics      : Boolean as PropType<boolean>,
 		generateId       : Boolean as PropType<boolean>,
-		promoteId        : Object as PropType<PromoteIdSpecification>,
+		promoteId        : [ Object, String ] as PropType<PromoteIdSpecification>,
 		filter           : [ Array, String, Object ] as PropType<any>
 	},
 	setup(props) {
@@ -43,7 +44,7 @@ export default defineComponent({
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		bindSource(map, source, isLoaded, emitter, props, 'geojson', sourceOpts, registry);
+		bindSource<object, GeoJSONSourceOptions>(map, source, isLoaded, emitter, props, 'geojson', sourceOpts, registry);
 		watch(isRef(props.data) ? props.data : () => props.data, v => source.value?.setData(v as any || { type: 'FeatureCollection', features: [] }));
 
 		return { source };
