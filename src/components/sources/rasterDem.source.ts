@@ -1,8 +1,9 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide } from 'vue';
-import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
+import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
 import { RasterDemSource } from 'maplibre-gl';
-import { bindSource, getSourceRef } from '@/components/sources/shared';
-import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
+import { SourceLayerRegistry } from '@/lib/sourceLayer.registry';
+import { SourceLib } from '@/lib/source.lib';
+import { useSource } from '@/composable/useSource';
 
 const sourceOpts: Array<keyof RasterDemSource> = [ 'url', 'tiles', 'bounds', 'minzoom', 'maxzoom', 'tileSize', 'attribution', 'encoding' ];
 
@@ -24,19 +25,17 @@ export default defineComponent({
 	},
 	setup(props) {
 
-		const map      = inject(mapSymbol)!,
-			  isLoaded = inject(isLoadedSymbol)!,
-			  emitter  = inject(emitterSymbol)!,
-			  cid      = inject(componentIdSymbol)!,
-			  source   = getSourceRef<RasterDemSource>(cid, props.sourceId),
+		const cid      = inject(componentIdSymbol)!,
+			  source   = SourceLib.getSourceRef<RasterDemSource>(cid, props.sourceId),
 			  registry = new SourceLayerRegistry();
 
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		bindSource<object, RasterDemSource>(map, source, isLoaded, emitter, props, 'raster-dem', sourceOpts, registry);
+		useSource<RasterDemSource>(source, props, 'raster-dem', sourceOpts, registry);
 
 		return { source };
+
 	},
 	render() {
 		return createCommentVNode('Video Source');

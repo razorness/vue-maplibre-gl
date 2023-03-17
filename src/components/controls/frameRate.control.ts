@@ -1,7 +1,8 @@
 import { defineComponent, inject, onBeforeUnmount, PropType } from 'vue';
 import { IControl, Map as MMap } from 'maplibre-gl';
-import { Position, PositionValues, usePositionWatcher } from '@/components/controls/shared';
+import { Position, PositionValues } from '@/components/controls/position.enum';
 import { mapSymbol } from '@/components/types';
+import { usePositionWatcher } from '@/composable/usePositionWatcher';
 
 export class FrameRateControl implements IControl {
 
@@ -193,6 +194,7 @@ export default defineComponent({
 		}
 	},
 	setup(props) {
+
 		const map     = inject(mapSymbol)!,
 			  control = new FrameRateControl(
 				  props.background,
@@ -207,6 +209,7 @@ export default defineComponent({
 			  );
 		usePositionWatcher(() => props.position, map, control);
 		onBeforeUnmount(() => map.value.removeControl(control));
+
 	},
 	render() {
 		// nothing

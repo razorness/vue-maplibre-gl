@@ -2,7 +2,7 @@ import { InjectionKey, Ref, ShallowRef } from 'vue';
 import { Map, Style } from 'maplibre-gl';
 import { MglMap } from '@/components/index';
 import { Emitter } from 'mitt';
-import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
+import { SourceLayerRegistry } from '@/lib/sourceLayer.registry';
 
 export const mapSymbol           = Symbol('map') as InjectionKey<ShallowRef<Map>>,
 			 isLoadedSymbol      = Symbol('isLoaded') as InjectionKey<Ref<boolean>>,

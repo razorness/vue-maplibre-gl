@@ -1,7 +1,8 @@
 import { defineComponent, inject, onBeforeUnmount, PropType } from 'vue';
-import { Position, PositionValues, usePositionWatcher } from '@/components/controls/shared';
+import { Position, PositionValues } from '@/components/controls/position.enum';
 import { mapSymbol } from '@/components/types';
 import { NavigationControl } from 'maplibre-gl';
+import { usePositionWatcher } from '@/composable/usePositionWatcher';
 
 export default defineComponent({
 	name : 'MglNavigationControl',
@@ -18,10 +19,12 @@ export default defineComponent({
 		visualizePitch: Boolean as PropType<boolean>
 	},
 	setup(props) {
+
 		const map     = inject(mapSymbol)!,
 			  control = new NavigationControl({ showCompass: props.showCompass, showZoom: props.showZoom, visualizePitch: props.visualizePitch });
 		usePositionWatcher(() => props.position, map, control);
 		onBeforeUnmount(() => map.value.removeControl(control));
+
 	},
 	render() {
 		// nothing

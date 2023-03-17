@@ -1,6 +1,6 @@
 import { defineComponent, inject, onBeforeUnmount, PropType, unref, watch } from 'vue';
 import { Alignment, Anchor, LngLatLike, Marker, MarkerOptions, PointLike } from 'maplibre-gl';
-import { MapLib } from '@/components/map.lib';
+import { MapLib } from '@/lib/map.lib';
 import { mapSymbol } from '@/components/types';
 
 export default defineComponent({
@@ -21,6 +21,7 @@ export default defineComponent({
 		scale            : Number as PropType<number>
 	},
 	setup(props) {
+
 		const map                 = inject(mapSymbol)!,
 			  opts: MarkerOptions = Object.keys(props)
 										  .filter(opt => (props as any)[ opt ] !== undefined && MapLib.MARKER_OPTION_KEYS.indexOf(opt as keyof MarkerOptions) !== -1)
@@ -41,6 +42,7 @@ export default defineComponent({
 		onBeforeUnmount(marker.remove.bind(marker));
 
 		return { marker };
+
 	},
 	render() {
 		// nothing

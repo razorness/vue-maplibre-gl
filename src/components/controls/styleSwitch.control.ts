@@ -13,11 +13,12 @@ import {
 	toRef,
 	watch
 } from 'vue';
-import { Position, PositionValues, usePositionWatcher } from '@/components/controls/shared';
+import { Position, PositionValues } from '@/components/controls/position.enum';
 import { emitterSymbol, isLoadedSymbol, mapSymbol, StyleSwitchItem } from '@/components/types';
 import { CustomControl } from '@/components/controls/custom.control';
 import { ButtonType, default as MglButton } from '@/components/button.component';
 import { mdiLayersOutline } from '@mdi/js';
+import { usePositionWatcher } from '@/composable/usePositionWatcher';
 
 function isEvent(e: any): e is Event {
 	return e && !!(e as Event).stopPropagation;
@@ -46,7 +47,7 @@ export default defineComponent({
 		}
 	},
 	emits: [ 'update:modelValue', 'update:isOpen' ],
-	setup(props, ctx) {
+	setup(props, { emit }) {
 
 		const map         = inject(mapSymbol)!,
 			  isMapLoaded = inject(isLoadedSymbol)!,
@@ -102,7 +103,7 @@ export default defineComponent({
 			if (props.modelValue === undefined) {
 				modelValue.value = s;
 			}
-			ctx.emit('update:modelValue', s);
+			emit('update:modelValue', s);
 
 			toggleOpen(false);
 		}
@@ -118,9 +119,9 @@ export default defineComponent({
 			}
 			if (props.isOpen === undefined) {
 				isOpen.value = typeof forceIsOpen === 'boolean' ? forceIsOpen : !isOpen.value;
-				ctx.emit('update:isOpen', isOpen.value);
+				emit('update:isOpen', isOpen.value);
 			} else {
-				ctx.emit('update:isOpen', typeof forceIsOpen === 'boolean' ? forceIsOpen : !props.isOpen);
+				emit('update:isOpen', typeof forceIsOpen === 'boolean' ? forceIsOpen : !props.isOpen);
 			}
 		}
 

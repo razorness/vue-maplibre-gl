@@ -1,7 +1,8 @@
 import { defineComponent, inject, onBeforeUnmount, PropType } from 'vue';
-import { Position, PositionValues, usePositionWatcher } from '@/components/controls/shared';
+import { Position, PositionValues } from '@/components/controls/position.enum';
 import { mapSymbol } from '@/components/types';
 import { FitBoundsOptions, GeolocateControl, PositionOptions } from 'maplibre-gl';
+import { usePositionWatcher } from '@/composable/usePositionWatcher';
 
 export default defineComponent({
 	name : 'MglGeolocationControl',
@@ -35,6 +36,7 @@ export default defineComponent({
 		}
 	},
 	setup(props) {
+
 		const map     = inject(mapSymbol)!,
 			  control = new GeolocateControl({
 				  positionOptions   : props.positionOptions,
@@ -45,6 +47,7 @@ export default defineComponent({
 			  });
 		usePositionWatcher(() => props.position, map, control);
 		onBeforeUnmount(() => map.value.removeControl(control));
+
 	},
 	render() {
 		// nothing

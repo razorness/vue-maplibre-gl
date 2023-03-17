@@ -1,7 +1,8 @@
 import { createCommentVNode, defineComponent, h, inject, nextTick, onBeforeUnmount, PropType, ref, Ref, Teleport, watch } from 'vue';
-import { Position, PositionValues, usePositionWatcher } from '@/components/controls/shared';
+import { Position, PositionValues } from '@/components/controls/position.enum';
 import { IControl } from 'maplibre-gl';
 import { mapSymbol } from '@/components/types';
+import { usePositionWatcher } from '@/composable/usePositionWatcher';
 
 
 export class CustomControl implements IControl {

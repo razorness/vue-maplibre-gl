@@ -21,5 +21,6 @@ export * from '@/components/index';
 export * from '@/components/types';
 export { useMap } from '@/components/mapRegistry';
 export { defaults as MglDefaults } from '@/components/defaults';
-export { usePositionWatcher, Position } from '@/components/controls/shared';
+export { Position } from '@/components/controls/position.enum';
+export { usePositionWatcher } from '@/composable/usePositionWatcher';
 

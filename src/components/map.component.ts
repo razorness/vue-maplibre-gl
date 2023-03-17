@@ -2,11 +2,11 @@ import { defineComponent, getCurrentInstance, h, markRaw, onBeforeUnmount, onMou
 import { FitBoundsOptions, LngLatBoundsLike, LngLatLike, Map as MaplibreMap, MapboxOptions, Style, TransformRequestFunction } from 'maplibre-gl';
 import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, MglEvents, sourceIdSymbol } from '@/components/types';
 import { defaults } from '@/components/defaults';
-import { MapLib } from '@/components/map.lib';
-import { Position } from '@/components/controls/shared';
+import { MapLib } from '@/lib/map.lib';
+import { Position } from '@/components/controls/position.enum';
 import mitt from 'mitt';
 import { registerMap } from '@/components/mapRegistry';
-import { debounce } from '@/util/debounce';
+import { debounce } from '@/lib/debounce';
 
 export default defineComponent({
 	name : 'MglMap',

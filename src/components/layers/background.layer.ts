@@ -1,17 +1,18 @@
 import { BackgroundLayer, BackgroundLayout, BackgroundPaint } from 'maplibre-gl';
-import { genLayerOpts, Shared } from '@/components/layers/shared';
-import { createCommentVNode, defineComponent, inject, onBeforeUnmount, PropType, warn, watch } from 'vue';
-import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
-import { getSourceRef } from '@/components/sources/shared';
+import { createCommentVNode, defineComponent, inject, PropType, warn, watch } from 'vue';
+import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/components/types';
+import { LayerLib } from '@/lib/layer.lib';
+import { SourceLib } from '@/lib/source.lib';
+import { useDisposableLayer } from '@/composable/useDisposableLayer';
 
 export default defineComponent({
-	name  : 'MglBackgroundLayer',
-	props : {
-		...Shared.props,
+	name : 'MglBackgroundLayer',
+	props: {
+		...LayerLib.SHARED.props,
 		layout: Object as PropType<BackgroundLayout>,
 		paint : Object as PropType<BackgroundPaint>
 	},
-	emits : [ ...Shared.emits ],
+	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {
 
 		const sourceId = inject(sourceIdSymbol);
@@ -24,25 +25,15 @@ export default defineComponent({
 		const map       = inject(mapSymbol)!,
 			  isLoaded  = inject(isLoadedSymbol)!,
 			  cid       = inject(componentIdSymbol)!,
-			  registry  = inject(sourceLayerRegistry)!,
-			  sourceRef = getSourceRef(cid, props.source || sourceId);
+			  sourceRef = SourceLib.getSourceRef(cid, props.source || sourceId);
+
+		useDisposableLayer(props.layerId!);
 
 		watch([ isLoaded, sourceRef ], ([ il, src ]) => {
 			if (il && (src || src === undefined)) {
-				map.value.addLayer(genLayerOpts<BackgroundLayer>(props.layerId!, 'background', props, sourceId), props.before || undefined);
+				map.value.addLayer(LayerLib.genLayerOpts<BackgroundLayer>(props.layerId!, 'background', props, sourceId), props.before || undefined);
 			}
 		}, { immediate: true });
-
-		function removeLayer() {
-			if (isLoaded.value) {
-				map.value.removeLayer(props.layerId!);
-			}
-		}
-
-		registry.registerUnmountHandler(props.layerId!, removeLayer);
-		onBeforeUnmount(() => {
-			removeLayer();
-		});
 
 	},
 	render() {

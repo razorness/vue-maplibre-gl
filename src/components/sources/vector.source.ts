@@ -1,8 +1,9 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide, watch } from 'vue';
-import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
+import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
 import { PromoteIdSpecification, VectorSource, VectorSourceImpl } from 'maplibre-gl';
-import { bindSource, getSourceRef } from '@/components/sources/shared';
-import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
+import { SourceLayerRegistry } from '@/lib/sourceLayer.registry';
+import { SourceLib } from '@/lib/source.lib';
+import { useSource } from '@/composable/useSource';
 
 const sourceOpts: Array<keyof VectorSource> = [ 'url', 'tiles', 'bounds', 'scheme', 'minzoom', 'maxzoom', 'attribution', 'promoteId' ];
 
@@ -24,21 +25,20 @@ export default defineComponent({
 	},
 	setup(props) {
 
-		const map      = inject(mapSymbol)!,
-			  isLoaded = inject(isLoadedSymbol)!,
-			  emitter  = inject(emitterSymbol)!,
-			  cid      = inject(componentIdSymbol)!,
-			  source   = getSourceRef<VectorSourceImpl>(cid, props.sourceId),
+		const cid      = inject(componentIdSymbol)!,
+			  source   = SourceLib.getSourceRef<VectorSourceImpl>(cid, props.sourceId),
 			  registry = new SourceLayerRegistry();
 
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		bindSource<object, VectorSource>(map, source, isLoaded, emitter, props, 'vector', sourceOpts, registry);
+		useSource<VectorSource>(source, props, 'vector', sourceOpts, registry);
+
 		watch(() => props.tiles, v => source.value?.setTiles(v || []));
 		watch(() => props.url, v => source.value?.setUrl(v || ''));
 
 		return { source };
+
 	},
 	render() {
 		return createCommentVNode('Vector Source');

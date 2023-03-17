@@ -1,8 +1,9 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide, watch } from 'vue';
-import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
+import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
 import { ImageSource, ImageSourceOptions } from 'maplibre-gl';
-import { bindSource, getSourceRef } from '@/components/sources/shared';
-import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
+import { SourceLayerRegistry } from '@/lib/sourceLayer.registry';
+import { SourceLib } from '@/lib/source.lib';
+import { useSource } from '@/composable/useSource';
 
 const sourceOpts: Array<keyof ImageSourceOptions> = [ 'url', 'coordinates' ];
 
@@ -18,20 +19,19 @@ export default defineComponent({
 	},
 	setup(props) {
 
-		const map      = inject(mapSymbol)!,
-			  isLoaded = inject(isLoadedSymbol)!,
-			  emitter  = inject(emitterSymbol)!,
-			  cid      = inject(componentIdSymbol)!,
-			  source   = getSourceRef<ImageSource>(cid, props.sourceId),
+		const cid      = inject(componentIdSymbol)!,
+			  source   = SourceLib.getSourceRef<ImageSource>(cid, props.sourceId),
 			  registry = new SourceLayerRegistry();
 
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		bindSource<object, ImageSourceOptions>(map, source, isLoaded, emitter, props, 'image', sourceOpts, registry);
+		useSource<ImageSourceOptions>(source, props, 'image', sourceOpts, registry);
+
 		watch(() => props.coordinates, v => source.value?.setCoordinates(v || []));
 
 		return { source };
+
 	},
 	render() {
 		return [

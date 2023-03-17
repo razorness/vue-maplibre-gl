@@ -1,7 +1,8 @@
 import { defineComponent, inject, onBeforeUnmount, PropType } from 'vue';
-import { Position, PositionValues, usePositionWatcher } from '@/components/controls/shared';
+import { Position, PositionValues } from '@/components/controls/position.enum';
 import { mapSymbol } from '@/components/types';
 import { ScaleControl } from 'maplibre-gl';
+import { usePositionWatcher } from '@/composable/usePositionWatcher';
 
 export enum ScaleControlUnit {
 	IMPERIAL = 'imperial',
@@ -32,10 +33,12 @@ export default defineComponent({
 		}
 	},
 	setup(props) {
+
 		const map     = inject(mapSymbol)!,
 			  control = new ScaleControl({ maxWidth: props.maxWidth, unit: props.unit });
 		usePositionWatcher(() => props.position, map, control);
 		onBeforeUnmount(() => map.value.removeControl(control));
+
 	},
 	render() {
 		// nothing

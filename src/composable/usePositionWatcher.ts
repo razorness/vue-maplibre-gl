@@ -1,15 +1,7 @@
-import { Ref, watch } from 'vue';
 import { WatchSource } from '@vue/runtime-core';
+import { Ref, watch } from 'vue';
 import { IControl, Map } from 'maplibre-gl';
-
-export enum Position {
-	TOP_LEFT     = 'top-left',
-	TOP_RIGHT    = 'top-right',
-	BOTTOM_LEFT  = 'bottom-left',
-	BOTTOM_RIGHT = 'bottom-right'
-}
-
-export const PositionValues = Object.values(Position);
+import { Position, PositionValues } from '@/components/controls/position.enum';
 
 export function usePositionWatcher(source: WatchSource<Position | undefined>, map: Ref<Map>, control: IControl) {
 	watch(source, (v) => {

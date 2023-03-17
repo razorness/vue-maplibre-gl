@@ -1,8 +1,9 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide, watch } from 'vue';
-import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
+import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/components/types';
 import { CanvasSource, CanvasSourceOptions } from 'maplibre-gl';
-import { bindSource, getSourceRef } from '@/components/sources/shared';
-import { SourceLayerRegistry } from '@/components/sources/sourceLayer.registry';
+import { SourceLayerRegistry } from '@/lib/sourceLayer.registry';
+import { SourceLib } from '@/lib/source.lib';
+import { useSource } from '@/composable/useSource';
 
 const sourceOpts: Array<keyof CanvasSourceOptions> = [ 'animate', 'coordinates', 'canvas' ];
 
@@ -19,26 +20,24 @@ export default defineComponent({
 	},
 	setup(props) {
 
-		const map      = inject(mapSymbol)!,
-			  isLoaded = inject(isLoadedSymbol)!,
-			  emitter  = inject(emitterSymbol)!,
-			  cid      = inject(componentIdSymbol)!,
-			  source   = getSourceRef<CanvasSource>(cid, props.sourceId),
+		const cid      = inject(componentIdSymbol)!,
+			  source   = SourceLib.getSourceRef<CanvasSource>(cid, props.sourceId),
 			  registry = new SourceLayerRegistry();
 
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		bindSource<object, CanvasSourceOptions>(map, source, isLoaded, emitter, props, 'canvas', sourceOpts, registry);
+		useSource<CanvasSourceOptions>(source, props, 'canvas', sourceOpts, registry);
+
 		watch(() => props.coordinates, v => source.value?.setCoordinates(v || []));
 
 		return { source };
+
 	},
 	render() {
 		return [
 			createCommentVNode('Canvas Source'),
 			this.source && this.$slots.default ? this.$slots.default() : undefined
 		];
-
 	}
 });
