@@ -1,5 +1,14 @@
 import { defineComponent, getCurrentInstance, h, markRaw, onBeforeUnmount, onMounted, PropType, provide, ref, shallowRef, toRef, unref, watch } from 'vue';
-import { FitBoundsOptions, LngLatBoundsLike, LngLatLike, Map as MaplibreMap, MapOptions, RequestTransformFunction, StyleSpecification } from 'maplibre-gl';
+import {
+	FitBoundsOptions,
+	GestureOptions,
+	LngLatBoundsLike,
+	LngLatLike,
+	Map as MaplibreMap,
+	MapOptions,
+	RequestTransformFunction,
+	StyleSpecification
+} from 'maplibre-gl';
 import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, MglEvents, sourceIdSymbol } from '@/lib/types';
 import { defaults } from '@/lib/defaults';
 import { MapLib } from '@/lib/lib/map.lib';
@@ -52,16 +61,17 @@ export default /*#__PURE__*/ defineComponent({
 		renderWorldCopies           : { type: Boolean as PropType<boolean>, default: () => defaults.renderWorldCopies },
 		scrollZoom                  : { type: Boolean as PropType<boolean>, default: () => defaults.scrollZoom },
 		// StyleSpecification triggers TS7056, so users must handle typings themselves
-		mapStyle        : { type: [ String, Object ] as PropType<object | string>, default: () => defaults.style },
-		trackResize     : { type: Boolean as PropType<boolean>, default: () => defaults.trackResize },
-		transformRequest: { type: Function as PropType<RequestTransformFunction>, default: defaults.transformRequest },
-		touchZoomRotate : { type: Boolean as PropType<boolean>, default: () => defaults.touchZoomRotate },
-		touchPitch      : { type: Boolean as PropType<boolean>, default: () => defaults.touchPitch },
-		zoom            : { type: Number as PropType<number>, default: () => defaults.zoom },
-		maxTileCacheSize: { type: Number as PropType<number>, default: () => defaults.maxTileCacheSize },
-		mapKey          : { type: [ String, Symbol ] as PropType<string | symbol> }
+		mapStyle           : { type: [ String, Object ] as PropType<object | string>, default: () => defaults.style },
+		trackResize        : { type: Boolean as PropType<boolean>, default: () => defaults.trackResize },
+		transformRequest   : { type: Function as PropType<RequestTransformFunction>, default: defaults.transformRequest },
+		touchZoomRotate    : { type: Boolean as PropType<boolean>, default: () => defaults.touchZoomRotate },
+		touchPitch         : { type: Boolean as PropType<boolean>, default: () => defaults.touchPitch },
+		zoom               : { type: Number as PropType<number>, default: () => defaults.zoom },
+		maxTileCacheSize   : { type: Number as PropType<number>, default: () => defaults.maxTileCacheSize },
+		mapKey             : { type: [ String, Symbol ] as PropType<string | symbol> },
+		pixelRatio         : { type: Number as PropType<number>, default: () => defaults.pixelRatio },
+		cooperativeGestures: { type: [ Boolean, Object ] as PropType<boolean | GestureOptions>, default: () => defaults.cooperativeGestures }
 	},
-	// emits: [],
 	emits: [
 		'map:error', 'map:load', 'map:idle', 'map:remove', 'map:render', 'map:resize', 'map:webglcontextlost', 'map:webglcontextrestored', 'map:dataloading',
 		'map:data', 'map:tiledataloading', 'map:sourcedataloading', 'map:styledataloading', 'map:sourcedata', 'map:styledata', 'map:boxzoomcancel',

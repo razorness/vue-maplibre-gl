@@ -11,7 +11,8 @@ export class MapLib {
 		'crossSourceCollisions', 'container', 'customAttribution', 'dragPan', 'dragRotate', 'doubleClickZoom', 'hash', 'fadeDuration',
 		'failIfMajorPerformanceCaveat', 'fitBoundsOptions', 'interactive', 'keyboard', 'locale', 'localIdeographFontFamily', 'logoPosition', 'maxBounds',
 		'maxPitch', 'maxZoom', 'minPitch', 'minZoom', 'preserveDrawingBuffer', 'pitch', 'pitchWithRotate', 'refreshExpiredTiles', 'renderWorldCopies',
-		'scrollZoom', 'mapStyle', 'trackResize', 'transformRequest', 'touchZoomRotate', 'touchPitch', 'zoom', 'maxTileCacheSize'
+		'scrollZoom', 'mapStyle', 'trackResize', 'transformRequest', 'touchZoomRotate', 'touchPitch', 'zoom', 'maxTileCacheSize', 'pixelRatio',
+		'cooperativeGestures'
 	];
 
 	static readonly MARKER_OPTION_KEYS: Array<keyof MarkerOptions> = [
