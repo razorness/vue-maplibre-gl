@@ -1,4 +1,4 @@
-import { HillshadeLayer, HillshadeLayout, HillshadePaint } from 'maplibre-gl';
+import { HillshadeLayerSpecification } from 'maplibre-gl';
 import { createCommentVNode, defineComponent, getCurrentInstance, inject, PropType, warn, watch } from 'vue';
 import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/lib/types';
 import { LayerLib } from '@/lib/lib/layer.lib';
@@ -9,8 +9,8 @@ export default defineComponent({
 	name : 'MglHillshadeLayer',
 	props: {
 		...LayerLib.SHARED.props,
-		layout: Object as PropType<HillshadeLayout>,
-		paint : Object as PropType<HillshadePaint>
+		layout: Object as PropType<HillshadeLayerSpecification['layout']>,
+		paint : Object as PropType<HillshadeLayerSpecification['paint']>
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {
@@ -32,7 +32,7 @@ export default defineComponent({
 
 		watch([ isLoaded, sourceRef ], ([ il, src ]) => {
 			if (il && (src || src === undefined)) {
-				map.value.addLayer(LayerLib.genLayerOpts<HillshadeLayer>(props.layerId!, 'hillshade', props, sourceId), props.before || undefined);
+				map.value.addLayer(LayerLib.genLayerOpts<HillshadeLayerSpecification>(props.layerId!, 'hillshade', props, sourceId), props.before || undefined);
 				LayerLib.registerLayerEvents(map.value, props.layerId!, ci.vnode);
 			}
 		}, { immediate: true });

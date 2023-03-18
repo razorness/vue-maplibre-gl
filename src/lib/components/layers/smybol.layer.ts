@@ -1,4 +1,4 @@
-import { SymbolLayer, SymbolLayout, SymbolPaint } from 'maplibre-gl';
+import { SymbolLayerSpecification } from 'maplibre-gl';
 import { createCommentVNode, defineComponent, getCurrentInstance, inject, PropType, warn, watch } from 'vue';
 import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/lib/types';
 import { LayerLib } from '@/lib/lib/layer.lib';
@@ -9,8 +9,8 @@ export default defineComponent({
 	name : 'MglSymbolLayer',
 	props: {
 		...LayerLib.SHARED.props,
-		layout: Object as PropType<SymbolLayout>,
-		paint : Object as PropType<SymbolPaint>
+		layout: Object as PropType<SymbolLayerSpecification['layout']>,
+		paint : Object as PropType<SymbolLayerSpecification['paint']>
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {
@@ -32,7 +32,7 @@ export default defineComponent({
 
 		watch([ isLoaded, sourceRef ], ([ il, src ]) => {
 			if (il && (src || src === undefined)) {
-				map.value.addLayer(LayerLib.genLayerOpts<SymbolLayer>(props.layerId!, 'symbol', props, sourceId), props.before || undefined);
+				map.value.addLayer(LayerLib.genLayerOpts<SymbolLayerSpecification>(props.layerId!, 'symbol', props, sourceId), props.before || undefined);
 				LayerLib.registerLayerEvents(map.value, props.layerId!, ci.vnode);
 			}
 		}, { immediate: true });

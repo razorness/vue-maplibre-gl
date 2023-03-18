@@ -1,11 +1,11 @@
-import { createCommentVNode, defineComponent, inject, PropType, provide, watch } from 'vue';
+import { createCommentVNode, defineComponent, inject, PropType, provide, toRef, watch } from 'vue';
 import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
-import { ImageSource, ImageSourceOptions } from 'maplibre-gl';
+import { Coordinates, ImageSource, ImageSourceSpecification } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
 
-const sourceOpts: Array<keyof ImageSourceOptions> = [ 'url', 'coordinates' ];
+const sourceOpts: Array<keyof ImageSourceSpecification> = [ 'url', 'coordinates' ];
 
 export default defineComponent({
 	name : 'MglImageSource',
@@ -15,7 +15,7 @@ export default defineComponent({
 			required: true
 		},
 		url        : String as PropType<string>,
-		coordinates: Array as PropType<number[][]>
+		coordinates: Array as unknown as PropType<Coordinates>
 	},
 	setup(props) {
 
@@ -26,9 +26,13 @@ export default defineComponent({
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		useSource<ImageSourceOptions>(source, props, 'image', sourceOpts, registry);
+		useSource<ImageSourceSpecification>(source, props, 'image', sourceOpts, registry);
 
-		watch(() => props.coordinates, v => source.value?.setCoordinates(v || []));
+		watch(toRef(props, 'coordinates'), v => {
+			if (v) {
+				source.value?.setCoordinates(v);
+			}
+		});
 
 		return { source };
 

@@ -1,4 +1,4 @@
-import { FillExtrusionLayout, FillExtrusionPaint, LineLayer } from 'maplibre-gl';
+import { FillExtrusionLayerSpecification } from 'maplibre-gl';
 import { createCommentVNode, defineComponent, getCurrentInstance, inject, PropType, warn, watch } from 'vue';
 import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/lib/types';
 import { LayerLib } from '@/lib/lib/layer.lib';
@@ -9,8 +9,8 @@ export default defineComponent({
 	name : 'MglFillExtrusionLayer',
 	props: {
 		...LayerLib.SHARED.props,
-		layout: Object as PropType<FillExtrusionLayout>,
-		paint : Object as PropType<FillExtrusionPaint>,
+		layout: Object as PropType<FillExtrusionLayerSpecification['layout']>,
+		paint : Object as PropType<FillExtrusionLayerSpecification['paint']>,
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {
@@ -32,7 +32,7 @@ export default defineComponent({
 
 		watch([ isLoaded, sourceRef ], ([ il, src ]) => {
 			if (il && (src || src === undefined)) {
-				map.value.addLayer(LayerLib.genLayerOpts<LineLayer>(props.layerId!, 'fill-extrusion', props, sourceId), props.before || undefined);
+				map.value.addLayer(LayerLib.genLayerOpts<FillExtrusionLayerSpecification>(props.layerId!, 'fill-extrusion', props, sourceId), props.before || undefined);
 				LayerLib.registerLayerEvents(map.value, props.layerId!, ci.vnode);
 			}
 		}, { immediate: true });

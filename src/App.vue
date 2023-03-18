@@ -73,7 +73,7 @@
 	import { defineComponent, onMounted, ref, toRef, watch } from 'vue';
 	import { MglDefaults, MglEvent, Position, StyleSwitchItem, useMap } from '@/lib/main';
 	import { mdiCursorDefaultClick } from '@mdi/js';
-	import { LineLayout, LinePaint, LngLatLike, MapLayerMouseEvent } from 'maplibre-gl';
+	import { LineLayerSpecification, LngLatLike, MapLayerMouseEvent } from 'maplibre-gl';
 	import MglMap from '@/lib/components/map.component';
 	import MglFrameRateControl from '@/lib/components/controls/frameRate.control';
 	import MglFullscreenControl from '@/lib/components/controls/fullscreen.control';
@@ -185,11 +185,11 @@
 				layout         : {
 					'line-join': 'round',
 					'line-cap' : 'round'
-				} as LineLayout,
+				} as LineLayerSpecification['layout'],
 				paint          : {
 					'line-color': '#FF0000',
 					'line-width': 8
-				} as LinePaint
+				} as LineLayerSpecification['paint']
 			};
 		}
 	});

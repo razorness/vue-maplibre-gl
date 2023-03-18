@@ -1,4 +1,4 @@
-import { LineLayer, LineLayout, LinePaint } from 'maplibre-gl';
+import { LineLayerSpecification } from 'maplibre-gl';
 import { createCommentVNode, defineComponent, getCurrentInstance, inject, PropType, warn, watch } from 'vue';
 import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/lib/types';
 import { LayerLib } from '@/lib/lib/layer.lib';
@@ -9,8 +9,8 @@ export default defineComponent({
 	name : 'MglLineLayer',
 	props: {
 		...LayerLib.SHARED.props,
-		layout: Object as PropType<LineLayout>,
-		paint : Object as PropType<LinePaint>
+		layout: Object as PropType<LineLayerSpecification['layout']>,
+		paint : Object as PropType<LineLayerSpecification['paint']>
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {
@@ -32,7 +32,7 @@ export default defineComponent({
 
 		watch([ isLoaded, sourceRef ], ([ il, src ]) => {
 			if (il && (src || src === undefined)) {
-				map.value.addLayer(LayerLib.genLayerOpts<LineLayer>(props.layerId!, 'line', props, sourceId), props.before || undefined);
+				map.value.addLayer(LayerLib.genLayerOpts<LineLayerSpecification>(props.layerId!, 'line', props, sourceId), props.before || undefined);
 				LayerLib.registerLayerEvents(map.value, props.layerId!, ci.vnode);
 			}
 		}, { immediate: true });

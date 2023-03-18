@@ -1,5 +1,5 @@
 import { defineComponent, getCurrentInstance, h, markRaw, onBeforeUnmount, onMounted, PropType, provide, ref, shallowRef, unref, watch } from 'vue';
-import { FitBoundsOptions, LngLatBoundsLike, LngLatLike, Map as MaplibreMap, MapboxOptions, Style, TransformRequestFunction } from 'maplibre-gl';
+import { FitBoundsOptions, LngLatBoundsLike, LngLatLike, Map as MaplibreMap, MapOptions, RequestTransformFunction, StyleSpecification } from 'maplibre-gl';
 import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, MglEvents, sourceIdSymbol } from '@/lib/types';
 import { defaults } from '@/lib/defaults';
 import { MapLib } from '@/lib/lib/map.lib';
@@ -51,14 +51,13 @@ export default defineComponent({
 		refreshExpiredTiles         : { type: Boolean as PropType<boolean>, default: () => defaults.refreshExpiredTiles },
 		renderWorldCopies           : { type: Boolean as PropType<boolean>, default: () => defaults.renderWorldCopies },
 		scrollZoom                  : { type: Boolean as PropType<boolean>, default: () => defaults.scrollZoom },
-		mapStyle                    : { type: [ String, Object ] as PropType<Style | string>, default: () => defaults.style },
+		mapStyle                    : { type: [ String, Object ] as PropType<StyleSpecification | string>, default: () => defaults.style },
 		trackResize                 : { type: Boolean as PropType<boolean>, default: () => defaults.trackResize },
-		transformRequest            : { type: Function as PropType<TransformRequestFunction>, default: defaults.transformRequest },
+		transformRequest            : { type: Function as PropType<RequestTransformFunction>, default: defaults.transformRequest },
 		touchZoomRotate             : { type: Boolean as PropType<boolean>, default: () => defaults.touchZoomRotate },
 		touchPitch                  : { type: Boolean as PropType<boolean>, default: () => defaults.touchPitch },
 		zoom                        : { type: Number as PropType<number>, default: () => defaults.zoom },
 		maxTileCacheSize            : { type: Number as PropType<number>, default: () => defaults.maxTileCacheSize },
-		accessToken                 : { type: String as PropType<string>, default: () => defaults.accessToken },
 		mapKey                      : { type: [ String, Symbol ] as PropType<string | symbol> }
 	},
 	// emits: [],
@@ -171,15 +170,14 @@ export default defineComponent({
 			registryItem.isMounted = true;
 
 			// build options
-			const opts: MapboxOptions = Object.keys(props)
-											  .filter(opt => (props as any)[ opt ] !== undefined && MapLib.MAP_OPTION_KEYS.indexOf(opt as keyof MapboxOptions) !== -1)
-											  .reduce((obj, opt) => {
-												  (obj as any)[ opt === 'mapStyle' ? 'style' : opt ] = unref((props as any)[ opt ]);
-												  return obj;
-											  }, { container: container.value as HTMLDivElement } as MapboxOptions);
+			const opts: MapOptions = Object.keys(props)
+										   .filter(opt => (props as any)[ opt ] !== undefined && MapLib.MAP_OPTION_KEYS.indexOf(opt as keyof MapOptions) !== -1)
+										   .reduce<MapOptions>((obj, opt) => {
+											   (obj as any)[ opt === 'mapStyle' ? 'style' : opt ] = unref((props as any)[ opt ]);
+											   return obj;
+										   }, { container: container.value as HTMLDivElement } as any);
 
 			// init map
-			// @ts-ignore
 			map.value           = markRaw(new MaplibreMap(opts));
 			registryItem.map    = map.value;
 			isInitialized.value = true;

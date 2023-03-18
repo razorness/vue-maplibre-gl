@@ -1,4 +1,4 @@
-import { Map, MapboxOptions, MarkerOptions } from 'maplibre-gl';
+import { Map, MapOptions, MarkerOptions } from 'maplibre-gl';
 import { MglMap } from '@/lib/components';
 import { MglEvent } from '@/lib/types';
 
@@ -6,12 +6,12 @@ export type MapEventHandler = (e: any) => void;
 
 export class MapLib {
 
-	static readonly MAP_OPTION_KEYS: Array<keyof MapboxOptions | 'mapStyle'> = [
+	static readonly MAP_OPTION_KEYS: Array<keyof MapOptions | 'mapStyle'> = [
 		'antialias', 'attributionControl', 'bearing', 'bearingSnap', 'bounds', 'boxZoom', 'center', 'clickTolerance', 'collectResourceTiming',
 		'crossSourceCollisions', 'container', 'customAttribution', 'dragPan', 'dragRotate', 'doubleClickZoom', 'hash', 'fadeDuration',
 		'failIfMajorPerformanceCaveat', 'fitBoundsOptions', 'interactive', 'keyboard', 'locale', 'localIdeographFontFamily', 'logoPosition', 'maxBounds',
 		'maxPitch', 'maxZoom', 'minPitch', 'minZoom', 'preserveDrawingBuffer', 'pitch', 'pitchWithRotate', 'refreshExpiredTiles', 'renderWorldCopies',
-		'scrollZoom', 'mapStyle', 'trackResize', 'transformRequest', 'touchZoomRotate', 'touchPitch', 'zoom', 'maxTileCacheSize', 'accessToken'
+		'scrollZoom', 'mapStyle', 'trackResize', 'transformRequest', 'touchZoomRotate', 'touchPitch', 'zoom', 'maxTileCacheSize'
 	];
 
 	static readonly MARKER_OPTION_KEYS: Array<keyof MarkerOptions> = [

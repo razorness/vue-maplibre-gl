@@ -1,7 +1,7 @@
-import { defineComponent, inject, onBeforeUnmount, PropType } from 'vue';
+import { defineComponent, inject, onBeforeUnmount, PropType, toRef } from 'vue';
 import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 import { mapSymbol } from '@/lib/types';
-import { FitBoundsOptions, GeolocateControl, PositionOptions } from 'maplibre-gl';
+import { FitBoundsOptions, GeolocateControl } from 'maplibre-gl';
 import { usePositionWatcher } from '@/lib/composable/usePositionWatcher';
 
 export default defineComponent({
@@ -45,7 +45,8 @@ export default defineComponent({
 				  showAccuracyCircle: props.showAccuracyCircle,
 				  showUserLocation  : props.showUserLocation
 			  });
-		usePositionWatcher(() => props.position, map, control);
+
+		usePositionWatcher(toRef(props, 'position'), map, control);
 		onBeforeUnmount(() => map.value.removeControl(control));
 
 	},

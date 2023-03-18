@@ -1,4 +1,4 @@
-import { FillLayer, FillLayout, FillPaint } from 'maplibre-gl';
+import { FillLayerSpecification } from 'maplibre-gl';
 import { createCommentVNode, defineComponent, getCurrentInstance, inject, PropType, warn, watch } from 'vue';
 import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/lib/types';
 import { LayerLib } from '@/lib/lib/layer.lib';
@@ -9,8 +9,8 @@ export default defineComponent({
 	name : 'MglFillLayer',
 	props: {
 		...LayerLib.SHARED.props,
-		layout: Object as PropType<FillLayout>,
-		paint : Object as PropType<FillPaint>
+		layout: Object as PropType<FillLayerSpecification['layout']>,
+		paint : Object as PropType<FillLayerSpecification['paint']>
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {
@@ -32,7 +32,7 @@ export default defineComponent({
 
 		watch([ isLoaded, sourceRef ], ([ il, src ]) => {
 			if (il && (src || src === undefined)) {
-				map.value.addLayer(LayerLib.genLayerOpts<FillLayer>(props.layerId!, 'fill', props, sourceId), props.before || undefined);
+				map.value.addLayer(LayerLib.genLayerOpts<FillLayerSpecification>(props.layerId!, 'fill', props, sourceId), props.before || undefined);
 				LayerLib.registerLayerEvents(map.value, props.layerId!, ci.vnode);
 			}
 		}, { immediate: true });

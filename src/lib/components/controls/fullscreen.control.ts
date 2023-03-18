@@ -1,4 +1,4 @@
-import { defineComponent, inject, onBeforeUnmount, PropType } from 'vue';
+import { defineComponent, inject, onBeforeUnmount, PropType, toRef } from 'vue';
 import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 import { mapSymbol } from '@/lib/types';
 import { FullscreenControl } from 'maplibre-gl';
@@ -22,8 +22,9 @@ export default defineComponent({
 	setup(props) {
 
 		const map     = inject(mapSymbol)!,
-			  control = new FullscreenControl(props.container ? { container: props.container } : undefined);
-		usePositionWatcher(() => props.position, map, control);
+			  control = new FullscreenControl({ container: props.container ? props.container : undefined });
+
+		usePositionWatcher(toRef(props, 'position'), map, control);
 		onBeforeUnmount(() => map.value.removeControl(control));
 
 	},

@@ -1,9 +1,9 @@
 import { ref, Ref, unref } from 'vue';
-import { AnySourceImpl } from 'maplibre-gl';
+import { Source } from 'maplibre-gl';
 
 export class SourceLib {
 
-	private static readonly REFS = new Map<string, Ref<AnySourceImpl | undefined | null>>();
+	private static readonly REFS = new Map<string, Ref<Source | undefined | null>>();
 
 	static genSourceOpts<T extends object, O extends object>(type: string, props: object, sourceOpts: Array<keyof O>): T {
 
@@ -16,7 +16,7 @@ export class SourceLib {
 
 	}
 
-	static getSourceRef<T = AnySourceImpl>(mcid: number, source: any): Ref<T | undefined | null> {
+	static getSourceRef<T extends Source>(mcid: number, source: any): Ref<T | undefined | null> {
 
 		const isString = typeof source === 'string',
 			  key      = String(mcid) + (isString ? source : '');

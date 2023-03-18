@@ -1,4 +1,4 @@
-import { BackgroundLayer, BackgroundLayout, BackgroundPaint } from 'maplibre-gl';
+import { BackgroundLayerSpecification } from 'maplibre-gl';
 import { createCommentVNode, defineComponent, inject, PropType, warn, watch } from 'vue';
 import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/lib/types';
 import { LayerLib } from '@/lib/lib/layer.lib';
@@ -9,8 +9,8 @@ export default defineComponent({
 	name : 'MglBackgroundLayer',
 	props: {
 		...LayerLib.SHARED.props,
-		layout: Object as PropType<BackgroundLayout>,
-		paint : Object as PropType<BackgroundPaint>
+		layout: Object as PropType<BackgroundLayerSpecification['layout']>,
+		paint : Object as PropType<BackgroundLayerSpecification['paint']>
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {
@@ -31,7 +31,7 @@ export default defineComponent({
 
 		watch([ isLoaded, sourceRef ], ([ il, src ]) => {
 			if (il && (src || src === undefined)) {
-				map.value.addLayer(LayerLib.genLayerOpts<BackgroundLayer>(props.layerId!, 'background', props, sourceId), props.before || undefined);
+				map.value.addLayer(LayerLib.genLayerOpts<BackgroundLayerSpecification>(props.layerId!, 'background', props, sourceId), props.before || undefined);
 			}
 		}, { immediate: true });
 

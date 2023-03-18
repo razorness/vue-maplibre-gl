@@ -75,7 +75,7 @@ export default defineComponent({
 		document.addEventListener('click', closer);
 
 
-		usePositionWatcher(() => props.position, map, control);
+		usePositionWatcher(toRef(props, 'position'), map, control);
 
 		if (props.modelValue !== undefined) {
 			watch(toRef(props, 'modelValue'), v => {

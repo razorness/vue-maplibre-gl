@@ -1,11 +1,11 @@
-import { createCommentVNode, defineComponent, inject, PropType, provide, watch } from 'vue';
+import { createCommentVNode, defineComponent, inject, PropType, provide, toRef, watch } from 'vue';
 import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
-import { VideoSource, VideoSourceOptions } from 'maplibre-gl';
+import { Coordinates, VideoSource, VideoSourceSpecification } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
 
-const sourceOpts: Array<keyof VideoSourceOptions> = [ 'urls', 'coordinates' ];
+const sourceOpts: Array<keyof VideoSourceSpecification> = [ 'urls', 'coordinates' ];
 
 export default defineComponent({
 	name : 'MglVideoSource',
@@ -15,7 +15,7 @@ export default defineComponent({
 			required: true
 		},
 		urls       : Array as PropType<string[]>,
-		coordinates: Array as PropType<number[][]>
+		coordinates: Array as unknown as PropType<Coordinates>
 	},
 	setup(props) {
 
@@ -26,9 +26,13 @@ export default defineComponent({
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		useSource<VideoSourceOptions>(source, props, 'video', sourceOpts, registry);
+		useSource<VideoSourceSpecification>(source, props, 'video', sourceOpts, registry);
 
-		watch(() => props.coordinates, v => source.value?.setCoordinates(v || []));
+		watch(toRef(props, 'coordinates'), v => {
+			if (v) {
+				source.value?.setCoordinates(v);
+			}
+		});
 
 		return { source };
 

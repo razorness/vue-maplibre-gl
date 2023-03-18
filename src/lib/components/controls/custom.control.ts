@@ -1,6 +1,6 @@
-import { createCommentVNode, defineComponent, h, inject, nextTick, onBeforeUnmount, PropType, ref, Ref, Teleport, watch } from 'vue';
+import { createCommentVNode, defineComponent, h, inject, nextTick, onBeforeUnmount, PropType, ref, Ref, Teleport, toRef, watch } from 'vue';
 import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
-import { IControl } from 'maplibre-gl';
+import { ControlPosition, IControl } from 'maplibre-gl';
 import { mapSymbol } from '@/lib/types';
 import { usePositionWatcher } from '@/lib/composable/usePositionWatcher';
 
@@ -17,7 +17,7 @@ export class CustomControl implements IControl {
 		this.setClasses(noClasses);
 	}
 
-	getDefaultPosition(): string {
+	getDefaultPosition(): ControlPosition {
 		return Position.TOP_LEFT;
 	}
 
@@ -62,8 +62,9 @@ export default defineComponent({
 		const map     = inject(mapSymbol)!,
 			  isAdded = ref(false),
 			  control = new CustomControl(isAdded, props.noClasses!);
-		usePositionWatcher(() => props.position, map, control);
-		watch(() => props.noClasses, v => control.setClasses(v!));
+
+		usePositionWatcher(toRef(props, 'position'), map, control);
+		watch(toRef(props, 'noClasses'), v => control.setClasses(v!));
 		onBeforeUnmount(() => {
 			map.value.removeControl(control);
 		});

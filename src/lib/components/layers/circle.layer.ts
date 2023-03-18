@@ -1,4 +1,4 @@
-import { CircleLayer, CircleLayout, CirclePaint } from 'maplibre-gl';
+import { CircleLayerSpecification } from 'maplibre-gl';
 import { createCommentVNode, defineComponent, getCurrentInstance, inject, PropType, warn, watch } from 'vue';
 import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/lib/types';
 import { useDisposableLayer } from '@/lib/composable/useDisposableLayer';
@@ -9,8 +9,8 @@ export default defineComponent({
 	name : 'MglCircleLayer',
 	props: {
 		...LayerLib.SHARED.props,
-		layout: Object as PropType<CircleLayout>,
-		paint : Object as PropType<CirclePaint>
+		layout: Object as PropType<CircleLayerSpecification['layout']>,
+		paint : Object as PropType<CircleLayerSpecification['paint']>
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {
@@ -32,7 +32,7 @@ export default defineComponent({
 
 		watch([ isLoaded, sourceRef ], ([ il, src ]) => {
 			if (il && (src || src === undefined)) {
-				map.value.addLayer(LayerLib.genLayerOpts<CircleLayer>(props.layerId!, 'circle', props, sourceId), props.before || undefined);
+				map.value.addLayer(LayerLib.genLayerOpts<CircleLayerSpecification>(props.layerId!, 'circle', props, sourceId), props.before || undefined);
 				LayerLib.registerLayerEvents(map.value, props.layerId!, ci.vnode);
 			}
 		}, { immediate: true });

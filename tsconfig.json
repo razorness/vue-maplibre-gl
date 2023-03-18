@@ -5,21 +5,21 @@
 		"module"                 : "ESNext",
 		"moduleResolution"       : "Node",
 		"strict"                 : true,
-		"jsx"                    : "preserve",
+		"jsx"                    : "react",
 		"resolveJsonModule"      : true,
 		"isolatedModules"        : true,
 		"esModuleInterop"        : true,
-		"declaration"            : true,
 		"newLine"                : "lf",
-		"declarationDir"         : "dist",
+		"sourceMap"              : true,
 		"outDir"                 : "dist",
+		"noImplicitAny"          : true,
 		"lib"                    : [
 			"ESNext",
 			"DOM",
 			"dom.iterable",
 			"scripthost"
 		],
-		"skipLibCheck"           : true,
+		"skipLibCheck"           : false,
 		"noEmit"                 : true,
 		"baseUrl"                : ".",
 		"paths"                  : {
@@ -27,9 +27,11 @@
 				"src/*"
 			]
 		},
-		"types": [
+		"types"                  : [
 			"node",
-			"vue"
+			"vue",
+			"geojson",
+			"maplibre-gl"
 		]
 	},
 	"include"        : [

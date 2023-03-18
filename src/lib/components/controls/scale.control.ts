@@ -1,4 +1,4 @@
-import { defineComponent, inject, onBeforeUnmount, PropType } from 'vue';
+import { defineComponent, inject, onBeforeUnmount, PropType, toRef } from 'vue';
 import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 import { mapSymbol } from '@/lib/types';
 import { ScaleControl } from 'maplibre-gl';
@@ -10,7 +10,7 @@ export enum ScaleControlUnit {
 	NAUTICAL = 'nautical'
 }
 
-type UnitValue = keyof Record<ScaleControlUnit, any>;
+type UnitValue = ScaleControlUnit | 'imperial' | 'metric' | 'nautical';
 const UnitValues = Object.values(ScaleControlUnit);
 
 
@@ -36,7 +36,8 @@ export default defineComponent({
 
 		const map     = inject(mapSymbol)!,
 			  control = new ScaleControl({ maxWidth: props.maxWidth, unit: props.unit });
-		usePositionWatcher(() => props.position, map, control);
+
+		usePositionWatcher(toRef(props, 'position'), map, control);
 		onBeforeUnmount(() => map.value.removeControl(control));
 
 	},

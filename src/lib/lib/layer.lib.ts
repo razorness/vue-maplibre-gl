@@ -1,9 +1,23 @@
-import { AnySourceData, BackgroundLayer, Layer, Map, MapLayerEventType } from 'maplibre-gl';
+import {
+	BackgroundLayerSpecification,
+	CircleLayerSpecification,
+	FillExtrusionLayerSpecification,
+	FillLayerSpecification,
+	HeatmapLayerSpecification,
+	HillshadeLayerSpecification,
+	LayerSpecification,
+	LineLayerSpecification,
+	Map,
+	MapLayerEventType,
+	RasterLayerSpecification,
+	Source,
+	SymbolLayerSpecification
+} from 'maplibre-gl';
 import { PropType, unref, VNode } from 'vue';
 
 export class LayerLib {
 
-	static readonly SOURCE_OPTS: Array<keyof (Omit<BackgroundLayer, 'source-layer'> & { sourceLayer?: string })> = [
+	static readonly SOURCE_OPTS: Array<keyof (Omit<FillLayerSpecification & LineLayerSpecification & SymbolLayerSpecification & CircleLayerSpecification & HeatmapLayerSpecification & FillExtrusionLayerSpecification & RasterLayerSpecification & HillshadeLayerSpecification & BackgroundLayerSpecification, 'source-layer'> & { sourceLayer?: string })> = [
 		'metadata', 'ref', 'source', 'sourceLayer', 'minzoom', 'maxzoom', 'interactive', 'filter', 'layout', 'paint'
 	];
 
@@ -18,7 +32,7 @@ export class LayerLib {
 				type    : String as PropType<string>,
 				required: true
 			},
-			source     : [ String, Object ] as PropType<string | AnySourceData>,
+			source     : [ String, Object ] as PropType<string | Source>,
 			metadata   : [ Object, Array, String, Number ] as PropType<any>,
 			ref        : String as PropType<string>,
 			sourceLayer: String as PropType<string>,
@@ -34,7 +48,7 @@ export class LayerLib {
 		]
 	};
 
-	static genLayerOpts<T extends Layer>(id: string, type: string, props: any, source: any): T {
+	static genLayerOpts<T = LayerSpecification>(id: string, type: string, props: any, source: any): T {
 
 		return Object.keys(props)
 					 .filter(opt => (props as any)[ opt ] !== undefined && LayerLib.SOURCE_OPTS.indexOf(opt as any) !== -1)

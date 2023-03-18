@@ -1,11 +1,11 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide } from 'vue';
 import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
-import { RasterSource } from 'maplibre-gl';
+import { RasterSourceSpecification, RasterTileSource } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
 
-const sourceOpts: Array<keyof RasterSource> = [ 'url', 'tiles', 'bounds', 'minzoom', 'maxzoom', 'tileSize', 'scheme', 'attribution' ];
+const sourceOpts: Array<keyof RasterSourceSpecification> = [ 'url', 'tiles', 'bounds', 'minzoom', 'maxzoom', 'tileSize', 'scheme', 'attribution' ];
 
 export default defineComponent({
 	name : 'MglRasterSource',
@@ -26,13 +26,13 @@ export default defineComponent({
 	setup(props) {
 
 		const cid      = inject(componentIdSymbol)!,
-			  source   = SourceLib.getSourceRef<RasterSource>(cid, props.sourceId),
+			  source   = SourceLib.getSourceRef<RasterTileSource>(cid, props.sourceId),
 			  registry = new SourceLayerRegistry();
 
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		useSource<RasterSource>(source, props, 'raster', sourceOpts, registry);
+		useSource<RasterSourceSpecification>(source, props, 'raster', sourceOpts, registry);
 
 		return { source };
 

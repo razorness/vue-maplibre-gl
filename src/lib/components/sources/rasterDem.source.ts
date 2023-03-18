@@ -1,11 +1,11 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide } from 'vue';
 import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
-import { RasterDemSource } from 'maplibre-gl';
+import { RasterDEMTileSource, RasterDEMSourceSpecification } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
 
-const sourceOpts: Array<keyof RasterDemSource> = [ 'url', 'tiles', 'bounds', 'minzoom', 'maxzoom', 'tileSize', 'attribution', 'encoding' ];
+const sourceOpts: Array<keyof RasterDEMSourceSpecification> = [ 'url', 'tiles', 'bounds', 'minzoom', 'maxzoom', 'tileSize', 'attribution', 'encoding' ];
 
 export default defineComponent({
 	name : 'MglRasterDemSource',
@@ -26,13 +26,13 @@ export default defineComponent({
 	setup(props) {
 
 		const cid      = inject(componentIdSymbol)!,
-			  source   = SourceLib.getSourceRef<RasterDemSource>(cid, props.sourceId),
+			  source   = SourceLib.getSourceRef<RasterDEMTileSource>(cid, props.sourceId),
 			  registry = new SourceLayerRegistry();
 
 		provide(sourceIdSymbol, props.sourceId);
 		provide(sourceLayerRegistry, registry);
 
-		useSource<RasterDemSource>(source, props, 'raster-dem', sourceOpts, registry);
+		useSource<RasterDEMSourceSpecification>(source, props, 'raster-dem', sourceOpts, registry);
 
 		return { source };
 
