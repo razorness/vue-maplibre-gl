@@ -1,27 +1,24 @@
 {
 	"compilerOptions": {
+		"baseUrl"                : ".",
 		"target"                 : "ESNext",
 		"useDefineForClassFields": true,
 		"module"                 : "ESNext",
 		"moduleResolution"       : "Node",
 		"strict"                 : true,
-		"jsx"                    : "react",
+		"jsx"                    : "preserve",
 		"resolveJsonModule"      : true,
 		"isolatedModules"        : true,
 		"esModuleInterop"        : true,
-		"newLine"                : "lf",
+		"skipLibCheck"           : true,
 		"sourceMap"              : true,
-		"outDir"                 : "dist",
-		"noImplicitAny"          : true,
+		"noEmit"                 : true,
 		"lib"                    : [
 			"ESNext",
 			"DOM",
 			"dom.iterable",
 			"scripthost"
 		],
-		"skipLibCheck"           : false,
-		"noEmit"                 : true,
-		"baseUrl"                : ".",
 		"paths"                  : {
 			"@/*": [
 				"src/*"
@@ -39,6 +36,10 @@
 		"src/**/*.d.ts",
 		"src/**/*.tsx",
 		"src/**/*.vue"
+	],
+	"exclude"        : [
+		"dist",
+		"node_modules"
 	],
 	"references"     : [
 		{

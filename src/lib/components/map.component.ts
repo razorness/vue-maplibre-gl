@@ -1,4 +1,4 @@
-import { defineComponent, getCurrentInstance, h, markRaw, onBeforeUnmount, onMounted, PropType, provide, ref, shallowRef, unref, watch } from 'vue';
+import { defineComponent, getCurrentInstance, h, markRaw, onBeforeUnmount, onMounted, PropType, provide, ref, shallowRef, toRef, unref, watch } from 'vue';
 import { FitBoundsOptions, LngLatBoundsLike, LngLatLike, Map as MaplibreMap, MapOptions, RequestTransformFunction, StyleSpecification } from 'maplibre-gl';
 import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, MglEvents, sourceIdSymbol } from '@/lib/types';
 import { defaults } from '@/lib/defaults';
@@ -51,14 +51,15 @@ export default defineComponent({
 		refreshExpiredTiles         : { type: Boolean as PropType<boolean>, default: () => defaults.refreshExpiredTiles },
 		renderWorldCopies           : { type: Boolean as PropType<boolean>, default: () => defaults.renderWorldCopies },
 		scrollZoom                  : { type: Boolean as PropType<boolean>, default: () => defaults.scrollZoom },
-		mapStyle                    : { type: [ String, Object ] as PropType<StyleSpecification | string>, default: () => defaults.style },
-		trackResize                 : { type: Boolean as PropType<boolean>, default: () => defaults.trackResize },
-		transformRequest            : { type: Function as PropType<RequestTransformFunction>, default: defaults.transformRequest },
-		touchZoomRotate             : { type: Boolean as PropType<boolean>, default: () => defaults.touchZoomRotate },
-		touchPitch                  : { type: Boolean as PropType<boolean>, default: () => defaults.touchPitch },
-		zoom                        : { type: Number as PropType<number>, default: () => defaults.zoom },
-		maxTileCacheSize            : { type: Number as PropType<number>, default: () => defaults.maxTileCacheSize },
-		mapKey                      : { type: [ String, Symbol ] as PropType<string | symbol> }
+		// StyleSpecification triggers TS7056, so users must handle typings themselves
+		mapStyle        : { type: [ String, Object ] as PropType<object | string>, default: () => defaults.style },
+		trackResize     : { type: Boolean as PropType<boolean>, default: () => defaults.trackResize },
+		transformRequest: { type: Function as PropType<RequestTransformFunction>, default: defaults.transformRequest },
+		touchZoomRotate : { type: Boolean as PropType<boolean>, default: () => defaults.touchZoomRotate },
+		touchPitch      : { type: Boolean as PropType<boolean>, default: () => defaults.touchPitch },
+		zoom            : { type: Number as PropType<number>, default: () => defaults.zoom },
+		maxTileCacheSize: { type: Number as PropType<number>, default: () => defaults.maxTileCacheSize },
+		mapKey          : { type: [ String, Symbol ] as PropType<string | symbol> }
 	},
 	// emits: [],
 	emits: [
@@ -92,72 +93,72 @@ export default defineComponent({
 		/*
 		 * bind prop watchers
 		 */
-		watch(() => props.bearing, v => {
+		watch(toRef(props, 'bearing'), v => {
 			if (v) {
 				map.value?.setBearing(v);
 			}
 		});
-		watch(() => props.bounds, v => {
+		watch(toRef(props, 'bounds'), v => {
 			if (v) {
 				map.value?.fitBounds(v, props.fitBoundsOptions);
 			}
 		});
-		watch(() => props.center, v => {
+		watch(toRef(props, 'center'), v => {
 			if (v) {
 				map.value?.setCenter(v);
 			}
 		});
-		watch(() => props.maxBounds, v => {
+		watch(toRef(props, 'maxBounds'), v => {
 			if (v) {
 				map.value?.setMaxBounds(v);
 			}
 		});
-		watch(() => props.maxPitch, v => {
+		watch(toRef(props, 'maxPitch'), v => {
 			if (v) {
 				map.value?.setMaxPitch(v);
 			}
 		});
-		watch(() => props.maxZoom, v => {
+		watch(toRef(props, 'maxZoom'), v => {
 			if (v) {
 				map.value?.setMaxZoom(v);
 			}
 		});
-		watch(() => props.minPitch, v => {
+		watch(toRef(props, 'minPitch'), v => {
 			if (v) {
 				map.value?.setMinPitch(v);
 			}
 		});
-		watch(() => props.minZoom, v => {
+		watch(toRef(props, 'minZoom'), v => {
 			if (v) {
 				map.value?.setMinZoom(v);
 			}
 		});
-		watch(() => props.pitch, v => {
+		watch(toRef(props, 'pitch'), v => {
 			if (v) {
 				map.value?.setPitch(v);
 			}
 		});
-		watch(() => props.renderWorldCopies, v => {
+		watch(toRef(props, 'renderWorldCopies'), v => {
 			if (v) {
 				map.value?.setRenderWorldCopies(v);
 			}
 		});
-		watch(() => props.mapStyle, v => {
+		watch(toRef(props, 'mapStyle'), v => {
 			if (v) {
-				map.value?.setStyle(v);
+				map.value?.setStyle(v as StyleSpecification);
 			}
 		});
-		watch(() => props.transformRequest, v => {
+		watch(toRef(props, 'transformRequest'), v => {
 			if (v) {
 				map.value?.setTransformRequest(v);
 			}
 		});
-		watch(() => props.zoom, v => {
+		watch(toRef(props, 'zoom'), v => {
 			if (v) {
 				map.value?.setZoom(v);
 			}
 		});
-		watch(() => props.zoom, v => {
+		watch(toRef(props, 'zoom'), v => {
 			if (v) {
 				map.value?.setZoom(v);
 			}
