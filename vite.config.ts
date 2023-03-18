@@ -3,8 +3,8 @@ import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
 import banner from 'vite-plugin-banner';
 import path, { resolve } from 'path';
-// @ts-ignore
-import pkg from './package.json' assert { type: "json" };
+// @ts-ignore - Webstorm is complaining somehow
+import pkg from './package.json' assert { type: 'json' };
 
 // https://vitejs.dev/config/
 export default defineConfig({
