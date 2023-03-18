@@ -5,7 +5,7 @@ import { LayerLib } from '@/lib/lib/layer.lib';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useDisposableLayer } from '@/lib/composable/useDisposableLayer';
 
-export default defineComponent({
+export default /*#__PURE__*/ defineComponent({
 	name : 'MglHillshadeLayer',
 	props: {
 		...LayerLib.SHARED.props,

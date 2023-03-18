@@ -1,13 +1,16 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide, toRef, watch } from 'vue';
-import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
+import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
 import { Coordinates, VideoSource, VideoSourceSpecification } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
 
-const sourceOpts: Array<keyof VideoSourceSpecification> = [ 'urls', 'coordinates' ];
+const sourceOpts = AllSourceOptions<VideoSourceSpecification>({
+	urls       : undefined,
+	coordinates: undefined
+});
 
-export default defineComponent({
+export default /*#__PURE__*/ defineComponent({
 	name : 'MglVideoSource',
 	props: {
 		sourceId   : {

@@ -4,7 +4,7 @@ import { mapSymbol } from '@/lib/types';
 import { FitBoundsOptions, GeolocateControl } from 'maplibre-gl';
 import { usePositionWatcher } from '@/lib/composable/usePositionWatcher';
 
-export default defineComponent({
+export default /*#__PURE__*/ defineComponent({
 	name : 'MglGeolocationControl',
 	props: {
 		position          : {

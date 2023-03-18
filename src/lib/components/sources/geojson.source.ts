@@ -1,17 +1,30 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide, toRef, watch } from 'vue';
-import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
-import { GeoJSONSource, GeoJSONSourceOptions, PromoteIdSpecification } from 'maplibre-gl';
+import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
+import { GeoJSONSource, GeoJSONSourceOptions, GeoJSONSourceSpecification, PromoteIdSpecification } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import GeoJSON from 'geojson';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
 
-const sourceOpts: Array<keyof GeoJSONSourceOptions> = [
-	'data', 'maxzoom', 'attribution', 'buffer', 'tolerance', 'cluster', 'clusterRadius', 'clusterMaxZoom', 'clusterMinPoints', 'clusterProperties',
-	'lineMetrics', 'generateId', 'promoteId', 'filter'
-];
+const sourceOpts = AllSourceOptions<GeoJSONSourceSpecification>({
+	data             : undefined,
+	maxzoom          : undefined,
+	attribution      : undefined,
+	buffer           : undefined,
+	tolerance        : undefined,
+	cluster          : undefined,
+	clusterRadius    : undefined,
+	clusterMaxZoom   : undefined,
+	clusterMinPoints : undefined,
+	clusterProperties: undefined,
+	lineMetrics      : undefined,
+	generateId       : undefined,
+	promoteId        : undefined,
+	filter           : undefined,
+});
 
-export default defineComponent({
+
+export default /*#__PURE__*/ defineComponent({
 	name : 'MglGeoJsonSource',
 	props: {
 		sourceId         : {

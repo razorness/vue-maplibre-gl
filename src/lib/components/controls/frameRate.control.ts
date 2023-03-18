@@ -147,7 +147,7 @@ export class FrameRateControl implements IControl {
 
 }
 
-export default defineComponent({
+export default /*#__PURE__*/ defineComponent({
 	name : 'MglFrameRateControl',
 	props: {
 		position   : {

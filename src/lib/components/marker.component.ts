@@ -3,7 +3,7 @@ import { LngLatLike, Marker, MarkerOptions, PointLike, PositionAnchor } from 'ma
 import { MapLib } from '@/lib/lib/map.lib';
 import { mapSymbol } from '@/lib/types';
 
-export default defineComponent({
+export default /*#__PURE__*/ defineComponent({
 	name : 'MglMarker',
 	props: {
 		coordinates: {

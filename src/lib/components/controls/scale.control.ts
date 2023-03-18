@@ -14,7 +14,7 @@ type UnitValue = ScaleControlUnit | 'imperial' | 'metric' | 'nautical';
 const UnitValues = Object.values(ScaleControlUnit);
 
 
-export default defineComponent({
+export default /*#__PURE__*/ defineComponent({
 	name : 'MglScaleControl',
 	props: {
 		position: {

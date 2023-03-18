@@ -1,13 +1,23 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide, toRef, watch } from 'vue';
-import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
+import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
 import { PromoteIdSpecification, VectorSourceSpecification, VectorTileSource } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
 
-const sourceOpts: Array<keyof VectorSourceSpecification> = [ 'url', 'tiles', 'bounds', 'scheme', 'minzoom', 'maxzoom', 'attribution', 'promoteId' ];
+const sourceOpts = AllSourceOptions<VectorSourceSpecification>({
+	url        : undefined,
+	tiles      : undefined,
+	bounds     : undefined,
+	scheme     : undefined,
+	minzoom    : undefined,
+	maxzoom    : undefined,
+	attribution: undefined,
+	promoteId  : undefined,
+	volatile   : undefined
+});
 
-export default defineComponent({
+export default /*#__PURE__*/ defineComponent({
 	name : 'MglVectorSource',
 	props: {
 		sourceId   : {
@@ -21,7 +31,8 @@ export default defineComponent({
 		minzoom    : Number as PropType<number>,
 		maxzoom    : Number as PropType<number>,
 		attribution: String as PropType<string>,
-		promoteId  : [ Object, String ] as PropType<PromoteIdSpecification>
+		promoteId  : [ Object, String ] as PropType<PromoteIdSpecification>,
+		volatile   : Boolean
 	},
 	setup(props) {
 

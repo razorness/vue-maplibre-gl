@@ -4,7 +4,7 @@ import { mapSymbol } from '@/lib/types';
 import { NavigationControl } from 'maplibre-gl';
 import { usePositionWatcher } from '@/lib/composable/usePositionWatcher';
 
-export default defineComponent({
+export default /*#__PURE__*/ defineComponent({
 	name : 'MglNavigationControl',
 	props: {
 		position      : {

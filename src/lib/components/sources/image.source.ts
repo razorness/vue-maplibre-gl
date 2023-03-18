@@ -1,13 +1,16 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide, toRef, watch } from 'vue';
-import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
+import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
 import { Coordinates, ImageSource, ImageSourceSpecification } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
 
-const sourceOpts: Array<keyof ImageSourceSpecification> = [ 'url', 'coordinates' ];
+const sourceOpts = AllSourceOptions<ImageSourceSpecification>({
+	url        : undefined,
+	coordinates: undefined,
+});
 
-export default defineComponent({
+export default /*#__PURE__*/ defineComponent({
 	name : 'MglImageSource',
 	props: {
 		sourceId   : {

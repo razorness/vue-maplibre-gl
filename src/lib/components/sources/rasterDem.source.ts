@@ -1,13 +1,24 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide } from 'vue';
-import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
-import { RasterDEMTileSource, RasterDEMSourceSpecification } from 'maplibre-gl';
+import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
+import { RasterDEMSourceSpecification, RasterDEMTileSource } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
 
-const sourceOpts: Array<keyof RasterDEMSourceSpecification> = [ 'url', 'tiles', 'bounds', 'minzoom', 'maxzoom', 'tileSize', 'attribution', 'encoding' ];
+const sourceOpts = AllSourceOptions<RasterDEMSourceSpecification>({
+	url        : undefined,
+	tiles      : undefined,
+	bounds     : undefined,
+	minzoom    : undefined,
+	maxzoom    : undefined,
+	tileSize   : undefined,
+	attribution: undefined,
+	encoding   : undefined,
+	volatile   : undefined
+});
 
-export default defineComponent({
+
+export default /*#__PURE__*/ defineComponent({
 	name : 'MglRasterDemSource',
 	props: {
 		sourceId   : {
@@ -21,7 +32,8 @@ export default defineComponent({
 		maxzoom    : Number as PropType<number>,
 		tileSize   : Number as PropType<number>,
 		attribution: String as PropType<string>,
-		encoding   : String as PropType<'terrarium' | 'mapbox'>
+		encoding   : String as PropType<'terrarium' | 'mapbox'>,
+		volatile   : Boolean
 	},
 	setup(props) {
 

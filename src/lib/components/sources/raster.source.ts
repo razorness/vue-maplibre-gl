@@ -1,13 +1,23 @@
 import { createCommentVNode, defineComponent, inject, PropType, provide } from 'vue';
-import { componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
+import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
 import { RasterSourceSpecification, RasterTileSource } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
 
-const sourceOpts: Array<keyof RasterSourceSpecification> = [ 'url', 'tiles', 'bounds', 'minzoom', 'maxzoom', 'tileSize', 'scheme', 'attribution' ];
+const sourceOpts = AllSourceOptions<RasterSourceSpecification>({
+	url        : undefined,
+	tiles      : undefined,
+	bounds     : undefined,
+	minzoom    : undefined,
+	maxzoom    : undefined,
+	tileSize   : undefined,
+	scheme     : undefined,
+	attribution: undefined,
+	volatile   : undefined
+});
 
-export default defineComponent({
+export default /*#__PURE__*/ defineComponent({
 	name : 'MglRasterSource',
 	props: {
 		sourceId   : {
@@ -21,7 +31,8 @@ export default defineComponent({
 		maxzoom    : Number as PropType<number>,
 		tileSize   : Number as PropType<number>,
 		scheme     : String as PropType<'xyz' | 'tms'>,
-		attribution: String as PropType<string>
+		attribution: String as PropType<string>,
+		volatile   : Boolean
 	},
 	setup(props) {
 
