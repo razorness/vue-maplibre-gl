@@ -15,14 +15,14 @@ export default /*#__PURE__*/ defineComponent({
 			}
 		},
 		container: {
-			type   : HTMLElement as PropType<HTMLElement>,
+			type   : Object as PropType<HTMLElement>,
 			default: null
 		}
 	},
 	setup(props) {
 
 		const map     = inject(mapSymbol)!,
-			  control = new FullscreenControl({ container: props.container ? props.container : undefined });
+			  control = new FullscreenControl({ container: props.container || undefined });
 
 		usePositionWatcher(toRef(props, 'position'), map, control);
 		onBeforeUnmount(() => map.value.removeControl(control));

@@ -20,7 +20,7 @@ export default /*#__PURE__*/ defineComponent({
 		},
 		coordinates: Array as unknown as PropType<Coordinates>,
 		animate    : Boolean as PropType<boolean>,
-		canvas     : [ HTMLCanvasElement, String ] as PropType<HTMLCanvasElement | string>
+		canvas     : [ Object, String ] as PropType<HTMLCanvasElement | string>
 	},
 	setup(props) {
 

@@ -52,12 +52,12 @@
 		"up": "taze major -I"
 	},
 	"dependencies": {
-		"@mdi/js": "^7.1.96",
 		"geojson": "^0.5.0",
 		"mitt": "^3.0.0"
 	},
 	"devDependencies": {
 		"@babel/types": "^7.21.3",
+		"@mdi/js": "^7.1.96",
 		"@types/geojson": "^7946.0.10",
 		"@types/node": "^18.15.3",
 		"@vitejs/plugin-vue": "^4.1.0",

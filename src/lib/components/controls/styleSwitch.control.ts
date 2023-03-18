@@ -17,7 +17,6 @@ import { Position, PositionProp, PositionValues } from '@/lib/components/control
 import { emitterSymbol, isLoadedSymbol, mapSymbol, StyleSwitchItem } from '@/lib/types';
 import { CustomControl } from '@/lib/components/controls/custom.control';
 import { ButtonType, default as MglButton } from '@/lib/components/button.component';
-import { mdiLayersOutline } from '@mdi/js';
 import { usePositionWatcher } from '@/lib/composable/usePositionWatcher';
 
 function isEvent(e: any): e is Event {
@@ -146,13 +145,14 @@ export default /*#__PURE__*/ defineComponent({
 			toggleOpen  : this.toggleOpen,
 			setStyle    : this.setStyle
 		};
+
 		return h(
 			Teleport as any,
 			{ to: this.container },
 			renderSlot(this.$slots, 'default', slotProps, () => [
 				renderSlot(this.$slots, 'button', slotProps, () => [ h(MglButton, {
 					type   : ButtonType.MDI,
-					path   : mdiLayersOutline,
+					path   : 'M12,18.54L19.37,12.8L21,14.07L12,21.07L3,14.07L4.62,12.81L12,18.54M12,16L3,9L12,2L21,9L12,16M12,4.53L6.26,9L12,13.47L17.74,9L12,4.53Z',
 					'class': [ 'maplibregl-ctrl-icon maplibregl-style-switch', this.intIsOpen ? 'is-open' : '' ],
 					onClick: this.toggleOpen.bind(null, true)
 				}) ]),
