@@ -7,7 +7,6 @@ import { Position } from '@/lib/components/controls/position.enum';
 import mitt from 'mitt';
 import { registerMap } from '@/lib/lib/mapRegistry';
 import { debounce } from '@/lib/lib/debounce';
-import { renderSlot } from '@vue/runtime-core';
 
 export default /*#__PURE__*/ defineComponent({
 	name : 'MglMap',
