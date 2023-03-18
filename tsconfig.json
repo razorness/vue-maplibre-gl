@@ -35,7 +35,8 @@
 		"src/**/*.ts",
 		"src/**/*.d.ts",
 		"src/**/*.tsx",
-		"src/**/*.vue"
+		"src/**/*.vue",
+		"package.json"
 	],
 	"exclude"        : [
 		"dist",

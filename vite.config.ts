@@ -1,7 +1,10 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
+import banner from 'vite-plugin-banner';
 import path, { resolve } from 'path';
+// @ts-ignore
+import pkg from './package.json' assert { type: "json" };
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,7 +14,15 @@ export default defineConfig({
 			{ find: /^~(.+)/, replacement: '$1' }
 		]
 	},
-	plugins     : [ vue(), dts({ insertTypesEntry: true }) ],
+	plugins     : [
+		vue(),
+		dts({ insertTypesEntry: true }),
+		banner(`/*!
+* ${pkg.name} v${pkg.version}
+* (c) ${new Date().getFullYear()} ${pkg.author.name}
+* @license ${pkg.license}
+*/`)
+	],
 	build       : {
 		cssCodeSplit : true,
 		target       : 'esnext',
