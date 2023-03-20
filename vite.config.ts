@@ -30,19 +30,15 @@ export default defineConfig({
 	},
 	build       : {
 		cssCodeSplit: true,
-		// target       : 'esnext',
+
 		lib          : {
 			entry   : resolve(__dirname, 'src/lib/main.ts'),
 			name    : 'VueMaplibreGl',
-			formats : [ 'es', 'cjs', 'umd' ],
 			fileName: format => `vue-maplibre-gl.${format}.js`
 		},
 		rollupOptions: {
 			// make sure to externalize deps that shouldn't be bundled
 			// into your library
-			// input   : {
-			// 	main: resolve(__dirname, 'src/lib/main.ts')
-			// },
 			external: [ 'vue', 'maplibre-gl', 'geojson', 'mitt' ],
 			output  : {
 				assetFileNames: (assetInfo) => {
@@ -57,7 +53,8 @@ export default defineConfig({
 				globals: {
 					vue          : 'Vue',
 					'maplibre-gl': 'maplibregl',
-					mitt         : 'mitt'
+					mitt         : 'mitt',
+					geojson      : 'geojson'
 				},
 			},
 		}
@@ -67,8 +64,5 @@ export default defineConfig({
 			// to avoid full page reloads on file changes
 			ignored: [ /\.idea/, /ts\.timestamp-\d+\.mjs/, /\.git/, /node_modules/ ]
 		}
-	},
-	optimizeDeps: {
-		exclude: [ 'vue' ],
 	}
 });
