@@ -13,8 +13,7 @@ export default defineConfig({
 		alias : [
 			{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
 			{ find: /^~(.+)/, replacement: '$1' }
-		],
-		dedupe: [ 'vue', 'maplibre-gl', 'geojson', 'mitt' ]
+		]
 	},
 	plugins     : [
 		vue(),
@@ -30,7 +29,6 @@ export default defineConfig({
 	},
 	build       : {
 		cssCodeSplit: true,
-
 		lib          : {
 			entry   : resolve(__dirname, 'src/lib/main.ts'),
 			name    : 'VueMaplibreGl',
