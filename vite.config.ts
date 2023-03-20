@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
 import banner from 'vite-plugin-banner';
+import { visualizer } from "rollup-plugin-visualizer";
 import path, { resolve } from 'path';
 // @ts-ignore - Webstorm is complaining somehow
 import pkg from './package.json' assert { type: 'json' };
@@ -25,7 +26,7 @@ export default defineConfig({
 	],
 	build       : {
 		cssCodeSplit : true,
-		target       : 'esnext',
+		// target       : 'esnext',
 		lib          : {
 			entry   : resolve(__dirname, 'src/lib/main.ts'),
 			name    : 'VueMaplibreGl',
@@ -35,10 +36,10 @@ export default defineConfig({
 		rollupOptions: {
 			// make sure to externalize deps that shouldn't be bundled
 			// into your library
-			input   : {
-				main: resolve(__dirname, 'src/lib/main.ts')
-			},
-			external: [ 'vue', 'maplibre-gl' ],
+			// input   : {
+			// 	main: resolve(__dirname, 'src/lib/main.ts')
+			// },
+			external: [ 'vue', 'maplibre-gl', 'geojson', 'mitt' ],
 			output  : {
 				assetFileNames: (assetInfo) => {
 					if (assetInfo.name === 'main.css') {
@@ -51,7 +52,8 @@ export default defineConfig({
 				// for externalized deps
 				globals: {
 					vue          : 'Vue',
-					'maplibre-gl': 'maplibregl'
+					'maplibre-gl': 'maplibregl',
+					mitt: 'mitt'
 				},
 			},
 		}
