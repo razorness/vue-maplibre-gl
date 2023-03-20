@@ -2,20 +2,23 @@
 
 [![npm](https://img.shields.io/npm/v/vue-maplibre-gl.svg?style=flat-square)](https://www.npmjs.com/package/vue-maplibre-gl)
 [![TypeScript](https://img.shields.io/badge/-Typescript-informational?style=flat-square)](https://www.typescriptlang.org/)
-[![vue2](https://img.shields.io/badge/vue-3.x-brightgreen.svg?style=flat-square)](https://vuejs.org/)
+[![vue3](https://img.shields.io/badge/vue-3.x-brightgreen.svg?style=flat-square)](https://vuejs.org/)
+[![MaplibreGL-JS](https://img.shields.io/badge/Maplibre%20GL%20JS-v2.x-brightgreen?style=flat-square)](https://maplibre.org/projects/maplibre-gl-js/)
 
-A vue plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js). Only additional dependency is [mitt](https://github.com/developit/mitt).
+A small vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js). Only additional dependency is [mitt](https://github.com/developit/mitt).
 
-Size: [36 KB](https://bundlephobia.com/package/vue-maplibre-gl)
+Size: [9 KB gzipped](https://bundlephobia.com/package/vue-maplibre-gl)
 
 ## Features
 
+- Supports MapLibre GL JS v2.x
 - Typescript support
-- Components for map, controls, sources, marker and layers
+- Components for map, controls, sources, markers and layers
 - Support for custom controls
 - Customizable style switch which reloads sources and layers automatically
 - Frame rate control included
 - Support for multiple instances and global access by `useMap(key: string | symbol)`
+- Small size
 
 ## Table of contents
 
@@ -25,7 +28,7 @@ Size: [36 KB](https://bundlephobia.com/package/vue-maplibre-gl)
 # Installation
 
 ```shell
-yarn add vue-maplibre-gl maplibre-gl
+yarn add vue-maplibre-gl maplibre-gl mitt
 ```
 
 ## Default import
@@ -38,10 +41,10 @@ import VueMaplibreGl from 'vue-maplibre-gl'
 app.use(VueMaplibreGl)
 ```
 
-Add SCSS:
+Add CSS:
 
 ```scss
-@import "~vue-maplibre-gl/src/css/maplibre";
+@import "~vue-maplibre-gl/dist/vue-maplibre-gl.css";
 ```
 
 Use specific components:
@@ -78,7 +81,7 @@ See [/dev/serve.vue](https://github.com/razorness/vue-maplibre-gl/blob/master/de
 git clone https://github.com/razorness/vue-maplibre-gl.git
 cd vue-maplibre-gl
 yarn
-yarn serve
+yarn dev
 ```
 
 ## PRs welcome ♥
@@ -87,7 +90,6 @@ If you have ideas, improvements, suggestions etc. don't hesitate to open a pull 
 
 ### Todos
 
-- [ ] Generate separate css file to be included (currently, you have to use scss)
 - [ ] Usage examples
 - [ ] Demo
 - [ ] API documentation
