@@ -1,5 +1,4 @@
 import { defineComponent, h, PropType, ref, warn, watch } from 'vue';
-import { renderSlot } from '@vue/runtime-core';
 
 export enum ButtonType {
 	DEFAULT     = 'default',
@@ -62,7 +61,7 @@ export default /*#__PURE__*/ defineComponent({
 	},
 	render() {
 		if (this.type === ButtonType.TEXT) {
-			return h('button', { type: 'button' }, renderSlot(this.$slots, 'default'));
+			return h('button', { type: 'button' }, this.$slots.default ? this.$slots.default() : undefined );
 		}
 		return h('button', { type: 'button', 'class': 'maplibregl-ctrl-icon' },
 			[
@@ -75,7 +74,7 @@ export default /*#__PURE__*/ defineComponent({
 					},
 					h('path', { fill: 'currentColor', d: this.path })
 				),
-				renderSlot(this.$slots, 'default')
+				this.$slots.default ? this.$slots.default() : undefined
 			]
 		);
 	}

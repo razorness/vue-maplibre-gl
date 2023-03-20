@@ -9,13 +9,13 @@ import { fileURLToPath } from 'url';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	resolve     : {
-		alias : [
+	resolve: {
+		alias: [
 			{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
 			{ find: /^~(.+)/, replacement: '$1' }
 		]
 	},
-	plugins     : [
+	plugins: [
 		vue(),
 		dts({ insertTypesEntry: true }),
 		banner(`/*!
@@ -24,20 +24,26 @@ export default defineConfig({
 * @license ${pkg.license}
 */`)
 	],
-	ssr         : {
+	ssr    : {
 		external: [ 'vue', 'maplibre-gl', 'geojson', 'mitt' ]
 	},
-	build       : {
-		cssCodeSplit: true,
+	build  : {
+		cssCodeSplit : true,
 		lib          : {
 			entry   : resolve(__dirname, 'src/lib/main.ts'),
 			name    : 'VueMaplibreGl',
 			fileName: format => `vue-maplibre-gl.${format}.js`
 		},
+		sourcemap    : true,
 		rollupOptions: {
 			// make sure to externalize deps that shouldn't be bundled
 			// into your library
-			external: [ 'vue', 'maplibre-gl', 'geojson', 'mitt' ],
+			external: [
+				'vue',
+				'maplibre-gl',
+				'geojson',
+				'mitt'
+			],
 			output  : {
 				assetFileNames: (assetInfo) => {
 					if (assetInfo.name === 'main.css') {
@@ -57,7 +63,7 @@ export default defineConfig({
 			},
 		}
 	},
-	server      : {
+	server : {
 		watch: {
 			// to avoid full page reloads on file changes
 			ignored: [ /\.idea/, /ts\.timestamp-\d+\.mjs/, /\.git/, /node_modules/ ]

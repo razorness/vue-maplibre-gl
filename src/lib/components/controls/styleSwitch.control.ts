@@ -1,23 +1,10 @@
-import {
-	createCommentVNode,
-	createTextVNode,
-	defineComponent,
-	h,
-	inject,
-	onBeforeUnmount,
-	PropType,
-	ref,
-	renderSlot,
-	shallowRef,
-	Teleport,
-	toRef,
-	watch
-} from 'vue';
+import { createCommentVNode, createTextVNode, defineComponent, h, inject, onBeforeUnmount, PropType, ref, shallowRef, Teleport, toRef, watch } from 'vue';
 import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 import { emitterSymbol, isLoadedSymbol, mapSymbol, StyleSwitchItem } from '@/lib/types';
 import { CustomControl } from '@/lib/components/controls/custom.control';
-import { ButtonType, default as MglButton } from '@/lib/components/button.component';
 import { usePositionWatcher } from '@/lib/composable/usePositionWatcher';
+import { MglButton } from '@/lib/components';
+import { ButtonType } from '@/lib/components/button.component';
 
 function isEvent(e: any): e is Event {
 	return e && !!(e as Event).stopPropagation;
@@ -149,35 +136,68 @@ export default /*#__PURE__*/ defineComponent({
 		return h(
 			Teleport as any,
 			{ to: this.container },
-			renderSlot(this.$slots, 'default', slotProps, () => [
-				renderSlot(this.$slots, 'button', slotProps, () => [ h(MglButton, {
-					type   : ButtonType.MDI,
-					path   : 'M12,18.54L19.37,12.8L21,14.07L12,21.07L3,14.07L4.62,12.81L12,18.54M12,16L3,9L12,2L21,9L12,16M12,4.53L6.26,9L12,13.47L17.74,9L12,4.53Z',
-					'class': [ 'maplibregl-ctrl-icon maplibregl-style-switch', this.intIsOpen ? 'is-open' : '' ],
-					onClick: this.toggleOpen.bind(null, true)
-				}) ]),
-				renderSlot(this.$slots, 'styleList', slotProps, () => [
-					h(
-						'div',
-						{ 'class': [ 'maplibregl-style-list', this.intIsOpen ? 'is-open' : '' ] },
-						this.mapStyles.map((s) => {
-							return s.icon
-								? h(MglButton, {
-									type   : ButtonType.MDI,
-									path   : s.icon.path,
-									'class': this.intModelValue?.name === s.name ? 'is-active' : '',
-									onClick: () => this.setStyle(s)
-								}, createTextVNode(s.label))
-								: h('button', {
-									type   : 'button',
-									'class': this.intModelValue?.name === s.name ? 'is-active' : '',
-									onClick: () => this.setStyle(s)
-								}, createTextVNode(s.label));
+			this.$slots.default
+				? this.$slots.default(slotProps)
+				: [
+					this.$slots.button
+						? this.$slots.button(slotProps)
+						: h(MglButton, {
+							type   : ButtonType.MDI,
+							path   : 'M12,18.54L19.37,12.8L21,14.07L12,21.07L3,14.07L4.62,12.81L12,18.54M12,16L3,9L12,2L21,9L12,16M12,4.53L6.26,9L12,13.47L17.74,9L12,4.53Z',
+							'class': [ 'maplibregl-ctrl-icon maplibregl-style-switch', this.intIsOpen ? 'is-open' : '' ],
+							onClick: this.toggleOpen.bind(null, true)
+						}),
+					this.$slots.styleList
+						? this.$slots.styleList(slotProps)
+						: h(
+							'div',
+							{ 'class': [ 'maplibregl-style-list', this.intIsOpen ? 'is-open' : '' ] },
+							this.mapStyles.map((s) => {
+								return s.icon
+									? h(MglButton, {
+										type   : ButtonType.MDI,
+										path   : s.icon.path,
+										'class': this.intModelValue?.name === s.name ? 'is-active' : '',
+										onClick: () => this.setStyle(s)
+									}, createTextVNode(s.label))
+									: h('button', {
+										type   : 'button',
+										'class': this.intModelValue?.name === s.name ? 'is-active' : '',
+										onClick: () => this.setStyle(s)
+									}, createTextVNode(s.label));
 
-						})
-					)
-				])
-			])
+							})
+						)
+				]
+			// renderSlot(this.$slots, 'default', slotProps, () => [
+			// 	renderSlot(this.$slots, 'button', slotProps, () => [ h(MglButton, {
+			// 		type   : ButtonType.MDI,
+			// 		path   : 'M12,18.54L19.37,12.8L21,14.07L12,21.07L3,14.07L4.62,12.81L12,18.54M12,16L3,9L12,2L21,9L12,16M12,4.53L6.26,9L12,13.47L17.74,9L12,4.53Z',
+			// 		'class': [ 'maplibregl-ctrl-icon maplibregl-style-switch', this.intIsOpen ? 'is-open' : '' ],
+			// 		onClick: this.toggleOpen.bind(null, true)
+			// 	}) ]),
+			// 	renderSlot(this.$slots, 'styleList', slotProps, () => [
+			// 		h(
+			// 			'div',
+			// 			{ 'class': [ 'maplibregl-style-list', this.intIsOpen ? 'is-open' : '' ] },
+			// 			this.mapStyles.map((s) => {
+			// 				return s.icon
+			// 					? h(MglButton, {
+			// 						type   : ButtonType.MDI,
+			// 						path   : s.icon.path,
+			// 						'class': this.intModelValue?.name === s.name ? 'is-active' : '',
+			// 						onClick: () => this.setStyle(s)
+			// 					}, createTextVNode(s.label))
+			// 					: h('button', {
+			// 						type   : 'button',
+			// 						'class': this.intModelValue?.name === s.name ? 'is-active' : '',
+			// 						onClick: () => this.setStyle(s)
+			// 					}, createTextVNode(s.label));
+			//
+			// 			})
+			// 		)
+			// 	])
+			// ])
 		);
 	}
 });

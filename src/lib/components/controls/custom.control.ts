@@ -3,7 +3,6 @@ import { Position, PositionProp, PositionValues } from '@/lib/components/control
 import { ControlPosition, IControl } from 'maplibre-gl';
 import { mapSymbol } from '@/lib/types';
 import { usePositionWatcher } from '@/lib/composable/usePositionWatcher';
-import { renderSlot } from '@vue/runtime-core';
 
 
 export class CustomControl implements IControl {
@@ -80,7 +79,7 @@ export default /*#__PURE__*/ defineComponent({
 		return h(
 			Teleport as any,
 			{ to: this.container },
-			renderSlot(this.$slots, 'default')
+			this.$slots.default ? this.$slots.default() : undefined
 		);
 	}
 });
