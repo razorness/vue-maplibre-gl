@@ -44,6 +44,7 @@ app.use(VueMaplibreGl)
 Add CSS:
 
 ```scss
+@import "~maplibre-gl/dist/maplibre-gl.css";
 @import "~vue-maplibre-gl/dist/vue-maplibre-gl.css";
 ```
 
