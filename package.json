@@ -1,6 +1,6 @@
 {
 	"name": "vue-maplibre-gl",
-	"version": "2.0.0-alpha.1",
+	"version": "2.0.0-alpha.2",
 	"description": "Vue 3 plugin for maplibre-gl",
 	"keywords": [
 		"vue",
@@ -35,16 +35,6 @@
 		"dist/*",
 		"src/lib/**/*"
 	],
-	"exports": {
-		".": {
-			"import": "./dist/vue-maplibre-gl.es.js",
-			"require": "./dist/vue-maplibre-gl.umd.js"
-		},
-		"./dist/vue-maplibre-gl.css": {
-			"import": "./dist/vue-maplibre-gl.css",
-			"require": "./dist/vue-maplibre-gl.css"
-		}
-	},
 	"scripts": {
 		"dev": "vite",
 		"build": "vue-tsc --noEmit && vite build",

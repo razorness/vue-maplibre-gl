@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
 import banner from 'vite-plugin-banner';
-import { visualizer } from "rollup-plugin-visualizer";
 import path, { resolve } from 'path';
 // @ts-ignore - Webstorm is complaining somehow
 import pkg from './package.json' assert { type: 'json' };
@@ -10,9 +9,14 @@ import pkg from './package.json' assert { type: 'json' };
 // https://vitejs.dev/config/
 export default defineConfig({
 	resolve     : {
-		alias: [
+		alias : [
 			{ find: '@', replacement: path.resolve(__dirname, 'src') },
 			{ find: /^~(.+)/, replacement: '$1' }
+		],
+		dedupe: [
+			'vue',
+			'maplibre-gl',
+			'geojson'
 		]
 	},
 	plugins     : [
@@ -25,7 +29,7 @@ export default defineConfig({
 */`)
 	],
 	build       : {
-		cssCodeSplit : true,
+		cssCodeSplit: true,
 		// target       : 'esnext',
 		lib          : {
 			entry   : resolve(__dirname, 'src/lib/main.ts'),
@@ -53,7 +57,7 @@ export default defineConfig({
 				globals: {
 					vue          : 'Vue',
 					'maplibre-gl': 'maplibregl',
-					mitt: 'mitt'
+					mitt         : 'mitt'
 				},
 			},
 		}
