@@ -5,7 +5,7 @@
 [![vue3](https://img.shields.io/badge/vue-3.x-brightgreen.svg?style=flat-square)](https://vuejs.org/)
 [![MaplibreGL-JS](https://img.shields.io/badge/Maplibre%20GL%20JS-v2.x-brightgreen?style=flat-square)](https://maplibre.org/projects/maplibre-gl-js/)
 
-A small vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js). Only additional dependency is [mitt](https://github.com/developit/mitt).
+A small Vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js). Only additional dependency is [mitt](https://github.com/developit/mitt).
 
 Size: [9 KB gzipped](https://bundlephobia.com/package/vue-maplibre-gl)
 
