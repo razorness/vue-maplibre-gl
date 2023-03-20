@@ -2,22 +2,19 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
 import banner from 'vite-plugin-banner';
-import path, { resolve } from 'path';
+import { resolve } from 'path';
 // @ts-ignore - Webstorm is complaining somehow
 import pkg from './package.json' assert { type: 'json' };
+import { fileURLToPath } from 'url';
 
 // https://vitejs.dev/config/
 export default defineConfig({
 	resolve     : {
 		alias : [
-			{ find: '@', replacement: path.resolve(__dirname, 'src') },
+			{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
 			{ find: /^~(.+)/, replacement: '$1' }
 		],
-		dedupe: [
-			'vue',
-			'maplibre-gl',
-			'geojson'
-		]
+		dedupe: [ 'vue', 'maplibre-gl', 'geojson', 'mitt' ]
 	},
 	plugins     : [
 		vue(),
@@ -28,6 +25,9 @@ export default defineConfig({
 * @license ${pkg.license}
 */`)
 	],
+	ssr         : {
+		external: [ 'vue', 'maplibre-gl', 'geojson', 'mitt' ]
+	},
 	build       : {
 		cssCodeSplit: true,
 		// target       : 'esnext',

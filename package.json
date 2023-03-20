@@ -1,6 +1,6 @@
 {
 	"name": "vue-maplibre-gl",
-	"version": "2.0.0-alpha.2",
+	"version": "2.0.0-alpha.3",
 	"description": "Vue 3 plugin for maplibre-gl",
 	"keywords": [
 		"vue",
@@ -48,6 +48,7 @@
 		"@types/geojson": "^7946.0.10",
 		"@types/node": "^18.15.3",
 		"@vitejs/plugin-vue": "^4.1.0",
+		"geojson": "^0.5.0",
 		"maplibre-gl": "^2.4.0",
 		"mitt": "^3.0.0",
 		"sass": "^1.59.3",
