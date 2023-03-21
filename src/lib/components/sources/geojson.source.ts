@@ -2,7 +2,7 @@ import { createCommentVNode, defineComponent, inject, PropType, provide, toRef, 
 import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
 import { GeoJSONSource, GeoJSONSourceOptions, GeoJSONSourceSpecification, PromoteIdSpecification } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
-import GeoJSON from 'geojson';
+import type GeoJSON from 'geojson';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
 
