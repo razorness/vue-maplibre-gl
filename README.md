@@ -1,7 +1,7 @@
 # vue-maplibre-gl
 
 [![npm](https://img.shields.io/npm/v/vue-maplibre-gl.svg?style=flat-square)](https://www.npmjs.com/package/vue-maplibre-gl)
-[![TypeScript](https://img.shields.io/badge/-Typescript-informational?style=flat-square)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/-TypeScript-informational?style=flat-square)](https://www.typescriptlang.org/)
 [![size](https://img.shields.io/bundlephobia/minzip/vue-maplibre-gl?label=size&style=flat-square)](https://bundlephobia.com/package/vue-maplibre-gl)
 [![vue3](https://img.shields.io/badge/vue-3.x-brightgreen.svg?style=flat-square)](https://vuejs.org/)
 [![MaplibreGL-JS](https://img.shields.io/badge/Maplibre%20GL%20JS-2.x-brightgreen?style=flat-square)](https://maplibre.org/projects/maplibre-gl-js/)
