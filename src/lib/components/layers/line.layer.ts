@@ -32,8 +32,8 @@ export default /*#__PURE__*/ defineComponent({
 
 		watch([ isLoaded, sourceRef ], ([ il, src ]) => {
 			if (il && (src || src === undefined)) {
-				map.value.addLayer(LayerLib.genLayerOpts<LineLayerSpecification>(props.layerId!, 'line', props, sourceId), props.before || undefined);
-				LayerLib.registerLayerEvents(map.value, props.layerId!, ci.vnode);
+				map.value!.addLayer(LayerLib.genLayerOpts<LineLayerSpecification>(props.layerId!, 'line', props, sourceId), props.before || undefined);
+				LayerLib.registerLayerEvents(map.value!, props.layerId!, ci.vnode);
 			}
 		}, { immediate: true });
 

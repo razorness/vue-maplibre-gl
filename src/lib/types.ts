@@ -4,7 +4,7 @@ import { MglMap } from '@/lib/components';
 import { Emitter } from 'mitt';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 
-export const mapSymbol           = Symbol('map') as InjectionKey<ShallowRef<Map>>,
+export const mapSymbol           = Symbol('map') as InjectionKey<ShallowRef<Map | null>>,
 			 isLoadedSymbol      = Symbol('isLoaded') as InjectionKey<Ref<boolean>>,
 			 componentIdSymbol   = Symbol('componentId') as InjectionKey<number>,
 			 sourceIdSymbol      = Symbol('sourceId') as InjectionKey<string>,

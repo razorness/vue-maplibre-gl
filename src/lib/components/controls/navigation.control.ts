@@ -24,7 +24,7 @@ export default /*#__PURE__*/ defineComponent({
 			  control = new NavigationControl({ showCompass: props.showCompass, showZoom: props.showZoom, visualizePitch: props.visualizePitch });
 
 		usePositionWatcher(toRef(props, 'position'), map, control);
-		onBeforeUnmount(() => map.value.removeControl(control));
+		onBeforeUnmount(() => map.value?.removeControl(control));
 
 	},
 	render() {

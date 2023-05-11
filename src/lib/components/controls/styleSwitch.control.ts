@@ -45,7 +45,7 @@ export default /*#__PURE__*/ defineComponent({
 			  closer      = toggleOpen.bind(null, false);
 
 		function setStyleByMap() {
-			const name = map.value.getStyle().name;
+			const name = map.value!.getStyle().name;
 			for (let i = 0, len = props.mapStyles.length; i < len; i++) {
 				if (props.mapStyles[ i ].name === name) {
 					setStyle(props.mapStyles[ i ]);
@@ -57,7 +57,7 @@ export default /*#__PURE__*/ defineComponent({
 		watch(isMapLoaded, (v) => {
 			if (v) setStyleByMap();
 		}, { immediate: true });
-		map.value.on('style.load', setStyleByMap);
+		map.value!.on('style.load', setStyleByMap);
 		document.addEventListener('click', closer);
 
 
@@ -75,8 +75,8 @@ export default /*#__PURE__*/ defineComponent({
 		}
 
 		onBeforeUnmount(() => {
-			map.value.removeControl(control);
-			map.value.off('style.load', setStyleByMap);
+			map.value!.removeControl(control);
+			map.value!.off('style.load', setStyleByMap);
 			document.removeEventListener('click', closer);
 		});
 
@@ -85,7 +85,7 @@ export default /*#__PURE__*/ defineComponent({
 				return;
 			}
 			emitter.emit('styleSwitched', s);
-			map.value.setStyle(s.style);
+			map.value!.setStyle(s.style);
 			if (props.modelValue === undefined) {
 				modelValue.value = s;
 			}
@@ -169,35 +169,6 @@ export default /*#__PURE__*/ defineComponent({
 							})
 						)
 				]
-			// renderSlot(this.$slots, 'default', slotProps, () => [
-			// 	renderSlot(this.$slots, 'button', slotProps, () => [ h(MglButton, {
-			// 		type   : ButtonType.MDI,
-			// 		path   : 'M12,18.54L19.37,12.8L21,14.07L12,21.07L3,14.07L4.62,12.81L12,18.54M12,16L3,9L12,2L21,9L12,16M12,4.53L6.26,9L12,13.47L17.74,9L12,4.53Z',
-			// 		'class': [ 'maplibregl-ctrl-icon maplibregl-style-switch', this.intIsOpen ? 'is-open' : '' ],
-			// 		onClick: this.toggleOpen.bind(null, true)
-			// 	}) ]),
-			// 	renderSlot(this.$slots, 'styleList', slotProps, () => [
-			// 		h(
-			// 			'div',
-			// 			{ 'class': [ 'maplibregl-style-list', this.intIsOpen ? 'is-open' : '' ] },
-			// 			this.mapStyles.map((s) => {
-			// 				return s.icon
-			// 					? h(MglButton, {
-			// 						type   : ButtonType.MDI,
-			// 						path   : s.icon.path,
-			// 						'class': this.intModelValue?.name === s.name ? 'is-active' : '',
-			// 						onClick: () => this.setStyle(s)
-			// 					}, createTextVNode(s.label))
-			// 					: h('button', {
-			// 						type   : 'button',
-			// 						'class': this.intModelValue?.name === s.name ? 'is-active' : '',
-			// 						onClick: () => this.setStyle(s)
-			// 					}, createTextVNode(s.label));
-			//
-			// 			})
-			// 		)
-			// 	])
-			// ])
 		);
 	}
 });

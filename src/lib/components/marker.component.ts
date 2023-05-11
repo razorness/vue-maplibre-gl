@@ -31,7 +31,7 @@ export default /*#__PURE__*/ defineComponent({
 										  }, {});
 
 		const marker = new Marker(opts);
-		marker.setLngLat(props.coordinates).addTo(map.value);
+		marker.setLngLat(props.coordinates).addTo(map.value!);
 
 		watch(() => props.coordinates, v => marker.setLngLat(v));
 		// watch(() => props.draggable, v => marker.setDraggable(v || false));

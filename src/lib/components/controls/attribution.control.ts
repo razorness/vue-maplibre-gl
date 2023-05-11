@@ -23,7 +23,7 @@ export default /*#__PURE__*/ defineComponent({
 			  control = new AttributionControl({ compact: props.compact, customAttribution: props.customAttribution });
 
 		usePositionWatcher(toRef(props, 'position'), map, control);
-		onBeforeUnmount(() => map.value.removeControl(control));
+		onBeforeUnmount(() => map.value!.removeControl(control));
 
 	},
 	render() {

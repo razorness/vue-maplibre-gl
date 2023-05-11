@@ -209,7 +209,7 @@ export default /*#__PURE__*/ defineComponent({
 			  );
 
 		usePositionWatcher(toRef(props, 'position'), map, control);
-		onBeforeUnmount(() => map.value.removeControl(control));
+		onBeforeUnmount(() => map.value?.removeControl(control));
 
 	},
 	render() {

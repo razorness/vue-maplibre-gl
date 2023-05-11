@@ -31,7 +31,7 @@ export default /*#__PURE__*/ defineComponent({
 
 		watch([ isLoaded, sourceRef ], ([ il, src ]) => {
 			if (il && (src || src === undefined)) {
-				map.value.addLayer(LayerLib.genLayerOpts<BackgroundLayerSpecification>(props.layerId!, 'background', props, sourceId), props.before || undefined);
+				map.value!.addLayer(LayerLib.genLayerOpts<BackgroundLayerSpecification>(props.layerId!, 'background', props, sourceId), props.before || undefined);
 			}
 		}, { immediate: true });
 

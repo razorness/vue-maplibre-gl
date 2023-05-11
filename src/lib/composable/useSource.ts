@@ -18,8 +18,8 @@ export function useSource<O extends object>(
 
 	function addSource() {
 		if (isLoaded.value) {
-			map.value.addSource(props.sourceId, SourceLib.genSourceOpts<object, O>(type, props, sourceOpts) as SourceSpecification);
-			source.value = map.value.getSource(props.sourceId);
+			map.value!.addSource(props.sourceId, SourceLib.genSourceOpts<object, O>(type, props, sourceOpts) as SourceSpecification);
+			source.value = map.value!.getSource(props.sourceId);
 		}
 	}
 
@@ -28,15 +28,15 @@ export function useSource<O extends object>(
 	}
 
 	watch(isLoaded, addSource, { immediate: true });
-	map.value.on('style.load', addSource);
+	map.value!.on('style.load', addSource);
 	emitter.on('styleSwitched', resetSource);
 
 	return onBeforeUnmount(() => {
 		if (isLoaded.value) {
 			registry.unmount();
-			map.value.removeSource(props.sourceId);
+			map.value!.removeSource(props.sourceId);
 		}
-		map.value.off('style.load', addSource);
+		map.value!.off('style.load', addSource);
 		emitter.off('styleSwitched', resetSource);
 	});
 

@@ -38,7 +38,7 @@ export default /*#__PURE__*/ defineComponent({
 			  control = new ScaleControl({ maxWidth: props.maxWidth, unit: props.unit });
 
 		usePositionWatcher(toRef(props, 'position'), map, control);
-		onBeforeUnmount(() => map.value.removeControl(control));
+		onBeforeUnmount(() => map.value?.removeControl(control));
 
 	},
 	render() {

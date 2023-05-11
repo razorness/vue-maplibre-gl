@@ -66,7 +66,7 @@ export default /*#__PURE__*/ defineComponent({
 		usePositionWatcher(toRef(props, 'position'), map, control);
 		watch(toRef(props, 'noClasses'), v => control.setClasses(v!));
 		onBeforeUnmount(() => {
-			map.value.removeControl(control);
+			map.value?.removeControl(control);
 		});
 
 		return { isAdded, container: control.container };

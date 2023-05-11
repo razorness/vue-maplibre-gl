@@ -12,11 +12,11 @@ export function useDisposableLayer(layerId: string, ci?: ComponentInternalInstan
 	function removeLayer() {
 		if (isLoaded.value) {
 			if (ci) {
-				LayerLib.unregisterLayerEvents(map.value, layerId, ci.vnode);
+				LayerLib.unregisterLayerEvents(map.value!, layerId, ci.vnode);
 			}
-			const layer = map.value.getLayer(layerId);
+			const layer = map.value!.getLayer(layerId);
 			if (layer) {
-				map.value.removeLayer(layerId);
+				map.value!.removeLayer(layerId);
 			}
 		}
 	}

@@ -1,0 +1,5 @@
+{
+	"packageMode": {
+		"@types/node"  : "minor"
+	}
+}

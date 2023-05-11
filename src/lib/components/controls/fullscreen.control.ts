@@ -25,7 +25,7 @@ export default /*#__PURE__*/ defineComponent({
 			  control = new FullscreenControl({ container: props.container || undefined });
 
 		usePositionWatcher(toRef(props, 'position'), map, control);
-		onBeforeUnmount(() => map.value.removeControl(control));
+		onBeforeUnmount(() => map.value?.removeControl(control));
 
 	},
 	render() {
