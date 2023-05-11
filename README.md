@@ -73,7 +73,7 @@ or in a parent components `.vue` file
 
 # Usage
 
-See [/dev/serve.vue](https://github.com/razorness/vue-maplibre-gl/blob/master/dev/serve.vue) for a real world example.
+See [src/App.vue](src/App.vue) for a real world example.
 
 # Demo
 
