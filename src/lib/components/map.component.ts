@@ -174,10 +174,8 @@ export default /*#__PURE__*/ defineComponent({
 			}
 		});
 
-		/*
-		 * init map
-		 */
-		onMounted(() => {
+		function initialize() {
+
 			registryItem.isMounted = true;
 
 			// build options
@@ -206,9 +204,45 @@ export default /*#__PURE__*/ defineComponent({
 				}
 			}
 
+			// automatic re-initialization of map on CONTEXT_LOST_WEBGL
+			map.value.getCanvas().addEventListener('webglcontextlost', restart);
+
+		}
+
+		function dispose() {
+
+			registryItem.isMounted = false;
+			registryItem.isLoaded  = false;
+
+			// unbind events
+			if (map.value) {
+				map.value.getCanvas().removeEventListener('webglcontextlost', restart);
+				isInitialized.value = false;
+				boundMapEvents.forEach((func, en) => {
+					map.value!.off(en.startsWith('__') ? en.substring(2) : en, func as any);
+				});
+				map.value.remove();
+			}
+
+		}
+
+		function restart() {
+			dispose();
+			initialize();
+		}
+
+		/*
+		 * init map
+		 */
+		onMounted(() => {
+
+			initialize();
+
 			// bind resize observer
-			resizeObserver = new ResizeObserver(debounce(map.value.resize.bind(map.value), 100));
-			resizeObserver.observe(container.value as HTMLDivElement);
+			if (map.value) {
+				resizeObserver = new ResizeObserver(debounce(map.value.resize.bind(map.value), 100));
+				resizeObserver.observe(container.value as HTMLDivElement);
+			}
 
 		});
 
@@ -216,20 +250,13 @@ export default /*#__PURE__*/ defineComponent({
 		 * Dispose component
 		 */
 		onBeforeUnmount(() => {
-			registryItem.isMounted = false;
-			registryItem.isLoaded  = false;
 
 			// unbind resize observer
 			if (resizeObserver) {
 				resizeObserver.disconnect();
 			}
 
-			// unbind events
-			if (map.value) {
-				boundMapEvents.forEach((func, en) => {
-					map.value!.off(en.startsWith('__') ? en.substring(2) : en, func as any);
-				});
-			}
+			dispose();
 
 		});
 
