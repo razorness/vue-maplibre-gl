@@ -1,4 +1,19 @@
-import { defineComponent, getCurrentInstance, h, markRaw, onBeforeUnmount, onMounted, PropType, provide, ref, shallowRef, toRef, unref, watch } from 'vue';
+import {
+	defineComponent,
+	getCurrentInstance,
+	h,
+	markRaw,
+	nextTick,
+	onBeforeUnmount,
+	onMounted,
+	PropType,
+	provide,
+	ref,
+	shallowRef,
+	toRef,
+	unref,
+	watch
+} from 'vue';
 import {
 	FitBoundsOptions,
 	GestureOptions,
@@ -228,7 +243,7 @@ export default /*#__PURE__*/ defineComponent({
 
 		function restart() {
 			dispose();
-			initialize();
+			nextTick(initialize);
 		}
 
 		/*
