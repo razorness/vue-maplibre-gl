@@ -228,6 +228,7 @@ export default /*#__PURE__*/ defineComponent({
 
 			registryItem.isMounted = false;
 			registryItem.isLoaded  = false;
+			isLoaded.value = false;
 
 			// unbind events
 			if (map.value) {
