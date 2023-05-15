@@ -1,6 +1,6 @@
 import { createCommentVNode, createTextVNode, defineComponent, h, inject, onBeforeUnmount, PropType, ref, shallowRef, Teleport, toRef, watch } from 'vue';
 import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
-import { emitterSymbol, isLoadedSymbol, mapSymbol, StyleSwitchItem } from '@/lib/types';
+import { emitterSymbol, isInitializedSymbol, isLoadedSymbol, mapSymbol, StyleSwitchItem } from '@/lib/types';
 import { CustomControl } from '@/lib/components/controls/custom.control';
 import { usePositionWatcher } from '@/lib/composable/usePositionWatcher';
 import { MglButton } from '@/lib/components';
@@ -35,14 +35,15 @@ export default /*#__PURE__*/ defineComponent({
 	emits: [ 'update:modelValue', 'update:isOpen' ],
 	setup(props, { emit }) {
 
-		const map         = inject(mapSymbol)!,
-			  isMapLoaded = inject(isLoadedSymbol)!,
-			  emitter     = inject(emitterSymbol)!,
-			  isAdded     = ref(false),
-			  isOpen      = ref(props.isOpen === undefined ? false : props.isOpen),
-			  modelValue  = shallowRef(props.modelValue === undefined ? (props.mapStyles.length ? props.mapStyles[ 0 ] : null) : props.modelValue),
-			  control     = new CustomControl(isAdded, false),
-			  closer      = toggleOpen.bind(null, false);
+		const map           = inject(mapSymbol)!,
+			  isInitialized = inject(isInitializedSymbol)!,
+			  isMapLoaded   = inject(isLoadedSymbol)!,
+			  emitter       = inject(emitterSymbol)!,
+			  isAdded       = ref(false),
+			  isOpen        = ref(props.isOpen === undefined ? false : props.isOpen),
+			  modelValue    = shallowRef(props.modelValue === undefined ? (props.mapStyles.length ? props.mapStyles[ 0 ] : null) : props.modelValue),
+			  control       = new CustomControl(isAdded, false),
+			  closer        = toggleOpen.bind(null, false);
 
 		function setStyleByMap() {
 			const name = map.value!.getStyle().name;
@@ -75,8 +76,10 @@ export default /*#__PURE__*/ defineComponent({
 		}
 
 		onBeforeUnmount(() => {
-			map.value!.removeControl(control);
-			map.value!.off('style.load', setStyleByMap);
+			if (isInitialized.value) {
+				map.value!.removeControl(control);
+				map.value!.off('style.load', setStyleByMap);
+			}
 			document.removeEventListener('click', closer);
 		});
 

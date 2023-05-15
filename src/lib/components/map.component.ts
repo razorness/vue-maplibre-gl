@@ -24,7 +24,7 @@ import {
 	RequestTransformFunction,
 	StyleSpecification
 } from 'maplibre-gl';
-import { componentIdSymbol, emitterSymbol, isLoadedSymbol, mapSymbol, MglEvents, sourceIdSymbol } from '@/lib/types';
+import { componentIdSymbol, emitterSymbol, isInitializedSymbol, isLoadedSymbol, mapSymbol, MglEvents, sourceIdSymbol } from '@/lib/types';
 import { defaults } from '@/lib/defaults';
 import { MapLib } from '@/lib/lib/map.lib';
 import { Position } from '@/lib/components/controls/position.enum';
@@ -111,6 +111,7 @@ export default /*#__PURE__*/ defineComponent({
 
 		provide(mapSymbol, map);
 		provide(isLoadedSymbol, isLoaded);
+		provide(isInitializedSymbol, isInitialized);
 		provide(componentIdSymbol, component.uid);
 		provide(sourceIdSymbol, '');
 		provide(emitterSymbol, emitter);
@@ -224,19 +225,23 @@ export default /*#__PURE__*/ defineComponent({
 
 		}
 
-		function dispose() {
+		async function dispose() {
 
 			registryItem.isMounted = false;
 			registryItem.isLoaded  = false;
-			isLoaded.value = false;
+			isLoaded.value         = false;
 
-			// unbind events
 			if (map.value) {
+				// unbind events
 				map.value.getCanvas().removeEventListener('webglcontextlost', restart);
+				map.value._controls.forEach((control) => {
+					map.value!.removeControl(control);
+				});
 				isInitialized.value = false;
 				boundMapEvents.forEach((func, en) => {
 					map.value!.off(en.startsWith('__') ? en.substring(2) : en, func as any);
 				});
+				// destroy map
 				map.value.remove();
 			}
 

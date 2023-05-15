@@ -1,6 +1,6 @@
 import { defineComponent, inject, onBeforeUnmount, PropType, toRef } from 'vue';
 import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
-import { mapSymbol } from '@/lib/types';
+import { isInitializedSymbol, mapSymbol } from '@/lib/types';
 import { ScaleControl } from 'maplibre-gl';
 import { usePositionWatcher } from '@/lib/composable/usePositionWatcher';
 
@@ -34,11 +34,12 @@ export default /*#__PURE__*/ defineComponent({
 	},
 	setup(props) {
 
-		const map     = inject(mapSymbol)!,
-			  control = new ScaleControl({ maxWidth: props.maxWidth, unit: props.unit });
+		const map           = inject(mapSymbol)!,
+			  isInitialized = inject(isInitializedSymbol)!,
+			  control       = new ScaleControl({ maxWidth: props.maxWidth, unit: props.unit });
 
 		usePositionWatcher(toRef(props, 'position'), map, control);
-		onBeforeUnmount(() => map.value?.removeControl(control));
+		onBeforeUnmount(() => isInitialized.value && map.value?.removeControl(control));
 
 	},
 	render() {
