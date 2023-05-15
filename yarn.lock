@@ -3484,7 +3484,7 @@ __metadata:
   peerDependencies:
     maplibre-gl: ^2.4.0
     mitt: ^3.0.0
-    vue: ^3.2.47
+    vue: ^3.3.2
   languageName: unknown
   linkType: soft
 
