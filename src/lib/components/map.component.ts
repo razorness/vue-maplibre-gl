@@ -24,13 +24,14 @@ import {
 	RequestTransformFunction,
 	StyleSpecification
 } from 'maplibre-gl';
-import { componentIdSymbol, emitterSymbol, isInitializedSymbol, isLoadedSymbol, mapSymbol, MglEvents, sourceIdSymbol } from '@/lib/types';
+import { componentIdSymbol, emitterSymbol, isInitializedSymbol, isLoadedSymbol, mapSymbol, MglEvents, sourceIdSymbol, ValidLanguages } from '@/lib/types';
 import { defaults } from '@/lib/defaults';
 import { MapLib } from '@/lib/lib/map.lib';
 import { Position } from '@/lib/components/controls/position.enum';
 import mitt from 'mitt';
 import { registerMap } from '@/lib/lib/mapRegistry';
 import { debounce } from '@/lib/lib/debounce';
+import { setPrimaryLanguage } from 'modular-maptiler-sdk/src/language';
 
 export default /*#__PURE__*/ defineComponent({
 	name : 'MglMap',
@@ -58,6 +59,7 @@ export default /*#__PURE__*/ defineComponent({
 		interactive                 : { type: Boolean as PropType<boolean>, default: () => defaults.interactive },
 		keyboard                    : { type: Boolean as PropType<boolean>, default: () => defaults.keyboard },
 		locale                      : { type: Object as PropType<Record<string, string>>, default: () => defaults.locale },
+		language                    : { type: String as PropType<ValidLanguages | null>, default: () => defaults.language || null },
 		localIdeographFontFamily    : { type: String as PropType<string>, default: () => defaults.localIdeographFontFamily },
 		logoPosition                : {
 			type     : [ String ] as PropType<Position>,
@@ -103,6 +105,7 @@ export default /*#__PURE__*/ defineComponent({
 			  map                = shallowRef<MaplibreMap | null>(null),
 			  isInitialized      = ref(false),
 			  isLoaded           = ref(false),
+			  isStyleReady       = ref(false),
 			  boundMapEvents     = new Map<string, Function>(),
 			  emitter            = mitt<MglEvents>(),
 			  registryItem       = registerMap(component as any, props.mapKey);
@@ -189,6 +192,26 @@ export default /*#__PURE__*/ defineComponent({
 				map.value?.setZoom(v);
 			}
 		});
+		watch(toRef(props, 'language'), v => {
+			if (isStyleReady.value && map.value && registryItem.language !== (v || null)) {
+				setPrimaryLanguage(map.value as any, v || '');
+				registryItem.language = v || null;
+			}
+		});
+		watch(toRef(registryItem, 'language'), v => {
+			if (isStyleReady.value && map.value) {
+				setPrimaryLanguage(map.value as any, v || '');
+			}
+		});
+
+		function onStyleReady() {
+			isStyleReady.value = true;
+			if (props.language) {
+				registryItem.language = props.language;
+			} else if (registryItem.language) {
+				setPrimaryLanguage(map.value! as any, props.language || '');
+			}
+		}
 
 		function initialize() {
 
@@ -207,6 +230,7 @@ export default /*#__PURE__*/ defineComponent({
 			registryItem.map    = map.value;
 			isInitialized.value = true;
 			boundMapEvents.set('__load', () => (isLoaded.value = true, registryItem.isLoaded = true));
+			map.value.once('styledata', onStyleReady);
 			map.value.on('load', boundMapEvents.get('__load') as any);
 
 			// bind events

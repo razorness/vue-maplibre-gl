@@ -8,6 +8,7 @@
 				:center="center"
 				:zoom="zoom"
 				:attribution-control="false"
+				language="fr"
 				@map:load="onLoad"
 				@map:zoomstart="isZooming = true"
 				@map:zoomend="isZooming = false"
@@ -70,12 +71,22 @@
 			<input type="checkbox" v-model="showMap" id="showmap">
 			<label for="showmap">Show Map</label>
 		</div>
+		<div>
+			<label for="cars">Language:</label>
+			<select :value="map.language" @input="setLanguage">
+				<option value="">n/a</option>
+				<option value="de">German</option>
+				<option value="en">English</option>
+				<option value="fr">French</option>
+				<option value="ja">Japanese</option>
+			</select>
+		</div>
 	</div>
 </template>
 
 <script lang="ts">
 	import { defineComponent, onMounted, ref, toRef, watch } from 'vue';
-	import { MglDefaults, MglEvent, Position, StyleSwitchItem, useMap } from '@/lib/main';
+	import { MglDefaults, MglEvent, Position, StyleSwitchItem, useMap, ValidLanguages } from '@/lib/main';
 	import { mdiCursorDefaultClick } from '@mdi/js';
 	import { CircleLayerSpecification, LineLayerSpecification, LngLatLike, MapLayerMouseEvent } from 'maplibre-gl';
 	import MglMap from '@/lib/components/map.component';
@@ -168,9 +179,13 @@
 				console.log('EVENT', e.type, e.lngLat);
 			}
 
+			function setLanguage(e: Event) {
+				console.log('setLanguage', e);
+				map.language = (e.target as HTMLSelectElement).value as ValidLanguages;
+			}
 
 			return {
-				showCustomControl, loaded, markerCoordinates, geoJsonSource, onLoad, onMouseenter,
+				showCustomControl, loaded, map, markerCoordinates, geoJsonSource, onLoad, onMouseenter, setLanguage,
 				isZooming                 : false,
 				controlPosition           : ref(Position.TOP_LEFT),
 				showMap                   : ref(true),

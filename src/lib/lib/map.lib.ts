@@ -1,6 +1,6 @@
-import { Map, MapOptions, MarkerOptions } from 'maplibre-gl';
+import { Map, MapOptions, MarkerOptions, SymbolLayerSpecification } from 'maplibre-gl';
 import { MglMap } from '@/lib/components';
-import { MglEvent } from '@/lib/types';
+import { MglEvent, ValidLanguages } from '@/lib/types';
 
 export type MapEventHandler = (e: any) => void;
 
@@ -27,7 +27,9 @@ export class MapLib {
 		'wheel'
 	];
 
-	static createEventHandler(component: InstanceType<typeof MglMap>, map: Map, ctx: { emit: (t: string, payload: any) => void }, eventName: string): MapEventHandler {
+	static createEventHandler(component: InstanceType<typeof MglMap>, map: Map, ctx: {
+		emit: (t: string, payload: any) => void
+	}, eventName: string): MapEventHandler {
 		return (payload = {}) => ctx.emit(eventName, { type: payload.type, map, component, event: payload } as MglEvent);
 	}
 
