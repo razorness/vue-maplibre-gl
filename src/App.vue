@@ -35,6 +35,10 @@
 					/>
 				</mgl-geo-json-source>
 
+				<mgl-vector-source source-id="libraries" :tiles="librariesSourceTiles">
+					<mgl-circle-layer layer-id="libraries" source-layer="libraries" :paint="librariesLayerCirclesPaint"/>
+				</mgl-vector-source>
+
 			</mgl-map>
 		</div>
 		Loaded Count: {{ loaded }}<br>
@@ -73,7 +77,7 @@
 	import { defineComponent, onMounted, ref, toRef, watch } from 'vue';
 	import { MglDefaults, MglEvent, Position, StyleSwitchItem, useMap } from '@/lib/main';
 	import { mdiCursorDefaultClick } from '@mdi/js';
-	import { LineLayerSpecification, LngLatLike, MapLayerMouseEvent } from 'maplibre-gl';
+	import { CircleLayerSpecification, LineLayerSpecification, LngLatLike, MapLayerMouseEvent } from 'maplibre-gl';
 	import MglMap from '@/lib/components/map.component';
 	import MglFrameRateControl from '@/lib/components/controls/frameRate.control';
 	import MglFullscreenControl from '@/lib/components/controls/fullscreen.control';
@@ -88,6 +92,8 @@
 	import MglGeoJsonSource from '@/lib/components/sources/geojson.source';
 	import MglLineLayer from '@/lib/components/layers/line.layer';
 	import { FeatureCollection } from 'geojson';
+	import MglVectorSource from '@/lib/components/sources/vector.source';
+	import MglCircleLayer from '@/lib/components/layers/circle.layer';
 
 	MglDefaults.style = 'https://api.maptiler.com/maps/streets/style.json?key=cQX2iET1gmOW38bedbUh';
 	console.log('MglDefaults', MglDefaults);
@@ -95,6 +101,8 @@
 	export default defineComponent({
 		name      : 'App',
 		components: {
+			MglCircleLayer,
+			MglVectorSource,
 			MglLineLayer, MglGeoJsonSource, MglMarker, MglStyleSwitchControl, MglButton, MglCustomControl, MglGeolocationControl, MglScaleControl,
 			MglNavigationControl, MglAttributionControl, MglFullscreenControl, MglFrameRateControl, MglMap
 		},
@@ -163,13 +171,13 @@
 
 			return {
 				showCustomControl, loaded, markerCoordinates, geoJsonSource, onLoad, onMouseenter,
-				isZooming      : false,
-				controlPosition: ref(Position.TOP_LEFT),
-				showMap        : ref(true),
-				center         : [ 10.288107, 49.405078 ] as LngLatLike,
-				zoom           : 3,
-				useClasses     : ref(true),
-				mapStyles      : [
+				isZooming                 : false,
+				controlPosition           : ref(Position.TOP_LEFT),
+				showMap                   : ref(true),
+				center                    : [ 10.288107, 49.405078 ] as LngLatLike,
+				zoom                      : 3,
+				useClasses                : ref(true),
+				mapStyles                 : [
 					{
 						name : 'Streets',
 						label: 'Streets',
@@ -181,15 +189,20 @@
 					{ name: 'Satellite', label: 'Satellite', style: 'https://api.maptiler.com/maps/hybrid/style.json?key=cQX2iET1gmOW38bedbUh' },
 					{ name: 'Voyager', label: 'Voyager', style: 'https://api.maptiler.com/maps/voyager/style.json?key=cQX2iET1gmOW38bedbUh' }
 				] as StyleSwitchItem[],
-				buttonIcon     : mdiCursorDefaultClick,
-				layout         : {
+				buttonIcon                : mdiCursorDefaultClick,
+				layout                    : {
 					'line-join': 'round',
 					'line-cap' : 'round'
 				} as LineLayerSpecification['layout'],
-				paint          : {
+				paint                     : {
 					'line-color': '#FF0000',
 					'line-width': 8
-				} as LineLayerSpecification['paint']
+				} as LineLayerSpecification['paint'],
+				librariesSourceTiles      : [ 'https://api.librarydata.uk/libraries/{z}/{x}/{y}.mvt' ],
+				librariesLayerCirclesPaint: {
+					'circle-radius': 5,
+					'circle-color' : '#1b5e20'
+				} as CircleLayerSpecification['paint']
 			};
 		}
 	});

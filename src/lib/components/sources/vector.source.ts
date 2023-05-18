@@ -52,6 +52,9 @@ export default /*#__PURE__*/ defineComponent({
 
 	},
 	render() {
-		return createCommentVNode('Vector Source');
+		return [
+			createCommentVNode('Vector Source'),
+			this.source && this.$slots.default ? this.$slots.default() : undefined
+		];
 	}
 });

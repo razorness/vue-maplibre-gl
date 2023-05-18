@@ -49,6 +49,9 @@ export default /*#__PURE__*/ defineComponent({
 
 	},
 	render() {
-		return createCommentVNode('Video Source');
+		return [
+			createCommentVNode('Raster Source'),
+			this.source && this.$slots.default ? this.$slots.default() : undefined
+		];
 	}
 });
