@@ -17,6 +17,8 @@ A small Vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-g
 - Customizable style switch which reloads sources and layers automatically
 - Frame rate control included
 - Support for multiple instances and global access by `useMap(key: string | symbol)`
+- Simple way to switch map displayed language
+- Automatic restart on CONTEXT_LOST_WEBGL which can happen on mobile devices when tab was in background for longer time 
 - Small size
 
 ## Table of contents
