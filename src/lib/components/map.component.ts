@@ -10,6 +10,7 @@ import {
 	provide,
 	ref,
 	shallowRef,
+	SlotsType,
 	toRef,
 	unref,
 	watch
@@ -97,6 +98,7 @@ export default /*#__PURE__*/ defineComponent({
 		'map:zoomstart', 'map:zoom', 'map:zoomend', 'map:rotatestart', 'map:rotate', 'map:rotateend', 'map:dragstart', 'map:drag', 'map:dragend',
 		'map:pitchstart', 'map:pitch', 'map:pitchend', 'map:wheel'
 	],
+	slots: Object as SlotsType<{ default: {} }>,
 	setup(props, ctx) {
 
 		const component          = markRaw(getCurrentInstance()!),
@@ -110,7 +112,7 @@ export default /*#__PURE__*/ defineComponent({
 			  emitter            = mitt<MglEvents>(),
 			  registryItem       = registerMap(component as any, props.mapKey);
 
-		let resizeObserver: ResizeObserver;
+		let resizeObserver: ResizeObserver | undefined;
 
 		provide(mapSymbol, map);
 		provide(isLoadedSymbol, isLoaded);
@@ -297,30 +299,27 @@ export default /*#__PURE__*/ defineComponent({
 		onBeforeUnmount(() => {
 
 			// unbind resize observer
-			if (resizeObserver) {
+			if (resizeObserver !== undefined) {
 				resizeObserver.disconnect();
+				resizeObserver = undefined;
 			}
 
 			dispose();
 
 		});
 
-		return {
-			map, componentContainer, container, isLoaded, isInitialized
-		};
-	},
-	render() {
-		return h(
+		return () => h(
 			'div',
 			{
 				ref    : 'componentContainer',
 				'class': 'mgl-container',
-				style  : { height: this.$props.height, width: this.$props.width }
+				style  : { height: props.height, width: props.width }
 			},
 			[
 				h('div', { ref: 'container', 'class': 'mgl-wrapper' }),
-				this.isInitialized && this.$slots.default ? this.$slots.default() : undefined
+				isInitialized.value && ctx.slots.default ? ctx.slots.default({}) : undefined
 			]
 		);
+
 	}
 });

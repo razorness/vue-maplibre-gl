@@ -1,4 +1,19 @@
-import { createCommentVNode, createTextVNode, defineComponent, h, inject, onBeforeUnmount, PropType, ref, shallowRef, Teleport, toRef, watch } from 'vue';
+import {
+	createCommentVNode,
+	createTextVNode,
+	defineComponent,
+	h,
+	inject,
+	onBeforeUnmount,
+	PropType,
+	Ref,
+	ref,
+	shallowRef, Slot,
+	SlotsType,
+	Teleport,
+	toRef,
+	watch
+} from 'vue';
 import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 import { emitterSymbol, isInitializedSymbol, isLoadedSymbol, mapSymbol, StyleSwitchItem } from '@/lib/types';
 import { CustomControl } from '@/lib/components/controls/custom.control';
@@ -8,6 +23,14 @@ import { ButtonType } from '@/lib/components/button.component';
 
 function isEvent(e: any): e is Event {
 	return e && !!(e as Event).stopPropagation;
+}
+
+interface SlotProps {
+	isOpen: Ref<boolean>,
+	toggleOpen: (forceIsOpen?: boolean | Event, e?: Event) => void,
+	setStyle: (s: StyleSwitchItem) => void,
+	mapStyles: StyleSwitchItem[],
+	currentStyle: Ref<StyleSwitchItem | null>,
 }
 
 export default /*#__PURE__*/ defineComponent({
@@ -32,8 +55,9 @@ export default /*#__PURE__*/ defineComponent({
 			default: undefined
 		}
 	},
+	slots: Object as SlotsType<{ default: SlotProps, button: SlotProps, styleList: SlotProps }>,
 	emits: [ 'update:modelValue', 'update:isOpen' ],
-	setup(props, { emit }) {
+	setup(props, { emit, slots }) {
 
 		const map           = inject(mapSymbol)!,
 			  isInitialized = inject(isInitializedSymbol)!,
@@ -114,7 +138,55 @@ export default /*#__PURE__*/ defineComponent({
 			}
 		}
 
-		return { isAdded, container: control.container, setStyle, toggleOpen, intIsOpen: isOpen, intModelValue: modelValue };
+		return () => {
+			if (!isAdded.value) {
+				return createCommentVNode('style-switch-control');
+			}
+
+			const slotProps: SlotProps = {
+				isOpen, toggleOpen, setStyle,
+				mapStyles   : props.mapStyles,
+				currentStyle: modelValue,
+			};
+
+			return h(
+				Teleport as any,
+				{ to: control.container },
+				slots.default
+					? slots.default(slotProps)
+					: [
+						slots.button
+							? slots.button(slotProps)
+							: h(MglButton, {
+								type   : ButtonType.MDI,
+								path   : 'M12,18.54L19.37,12.8L21,14.07L12,21.07L3,14.07L4.62,12.81L12,18.54M12,16L3,9L12,2L21,9L12,16M12,4.53L6.26,9L12,13.47L17.74,9L12,4.53Z',
+								'class': [ 'maplibregl-ctrl-icon maplibregl-style-switch', isOpen.value ? 'is-open' : '' ],
+								onClick: toggleOpen.bind(null, true)
+							}),
+						slots.styleList
+							? slots.styleList(slotProps)
+							: h(
+								'div',
+								{ 'class': [ 'maplibregl-style-list', isOpen.value ? 'is-open' : '' ] },
+								props.mapStyles.map((s) => {
+									return s.icon
+										? h(MglButton, {
+											type   : ButtonType.MDI,
+											path   : s.icon.path,
+											'class': modelValue.value?.name === s.name ? 'is-active' : '',
+											onClick: () => setStyle(s)
+										}, createTextVNode(s.label))
+										: h('button', {
+											type   : 'button',
+											'class': modelValue.value?.name === s.name ? 'is-active' : '',
+											onClick: () => setStyle(s)
+										}, createTextVNode(s.label));
+
+								})
+							)
+					]
+			);
+		};
 
 	},
 	// just only for code assist
@@ -123,56 +195,6 @@ export default /*#__PURE__*/ defineComponent({
 		<slot name="button"></slot>
 		<slot name="styleList"></slot>
 		</slot>
-	`,
-	render() {
-		if (!this.isAdded) {
-			return createCommentVNode('style-switch-control');
-		}
-		const slotProps = {
-			isOpen      : this.intIsOpen,
-			currentStyle: this.intModelValue,
-			mapStyles   : this.mapStyles,
-			toggleOpen  : this.toggleOpen,
-			setStyle    : this.setStyle
-		};
-
-		return h(
-			Teleport as any,
-			{ to: this.container },
-			this.$slots.default
-				? this.$slots.default(slotProps)
-				: [
-					this.$slots.button
-						? this.$slots.button(slotProps)
-						: h(MglButton, {
-							type   : ButtonType.MDI,
-							path   : 'M12,18.54L19.37,12.8L21,14.07L12,21.07L3,14.07L4.62,12.81L12,18.54M12,16L3,9L12,2L21,9L12,16M12,4.53L6.26,9L12,13.47L17.74,9L12,4.53Z',
-							'class': [ 'maplibregl-ctrl-icon maplibregl-style-switch', this.intIsOpen ? 'is-open' : '' ],
-							onClick: this.toggleOpen.bind(null, true)
-						}),
-					this.$slots.styleList
-						? this.$slots.styleList(slotProps)
-						: h(
-							'div',
-							{ 'class': [ 'maplibregl-style-list', this.intIsOpen ? 'is-open' : '' ] },
-							this.mapStyles.map((s) => {
-								return s.icon
-									? h(MglButton, {
-										type   : ButtonType.MDI,
-										path   : s.icon.path,
-										'class': this.intModelValue?.name === s.name ? 'is-active' : '',
-										onClick: () => this.setStyle(s)
-									}, createTextVNode(s.label))
-									: h('button', {
-										type   : 'button',
-										'class': this.intModelValue?.name === s.name ? 'is-active' : '',
-										onClick: () => this.setStyle(s)
-									}, createTextVNode(s.label));
-
-							})
-						)
-				]
-		);
-	}
+	`
 });
 

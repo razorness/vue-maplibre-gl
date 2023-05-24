@@ -37,7 +37,7 @@ export class FrameRateControl implements IControl {
 		this.map = map;
 
 		const el     = (this.container = document.createElement('div'));
-		el.className = 'mapboxgl-ctrl mapboxgl-ctrl-fps';
+		el.className = 'maplibregl-ctrl maplibregl-ctrl-fps';
 
 		el.style.backgroundColor = this.background;
 		el.style.borderRadius    = '6px';
@@ -51,7 +51,7 @@ export class FrameRateControl implements IControl {
 		this.readOutput.textContent      = 'Waiting…';
 
 		this.canvas               = document.createElement('canvas');
-		this.canvas.className     = 'mapboxgl-ctrl-canvas';
+		this.canvas.className     = 'maplibregl-ctrl-canvas';
 		this.canvas.width         = this.width;
 		this.canvas.height        = this.graphHeight;
 		this.canvas.style.cssText = `width: ${this.width / window.devicePixelRatio}px; height: ${this.graphHeight / window.devicePixelRatio}px;`;

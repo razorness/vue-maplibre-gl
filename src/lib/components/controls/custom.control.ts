@@ -1,4 +1,4 @@
-import { createCommentVNode, defineComponent, h, inject, nextTick, onBeforeUnmount, PropType, ref, Ref, Teleport, toRef, watch } from 'vue';
+import { createCommentVNode, defineComponent, h, inject, nextTick, onBeforeUnmount, PropType, ref, Ref, SlotsType, Teleport, toRef, watch } from 'vue';
 import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 import { ControlPosition, IControl } from 'maplibre-gl';
 import { isInitializedSymbol, mapSymbol } from '@/lib/types';
@@ -57,7 +57,8 @@ export default /*#__PURE__*/ defineComponent({
 			default: false
 		}
 	},
-	setup(props) {
+	slots: Object as SlotsType<{ default: {} }>,
+	setup(props, { slots }) {
 
 		const map           = inject(mapSymbol)!,
 			  isInitialized = inject(isInitializedSymbol)!,
@@ -68,17 +69,16 @@ export default /*#__PURE__*/ defineComponent({
 		watch(toRef(props, 'noClasses'), v => control.setClasses(v!));
 		onBeforeUnmount(() => isInitialized.value && map.value?.removeControl(control));
 
-		return { isAdded, container: control.container };
+		return () => {
+			if (!isAdded.value) {
+				return createCommentVNode('custom-component');
+			}
+			return h(
+				Teleport as any,
+				{ to: control.container },
+				slots.default ? slots.default({}) : undefined
+			);
+		};
 
-	},
-	render() {
-		if (!this.isAdded) {
-			return createCommentVNode('custom-component');
-		}
-		return h(
-			Teleport as any,
-			{ to: this.container },
-			this.$slots.default ? this.$slots.default() : undefined
-		);
 	}
 });

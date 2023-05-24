@@ -1,4 +1,4 @@
-import { defineComponent, h, PropType, ref, warn, watch } from 'vue';
+import { defineComponent, h, PropType, ref, SlotsType, warn, watch } from 'vue';
 
 export enum ButtonType {
 	DEFAULT     = 'default',
@@ -47,7 +47,8 @@ export default /*#__PURE__*/ defineComponent({
 		size   : Number as PropType<number>,
 		viewbox: String as PropType<string>
 	},
-	setup(props) {
+	slots: Object as SlotsType<{ default: {} }>,
+	setup(props, { slots }) {
 
 		if (!props.path && props.type !== ButtonType.TEXT) {
 			warn('property `path` must be set on MaplibreButton');
@@ -56,26 +57,25 @@ export default /*#__PURE__*/ defineComponent({
 		const defaults = ref(types[ props.type ] || types.default);
 		watch(() => props.type, v => defaults.value = types[ v ] || types.default);
 
-		return { defaults };
+		return () => {
+			if (props.type === ButtonType.TEXT) {
+				return h('button', { type: 'button' }, slots.default({}));
+			}
+			return h('button', { type: 'button', 'class': 'maplibregl-ctrl-icon' },
+				[
+					h(
+						'svg',
+						{
+							width  : props.size || defaults.value!.size,
+							height : props.size || defaults.value!.size,
+							viewBox: props.viewbox || defaults.value!.viewbox
+						},
+						h('path', { fill: 'currentColor', d: props.path })
+					),
+					slots.default({})
+				]
+			);
+		};
 
-	},
-	render() {
-		if (this.type === ButtonType.TEXT) {
-			return h('button', { type: 'button' }, this.$slots.default ? this.$slots.default() : undefined );
-		}
-		return h('button', { type: 'button', 'class': 'maplibregl-ctrl-icon' },
-			[
-				h(
-					'svg',
-					{
-						width  : this.size || this.defaults!.size,
-						height : this.size || this.defaults!.size,
-						viewBox: this.viewbox || this.defaults!.viewbox
-					},
-					h('path', { fill: 'currentColor', d: this.path })
-				),
-				this.$slots.default ? this.$slots.default() : undefined
-			]
-		);
 	}
 });
