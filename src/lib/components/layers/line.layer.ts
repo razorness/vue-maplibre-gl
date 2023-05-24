@@ -37,8 +37,7 @@ export default /*#__PURE__*/ defineComponent({
 			}
 		}, { immediate: true });
 
-	},
-	render() {
-		return createCommentVNode('Line Layer');
+		return () => createCommentVNode('Line Layer');
+
 	}
 });

@@ -37,8 +37,7 @@ export default /*#__PURE__*/ defineComponent({
 			}
 		}, { immediate: true });
 
-	},
-	render() {
-		return createCommentVNode('Heatmap Layer');
+		return () => createCommentVNode('Heatmap Layer');
+
 	}
 });

@@ -4,6 +4,7 @@ import { CanvasSource, CanvasSourceSpecification, Coordinates } from 'maplibre-g
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
+import { SlotsType } from 'vue/dist/vue';
 
 const sourceOpts = AllSourceOptions<CanvasSourceSpecification>({
 	animate    : undefined,
@@ -22,7 +23,8 @@ export default /*#__PURE__*/ defineComponent({
 		animate    : Boolean as PropType<boolean>,
 		canvas     : [ Object, String ] as PropType<HTMLCanvasElement | string>
 	},
-	setup(props) {
+	slots: Object as SlotsType<{ default: {} }>,
+	setup(props, { slots }) {
 
 		const cid      = inject(componentIdSymbol)!,
 			  source   = SourceLib.getSourceRef<CanvasSource>(cid, props.sourceId),
@@ -39,13 +41,10 @@ export default /*#__PURE__*/ defineComponent({
 			}
 		});
 
-		return { source };
-
-	},
-	render() {
-		return [
+		return () => [
 			createCommentVNode('Canvas Source'),
-			this.source && this.$slots.default ? this.$slots.default() : undefined
+			source.value && slots.default ? slots.default({}) : undefined
 		];
+
 	}
 });

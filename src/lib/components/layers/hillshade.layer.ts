@@ -37,8 +37,7 @@ export default /*#__PURE__*/ defineComponent({
 			}
 		}, { immediate: true });
 
-	},
-	render() {
-		return createCommentVNode('Hillshade Layer');
+		return () => createCommentVNode('Hillshade Layer');
+
 	}
 });

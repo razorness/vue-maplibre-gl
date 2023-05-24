@@ -1,4 +1,4 @@
-import { createCommentVNode, defineComponent, inject, PropType, provide } from 'vue';
+import { createCommentVNode, defineComponent, inject, PropType, provide, SlotsType } from 'vue';
 import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
 import { RasterSourceSpecification, RasterTileSource } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
@@ -34,7 +34,8 @@ export default /*#__PURE__*/ defineComponent({
 		attribution: String as PropType<string>,
 		volatile   : Boolean
 	},
-	setup(props) {
+	slots: Object as SlotsType<{ default: {} }>,
+	setup(props, { slots }) {
 
 		const cid      = inject(componentIdSymbol)!,
 			  source   = SourceLib.getSourceRef<RasterTileSource>(cid, props.sourceId),
@@ -45,13 +46,10 @@ export default /*#__PURE__*/ defineComponent({
 
 		useSource<RasterSourceSpecification>(source, props, 'raster', sourceOpts, registry);
 
-		return { source };
-
-	},
-	render() {
-		return [
+		return () => [
 			createCommentVNode('Raster Source'),
-			this.source && this.$slots.default ? this.$slots.default() : undefined
+			source.value && slots.default ? slots.default({}) : undefined
 		];
+
 	}
 });

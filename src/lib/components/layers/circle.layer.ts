@@ -37,8 +37,7 @@ export default /*#__PURE__*/ defineComponent({
 			}
 		}, { immediate: true });
 
-	},
-	render() {
-		return createCommentVNode('Circle Layer');
+		return () => createCommentVNode('Circle Layer');
+
 	}
 });

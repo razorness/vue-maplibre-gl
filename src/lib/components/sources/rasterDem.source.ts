@@ -4,6 +4,7 @@ import { RasterDEMSourceSpecification, RasterDEMTileSource } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
+import { SlotsType } from 'vue/dist/vue';
 
 const sourceOpts = AllSourceOptions<RasterDEMSourceSpecification>({
 	url        : undefined,
@@ -35,7 +36,8 @@ export default /*#__PURE__*/ defineComponent({
 		encoding   : String as PropType<'terrarium' | 'mapbox'>,
 		volatile   : Boolean
 	},
-	setup(props) {
+	slots: Object as SlotsType<{ default: {} }>,
+	setup(props, { slots }) {
 
 		const cid      = inject(componentIdSymbol)!,
 			  source   = SourceLib.getSourceRef<RasterDEMTileSource>(cid, props.sourceId),
@@ -46,13 +48,10 @@ export default /*#__PURE__*/ defineComponent({
 
 		useSource<RasterDEMSourceSpecification>(source, props, 'raster-dem', sourceOpts, registry);
 
-		return { source };
-
-	},
-	render() {
-		return [
+		return () => [
 			createCommentVNode('RasterDem Source'),
-			this.source && this.$slots.default ? this.$slots.default() : undefined
+			source.value && slots.default ? slots.default({}) : undefined
 		];
+
 	}
 });

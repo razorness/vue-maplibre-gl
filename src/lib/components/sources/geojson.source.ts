@@ -1,4 +1,4 @@
-import { createCommentVNode, defineComponent, inject, PropType, provide, toRef, watch } from 'vue';
+import { createCommentVNode, defineComponent, inject, PropType, provide, SlotsType, toRef, watch } from 'vue';
 import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
 import { GeoJSONSource, GeoJSONSourceOptions, GeoJSONSourceSpecification, PromoteIdSpecification } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
@@ -46,7 +46,8 @@ export default /*#__PURE__*/ defineComponent({
 		promoteId        : [ Object, String ] as PropType<PromoteIdSpecification>,
 		filter           : [ Array, String, Object ] as PropType<any>
 	},
-	setup(props) {
+	slots: Object as SlotsType<{ default: {} }>,
+	setup(props, { slots }) {
 
 		const cid      = inject(componentIdSymbol)!,
 			  source   = SourceLib.getSourceRef<GeoJSONSource>(cid, props.sourceId),
@@ -59,13 +60,10 @@ export default /*#__PURE__*/ defineComponent({
 
 		watch(toRef(props, 'data'), v => source.value?.setData(v || { type: 'FeatureCollection', features: [] }));
 
-		return { source };
-
-	},
-	render() {
-		return [
+		return () => [
 			createCommentVNode('GeoJSON Source'),
-			this.source && this.$slots.default ? this.$slots.default() : undefined
+			source.value && slots.default ? slots.default({}) : undefined
 		];
+
 	}
 });

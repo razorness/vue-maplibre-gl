@@ -4,6 +4,7 @@ import { PromoteIdSpecification, VectorSourceSpecification, VectorTileSource } f
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
+import { SlotsType } from 'vue/dist/vue';
 
 const sourceOpts = AllSourceOptions<VectorSourceSpecification>({
 	url        : undefined,
@@ -34,7 +35,8 @@ export default /*#__PURE__*/ defineComponent({
 		promoteId  : [ Object, String ] as PropType<PromoteIdSpecification>,
 		volatile   : Boolean
 	},
-	setup(props) {
+	slots: Object as SlotsType<{ default: {} }>,
+	setup(props, { slots }) {
 
 		const cid      = inject(componentIdSymbol)!,
 			  source   = SourceLib.getSourceRef<VectorTileSource>(cid, props.sourceId),
@@ -48,13 +50,10 @@ export default /*#__PURE__*/ defineComponent({
 		watch(toRef(props, 'tiles'), v => source.value?.setTiles(v || []));
 		watch(toRef(props, 'url'), v => source.value?.setUrl(v || ''));
 
-		return { source };
-
-	},
-	render() {
-		return [
+		return () => [
 			createCommentVNode('Vector Source'),
-			this.source && this.$slots.default ? this.$slots.default() : undefined
+			source.value && slots.default ? slots.default({}) : undefined
 		];
+
 	}
 });

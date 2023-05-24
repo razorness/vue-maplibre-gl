@@ -35,8 +35,7 @@ export default /*#__PURE__*/ defineComponent({
 			}
 		}, { immediate: true });
 
-	},
-	render() {
-		return createCommentVNode('Background Layer');
+		return () => createCommentVNode('Background Layer');
+
 	}
 });

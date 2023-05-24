@@ -4,6 +4,7 @@ import { Coordinates, ImageSource, ImageSourceSpecification } from 'maplibre-gl'
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
+import { SlotsType } from 'vue/dist/vue';
 
 const sourceOpts = AllSourceOptions<ImageSourceSpecification>({
 	url        : undefined,
@@ -20,7 +21,8 @@ export default /*#__PURE__*/ defineComponent({
 		url        : String as PropType<string>,
 		coordinates: Array as unknown as PropType<Coordinates>
 	},
-	setup(props) {
+	slots: Object as SlotsType<{ default: {} }>,
+	setup(props, { slots }) {
 
 		const cid      = inject(componentIdSymbol)!,
 			  source   = SourceLib.getSourceRef<ImageSource>(cid, props.sourceId),
@@ -37,13 +39,10 @@ export default /*#__PURE__*/ defineComponent({
 			}
 		});
 
-		return { source };
-
-	},
-	render() {
-		return [
+		return () => [
 			createCommentVNode('Image Source'),
-			this.source && this.$slots.default ? this.$slots.default() : undefined
+			source.value && slots.default ? slots.default({}) : undefined
 		];
+
 	}
 });

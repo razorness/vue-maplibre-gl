@@ -17,7 +17,9 @@ import { PropType, unref, VNode } from 'vue';
 
 export class LayerLib {
 
-	static readonly SOURCE_OPTS: Array<keyof (Omit<FillLayerSpecification & LineLayerSpecification & SymbolLayerSpecification & CircleLayerSpecification & HeatmapLayerSpecification & FillExtrusionLayerSpecification & RasterLayerSpecification & HillshadeLayerSpecification & BackgroundLayerSpecification, 'source-layer'> & { sourceLayer?: string })> = [
+	static readonly SOURCE_OPTS: Array<keyof (Omit<FillLayerSpecification & LineLayerSpecification & SymbolLayerSpecification & CircleLayerSpecification & HeatmapLayerSpecification & FillExtrusionLayerSpecification & RasterLayerSpecification & HillshadeLayerSpecification & BackgroundLayerSpecification, 'source-layer'> & {
+		sourceLayer?: string
+	})> = [
 		'metadata', 'ref', 'source', 'sourceLayer', 'minzoom', 'maxzoom', 'interactive', 'filter', 'layout', 'paint'
 	];
 
@@ -29,7 +31,7 @@ export class LayerLib {
 	static readonly SHARED = {
 		props: {
 			layerId    : {
-				type    : String as PropType<string>,
+				type: String as PropType<string>,
 				required: true
 			},
 			source     : [ String, Object ] as PropType<string | Source>,

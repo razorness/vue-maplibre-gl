@@ -37,8 +37,7 @@ export default /*#__PURE__*/ defineComponent({
 			}
 		}, { immediate: true });
 
-	},
-	render() {
-		return createCommentVNode('Symbol Layer');
+		return () => createCommentVNode('Symbol Layer');
+
 	}
 });
