@@ -17,6 +17,7 @@ export function useSource<O extends object>(
 		  emitter  = inject(emitterSymbol)!;
 
 	function addSource() {
+		console.log('ADD SOURCE', 'map listeners => ', map.value!._listeners);
 		if (isLoaded.value) {
 			map.value!.addSource(props.sourceId, SourceLib.genSourceOpts<object, O>(type, props, sourceOpts) as SourceSpecification);
 			source.value = map.value!.getSource(props.sourceId);

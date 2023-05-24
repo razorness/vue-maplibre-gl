@@ -1,10 +1,9 @@
 <template>
-	<div>
-		<div style="height: 400px; width: 800px">
+	<div style="padding: 20px">
+		<div style="height: 400px; width: 800px; resize: both; overflow: auto; border: 1px solid #d6d6d6; margin-bottom: 20px">
 			<mgl-map
 				v-if="showMap"
 				ref="map"
-				style="margin-bottom: 20px"
 				:center="center"
 				:zoom="zoom"
 				:attribution-control="false"
@@ -73,7 +72,7 @@
 		</div>
 		<div>
 			<label for="cars">Language:</label>
-			<select :value="map.language" @input="setLanguage">
+			<select :value="map?.language" @input="setLanguage">
 				<option value="">n/a</option>
 				<option value="de">German</option>
 				<option value="en">English</option>
@@ -85,7 +84,7 @@
 </template>
 
 <script lang="ts">
-	import { defineComponent, onMounted, ref, toRef, watch } from 'vue';
+	import { defineComponent, ref, toRef, watch } from 'vue';
 	import { MglDefaults, MglEvent, Position, StyleSwitchItem, useMap, ValidLanguages } from '@/lib/main';
 	import { mdiCursorDefaultClick } from '@mdi/js';
 	import { CircleLayerSpecification, LineLayerSpecification, LngLatLike, MapLayerMouseEvent } from 'maplibre-gl';
@@ -112,10 +111,8 @@
 	export default defineComponent({
 		name      : 'App',
 		components: {
-			MglCircleLayer,
-			MglVectorSource,
-			MglLineLayer, MglGeoJsonSource, MglMarker, MglStyleSwitchControl, MglButton, MglCustomControl, MglGeolocationControl, MglScaleControl,
-			MglNavigationControl, MglAttributionControl, MglFullscreenControl, MglFrameRateControl, MglMap
+			MglCircleLayer, MglVectorSource, MglLineLayer, MglGeoJsonSource, MglMarker, MglStyleSwitchControl, MglButton, MglCustomControl,
+			MglGeolocationControl, MglScaleControl, MglNavigationControl, MglAttributionControl, MglFullscreenControl, MglFrameRateControl, MglMap
 		},
 		setup() {
 
@@ -165,10 +162,10 @@
 			watch(toRef(map, 'isLoaded'), () => (console.log('IS LOADED', map)), { immediate: true });
 			watch(toRef(map, 'isMounted'), (v: boolean) => (console.log('IS MOUNTED', v)), { immediate: true });
 
-			onMounted(() => {
-				setTimeout(() => (markerCoordinates.value = [ 13.377507, 42.516267 ]), 5000);
-				setInterval(() => (geoJsonSource.value.show = !geoJsonSource.value.show), 1000);
-			});
+			// onMounted(() => {
+			// 	setTimeout(() => (markerCoordinates.value = [ 13.377507, 42.516267 ]), 5000);
+			// 	setInterval(() => (geoJsonSource.value.show = !geoJsonSource.value.show), 1000);
+			// });
 
 			function onLoad(e: MglEvent) {
 				loaded.value++;
@@ -186,7 +183,7 @@
 
 			return {
 				showCustomControl, loaded, map, markerCoordinates, geoJsonSource, onLoad, onMouseenter, setLanguage,
-				isZooming                 : false,
+				isZooming                 : ref(false),
 				controlPosition           : ref(Position.TOP_LEFT),
 				showMap                   : ref(true),
 				center                    : [ 10.288107, 49.405078 ] as LngLatLike,
