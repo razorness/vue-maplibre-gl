@@ -8,7 +8,7 @@ import {
 	PropType,
 	Ref,
 	ref,
-	shallowRef, Slot,
+	shallowRef,
 	SlotsType,
 	Teleport,
 	toRef,

@@ -101,16 +101,15 @@ export default /*#__PURE__*/ defineComponent({
 	slots: Object as SlotsType<{ default: {} }>,
 	setup(props, ctx) {
 
-		const component          = markRaw(getCurrentInstance()!),
-			  componentContainer = shallowRef<HTMLDivElement | null>(null),
-			  container          = shallowRef<HTMLDivElement | null>(null),
-			  map                = shallowRef<MaplibreMap | null>(null),
-			  isInitialized      = ref(false),
-			  isLoaded           = ref(false),
-			  isStyleReady       = ref(false),
-			  boundMapEvents     = new Map<string, Function>(),
-			  emitter            = mitt<MglEvents>(),
-			  registryItem       = registerMap(component as any, props.mapKey);
+		const component      = markRaw(getCurrentInstance()!),
+			  container      = shallowRef<HTMLDivElement | null>(null),
+			  map            = shallowRef<MaplibreMap | null>(null),
+			  isInitialized  = ref(false),
+			  isLoaded       = ref(false),
+			  isStyleReady   = ref(false),
+			  boundMapEvents = new Map<string, Function>(),
+			  emitter        = mitt<MglEvents>(),
+			  registryItem   = registerMap(component as any, props.mapKey);
 
 		let resizeObserver: ResizeObserver | undefined;
 
@@ -283,6 +282,7 @@ export default /*#__PURE__*/ defineComponent({
 		 */
 		onMounted(() => {
 
+			console.log('container', container.value);
 			initialize();
 
 			// bind resize observer
@@ -311,12 +311,11 @@ export default /*#__PURE__*/ defineComponent({
 		return () => h(
 			'div',
 			{
-				ref    : 'componentContainer',
 				'class': 'mgl-container',
 				style  : { height: props.height, width: props.width }
 			},
 			[
-				h('div', { ref: 'container', 'class': 'mgl-wrapper' }),
+				h('div', { ref: container, 'class': 'mgl-wrapper' }),
 				isInitialized.value && ctx.slots.default ? ctx.slots.default({}) : undefined
 			]
 		);

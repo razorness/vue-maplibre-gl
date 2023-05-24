@@ -59,7 +59,7 @@ export default /*#__PURE__*/ defineComponent({
 
 		return () => {
 			if (props.type === ButtonType.TEXT) {
-				return h('button', { type: 'button' }, slots.default({}));
+				return h('button', { type: 'button' }, slots.default?.({}));
 			}
 			return h('button', { type: 'button', 'class': 'maplibregl-ctrl-icon' },
 				[
@@ -72,7 +72,7 @@ export default /*#__PURE__*/ defineComponent({
 						},
 						h('path', { fill: 'currentColor', d: props.path })
 					),
-					slots.default({})
+					slots.default?.({})
 				]
 			);
 		};

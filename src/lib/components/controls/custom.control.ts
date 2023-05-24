@@ -76,7 +76,7 @@ export default /*#__PURE__*/ defineComponent({
 			return h(
 				Teleport as any,
 				{ to: control.container },
-				slots.default ? slots.default({}) : undefined
+				slots.default?.({})
 			);
 		};
 
