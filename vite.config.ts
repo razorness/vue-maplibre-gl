@@ -64,6 +64,7 @@ export default defineConfig({
 		}
 	},
 	server : {
+		port : 6731,
 		watch: {
 			// to avoid full page reloads on file changes
 			ignored: [ /\.idea/, /ts\.timestamp-\d+\.mjs/, /\.git/, /node_modules/ ]

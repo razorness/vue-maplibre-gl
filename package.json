@@ -42,23 +42,23 @@
 		"upgrade": "taze major -I"
 	},
 	"devDependencies": {
-		"@babel/types": "^7.21.5",
+		"@babel/types": "^7.22.5",
 		"@mdi/js": "^7.2.96",
 		"@types/geojson": "^7946.0.10",
 		"@types/node": "^18.15.3",
 		"@vitejs/plugin-vue": "^4.2.3",
 		"geojson": "^0.5.0",
-		"maplibre-gl": "^3.0.0",
-		"mitt": "^3.0.0",
+		"maplibre-gl": "3.0.0-pre.3",
+		"mitt": "^3.0.1",
 		"modular-maptiler-sdk": "^1.0.16",
-		"sass": "^1.62.1",
-		"taze": "^0.10.1",
-		"typescript": "^5.0.4",
-		"vite": "^4.3.8",
+		"sass": "^1.63.6",
+		"taze": "^0.11.2",
+		"typescript": "^5.1.6",
+		"vite": "^4.4.4",
 		"vite-plugin-banner": "^0.7.0",
-		"vite-plugin-dts": "^2.3.0",
+		"vite-plugin-dts": "^3.3.0",
 		"vue": "^3.3.4",
-		"vue-tsc": "^1.6.5"
+		"vue-tsc": "^1.8.5"
 	},
 	"peerDependencies": {
 		"maplibre-gl": "^3.0.0",
@@ -68,5 +68,5 @@
 	"engines": {
 		"node": ">=16"
 	},
-	"packageManager": "yarn@3.5.1"
+	"packageManager": "yarn@3.6.1"
 }
