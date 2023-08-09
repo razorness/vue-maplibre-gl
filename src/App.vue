@@ -6,7 +6,7 @@
 				ref="map"
 				:center="center"
 				:zoom="zoom"
-				:attribution-control="false"
+				:attribution-control="true"
 				language="fr"
 				@map:load="onLoad"
 				@map:zoomstart="isZooming = true"
