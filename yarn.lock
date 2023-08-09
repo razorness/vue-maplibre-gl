@@ -3760,7 +3760,7 @@ __metadata:
     vue: ^3.3.4
     vue-tsc: ^1.8.8
   peerDependencies:
-    maplibre-gl: ^2.4.0
+    maplibre-gl: ^3.0.0
     mitt: ^3.0.0
     vue: ^3.3.4
   languageName: unknown
