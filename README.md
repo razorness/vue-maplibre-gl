@@ -11,7 +11,7 @@ A small Vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-g
 
 ## Features
 
-- Supports MapLibre GL JS v2.x
+- Supports MapLibre GL JS v3.x
 - Typescript support
 - Components for map, controls, sources, markers and layers
 - Support for custom controls

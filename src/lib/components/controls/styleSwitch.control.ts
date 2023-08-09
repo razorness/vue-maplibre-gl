@@ -112,7 +112,12 @@ export default /*#__PURE__*/ defineComponent({
 				return;
 			}
 			emitter.emit('styleSwitched', s);
-			map.value!.setStyle(s.style);
+
+			/*
+			 * Skip diff as long as Maplibre-GL doesn't fie `style.load` correctly
+			 * @see https://github.com/maplibre/maplibre-gl-js/issues/2587
+			*/
+			map.value!.setStyle(s.style, {diff: false});
 			if (props.modelValue === undefined) {
 				modelValue.value = s;
 			}
