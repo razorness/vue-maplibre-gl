@@ -1,6 +1,6 @@
 import { MglMap } from '@/lib/components';
 import maplibregl from 'maplibre-gl';
-import { reactive } from 'vue';
+import { reactive, ShallowRef } from 'vue';
 import { ValidLanguages } from '@/lib/types';
 
 export interface MapInstance {
@@ -24,17 +24,18 @@ export function useMap(key: symbol | string = defaultKey): MapInstance {
 	return component;
 }
 
-export function registerMap(instance: InstanceType<typeof MglMap>, key: symbol | string = defaultKey): MapInstance {
+export function registerMap(instance: InstanceType<typeof MglMap>, map: ShallowRef<maplibregl.Map | undefined>, key: symbol | string = defaultKey): MapInstance {
 	let component = instances.get(key);
 	if (!component) {
 		component = reactive({ isLoaded: false, isMounted: false, language: null });
 		instances.set(key, component);
 	}
+
 	component.isLoaded  = false;
 	component.isMounted = false;
 	component.component = instance;
-	component.map       = instance.map as maplibregl.Map;
-	component.isLoaded  = (instance.map as maplibregl.Map)?.loaded() || false;
+	component.map       = map.value;
+	component.isLoaded  = map.value?.loaded() || false;
 
 	return component;
 }

@@ -3,7 +3,7 @@ import { ShallowRef, watch } from 'vue';
 import { IControl, Map } from 'maplibre-gl';
 import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 
-export function usePositionWatcher(source: WatchSource<PositionProp | undefined>, map: ShallowRef<Map | null>, control: IControl) {
+export function usePositionWatcher(source: WatchSource<PositionProp | undefined>, map: ShallowRef<Map | undefined>, control: IControl) {
 	watch(source, (v) => {
 		if (v && PositionValues.indexOf(v as Position) === -1) {
 			return;

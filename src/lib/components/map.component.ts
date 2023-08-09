@@ -102,14 +102,14 @@ export default /*#__PURE__*/ defineComponent({
 	setup(props, ctx) {
 
 		const component      = markRaw(getCurrentInstance()!),
-			  container      = shallowRef<HTMLDivElement | null>(null),
-			  map            = shallowRef<MaplibreMap | null>(null),
+			  container      = shallowRef<HTMLDivElement>(),
+			  map            = shallowRef<MaplibreMap>(),
 			  isInitialized  = ref(false),
 			  isLoaded       = ref(false),
 			  isStyleReady   = ref(false),
 			  boundMapEvents = new Map<string, Function>(),
 			  emitter        = mitt<MglEvents>(),
-			  registryItem   = registerMap(component as any, props.mapKey);
+			  registryItem   = registerMap(component as any, map, props.mapKey);
 
 		let resizeObserver: ResizeObserver | undefined;
 
@@ -306,6 +306,8 @@ export default /*#__PURE__*/ defineComponent({
 			dispose();
 
 		});
+
+		ctx.expose({ map });
 
 		return () => h(
 			'div',
