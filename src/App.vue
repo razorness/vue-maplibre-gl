@@ -41,6 +41,7 @@
 
 			</mgl-map>
 		</div>
+		<div style="margin-bottom: 20px">Version: {{ mapVersion}}</div>
 		Loaded Count: {{ loaded }}<br>
 		Is Zooming: {{ isZooming }}<br>
 		<div>
@@ -117,6 +118,7 @@
 		setup() {
 
 			const map               = useMap(),
+				  mapVersion        = ref<string>(),
 				  showCustomControl = ref(true),
 				  loaded            = ref(0),
 				  markerCoordinates = ref<LngLatLike>([ 13.377507, 52.516267 ]),
@@ -169,7 +171,8 @@
 
 			function onLoad(e: MglEvent) {
 				loaded.value++;
-				console.log(e.type, e);
+				mapVersion.value = e.map.version;
+				console.log(e.type, e, e.map.version);
 			}
 
 			function onMouseenter(e: MapLayerMouseEvent) {
@@ -182,7 +185,7 @@
 			}
 
 			return {
-				showCustomControl, loaded, map, markerCoordinates, geoJsonSource, onLoad, onMouseenter, setLanguage,
+				showCustomControl, loaded, map, mapVersion, markerCoordinates, geoJsonSource, onLoad, onMouseenter, setLanguage,
 				isZooming                 : ref(false),
 				controlPosition           : ref(Position.TOP_LEFT),
 				showMap                   : ref(true),

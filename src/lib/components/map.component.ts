@@ -282,7 +282,6 @@ export default /*#__PURE__*/ defineComponent({
 		 */
 		onMounted(() => {
 
-			console.log('container', container.value);
 			initialize();
 
 			// bind resize observer
