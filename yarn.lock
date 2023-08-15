@@ -340,7 +340,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@maplibre/maplibre-gl-style-spec@npm:^19.2.2":
+"@maplibre/maplibre-gl-style-spec@npm:^19.3.0":
   version: 19.3.0
   resolution: "@maplibre/maplibre-gl-style-spec@npm:19.3.0"
   dependencies:
@@ -2288,8 +2288,8 @@ __metadata:
   linkType: hard
 
 "maplibre-gl@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "maplibre-gl@npm:3.2.2"
+  version: 3.3.0
+  resolution: "maplibre-gl@npm:3.3.0"
   dependencies:
     "@mapbox/geojson-rewind": ^0.5.2
     "@mapbox/jsonlint-lines-primitives": ^2.0.2
@@ -2298,7 +2298,7 @@ __metadata:
     "@mapbox/unitbezier": ^0.0.1
     "@mapbox/vector-tile": ^1.3.1
     "@mapbox/whoots-js": ^3.1.0
-    "@maplibre/maplibre-gl-style-spec": ^19.2.2
+    "@maplibre/maplibre-gl-style-spec": ^19.3.0
     "@types/geojson": ^7946.0.10
     "@types/mapbox__point-geometry": ^0.1.2
     "@types/mapbox__vector-tile": ^1.3.0
@@ -2316,7 +2316,7 @@ __metadata:
     supercluster: ^8.0.1
     tinyqueue: ^2.0.3
     vt-pbf: ^3.1.3
-  checksum: acf86479684721554432b78386a6312ded3124ac20965969c3098ac895c692550ccc04aee1a52df8bde4dee9f38c37a72ef0753834418cb800c0a7a3f5c3a337
+  checksum: 21d640ea359aec5039ac0eec2d9a31b9054f5370f4ad423c79531d7ad0fff3b7cd9318adbad6f0e90fa2640b9bfe7d3eb5c040c8db210c6b9cae409d01c09399
   languageName: node
   linkType: hard
 
