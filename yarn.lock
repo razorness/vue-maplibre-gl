@@ -340,7 +340,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@maplibre/maplibre-gl-style-spec@npm:^19.2.2":
+"@maplibre/maplibre-gl-style-spec@npm:^19.3.0":
   version: 19.3.0
   resolution: "@maplibre/maplibre-gl-style-spec@npm:19.3.0"
   dependencies:
@@ -712,13 +712,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-vue@npm:^4.2.3":
-  version: 4.2.3
-  resolution: "@vitejs/plugin-vue@npm:4.2.3"
+"@vitejs/plugin-vue@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "@vitejs/plugin-vue@npm:4.3.1"
   peerDependencies:
     vite: ^4.0.0
     vue: ^3.2.25
-  checksum: 1c70c1cd18f6ba3ed6cdf1391a0d441dd8e9a89c728f7eb20d74c84e75fef1fdc651836cce9bf59a8a48e5b2caebf6ca60a908fdd8527a476a750afd2b458592
+  checksum: ab19e0be479099fd16c4ddc23b30a910c7890b8dcb7d8b3cda44515cd005bb57e20ab6fd261f3f1fadd58a6baa9ff0d120897cdc8dad378e3fa40cc791a4ec28
   languageName: node
   linkType: hard
 
@@ -2287,9 +2287,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"maplibre-gl@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "maplibre-gl@npm:3.2.2"
+"maplibre-gl@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "maplibre-gl@npm:3.3.0"
   dependencies:
     "@mapbox/geojson-rewind": ^0.5.2
     "@mapbox/jsonlint-lines-primitives": ^2.0.2
@@ -2298,7 +2298,7 @@ __metadata:
     "@mapbox/unitbezier": ^0.0.1
     "@mapbox/vector-tile": ^1.3.1
     "@mapbox/whoots-js": ^3.1.0
-    "@maplibre/maplibre-gl-style-spec": ^19.2.2
+    "@maplibre/maplibre-gl-style-spec": ^19.3.0
     "@types/geojson": ^7946.0.10
     "@types/mapbox__point-geometry": ^0.1.2
     "@types/mapbox__vector-tile": ^1.3.0
@@ -2316,7 +2316,7 @@ __metadata:
     supercluster: ^8.0.1
     tinyqueue: ^2.0.3
     vt-pbf: ^3.1.3
-  checksum: acf86479684721554432b78386a6312ded3124ac20965969c3098ac895c692550ccc04aee1a52df8bde4dee9f38c37a72ef0753834418cb800c0a7a3f5c3a337
+  checksum: 21d640ea359aec5039ac0eec2d9a31b9054f5370f4ad423c79531d7ad0fff3b7cd9318adbad6f0e90fa2640b9bfe7d3eb5c040c8db210c6b9cae409d01c09399
   languageName: node
   linkType: hard
 
@@ -3083,16 +3083,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.64.2":
-  version: 1.64.2
-  resolution: "sass@npm:1.64.2"
+"sass@npm:^1.66.1":
+  version: 1.66.1
+  resolution: "sass@npm:1.66.1"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: 43a5c9b9b3b6ba27feb5c45eba90edc437b15a30fd443f5d2623bbd59fe4a922f2a6a9990296c6a6c2b5bce7f401922c5049357415f50b745952c2d478bc5526
+  checksum: 74fc11d0fcd5e16c5331b57dd59865705a299c64e89f2b99646869caeb011dc8d0b6144a6c74a90c264e9ef70654207dbf44fc9b7e3393f8bd14809b904c8a52
   languageName: node
   linkType: hard
 
@@ -3667,9 +3667,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-dts@npm:^3.5.1":
-  version: 3.5.1
-  resolution: "vite-plugin-dts@npm:3.5.1"
+"vite-plugin-dts@npm:^3.5.2":
+  version: 3.5.2
+  resolution: "vite-plugin-dts@npm:3.5.2"
   dependencies:
     "@microsoft/api-extractor": ^7.36.3
     "@rollup/pluginutils": ^5.0.2
@@ -3683,7 +3683,7 @@ __metadata:
   peerDependenciesMeta:
     vite:
       optional: true
-  checksum: 8a47a78336fe5074592fbbd8855dbd113707a9f15d2cfa3f9a17d760b0b49b5f5560d728f0acb4e8fae034d781af914279064b61778fa611f88ff2dee8296aa1
+  checksum: 528ccb8ea1063c7a139f02063b7a2287534028ab84e2f0edb4d4bddcba3da58f839c7da888837b9d47c7eb58fe14aa8589b992e0cc9b66ae1c977c9fb97588b3
   languageName: node
   linkType: hard
 
@@ -3746,17 +3746,17 @@ __metadata:
     "@mdi/js": ^7.2.96
     "@types/geojson": ^7946.0.10
     "@types/node": ^18.15.3
-    "@vitejs/plugin-vue": ^4.2.3
+    "@vitejs/plugin-vue": ^4.3.1
     geojson: ^0.5.0
-    maplibre-gl: ^3.2.2
+    maplibre-gl: ^3.3.0
     mitt: ^3.0.1
     modular-maptiler-sdk: ^1.0.16
-    sass: ^1.64.2
+    sass: ^1.66.1
     taze: ^0.11.2
     typescript: ^5.1.6
     vite: ^4.4.9
     vite-plugin-banner: ^0.7.0
-    vite-plugin-dts: ^3.5.1
+    vite-plugin-dts: ^3.5.2
     vue: ^3.3.4
     vue-tsc: ^1.8.8
   peerDependencies:
