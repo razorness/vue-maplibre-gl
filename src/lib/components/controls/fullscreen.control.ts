@@ -30,6 +30,7 @@ export default /*#__PURE__*/ defineComponent({
 			nextTick(() => map.value?.resize());
 		}
 
+		console.log('control.on', control, control.on);
 		control.on('fullscreenstart', triggerResize);
 		control.on('fullscreenend', triggerResize);
 
