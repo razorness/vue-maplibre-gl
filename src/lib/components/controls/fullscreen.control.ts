@@ -1,4 +1,4 @@
-import { defineComponent, inject, onBeforeUnmount, PropType, toRef } from 'vue';
+import { defineComponent, inject, nextTick, onBeforeUnmount, PropType, toRef } from 'vue';
 import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 import { isInitializedSymbol, mapSymbol } from '@/lib/types';
 import { FullscreenControl } from 'maplibre-gl';
@@ -25,8 +25,20 @@ export default /*#__PURE__*/ defineComponent({
 			  isInitialized = inject(isInitializedSymbol)!,
 			  control       = new FullscreenControl({ container: props.container || undefined });
 
+		// fire map.resize just a 2nd time
+		function triggerResize() {
+			nextTick(() => map.value?.resize());
+		}
+
+		control.on('fullscreenstart', triggerResize);
+		control.on('fullscreenend', triggerResize);
+
 		usePositionWatcher(toRef(props, 'position'), map, control);
-		onBeforeUnmount(() => isInitialized.value && map.value?.removeControl(control));
+		onBeforeUnmount(() => {
+			control.off('fullscreenstart', triggerResize);
+			control.off('fullscreenend', triggerResize);
+			isInitialized.value && map.value?.removeControl(control);
+		});
 
 	},
 	render() {
