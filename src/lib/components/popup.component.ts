@@ -5,6 +5,7 @@ import { mapSymbol, markerSymbol } from '@/lib/types';
 
 export default /*#__PURE__*/ defineComponent({
   name : 'MglPopup',
+  emits: ['open', 'close'],
   props: {
     coordinates: {
       type: [ Object, Array ] as unknown as PropType<LngLatLike>,
@@ -51,7 +52,7 @@ export default /*#__PURE__*/ defineComponent({
       required: false
     }
   },
-  async setup(props, { slots }) {
+  async setup(props, { slots, emit }) {
     const map = inject(mapSymbol);
     const marker = inject(markerSymbol);
     const root = ref();
@@ -74,6 +75,9 @@ export default /*#__PURE__*/ defineComponent({
     if (props.text) {
       popup.setText(props.text);
     }
+
+    popup.on('open', () => emit('open'));
+    popup.on('close', () => emit('close'));
 
     watch(() => props.coordinates, (v) => { if (v) { popup.setLngLat(v) } });
     watch(() => props.text, v => popup.setText(v || ''));
