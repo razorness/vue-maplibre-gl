@@ -1,5 +1,5 @@
 import { inject, onBeforeUnmount } from 'vue';
-import { ComponentInternalInstance } from '@vue/runtime-core';
+import type { ComponentInternalInstance } from '@vue/runtime-core';
 import { LayerLib } from '@/lib/lib/layer.lib';
 import { isLoadedSymbol, mapSymbol, sourceLayerRegistry } from '@/lib/types';
 

@@ -1,5 +1,5 @@
-import { RasterLayerSpecification } from 'maplibre-gl';
-import { createCommentVNode, defineComponent, getCurrentInstance, inject, PropType, warn, watch } from 'vue';
+import type { RasterLayerSpecification } from 'maplibre-gl';
+import { createCommentVNode, defineComponent, getCurrentInstance, inject, type PropType, warn, watch } from 'vue';
 import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/lib/types';
 import { LayerLib } from '@/lib/lib/layer.lib';
 import { SourceLib } from '@/lib/lib/source.lib';

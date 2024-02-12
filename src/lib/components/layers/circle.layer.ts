@@ -1,5 +1,5 @@
-import { CircleLayerSpecification } from 'maplibre-gl';
-import { createCommentVNode, defineComponent, getCurrentInstance, inject, PropType, warn, watch } from 'vue';
+import type { CircleLayerSpecification } from 'maplibre-gl';
+import { createCommentVNode, defineComponent, getCurrentInstance, inject, type PropType, warn, watch } from 'vue';
 import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/lib/types';
 import { useDisposableLayer } from '@/lib/composable/useDisposableLayer';
 import { LayerLib } from '@/lib/lib/layer.lib';

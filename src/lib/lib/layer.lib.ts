@@ -1,4 +1,4 @@
-import {
+import type {
 	BackgroundLayerSpecification,
 	CircleLayerSpecification,
 	FillExtrusionLayerSpecification,
@@ -13,7 +13,7 @@ import {
 	Source,
 	SymbolLayerSpecification
 } from 'maplibre-gl';
-import { PropType, unref, VNode } from 'vue';
+import { type PropType, unref, type VNode } from 'vue';
 
 export class LayerLib {
 

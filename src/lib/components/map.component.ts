@@ -6,26 +6,35 @@ import {
 	nextTick,
 	onBeforeUnmount,
 	onMounted,
-	PropType,
+	type PropType,
 	provide,
 	ref,
 	shallowRef,
-	SlotsType,
+	type SlotsType,
 	toRef,
 	unref,
 	watch
 } from 'vue';
 import {
-	FitBoundsOptions,
-	GestureOptions,
-	LngLatBoundsLike,
-	LngLatLike,
+	type FitBoundsOptions,
+	type GestureOptions,
+	type LngLatBoundsLike,
+	type LngLatLike,
 	Map as MaplibreMap,
-	MapOptions,
-	RequestTransformFunction,
-	StyleSpecification
+	type MapOptions,
+	type RequestTransformFunction,
+	type StyleSpecification
 } from 'maplibre-gl';
-import { componentIdSymbol, emitterSymbol, isInitializedSymbol, isLoadedSymbol, mapSymbol, MglEvents, sourceIdSymbol, ValidLanguages } from '@/lib/types';
+import {
+	componentIdSymbol,
+	emitterSymbol,
+	isInitializedSymbol,
+	isLoadedSymbol,
+	mapSymbol,
+	type MglEvents,
+	sourceIdSymbol,
+	type ValidLanguages
+} from '@/lib/types';
 import { defaults } from '@/lib/defaults';
 import { MapLib } from '@/lib/lib/map.lib';
 import { Position } from '@/lib/components/controls/position.enum';

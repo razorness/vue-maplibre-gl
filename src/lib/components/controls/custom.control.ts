@@ -1,6 +1,20 @@
-import { createCommentVNode, defineComponent, h, inject, nextTick, onBeforeUnmount, PropType, ref, Ref, SlotsType, Teleport, toRef, watch } from 'vue';
-import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
-import { ControlPosition, IControl } from 'maplibre-gl';
+import {
+	createCommentVNode,
+	defineComponent,
+	h,
+	inject,
+	nextTick,
+	onBeforeUnmount,
+	type PropType,
+	ref,
+	Ref,
+	type SlotsType,
+	Teleport,
+	toRef,
+	watch
+} from 'vue';
+import { Position, type PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
+import type { ControlPosition, IControl } from 'maplibre-gl';
 import { isInitializedSymbol, mapSymbol } from '@/lib/types';
 import { usePositionWatcher } from '@/lib/composable/usePositionWatcher';
 

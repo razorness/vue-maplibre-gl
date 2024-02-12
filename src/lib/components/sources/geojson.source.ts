@@ -1,6 +1,6 @@
-import { createCommentVNode, defineComponent, inject, PropType, provide, SlotsType, toRef, watch } from 'vue';
+import { createCommentVNode, defineComponent, inject, type PropType, provide, type SlotsType, toRef, watch } from 'vue';
 import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
-import { GeoJSONSource, GeoJSONSourceOptions, GeoJSONSourceSpecification, PromoteIdSpecification } from 'maplibre-gl';
+import type { GeoJSONSource, GeoJSONSourceOptions, GeoJSONSourceSpecification, PromoteIdSpecification } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import type GeoJSON from 'geojson';
 import { SourceLib } from '@/lib/lib/source.lib';

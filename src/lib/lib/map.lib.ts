@@ -1,6 +1,6 @@
-import { Map, MapOptions, MarkerOptions } from 'maplibre-gl';
-import { MglMap } from '@/lib/components';
-import { MglEvent } from '@/lib/types';
+import type { Map, MapOptions, MarkerOptions } from 'maplibre-gl';
+import type { MglMap } from '@/lib/components';
+import type { MglEvent } from '@/lib/types';
 
 export type MapEventHandler = (e: any) => void;
 

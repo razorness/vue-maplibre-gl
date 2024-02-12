@@ -1,10 +1,9 @@
-import { createCommentVNode, defineComponent, inject, PropType, provide, toRef, watch } from 'vue';
+import { createCommentVNode, defineComponent, inject, type PropType, provide, type SlotsType, toRef, watch } from 'vue';
 import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
-import { PromoteIdSpecification, VectorSourceSpecification, VectorTileSource } from 'maplibre-gl';
+import type { PromoteIdSpecification, VectorSourceSpecification, VectorTileSource } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';
-import { SlotsType } from 'vue/dist/vue';
 
 const sourceOpts = AllSourceOptions<VectorSourceSpecification>({
 	url        : undefined,

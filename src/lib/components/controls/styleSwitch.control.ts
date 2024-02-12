@@ -5,17 +5,17 @@ import {
 	h,
 	inject,
 	onBeforeUnmount,
-	PropType,
-	Ref,
+	type PropType,
+	type Ref,
 	ref,
 	shallowRef,
-	SlotsType,
+	type SlotsType,
 	Teleport,
 	toRef,
 	watch
 } from 'vue';
-import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
-import { emitterSymbol, isInitializedSymbol, isLoadedSymbol, mapSymbol, StyleSwitchItem } from '@/lib/types';
+import { Position, type PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
+import { emitterSymbol, isInitializedSymbol, isLoadedSymbol, mapSymbol, type StyleSwitchItem } from '@/lib/types';
 import { CustomControl } from '@/lib/components/controls/custom.control';
 import { usePositionWatcher } from '@/lib/composable/usePositionWatcher';
 import { MglButton } from '@/lib/components';

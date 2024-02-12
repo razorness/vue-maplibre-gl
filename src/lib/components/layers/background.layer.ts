@@ -1,5 +1,5 @@
-import { BackgroundLayerSpecification } from 'maplibre-gl';
-import { createCommentVNode, defineComponent, inject, PropType, warn, watch } from 'vue';
+import type { BackgroundLayerSpecification } from 'maplibre-gl';
+import { createCommentVNode, defineComponent, inject, type PropType, warn, watch } from 'vue';
 import { componentIdSymbol, isLoadedSymbol, mapSymbol, sourceIdSymbol } from '@/lib/types';
 import { LayerLib } from '@/lib/lib/layer.lib';
 import { SourceLib } from '@/lib/lib/source.lib';

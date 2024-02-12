@@ -1,4 +1,4 @@
-import { defineComponent, h, PropType, ref, SlotsType, warn, watch } from 'vue';
+import { defineComponent, h, type PropType, ref, type SlotsType, warn, watch } from 'vue';
 
 export enum ButtonType {
 	DEFAULT     = 'default',

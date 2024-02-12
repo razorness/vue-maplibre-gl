@@ -1,6 +1,6 @@
-import { defineComponent, inject, onBeforeUnmount, PropType, toRef } from 'vue';
-import { IControl, Map as MMap } from 'maplibre-gl';
-import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
+import { defineComponent, inject, onBeforeUnmount, type PropType, toRef } from 'vue';
+import type { IControl, Map as MMap } from 'maplibre-gl';
+import { Position, type PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 import { isInitializedSymbol, mapSymbol } from '@/lib/types';
 import { usePositionWatcher } from '@/lib/composable/usePositionWatcher';
 

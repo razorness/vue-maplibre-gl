@@ -1,7 +1,7 @@
-import { WatchSource } from '@vue/runtime-core';
-import { ShallowRef, watch } from 'vue';
-import { IControl, Map } from 'maplibre-gl';
-import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
+import type { WatchSource } from '@vue/runtime-core';
+import { type ShallowRef, watch } from 'vue';
+import type { IControl, Map } from 'maplibre-gl';
+import { type Position, type PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 
 export function usePositionWatcher(source: WatchSource<PositionProp | undefined>, map: ShallowRef<Map | undefined>, control: IControl) {
 	watch(source, (v) => {

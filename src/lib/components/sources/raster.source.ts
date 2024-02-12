@@ -1,6 +1,6 @@
-import { createCommentVNode, defineComponent, inject, PropType, provide, SlotsType } from 'vue';
+import { createCommentVNode, defineComponent, inject, type PropType, provide, type SlotsType } from 'vue';
 import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
-import { RasterSourceSpecification, RasterTileSource } from 'maplibre-gl';
+import type { RasterSourceSpecification, RasterTileSource } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 import { useSource } from '@/lib/composable/useSource';

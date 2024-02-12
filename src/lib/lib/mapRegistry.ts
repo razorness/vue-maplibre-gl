@@ -1,11 +1,11 @@
-import { MglMap } from '@/lib/components';
-import maplibregl from 'maplibre-gl';
-import { reactive, ShallowRef } from 'vue';
-import { ValidLanguages } from '@/lib/types';
+import type { MglMap } from '@/lib/components';
+import type { Map as MaplibreMap } from 'maplibre-gl';
+import { reactive, type ShallowRef } from 'vue';
+import type { ValidLanguages } from '@/lib/types';
 
 export interface MapInstance {
 	component?: InstanceType<typeof MglMap>;
-	map?: maplibregl.Map;
+	map?: MaplibreMap;
 	isMounted: boolean;
 	isLoaded: boolean;
 	language: ValidLanguages | null;
@@ -24,7 +24,7 @@ export function useMap(key: symbol | string = defaultKey): MapInstance {
 	return component;
 }
 
-export function registerMap(instance: InstanceType<typeof MglMap>, map: ShallowRef<maplibregl.Map | undefined>, key: symbol | string = defaultKey): MapInstance {
+export function registerMap(instance: InstanceType<typeof MglMap>, map: ShallowRef<MaplibreMap | undefined>, key: symbol | string = defaultKey): MapInstance {
 	let component = instances.get(key);
 	if (!component) {
 		component = reactive({ isLoaded: false, isMounted: false, language: null });

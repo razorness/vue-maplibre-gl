@@ -1,7 +1,7 @@
-import { defineComponent, inject, onBeforeUnmount, PropType, toRef } from 'vue';
-import { Position, PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
+import { defineComponent, inject, onBeforeUnmount, type PropType, toRef } from 'vue';
+import { Position, type PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 import { isInitializedSymbol, mapSymbol } from '@/lib/types';
-import { FitBoundsOptions, GeolocateControl } from 'maplibre-gl';
+import { type FitBoundsOptions, GeolocateControl } from 'maplibre-gl';
 import { usePositionWatcher } from '@/lib/composable/usePositionWatcher';
 
 export default /*#__PURE__*/ defineComponent({

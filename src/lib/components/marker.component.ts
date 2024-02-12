@@ -1,5 +1,5 @@
-import { defineComponent, inject, onBeforeUnmount, PropType, unref, watch } from 'vue';
-import { LngLatLike, Marker, MarkerOptions, PointLike, PositionAnchor } from 'maplibre-gl';
+import { defineComponent, inject, onBeforeUnmount, type PropType, unref, watch } from 'vue';
+import { type LngLatLike, Marker, type MarkerOptions, type PointLike, type PositionAnchor } from 'maplibre-gl';
 import { MapLib } from '@/lib/lib/map.lib';
 import { mapSymbol } from '@/lib/types';
 

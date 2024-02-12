@@ -1,7 +1,7 @@
-import { inject, onBeforeUnmount, Ref, watch } from 'vue';
-import { Source, SourceSpecification } from 'maplibre-gl';
+import { inject, onBeforeUnmount, type Ref, watch } from 'vue';
+import type { Source, SourceSpecification } from 'maplibre-gl';
 import { emitterSymbol, isLoadedSymbol, mapSymbol } from '@/lib/types';
-import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
+import type { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
 import { SourceLib } from '@/lib/lib/source.lib';
 
 export function useSource<O extends object>(

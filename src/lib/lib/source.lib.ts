@@ -1,5 +1,5 @@
-import { ref, Ref, unref } from 'vue';
-import { Source } from 'maplibre-gl';
+import { ref, type Ref, unref } from 'vue';
+import type { Source } from 'maplibre-gl';
 
 export class SourceLib {
 
