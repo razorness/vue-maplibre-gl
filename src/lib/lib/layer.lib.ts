@@ -36,7 +36,6 @@ export class LayerLib {
 			},
 			source     : [ String, Object ] as PropType<string | Source>,
 			metadata   : [ Object, Array, String, Number ] as PropType<any>,
-			ref        : String as PropType<string>,
 			sourceLayer: String as PropType<string>,
 			minzoom    : Number as PropType<number>,
 			maxzoom    : Number as PropType<number>,
