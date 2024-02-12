@@ -27,7 +27,7 @@ jobs:
                 with:
                     node-version: 20
                     registry-url: https://registry.npmjs.org/
-            -   run: yarn
+            -   run: yarn install
             -   run: yarn build
             -   run: yarn npm publish
                 env:
