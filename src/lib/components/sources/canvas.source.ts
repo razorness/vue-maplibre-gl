@@ -35,11 +35,7 @@ export default /*#__PURE__*/ defineComponent({
 		useSource<CanvasSourceSpecification>(source, props, 'canvas', sourceOpts, registry);
 
 		watch(isRef(props.coordinates) ? props.coordinates : () => props.coordinates, v => {
-			if (isRef(v) && v.value) {
-				source.value?.setCoordinates(v.value as Coordinates);
-			} else if (v) {
-				source.value?.setCoordinates(v as Coordinates);
-			}
+			source.value?.setCoordinates(v as Coordinates);
 		}, { immediate: true });
 
 		return () => [

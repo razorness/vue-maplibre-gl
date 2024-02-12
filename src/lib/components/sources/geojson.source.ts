@@ -23,6 +23,8 @@ const sourceOpts = AllSourceOptions<GeoJSONSourceSpecification>({
 	filter           : undefined,
 });
 
+type DataType = GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string;
+
 
 export default /*#__PURE__*/ defineComponent({
 	name : 'MglGeoJsonSource',
@@ -31,7 +33,7 @@ export default /*#__PURE__*/ defineComponent({
 			type    : String as PropType<string>,
 			required: true
 		},
-		data             : [ Object, String ] as PropType<GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string>,
+		data             : [ Object, String ] as PropType<DataType>,
 		maxzoom          : Number as PropType<number>,
 		attribution      : String as PropType<string>,
 		buffer           : Number as PropType<number>,
@@ -59,9 +61,7 @@ export default /*#__PURE__*/ defineComponent({
 		useSource<GeoJSONSourceOptions>(source, props, 'geojson', sourceOpts, registry);
 
 		watch(isRef(props.data) ? props.data : () => props.data, v => {
-			source.value?.setData(isRef(v) ? (v.value || { type: 'FeatureCollection', features: [] }) : (v as any || {
-				type: 'FeatureCollection', features: []
-			}));
+			source.value?.setData(v as DataType || { type: 'FeatureCollection', features: [] });
 		}, { immediate: true });
 
 		return () => [

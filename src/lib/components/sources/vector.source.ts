@@ -47,18 +47,10 @@ export default /*#__PURE__*/ defineComponent({
 		useSource<VectorSourceSpecification>(source, props, 'vector', sourceOpts, registry);
 
 		watch(isRef(props.tiles) ? props.tiles : () => props.tiles, v => {
-			if (isRef(v)) {
-				source.value?.setTiles(v.value as string[] || [])
-			} else {
-				source.value?.setTiles(v as string[] || [])
-			}
+			source.value?.setTiles(v as string[] || [])
 		}, { immediate: true });
 		watch(isRef(props.url) ? props.url: () => props.url, v => {
-			if (isRef(v)) {
-				source.value?.setUrl(v.value as string || '')
-			} else {
-				source.value?.setUrl(v as string || '')
-			}
+			source.value?.setUrl(v as string || '')
 		}, { immediate: true });
 
 		return () => [
