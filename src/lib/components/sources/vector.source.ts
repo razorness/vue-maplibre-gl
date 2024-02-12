@@ -46,8 +46,8 @@ export default /*#__PURE__*/ defineComponent({
 
 		useSource<VectorSourceSpecification>(source, props, 'vector', sourceOpts, registry);
 
-		watch(() => props.tiles, v => source.value?.setTiles(v || []));
-		watch(() => props.url, v => source.value?.setUrl(v || ''));
+		watch(() => props.tiles, v => source.value?.setTiles(v || []), { immediate: true });
+		watch(() => props.url, v => source.value?.setUrl(v || ''), { immediate: true });
 
 		return () => [
 			createCommentVNode('Vector Source'),

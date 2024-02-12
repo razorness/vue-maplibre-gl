@@ -36,7 +36,7 @@ export default /*#__PURE__*/ defineComponent({
 			if (v) {
 				source.value?.setCoordinates(v);
 			}
-		});
+		}, { immediate: true });
 
 		return () => [
 			createCommentVNode('Video Source'),

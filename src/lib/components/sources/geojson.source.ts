@@ -58,7 +58,10 @@ export default /*#__PURE__*/ defineComponent({
 
 		useSource<GeoJSONSourceOptions>(source, props, 'geojson', sourceOpts, registry);
 
-		watch(() => props.data, v => source.value?.setData(v || { type: 'FeatureCollection', features: [] }));
+		watch(() => props.data, v => {
+			console.log('GEOJSON SOURCE', source, props.data);
+			source.value?.setData(v || { type: 'FeatureCollection', features: [] });
+		}, { immediate: true });
 
 		return () => [
 			createCommentVNode('GeoJSON Source'),
