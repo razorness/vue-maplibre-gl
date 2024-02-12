@@ -1,4 +1,4 @@
-import { createCommentVNode, defineComponent, inject, type PropType, provide, type SlotsType, watch } from 'vue';
+import { createCommentVNode, defineComponent, inject, isRef, type PropType, provide, type SlotsType, watch } from 'vue';
 import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
 import type { GeoJSONSource, GeoJSONSourceOptions, GeoJSONSourceSpecification, PromoteIdSpecification } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
@@ -58,9 +58,11 @@ export default /*#__PURE__*/ defineComponent({
 
 		useSource<GeoJSONSourceOptions>(source, props, 'geojson', sourceOpts, registry);
 
-		watch(() => props.data, v => {
-			console.log('GEOJSON SOURCE', source, props.data);
-			source.value?.setData(v || { type: 'FeatureCollection', features: [] });
+		watch(isRef(props.data) ? props.data : () => props.data, v => {
+			console.log('GEOJSON SOURCE', isRef(props.data), isRef(props.data) ? props.data.value : props.data);
+			source.value?.setData(isRef(v) ? (v.value || { type: 'FeatureCollection', features: [] }) : (v as any || {
+				type: 'FeatureCollection', features: []
+			}));
 		}, { immediate: true });
 
 		return () => [
