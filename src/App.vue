@@ -25,9 +25,9 @@
 
 				<mgl-marker :coordinates="markerCoordinates" color="#cc0000" :scale="0.5"/>
 
-				<mgl-geo-json-source source-id="geojson" :data="geoJsonSource.data">
+				<mgl-geo-json-source source-id="geojson" :data="geojsonSource.data">
 					<mgl-line-layer
-						v-if="geoJsonSource.show"
+						v-if="geojsonSource.show"
 						layer-id="geojson"
 						:layout="layout"
 						:paint="paint"
@@ -146,9 +146,8 @@
 				  showCustomControl = ref(true),
 				  loaded            = ref(0),
 				  markerCoordinates = ref<LngLatLike>([ 13.377507, 52.516267 ]),
-				  geoJsonSource     = ref({
-					  show: true,
-					  data: <FeatureCollection<LineString>>{
+				  geojsonSource     = {
+					  data: ref<FeatureCollection<LineString>>({
 						  type    : 'FeatureCollection',
 						  features: [
 							  {
@@ -163,8 +162,9 @@
 								  }
 							  }
 						  ]
-					  }
-				  });
+					  }),
+					  show: ref(true)
+				  };
 
 			watch(() => map.isLoaded, () => (console.log('IS LOADED', map)), { immediate: true });
 			watch(() => map.isMounted, (v: boolean) => (console.log('IS MOUNTED', v)), { immediate: true });
@@ -172,8 +172,8 @@
 			onMounted(() => {
 				setTimeout(() => (markerCoordinates.value = [ 13.377507, 42.516267 ]), 5000);
 				setInterval(() => {
-					if (geoJsonSource.value.data.features[ 0 ].geometry.coordinates.length >= lineString.length) {
-						geoJsonSource.value.data = <FeatureCollection<LineString>>{
+					if (geojsonSource.data.value.features[ 0 ].geometry.coordinates.length >= lineString.length) {
+						geojsonSource.data.value = <FeatureCollection<LineString>>{
 							type    : 'FeatureCollection',
 							features: [
 								{
@@ -190,7 +190,7 @@
 							]
 						};
 					} else {
-						geoJsonSource.value.data = <FeatureCollection<LineString>>{
+						geojsonSource.data.value = <FeatureCollection<LineString>>{
 							type    : 'FeatureCollection',
 							features: [
 								{
@@ -199,8 +199,8 @@
 									geometry  : {
 										type       : 'LineString',
 										coordinates: [
-											...geoJsonSource.value.data.features[ 0 ].geometry.coordinates,
-											lineString[ geoJsonSource.value.data.features[ 0 ].geometry.coordinates.length ]
+											...geojsonSource.data.value.features[ 0 ].geometry.coordinates,
+											lineString[ geojsonSource.data.value.features[ 0 ].geometry.coordinates.length ]
 										]
 									}
 								}
@@ -226,7 +226,8 @@
 			}
 
 			return {
-				showCustomControl, loaded, map, mapVersion, markerCoordinates, geoJsonSource, onLoad, onMouseenter, setLanguage,
+				showCustomControl, loaded, map, mapVersion, markerCoordinates, geojsonSource, onLoad, onMouseenter, setLanguage,
+				geojsonSourceData         : geojsonSource.data,
 				isZooming                 : ref(false),
 				controlPosition           : ref(Position.TOP_LEFT),
 				showMap                   : ref(true),

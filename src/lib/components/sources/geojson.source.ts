@@ -59,7 +59,6 @@ export default /*#__PURE__*/ defineComponent({
 		useSource<GeoJSONSourceOptions>(source, props, 'geojson', sourceOpts, registry);
 
 		watch(isRef(props.data) ? props.data : () => props.data, v => {
-			console.log('GEOJSON SOURCE', isRef(props.data), isRef(props.data) ? props.data.value : props.data);
 			source.value?.setData(isRef(v) ? (v.value || { type: 'FeatureCollection', features: [] }) : (v as any || {
 				type: 'FeatureCollection', features: []
 			}));
