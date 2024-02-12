@@ -25,7 +25,7 @@
 
 				<mgl-marker :coordinates="markerCoordinates" color="#cc0000" :scale="0.5"/>
 
-				<mgl-geo-json-source source-id="geojson" :data="geojsonSource.data">
+				<mgl-geo-json-source source-id="geojson" :data="geojsonSource.data as any">
 					<mgl-line-layer
 						v-if="geojsonSource.show"
 						layer-id="geojson"
