@@ -11,7 +11,6 @@ import {
 	shallowRef,
 	type SlotsType,
 	Teleport,
-	toRef,
 	watch
 } from 'vue';
 import { Position, type PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
@@ -86,15 +85,15 @@ export default /*#__PURE__*/ defineComponent({
 		document.addEventListener('click', closer);
 
 
-		usePositionWatcher(toRef(props, 'position'), map, control);
+		usePositionWatcher(() => props.position, map, control);
 
 		if (props.modelValue !== undefined) {
-			watch(toRef(props, 'modelValue'), v => {
+			watch(() => props.modelValue, v => {
 				if (v !== undefined) modelValue.value = v;
 			});
 		}
 		if (props.isOpen !== undefined) {
-			watch(toRef(props, 'isOpen'), v => {
+			watch(() => props.isOpen, v => {
 				if (v !== undefined) isOpen.value = v;
 			});
 		}

@@ -1,4 +1,4 @@
-import { createCommentVNode, defineComponent, inject, type PropType, provide, type SlotsType, toRef, watch } from 'vue';
+import { createCommentVNode, defineComponent, inject, type PropType, provide, type SlotsType, watch } from 'vue';
 import { AllSourceOptions, componentIdSymbol, sourceIdSymbol, sourceLayerRegistry } from '@/lib/types';
 import type { PromoteIdSpecification, VectorSourceSpecification, VectorTileSource } from 'maplibre-gl';
 import { SourceLayerRegistry } from '@/lib/lib/sourceLayer.registry';
@@ -46,8 +46,8 @@ export default /*#__PURE__*/ defineComponent({
 
 		useSource<VectorSourceSpecification>(source, props, 'vector', sourceOpts, registry);
 
-		watch(toRef(props, 'tiles'), v => source.value?.setTiles(v || []));
-		watch(toRef(props, 'url'), v => source.value?.setUrl(v || ''));
+		watch(() => props.tiles, v => source.value?.setTiles(v || []));
+		watch(() => props.url, v => source.value?.setUrl(v || ''));
 
 		return () => [
 			createCommentVNode('Vector Source'),

@@ -1,4 +1,4 @@
-import { defineComponent, inject, onBeforeUnmount, type PropType, toRef } from 'vue';
+import { defineComponent, inject, onBeforeUnmount, type PropType } from 'vue';
 import { AttributionControl } from 'maplibre-gl';
 import { Position, type PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 import { isInitializedSymbol, mapSymbol } from '@/lib/types';
@@ -23,7 +23,7 @@ export default /*#__PURE__*/ defineComponent({
 			  isInitialized = inject(isInitializedSymbol)!,
 			  control       = new AttributionControl({ compact: props.compact, customAttribution: props.customAttribution });
 
-		usePositionWatcher(toRef(props, 'position'), map, control);
+		usePositionWatcher(() => props.position, map, control);
 		onBeforeUnmount(() => isInitialized.value && map.value!.removeControl(control));
 
 	},

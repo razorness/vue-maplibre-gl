@@ -85,7 +85,7 @@
 </template>
 
 <script lang="ts">
-	import { defineComponent, ref, toRef, watch } from 'vue';
+	import { defineComponent, ref, watch } from 'vue';
 	import { MglDefaults, MglEvent, Position, StyleSwitchItem, useMap, ValidLanguages } from '@/lib/main';
 	import { mdiCursorDefaultClick } from '@mdi/js';
 	import { CircleLayerSpecification, LineLayerSpecification, LngLatLike, MapLayerMouseEvent } from 'maplibre-gl';
@@ -161,8 +161,8 @@
 					  }
 				  });
 
-			watch(toRef(map, 'isLoaded'), () => (console.log('IS LOADED', map)), { immediate: true });
-			watch(toRef(map, 'isMounted'), (v: boolean) => (console.log('IS MOUNTED', v)), { immediate: true });
+			watch(() => map.isLoaded, () => (console.log('IS LOADED', map)), { immediate: true });
+			watch(() => map.isMounted, (v: boolean) => (console.log('IS MOUNTED', v)), { immediate: true });
 
 			// onMounted(() => {
 			// 	setTimeout(() => (markerCoordinates.value = [ 13.377507, 42.516267 ]), 5000);

@@ -1,4 +1,4 @@
-import { defineComponent, inject, onBeforeUnmount, type PropType, toRef } from 'vue';
+import { defineComponent, inject, onBeforeUnmount, type PropType } from 'vue';
 import { Position, type PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 import { isInitializedSymbol, mapSymbol } from '@/lib/types';
 import { ScaleControl } from 'maplibre-gl';
@@ -38,7 +38,7 @@ export default /*#__PURE__*/ defineComponent({
 			  isInitialized = inject(isInitializedSymbol)!,
 			  control       = new ScaleControl({ maxWidth: props.maxWidth, unit: props.unit });
 
-		usePositionWatcher(toRef(props, 'position'), map, control);
+		usePositionWatcher(() => props.position, map, control);
 		onBeforeUnmount(() => isInitialized.value && map.value?.removeControl(control));
 
 	},

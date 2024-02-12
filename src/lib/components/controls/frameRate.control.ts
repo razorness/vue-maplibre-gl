@@ -1,4 +1,4 @@
-import { defineComponent, inject, onBeforeUnmount, type PropType, toRef } from 'vue';
+import { defineComponent, inject, onBeforeUnmount, type PropType } from 'vue';
 import type { IControl, Map as MMap } from 'maplibre-gl';
 import { Position, type PositionProp, PositionValues } from '@/lib/components/controls/position.enum';
 import { isInitializedSymbol, mapSymbol } from '@/lib/types';
@@ -209,7 +209,7 @@ export default /*#__PURE__*/ defineComponent({
 				  props.width
 			  );
 
-		usePositionWatcher(toRef(props, 'position'), map, control);
+		usePositionWatcher(() => props.position, map, control);
 		onBeforeUnmount(() => isInitialized.value && map.value?.removeControl(control));
 
 	},
