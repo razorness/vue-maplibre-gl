@@ -14,7 +14,11 @@ const sourceOpts = AllSourceOptions<RasterDEMSourceSpecification>({
 	tileSize   : undefined,
 	attribution: undefined,
 	encoding   : undefined,
-	volatile   : undefined
+	volatile   : undefined,
+	redFactor  : undefined,
+	blueFactor : undefined,
+	greenFactor: undefined,
+	baseShift  : undefined
 });
 
 
@@ -33,7 +37,12 @@ export default /*#__PURE__*/ defineComponent({
 		tileSize   : Number as PropType<number>,
 		attribution: String as PropType<string>,
 		encoding   : String as PropType<'terrarium' | 'mapbox'>,
-		volatile   : Boolean
+		volatile   : Boolean,
+		redFactor  : Number as PropType<number>,
+		blueFactor : Number as PropType<number>,
+		greenFactor: Number as PropType<number>,
+		baseShift  : Number as PropType<number>
+
 	},
 	slots: Object as SlotsType<{ default: {} }>,
 	setup(props, { slots }) {
