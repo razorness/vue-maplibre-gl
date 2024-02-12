@@ -63,7 +63,7 @@
 	"peerDependencies": {
 		"maplibre-gl": "^3.0.0",
 		"mitt": "^3.0.0",
-		"vue": "^3.3.4"
+		"vue": "^3.4.18"
 	},
 	"engines": {
 		"node": ">=16"
