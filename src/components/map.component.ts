@@ -23,6 +23,8 @@ import {
 	watch
 } from 'vue';
 
+export type FitBoundsOptions = MapOptions['fitBoundsOptions'] & { useOnBoundsUpdate?: boolean };
+
 export default /*#__PURE__*/ defineComponent({
 	name : 'MglMap',
 	props: {
@@ -50,7 +52,7 @@ export default /*#__PURE__*/ defineComponent({
 		dragRotate             : { type: Boolean as PropType<MapOptions['dragRotate']>, default: () => defaults.dragRotate },
 		elevation              : { type: Number as PropType<MapOptions['elevation']>, default: () => defaults.elevation },
 		fadeDuration           : { type: Number as PropType<MapOptions['fadeDuration']>, default: () => defaults.fadeDuration },
-		fitBoundsOptions       : { type: Object as PropType<MapOptions['fitBoundsOptions']>, default: () => defaults.fitBoundsOptions },
+		fitBoundsOptions       : { type: Object as PropType<FitBoundsOptions>, default: () => defaults.fitBoundsOptions },
 		hash                   : { type: [ Boolean, String ] as PropType<MapOptions['hash']>, default: () => defaults.hash },
 		interactive            : { type: Boolean as PropType<MapOptions['interactive']>, default: () => defaults.interactive },
 		keyboard               : { type: Boolean as PropType<MapOptions['keyboard']>, default: () => defaults.keyboard },
@@ -125,7 +127,7 @@ export default /*#__PURE__*/ defineComponent({
 		 * bind prop watchers
 		 */
 		watch(() => props.bearing, v => v && map.value?.setBearing(v));
-		watch(() => props.bounds, v => v && map.value?.fitBounds(v));
+		watch(() => props.bounds, v => v && map.value?.fitBounds(v, props.fitBoundsOptions?.useOnBoundsUpdate ? props.fitBoundsOptions : undefined));
 		watch(() => props.center, v => v && map.value?.setCenter(v));
 		watch(() => props.maxBounds, v => v && map.value?.setMaxBounds(v));
 		watch(() => props.maxPitch, v => v && map.value?.setMaxPitch(v));

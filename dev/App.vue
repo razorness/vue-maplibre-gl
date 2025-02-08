@@ -3,6 +3,8 @@
 		<div style="height: 400px; width: 800px; resize: both; overflow: auto; border: 1px solid #d6d6d6; margin-bottom: 20px">
 			<mgl-map
 				v-if="showMap"
+				:fit-bounds-options="defaultBoundsOptions"
+				:bounds="bounds"
 				:center="center"
 				:zoom="zoom"
 				language="fr"
@@ -92,14 +94,21 @@
 	import MglStyleSwitchControl from '@/components/controls/styleSwitch.control';
 	import MglCircleLayer from '@/components/layers/circle.layer';
 	import MglLineLayer from '@/components/layers/line.layer';
-	import MglMap from '@/components/map.component';
+	import MglMap, { type FitBoundsOptions } from '@/components/map.component';
 	import MglMarker from '@/components/marker.component';
 	import MglGeoJsonSource from '@/components/sources/geojson.source';
 	import MglVectorSource from '@/components/sources/vector.source';
 	import { MglDefaults, type MglEvent, Position, type  StyleSwitchItem, useMap, type  ValidLanguages } from '@/main';
 	import { mdiCursorDefaultClick } from '@mdi/js';
 	import type { FeatureCollection, LineString } from 'geojson';
-	import type { CircleLayerSpecification, LineLayerSpecification, LngLatLike, MapLayerMouseEvent } from 'maplibre-gl';
+	import {
+		type CircleLayerSpecification,
+		type LineLayerSpecification,
+		LngLatBounds,
+		type LngLatBoundsLike,
+		type LngLatLike,
+		type MapLayerMouseEvent
+	} from 'maplibre-gl';
 	import { defineComponent, onMounted, ref, watch } from 'vue';
 
 	MglDefaults.style = 'https://api.maptiler.com/maps/streets/style.json?key=cQX2iET1gmOW38bedbUh';
@@ -142,6 +151,7 @@
 				  showCustomControl = ref(true),
 				  loaded            = ref(0),
 				  markerCoordinates = ref<LngLatLike>([ 13.377507, 52.516267 ]),
+				  bounds            = ref<LngLatBoundsLike>(),
 				  geojsonSource     = {
 					  data: ref<FeatureCollection<LineString>>({
 						  type    : 'FeatureCollection',
@@ -222,16 +232,18 @@
 				map.language = (e.target as HTMLSelectElement).value as ValidLanguages;
 			}
 
+			setTimeout(() => bounds.value = new LngLatBounds([ 13.327565, 52.551936 ], [ 13.456551, 52.567442 ]), 2500);
+
 			return {
-				showCustomControl, loaded, map, mapVersion, markerCoordinates, geojsonSource, onLoad, onMouseenter, setLanguage,
-				geojsonSourceData         : geojsonSource.data,
-				isZooming                 : ref(false),
-				controlPosition           : ref(Position.TOP_LEFT),
-				showMap                   : ref(true),
-				center                    : [ 10.288107, 49.405078 ] as LngLatLike,
-				zoom                      : 3,
-				useClasses                : ref(true),
-				mapStyles                 : [
+				showCustomControl, loaded, map, mapVersion, markerCoordinates, geojsonSource, bounds, onLoad, onMouseenter, setLanguage,
+				geojsonSourceData          : geojsonSource.data,
+				isZooming                  : ref(false),
+				controlPosition            : ref(Position.TOP_LEFT),
+				showMap                    : ref(true),
+				center                     : [ 10.288107, 49.405078 ] as LngLatLike,
+				zoom                       : 3,
+				useClasses                 : ref(true),
+				mapStyles                  : [
 					{
 						name : 'Streets',
 						label: 'Streets',
@@ -243,23 +255,30 @@
 					{ name: 'Satellite', label: 'Satellite', style: 'https://api.maptiler.com/maps/hybrid/style.json?key=cQX2iET1gmOW38bedbUh' },
 					{ name: 'Voyager', label: 'Voyager', style: 'https://api.maptiler.com/maps/voyager/style.json?key=cQX2iET1gmOW38bedbUh' }
 				] as StyleSwitchItem[],
-				buttonIcon                : mdiCursorDefaultClick,
-				layout                    : {
+				buttonIcon                 : mdiCursorDefaultClick,
+				layout                     : {
 					'line-join': 'round',
 					'line-cap' : 'round'
 				} as LineLayerSpecification['layout'],
-				paint                     : {
+				paint                      : {
 					'line-color': '#FF0000',
 					'line-width': 8
 				} as LineLayerSpecification['paint'],
-				librariesSourceTiles      : [ 'https://api.librarydata.uk/libraries/{z}/{x}/{y}.mvt' ],
-				librariesLayerCirclesPaint: {
+				librariesSourceTiles       : [ 'https://api.librarydata.uk/libraries/{z}/{x}/{y}.mvt' ],
+				librariesLayerCirclesPaint : {
 					'circle-radius': 5,
 					'circle-color' : '#1b5e20'
 				} as CircleLayerSpecification['paint'],
 				librariesLayerCirclesFilter: [
 					'!', [ 'has', 'point_count' ]
-				]  as CircleLayerSpecification['filter'],
+				] as CircleLayerSpecification['filter'],
+				defaultBoundsOptions       : {
+					animate          : true,
+					maxZoom          : 16,
+					duration         : 300,
+					padding          : 50,
+					useOnBoundsUpdate: true
+				} as FitBoundsOptions
 			};
 		}
 	});
