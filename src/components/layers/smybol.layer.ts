@@ -8,7 +8,8 @@ export default /*#__PURE__*/ defineComponent({
 	props: {
 		...LayerLib.SHARED.props,
 		layout: Object as PropType<SymbolLayerSpecification['layout']>,
-		paint : Object as PropType<SymbolLayerSpecification['paint']>
+		paint : Object as PropType<SymbolLayerSpecification['paint']>,
+		filter: [ Boolean, Array ] as PropType<SymbolLayerSpecification['filter']>
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {

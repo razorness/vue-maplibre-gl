@@ -8,7 +8,8 @@ export default /*#__PURE__*/ defineComponent({
 	props: {
 		...LayerLib.SHARED.props,
 		layout: Object as PropType<CircleLayerSpecification['layout']>,
-		paint : Object as PropType<CircleLayerSpecification['paint']>
+		paint : Object as PropType<CircleLayerSpecification['paint']>,
+		filter: [ Boolean, Array ] as PropType<CircleLayerSpecification['filter']>
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {

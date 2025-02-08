@@ -8,7 +8,8 @@ export default /*#__PURE__*/ defineComponent({
 	props: {
 		...LayerLib.SHARED.props,
 		layout: Object as PropType<HillshadeLayerSpecification['layout']>,
-		paint : Object as PropType<HillshadeLayerSpecification['paint']>
+		paint : Object as PropType<HillshadeLayerSpecification['paint']>,
+		filter: [ Boolean, Array ] as PropType<HillshadeLayerSpecification['filter']>
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {

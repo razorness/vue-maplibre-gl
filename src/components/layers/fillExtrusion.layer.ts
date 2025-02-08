@@ -9,6 +9,7 @@ export default /*#__PURE__*/ defineComponent({
 		...LayerLib.SHARED.props,
 		layout: Object as PropType<FillExtrusionLayerSpecification['layout']>,
 		paint : Object as PropType<FillExtrusionLayerSpecification['paint']>,
+		filter: [ Boolean, Array ] as PropType<FillExtrusionLayerSpecification['filter']>
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {

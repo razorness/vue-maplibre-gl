@@ -33,7 +33,7 @@
 				</mgl-geo-json-source>
 
 				<mgl-vector-source source-id="libraries" :tiles="librariesSourceTiles">
-					<mgl-circle-layer layer-id="libraries" source-layer="libraries" :paint="librariesLayerCirclesPaint"/>
+					<mgl-circle-layer layer-id="libraries" source-layer="libraries" :paint="librariesLayerCirclesPaint" :filter="librariesLayerCirclesFilter"/>
 				</mgl-vector-source>
 
 			</mgl-map>
@@ -256,7 +256,10 @@
 				librariesLayerCirclesPaint: {
 					'circle-radius': 5,
 					'circle-color' : '#1b5e20'
-				} as CircleLayerSpecification['paint']
+				} as CircleLayerSpecification['paint'],
+				librariesLayerCirclesFilter: [
+					'!', [ 'has', 'point_count' ]
+				]  as CircleLayerSpecification['filter'],
 			};
 		}
 	});
