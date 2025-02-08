@@ -1,6 +1,5 @@
 {
 	"packageMode": {
-		"@types/node": "minor",
-		"maplibre-gl": "minor"
+		"@types/node": "minor"
 	}
 }

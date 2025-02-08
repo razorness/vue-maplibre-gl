@@ -1,20 +1,15 @@
-import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import dts from 'vite-plugin-dts';
-import banner from 'vite-plugin-banner';
 import { resolve } from 'path';
-// @ts-ignore - Webstorm is complaining somehow
-import pkg from './package.json' assert { type: 'json' };
 import { fileURLToPath } from 'url';
+import { defineConfig } from 'vite';
+import banner from 'vite-plugin-banner';
+import dts from 'vite-plugin-dts';
+import pkg from './package.json' with { type: 'json' };
 
-// https://vitejs.dev/config/
-export default defineConfig({
-	resolve: {
-		alias: [
-			{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
-			{ find: /^~(.+)/, replacement: '$1' }
-		]
-	},
+
+// https://vite.dev/config/
+export default defineConfig(({ command }) => ({
+	root   : resolve(__dirname, command === 'serve' ? 'dev' : ''),
 	plugins: [
 		vue(),
 		dts({ insertTypesEntry: true }),
@@ -28,12 +23,13 @@ export default defineConfig({
 		external: [ 'vue', 'maplibre-gl', 'geojson', 'mitt' ]
 	},
 	build  : {
-		cssCodeSplit : true,
+		cssMinify    : 'lightningcss',
 		sourcemap    : true,
 		lib          : {
-			entry   : resolve(__dirname, 'src/lib/main.ts'),
-			name    : 'VueMaplibreGl',
-			fileName: format => `vue-maplibre-gl.${format}.js`
+			entry      : resolve(__dirname, 'src/main.ts'),
+			name       : 'VueMaplibreGl',
+			fileName   : (format) => `vue-maplibre-gl.${format}.js`,
+			cssFileName: 'vue-maplibre-gl'
 		},
 		rollupOptions: {
 			// make sure to externalize deps that shouldn't be bundled
@@ -45,13 +41,13 @@ export default defineConfig({
 				'mitt'
 			],
 			output  : {
-				assetFileNames: (assetInfo) => {
-					if (assetInfo.name === 'main.css') {
-						return 'vue-maplibre-gl.css';
-					}
-					return assetInfo.name;
-				},
-				exports       : 'named',
+				// 		assetFileNames: (assetInfo) => {
+				// 			if (assetInfo.name === 'main.css') {
+				// 				return 'vue-maplibre-gl.css';
+				// 			}
+				// 			return assetInfo.name;
+				// 		},
+				exports: 'named',
 				// Provide global variables to use in the UMD build
 				// for externalized deps
 				globals: {
@@ -69,5 +65,11 @@ export default defineConfig({
 			// to avoid full page reloads on file changes
 			ignored: [ /\.idea/, /ts\.timestamp-\d+\.mjs/, /\.git/, /node_modules/ ]
 		}
-	}
-});
+	},
+	resolve: {
+		alias: [
+			{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
+			{ find: /^~(.+)/, replacement: '$1' }
+		]
+	},
+}));

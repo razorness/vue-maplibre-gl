@@ -11,7 +11,7 @@ A small Vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-g
 
 ## Features
 
-- Supports MapLibre GL JS v3.x
+- Supports MapLibre GL JS v5.x
 - Typescript support
 - Components for map, controls, sources, markers and layers
 - Support for custom controls
@@ -19,7 +19,7 @@ A small Vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-g
 - Frame rate control included
 - Support for multiple instances and global access by `useMap(key: string | symbol)`
 - Simple way to switch displayed map language
-- Automatic restart on CONTEXT_LOST_WEBGL which can happen on mobile devices when tab was in background for longer time 
+- Automatic restart on CONTEXT_LOST_WEBGL which can happen on mobile devices when tab was in background for longer time
 - Small size
 
 ## Table of contents
@@ -46,8 +46,8 @@ app.use(VueMaplibreGl)
 Add CSS:
 
 ```scss
-@import "~maplibre-gl/dist/maplibre-gl.css";
-@import "~vue-maplibre-gl/dist/vue-maplibre-gl.css";
+@use "~maplibre-gl/dist/maplibre-gl.css";
+@use "~vue-maplibre-gl/dist/vue-maplibre-gl.css";
 ```
 
 Use specific components:
@@ -76,7 +76,7 @@ or in a parent components `.vue` file
 
 # Usage
 
-See [src/App.vue](src/App.vue) for a real world example.
+See [dev/App.vue](dev/App.vue) for a real world example.
 
 # Demo
 
@@ -86,20 +86,6 @@ cd vue-maplibre-gl
 yarn
 yarn dev
 ```
-
-## PRs welcome ♥
-
-If you have ideas, improvements, suggestions etc. don't hesitate to open a pull request.
-
-### Todos
-
-- [ ] Usage examples
-- [ ] Demo
-- [ ] API documentation
-- [ ] Support `v-model:...` for some basic props
-- [x] Add layer events
-- [ ] Add [Web-types](https://github.com/JetBrains/web-types)
-- [x] Add [frame rate control](https://github.com/mapbox/mapbox-gl-framerate)
 
 ## License
 
