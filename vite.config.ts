@@ -12,7 +12,16 @@ export default defineConfig(({ command }) => ({
 	root   : resolve(__dirname, command === 'serve' ? 'dev' : ''),
 	plugins: [
 		vue(),
-		dts({ insertTypesEntry: true }),
+		dts({
+			entryRoot       : 'src',
+			include         : 'src',
+			insertTypesEntry: true,
+			outDir          : 'dist/types',
+			tsconfigPath    : './tsconfig.app.json',
+			beforeWriteFile : (filePath, content) => ({
+				filePath, content: content.replace(/\.svg(\?(raw|component|skipsvgo))?/g, '.vue'),
+			})
+		}),
 		banner(`/*!
 * ${pkg.name} v${pkg.version}
 * (c) ${new Date().getFullYear()} ${pkg.author.name}
@@ -23,6 +32,7 @@ export default defineConfig(({ command }) => ({
 		external: [ 'vue', 'maplibre-gl', 'geojson', 'mitt' ]
 	},
 	build  : {
+		emptyOutDir  : true,
 		cssMinify    : 'lightningcss',
 		sourcemap    : true,
 		lib          : {
@@ -41,12 +51,6 @@ export default defineConfig(({ command }) => ({
 				'mitt'
 			],
 			output  : {
-				// 		assetFileNames: (assetInfo) => {
-				// 			if (assetInfo.name === 'main.css') {
-				// 				return 'vue-maplibre-gl.css';
-				// 			}
-				// 			return assetInfo.name;
-				// 		},
 				exports: 'named',
 				// Provide global variables to use in the UMD build
 				// for externalized deps
