@@ -94,11 +94,11 @@
 	import MglStyleSwitchControl from '@/components/controls/styleSwitch.control';
 	import MglCircleLayer from '@/components/layers/circle.layer';
 	import MglLineLayer from '@/components/layers/line.layer';
-	import MglMap, { type FitBoundsOptions } from '@/components/map.component';
+	import MglMap from '@/components/map.component';
 	import MglMarker from '@/components/marker.component';
 	import MglGeoJsonSource from '@/components/sources/geojson.source';
 	import MglVectorSource from '@/components/sources/vector.source';
-	import { MglDefaults, type MglEvent, Position, type  StyleSwitchItem, useMap, type  ValidLanguages } from '@/main';
+	import { type FitBoundsOptions, MglDefaults, type MglEvent, Position, type  StyleSwitchItem, useMap, type  ValidLanguages } from '@/main';
 	import { mdiCursorDefaultClick } from '@mdi/js';
 	import type { FeatureCollection, LineString } from 'geojson';
 	import {

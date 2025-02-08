@@ -1,6 +1,6 @@
 import type { MglMap } from '@/components';
 import type { SourceLayerRegistry } from '@/lib/sourceLayer.registry';
-import type { Map, SourceSpecification, StyleSpecification } from 'maplibre-gl';
+import type { Map, MapOptions, SourceSpecification, StyleSpecification } from 'maplibre-gl';
 import type { Emitter } from 'mitt';
 import type { InjectionKey, Ref, ShallowRef } from 'vue';
 
@@ -11,6 +11,8 @@ export const mapSymbol           = Symbol('map') as InjectionKey<ShallowRef<Map 
 			 sourceIdSymbol      = Symbol('sourceId') as InjectionKey<string>,
 			 sourceLayerRegistry = Symbol('sourceLayerRegistry') as InjectionKey<SourceLayerRegistry>,
 			 emitterSymbol       = Symbol('emitter') as InjectionKey<Emitter<MglEvents>>;
+
+export type FitBoundsOptions = MapOptions['fitBoundsOptions'] & { useOnBoundsUpdate?: boolean };
 
 export interface MglEvent<T = any> {
 	type: string;

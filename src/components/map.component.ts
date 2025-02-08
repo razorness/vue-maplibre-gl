@@ -2,7 +2,17 @@ import { defaults } from '@/defaults';
 import { debounce } from '@/lib/debounce';
 import { MapLib } from '@/lib/map.lib';
 import { registerMap } from '@/lib/mapRegistry';
-import { componentIdSymbol, emitterSymbol, isInitializedSymbol, isLoadedSymbol, mapSymbol, type MglEvents, sourceIdSymbol, type ValidLanguages } from '@/types';
+import {
+	componentIdSymbol,
+	emitterSymbol,
+	type FitBoundsOptions,
+	isInitializedSymbol,
+	isLoadedSymbol,
+	mapSymbol,
+	type MglEvents,
+	sourceIdSymbol,
+	type ValidLanguages
+} from '@/types';
 import { Map as MaplibreMap, type MapOptions, type StyleSpecification } from 'maplibre-gl';
 import mitt from 'mitt';
 import { setPrimaryLanguage } from 'modular-maptiler-sdk/src/language';
@@ -22,8 +32,6 @@ import {
 	unref,
 	watch
 } from 'vue';
-
-export type FitBoundsOptions = MapOptions['fitBoundsOptions'] & { useOnBoundsUpdate?: boolean };
 
 export default /*#__PURE__*/ defineComponent({
 	name : 'MglMap',
