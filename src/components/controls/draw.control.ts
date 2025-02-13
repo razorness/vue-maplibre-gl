@@ -4,7 +4,7 @@ import type { PositionProp } from '@/components/controls/position.enum.ts';
 import { Position } from '@/components/controls/position.enum.ts';
 import { DrawMode, type DrawModel, DrawPlugin } from '@/plugins/draw';
 import { fitBoundsOptionsSymbol, mapSymbol } from '@/types.ts';
-import { defineComponent, h, inject, onBeforeUnmount, type PropType, reactive, watch } from 'vue';
+import { defineComponent, h, inject, onBeforeUnmount, type PropType, reactive, type SlotsType, watch } from 'vue';
 
 export default /*#__PURE__*/ defineComponent({
 	name      : 'MglDrawControl',
@@ -13,10 +13,14 @@ export default /*#__PURE__*/ defineComponent({
 		position    : { type: String as PropType<PositionProp>, default: Position.TOP_RIGHT },
 		model       : { type: Object as PropType<DrawModel> },
 		mode        : { type: String as PropType<DrawMode | 'POLYGON' | 'CIRCLE' | 'CIRCLE_STATIC'>, default: DrawMode.POLYGON },
+		defaultMode : { type: String as PropType<DrawMode | 'POLYGON' | 'CIRCLE' | 'CIRCLE_STATIC'>, default: DrawMode.POLYGON },
 		zoomOnUpdate: { type: Boolean, default: true }
 	},
 	emits     : [ 'update:mode', 'update:model' ],
-	setup(props, { emit }) {
+	slots     : Object as SlotsType<{
+		buttons: { mode: DrawMode, setMode: (mode: DrawMode) => void },
+	}>,
+	setup(props, { emit, slots }) {
 
 		const map              = inject(mapSymbol)!,
 			  fitBoundsOptions = inject(fitBoundsOptionsSymbol);
@@ -30,7 +34,7 @@ export default /*#__PURE__*/ defineComponent({
 
 		function toggleMode(m: DrawMode) {
 			if (draw.mode === m) {
-				draw.setMode(DrawMode.POLYGON, props.model);
+				draw.setMode(props.defaultMode as DrawMode, props.model);
 			} else {
 				draw.setMode(m, props.model);
 			}
@@ -45,26 +49,29 @@ export default /*#__PURE__*/ defineComponent({
 		return () => h(
 			MglCustomControl,
 			{ position: props.position },
-			() => [
-				h(MglButton, {
-					type   : ButtonType.MDI,
-					path   : 'M17,15.7V13H19V17L10,21L3,14L7,5H11V7H8.3L5.4,13.6L10.4,18.6L17,15.7M22,5V7H19V10H17V7H14V5H17V2H19V5H22Z',
-					'class': [ 'maplibregl-ctrl-icon maplibregl-draw-control maplibregl-draw-control-polygon', draw.mode === DrawMode.POLYGON ? 'is-active' : undefined ],
-					onClick: () => toggleMode(DrawMode.POLYGON)
-				}),
-				h(MglButton, {
-					type   : ButtonType.MDI,
-					path   : 'M11,19A6,6 0 0,0 17,13H19A8,8 0 0,1 11,21A8,8 0 0,1 3,13A8,8 0 0,1 11,5V7A6,6 0 0,0 5,13A6,6 0 0,0 11,19M19,5H22V7H19V10H17V7H14V5H17V2H19V5Z',
-					'class': [ 'maplibregl-ctrl-icon maplibregl-draw-control maplibregl-draw-control-circle', draw.mode === DrawMode.CIRCLE ? 'is-active' : undefined ],
-					onClick: () => toggleMode(DrawMode.CIRCLE)
-				}),
-				h(MglButton, {
-					type   : ButtonType.MDI,
-					path   : 'M3.05,13H1V11H3.05C3.5,6.83 6.83,3.5 11,3.05V1H13V3.05C17.17,3.5 20.5,6.83 20.95,11H23V13H20.95C20.5,17.17 17.17,20.5 13,20.95V23H11V20.95C6.83,20.5 3.5,17.17 3.05,13M12,5A7,7 0 0,0 5,12A7,7 0 0,0 12,19A7,7 0 0,0 19,12A7,7 0 0,0 12,5Z',
-					'class': [ 'maplibregl-ctrl-icon maplibregl-draw-control maplibregl-draw-control-circle-static', draw.mode === DrawMode.CIRCLE_STATIC ? 'is-active' : undefined ],
-					onClick: () => toggleMode(DrawMode.CIRCLE_STATIC)
-				}),
-			]
+			() =>
+				slots.buttons
+					? slots.buttons({ mode: draw.mode, setMode: toggleMode })
+					: [
+						h(MglButton, {
+							type   : ButtonType.MDI,
+							path   : 'M17,15.7V13H19V17L10,21L3,14L7,5H11V7H8.3L5.4,13.6L10.4,18.6L17,15.7M22,5V7H19V10H17V7H14V5H17V2H19V5H22Z',
+							'class': [ 'maplibregl-ctrl-icon maplibregl-draw-control maplibregl-draw-control-polygon', draw.mode === DrawMode.POLYGON ? 'is-active' : undefined ],
+							onClick: () => toggleMode(DrawMode.POLYGON)
+						}),
+						h(MglButton, {
+							type   : ButtonType.MDI,
+							path   : 'M11,19A6,6 0 0,0 17,13H19A8,8 0 0,1 11,21A8,8 0 0,1 3,13A8,8 0 0,1 11,5V7A6,6 0 0,0 5,13A6,6 0 0,0 11,19M19,5H22V7H19V10H17V7H14V5H17V2H19V5Z',
+							'class': [ 'maplibregl-ctrl-icon maplibregl-draw-control maplibregl-draw-control-circle', draw.mode === DrawMode.CIRCLE ? 'is-active' : undefined ],
+							onClick: () => toggleMode(DrawMode.CIRCLE)
+						}),
+						h(MglButton, {
+							type   : ButtonType.MDI,
+							path   : 'M3.05,13H1V11H3.05C3.5,6.83 6.83,3.5 11,3.05V1H13V3.05C17.17,3.5 20.5,6.83 20.95,11H23V13H20.95C20.5,17.17 17.17,20.5 13,20.95V23H11V20.95C6.83,20.5 3.5,17.17 3.05,13M12,5A7,7 0 0,0 5,12A7,7 0 0,0 12,19A7,7 0 0,0 19,12A7,7 0 0,0 12,5Z',
+							'class': [ 'maplibregl-ctrl-icon maplibregl-draw-control maplibregl-draw-control-circle-static', draw.mode === DrawMode.CIRCLE_STATIC ? 'is-active' : undefined ],
+							onClick: () => toggleMode(DrawMode.CIRCLE_STATIC)
+						}),
+					]
 		);
 
 	}
