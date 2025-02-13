@@ -16,10 +16,11 @@
   justify-content: center;
   align-items: stretch;
 
-  .maplibregl-draw-circle-mode-circle {
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    background: rgba(231, 75, 60, 0.2);
-    border: 2px solid #e74b3c;
-  }
+}
+
+.maplibregl-draw-circle-mode-circle {
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background: rgba(231, 75, 60, 0.2);
+  border: 2px solid #e74b3c;
 }

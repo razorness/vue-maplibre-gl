@@ -12,9 +12,9 @@ A small Vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-g
 ## Features
 
 - Supports MapLibre GL JS v5.x
-- ⚠ Typescript support
-- ⚠ Components for map, controls, sources, markers and layers
-- ⚠ Simple Draw Control to draw: polygon, circle and circle (static to camera viewport)
+- Typescript support
+- Components for map, controls, sources, markers and layers
+- ⚠ NEW: Simple Draw Control to draw: polygon, circle and circle (static to camera viewport)
 - Support for custom controls
 - Customizable style switch which reloads sources and layers automatically
 - Frame rate control included
@@ -27,6 +27,8 @@ A small Vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-g
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Draw Plugin](#draw-plugin)
+- [Demo](#demo)
 
 # Installation
 
@@ -63,7 +65,6 @@ app.component('MglMap', MglMap)
 or in a parent components `.vue` file
 
 ```html
-
 <script>
 	import { MglMap } from 'vue-maplibre-gl'
 
@@ -75,6 +76,77 @@ or in a parent components `.vue` file
 	}
 </script>
 ```
+
+### Draw Plugin
+
+Draw Plugin adds few dependencies from [Turf.js](https://turfjs.org/). That's all.
+
+#### Usage
+
+Add CSS:
+
+```scss
+@use "~vue-maplibre-gl/dist/vue-maplibre-gl-draw.css";
+```
+
+```vue
+<template>
+    <mgl-map>
+        <mgl-draw-control v-model="myDrawModel"/>
+    </mgl-map>
+</template>
+```
+
+You can use the draw plugin without using the `MglDrawComponent`. See [src/components/controls/draw.control.ts](src/components/controls/draw.control.ts) to get an example.
+
+#### Modes
+
+Polygon
+
+![Polygon Mode](https://github.com/user-attachments/assets/ace434de-1336-4faa-a546-93c97606c0ff)
+
+Circle
+
+![Circle Mode](https://github.com/user-attachments/assets/949fbca0-2eb2-4eb4-a5d8-b6b9f043bf46)
+
+Circle Static (static to camera viewport)
+
+![Circle Static Mode](https://github.com/user-attachments/assets/055cdf60-4f69-4249-b537-19e88bbb950c)
+
+
+#### Styling Polygon and Circle Mode
+
+There is a default style used which can be found in [src/plugins/draw/styles.ts](src/plugins/draw/styles.ts). 
+To customize the design when drawing polygon or circle, you can set your own by:
+
+```vue
+<template>
+    <mgl-map>
+        <mgl-draw-control :style="myCustomStyle"/>
+    </mgl-map>
+</template>
+```
+
+#### Styling Circle Static Mode
+
+The draw component automatically uses the `fitBoundsOptions` from map instance. If you want to set them manually, you can set padding by:
+```scss
+.maplibregl-draw-circle-mode {
+  top: 50px;
+  right: 50px;
+  bottom: 50px;
+  left: 50px;
+}
+```
+
+Custom colors for static circle mode can be set by:
+```scss
+.maplibregl-draw-circle-mode-circle {
+  background: rgba(231, 75, 60, 0.2);
+  border: 2px solid #e74b3c;
+}
+```
+See [src/plugins/draw/draw.plugin.scss](src/plugins/draw/draw.plugin.scss) for more details to style your own static circle mode.
 
 # Usage
 
