@@ -131,7 +131,7 @@ To customize the design when drawing polygon or circle, you can set your own by:
 
 ## Styling Circle Static Mode
 
-The draw component automatically uses the `fitBoundsOptions` from map instance. If you want to set them manually, you can set padding by:
+The draw component automatically uses padding settings from `fitBoundsOptions` of map instance. If you want to set them manually, you can set padding by:
 ```scss
 .maplibregl-draw-circle-mode {
   top: 50px;
