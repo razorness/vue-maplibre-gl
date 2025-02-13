@@ -77,11 +77,11 @@ or in a parent components `.vue` file
 </script>
 ```
 
-### Draw Plugin
+# Draw Plugin
 
 Draw Plugin adds few dependencies from [Turf.js](https://turfjs.org/). That's all.
 
-#### Usage
+## Usage
 
 Add CSS:
 
@@ -99,22 +99,24 @@ Add CSS:
 
 You can use the draw plugin without using the `MglDrawComponent`. See [src/components/controls/draw.control.ts](src/components/controls/draw.control.ts) to get an example.
 
-#### Modes
+## Modes
 
-Polygon
+### Polygon
 
 ![Polygon Mode](https://github.com/user-attachments/assets/ace434de-1336-4faa-a546-93c97606c0ff)
 
-Circle
+### Circle
 
 ![Circle Mode](https://github.com/user-attachments/assets/949fbca0-2eb2-4eb4-a5d8-b6b9f043bf46)
 
-Circle Static (static to camera viewport)
+### Circle Static 
+
+This mode uses a circle which is static to camera viewport, which can be very handy for usage on smartphones.
 
 ![Circle Static Mode](https://github.com/user-attachments/assets/055cdf60-4f69-4249-b537-19e88bbb950c)
 
 
-#### Styling Polygon and Circle Mode
+## Styling Polygon and Circle Mode
 
 There is a default style used which can be found in [src/plugins/draw/styles.ts](src/plugins/draw/styles.ts). 
 To customize the design when drawing polygon or circle, you can set your own by:
@@ -127,7 +129,7 @@ To customize the design when drawing polygon or circle, you can set your own by:
 </template>
 ```
 
-#### Styling Circle Static Mode
+## Styling Circle Static Mode
 
 The draw component automatically uses the `fitBoundsOptions` from map instance. If you want to set them manually, you can set padding by:
 ```scss
