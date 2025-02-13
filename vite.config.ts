@@ -32,16 +32,18 @@ export default defineConfig(({ command }) => ({
 		external: [ 'vue', 'maplibre-gl', 'geojson', 'mitt' ]
 	},
 	build  : {
+		cssCodeSplit : true,
 		emptyOutDir  : true,
 		cssMinify    : 'lightningcss',
 		sourcemap    : true,
 		lib          : {
-			entry      : resolve(__dirname, 'src/main.ts'),
-			name       : 'VueMaplibreGl',
-			fileName   : (format) => `vue-maplibre-gl.${format}.js`,
-			cssFileName: 'vue-maplibre-gl'
+			entry: {
+				'vue-maplibre-gl'     : resolve(__dirname, 'src/main.ts'),
+				'vue-maplibre-gl-draw': resolve(__dirname, 'src/plugins/draw/index.ts'),
+			}
 		},
 		rollupOptions: {
+			preserveEntrySignatures: 'strict',
 			// make sure to externalize deps that shouldn't be bundled
 			// into your library
 			external: [

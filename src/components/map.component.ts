@@ -6,6 +6,7 @@ import {
 	componentIdSymbol,
 	emitterSymbol,
 	type FitBoundsOptions,
+	fitBoundsOptionsSymbol,
 	isInitializedSymbol,
 	isLoadedSymbol,
 	mapSymbol,
@@ -130,6 +131,7 @@ export default /*#__PURE__*/ defineComponent({
 		provide(componentIdSymbol, component.uid);
 		provide(sourceIdSymbol, '');
 		provide(emitterSymbol, emitter);
+		provide(fitBoundsOptionsSymbol, props.fitBoundsOptions);
 
 		/*
 		 * bind prop watchers

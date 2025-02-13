@@ -12,6 +12,13 @@
 				@map:zoomstart="isZooming = true"
 				@map:zoomend="isZooming = false"
 			>
+				<mgl-draw-control
+					position="top-left"
+					v-model:mode="drawMode"
+					:model="drawModel"
+					zoom-on-update
+					@update:model="onDrawModelUpdate"
+				/>
 				<mgl-frame-rate-control/>
 				<mgl-fullscreen-control/>
 				<mgl-navigation-control/>
@@ -35,7 +42,8 @@
 				</mgl-geo-json-source>
 
 				<mgl-vector-source source-id="libraries" :tiles="librariesSourceTiles">
-					<mgl-circle-layer layer-id="libraries" source-layer="libraries" :paint="librariesLayerCirclesPaint" :filter="librariesLayerCirclesFilter"/>
+					<mgl-circle-layer layer-id="libraries" source-layer="libraries" :paint="librariesLayerCirclesPaint"
+									  :filter="librariesLayerCirclesFilter"/>
 				</mgl-vector-source>
 
 			</mgl-map>
@@ -86,6 +94,7 @@
 <script lang="ts">
 	import MglButton from '@/components/button.component';
 	import MglCustomControl from '@/components/controls/custom.control';
+	import MglDrawControl from '@/components/controls/draw.control.ts';
 	import MglFrameRateControl from '@/components/controls/frameRate.control';
 	import MglFullscreenControl from '@/components/controls/fullscreen.control';
 	import MglGeolocationControl from '@/components/controls/geolocation.control';
@@ -99,17 +108,12 @@
 	import MglGeoJsonSource from '@/components/sources/geojson.source';
 	import MglVectorSource from '@/components/sources/vector.source';
 	import { type FitBoundsOptions, MglDefaults, type MglEvent, Position, type  StyleSwitchItem, useMap, type  ValidLanguages } from '@/main';
+	import { DrawMode, type DrawModel } from '@/plugins/draw';
 	import { mdiCursorDefaultClick } from '@mdi/js';
 	import type { FeatureCollection, LineString } from 'geojson';
-	import {
-		type CircleLayerSpecification,
-		type LineLayerSpecification,
-		LngLatBounds,
-		type LngLatBoundsLike,
-		type LngLatLike,
-		type MapLayerMouseEvent
-	} from 'maplibre-gl';
+	import { type CircleLayerSpecification, type LineLayerSpecification, type LngLatBoundsLike, type LngLatLike, type MapLayerMouseEvent } from 'maplibre-gl';
 	import { defineComponent, onMounted, ref, watch } from 'vue';
+	import { drawCircleExample, drawCircleExample2, drawPolygonExample } from './drawData.ts';
 
 	MglDefaults.style = 'https://api.maptiler.com/maps/streets/style.json?key=cQX2iET1gmOW38bedbUh';
 	console.log('MglDefaults', MglDefaults);
@@ -141,6 +145,7 @@
 	export default defineComponent({
 		name      : 'App',
 		components: {
+			MglDrawControl,
 			MglCircleLayer, MglVectorSource, MglLineLayer, MglGeoJsonSource, MglMarker, MglStyleSwitchControl, MglButton, MglCustomControl,
 			MglGeolocationControl, MglScaleControl, MglNavigationControl, MglFullscreenControl, MglFrameRateControl, MglMap
 		},
@@ -152,6 +157,8 @@
 				  loaded            = ref(0),
 				  markerCoordinates = ref<LngLatLike>([ 13.377507, 52.516267 ]),
 				  bounds            = ref<LngLatBoundsLike>(),
+				  drawMode          = ref<DrawMode>(DrawMode.CIRCLE_STATIC),
+				  drawModel         = ref<DrawModel>(),
 				  geojsonSource     = {
 					  data: ref<FeatureCollection<LineString>>({
 						  type    : 'FeatureCollection',
@@ -174,6 +181,20 @@
 
 			watch(() => map.isLoaded, () => (console.log('IS LOADED', map)), { immediate: true });
 			watch(() => map.isMounted, (v: boolean) => (console.log('IS MOUNTED', v)), { immediate: true });
+
+			watch(drawMode, () => {
+				switch (drawMode.value) {
+					case DrawMode.CIRCLE:
+						drawModel.value = drawCircleExample;
+						break;
+					case DrawMode.CIRCLE_STATIC:
+						drawModel.value = drawCircleExample;
+						break;
+					default:
+						drawModel.value = drawPolygonExample;
+						break;
+				}
+			}, { immediate: true });
 
 			onMounted(() => {
 				setTimeout(() => (markerCoordinates.value = [ 13.377507, 42.516267 ]), 5000);
@@ -232,7 +253,7 @@
 				map.language = (e.target as HTMLSelectElement).value as ValidLanguages;
 			}
 
-			setTimeout(() => bounds.value = new LngLatBounds([ 13.327565, 52.551936 ], [ 13.456551, 52.567442 ]), 2500);
+			setTimeout(() => drawModel.value = drawCircleExample2, 5000);
 
 			return {
 				showCustomControl, loaded, map, mapVersion, markerCoordinates, geojsonSource, bounds, onLoad, onMouseenter, setLanguage,
@@ -278,7 +299,12 @@
 					duration         : 300,
 					padding          : 50,
 					useOnBoundsUpdate: true
-				} as FitBoundsOptions
+				} as FitBoundsOptions,
+				drawMode,
+				drawModel,
+				onDrawModelUpdate(m: DrawModel) {
+					console.log('drawModelUpdate', m);
+				}
 			};
 		}
 	});

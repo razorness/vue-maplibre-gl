@@ -1,6 +1,6 @@
 {
   "name": "vue-maplibre-gl",
-  "version": "5.0.4",
+  "version": "5.1.0",
   "description": "Vue 3 plugin for maplibre-gl",
   "keywords": [
     "vue",
@@ -27,9 +27,9 @@
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
-  "main": "dist/vue-maplibre-gl.umd.js",
-  "browser": "dist/vue-maplibre-gl.es.js",
-  "module": "dist/vue-maplibre-gl.es.js",
+  "main": "dist/vue-maplibre-gl.cjs",
+  "browser": "dist/vue-maplibre-gl.js",
+  "module": "dist/vue-maplibre-gl.js",
   "types": "dist/types/main.d.ts",
   "files": [
     "dist/**/*",
@@ -42,6 +42,10 @@
     "upgrade": "npx taze major -I"
   },
   "dependencies": {
+    "@turf/bbox": "^7.2.0",
+    "@turf/boolean-point-in-polygon": "^7.2.0",
+    "@turf/circle": "^7.2.0",
+    "@turf/simplify": "^7.2.0",
     "maplibre-gl": "^5.1.0",
     "mitt": "^3.0.1",
     "vue": "^3.5.13"
@@ -56,6 +60,7 @@
     "lightningcss": "^1.29.1",
     "modular-maptiler-sdk": "^1.0.16",
     "sass": "^1.84.0",
+    "ts-essentials": "^10.0.4",
     "typescript": "~5.7.3",
     "vite": "^6.1.0",
     "vite-plugin-banner": "^0.8.0",

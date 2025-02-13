@@ -31,11 +31,10 @@ export function registerMap(instance: InstanceType<typeof MglMap>, map: ShallowR
 		instances.set(key, component);
 	}
 
-	component.isLoaded  = false;
-	component.isMounted = false;
 	component.component = instance;
 	component.map       = map.value;
 	component.isLoaded  = map.value?.loaded() || false;
+	component.isMounted = false;
 
 	return component;
 }

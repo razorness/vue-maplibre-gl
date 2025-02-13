@@ -1,0 +1,25 @@
+.maplibregl-draw-circle-mode {
+
+  --padding: 10px;
+  --padding-top: var(--padding);
+  --padding-right: var(--padding);
+  --padding-bottom: var(--padding);
+  --padding-left: var(--padding);
+
+  position: absolute;
+  top: var(--padding-top);
+  right: var(--padding-right);
+  bottom: var(--padding-bottom);
+  left: var(--padding-left);
+
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+
+  .maplibregl-draw-circle-mode-circle {
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background: rgba(231, 75, 60, 0.2);
+    border: 2px solid #e74b3c;
+  }
+}

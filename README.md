@@ -12,8 +12,9 @@ A small Vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-g
 ## Features
 
 - Supports MapLibre GL JS v5.x
-- Typescript support
-- Components for map, controls, sources, markers and layers
+- ⚠ Typescript support
+- ⚠ Components for map, controls, sources, markers and layers
+- ⚠ Simple Draw Control to draw: polygon, circle and circle (static to camera viewport)
 - Support for custom controls
 - Customizable style switch which reloads sources and layers automatically
 - Frame rate control included
@@ -48,6 +49,7 @@ Add CSS:
 ```scss
 @use "~maplibre-gl/dist/maplibre-gl.css";
 @use "~vue-maplibre-gl/dist/vue-maplibre-gl.css";
+@use "~vue-maplibre-gl/dist/vue-maplibre-gl-draw.css"; /* optional: only needed for draw component */
 ```
 
 Use specific components:

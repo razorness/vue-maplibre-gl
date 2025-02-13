@@ -4,13 +4,14 @@ import type { Map, MapOptions, SourceSpecification, StyleSpecification } from 'm
 import type { Emitter } from 'mitt';
 import type { InjectionKey, Ref, ShallowRef } from 'vue';
 
-export const mapSymbol           = Symbol('map') as InjectionKey<ShallowRef<Map | undefined>>,
-			 isLoadedSymbol      = Symbol('isLoaded') as InjectionKey<Ref<boolean>>,
-			 isInitializedSymbol = Symbol('isInitialized') as InjectionKey<Ref<boolean>>,
-			 componentIdSymbol   = Symbol('componentId') as InjectionKey<number>,
-			 sourceIdSymbol      = Symbol('sourceId') as InjectionKey<string>,
-			 sourceLayerRegistry = Symbol('sourceLayerRegistry') as InjectionKey<SourceLayerRegistry>,
-			 emitterSymbol       = Symbol('emitter') as InjectionKey<Emitter<MglEvents>>;
+export const mapSymbol              = Symbol('map') as InjectionKey<ShallowRef<Map | undefined>>,
+			 isLoadedSymbol         = Symbol('isLoaded') as InjectionKey<Ref<boolean>>,
+			 isInitializedSymbol    = Symbol('isInitialized') as InjectionKey<Ref<boolean>>,
+			 componentIdSymbol      = Symbol('componentId') as InjectionKey<number>,
+			 sourceIdSymbol         = Symbol('sourceId') as InjectionKey<string>,
+			 sourceLayerRegistry    = Symbol('sourceLayerRegistry') as InjectionKey<SourceLayerRegistry>,
+			 emitterSymbol          = Symbol('emitter') as InjectionKey<Emitter<MglEvents>>,
+			 fitBoundsOptionsSymbol = Symbol('fitBoundsOptions') as InjectionKey<FitBoundsOptions>;
 
 export type FitBoundsOptions = MapOptions['fitBoundsOptions'] & { useOnBoundsUpdate?: boolean };
 
