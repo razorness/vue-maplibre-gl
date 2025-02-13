@@ -111,7 +111,7 @@ You can use the draw plugin without using the `MglDrawComponent`. See [src/compo
 
 ### Circle Static 
 
-This mode uses a circle which is static to camera viewport, which can be very handy for usage on smartphones.
+This mode uses a circle which is static to camera viewport and can be very handy for usage on smartphones.
 
 ![Circle Static Mode](https://github.com/user-attachments/assets/055cdf60-4f69-4249-b537-19e88bbb950c)
 
