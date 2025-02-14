@@ -14,6 +14,14 @@ export interface DrawPluginOptions {
 	onUpdate?: OnUpdateHandler;
 	zoomOnUpdate?: boolean;
 	fitBoundsOptions?: FitBoundsOptions;
+	minArea?: {
+		size?: number; // m²
+		color?: string; // default: #e74b3c
+	};
+	pointerPrecision?: {
+		mouse: number; // default 24px
+		touch: number; // default 36px
+	};
 }
 
 type WithoutSource<T> = T extends any ? Omit<T, 'source'> : never;
@@ -22,6 +30,8 @@ export type DrawStyle = WithoutSource<LayerSpecification>
 export interface DrawFeatureProperties {
 	center?: Position;
 	radius?: number; // degree
+	area?: number; // m²
+	tooSmall?: boolean;
 	meta: 'polygon' | 'circle' | 'vertex' | 'midpoint';
 }
 

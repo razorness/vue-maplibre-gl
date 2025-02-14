@@ -776,6 +776,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@turf/area@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "@turf/area@npm:7.2.0"
+  dependencies:
+    "@turf/helpers": "npm:^7.2.0"
+    "@turf/meta": "npm:^7.2.0"
+    "@types/geojson": "npm:^7946.0.10"
+    tslib: "npm:^2.8.1"
+  checksum: 10/412f2bf4de86591d8420a247a87fd72564e1d27d177b0bd00ce2a0b6492a93eb167b016ceac8013cfe5d579d343d49302f0ffb553f94d9cf50c088dd30dde080
+  languageName: node
+  linkType: hard
+
 "@turf/bbox@npm:^7.2.0":
   version: 7.2.0
   resolution: "@turf/bbox@npm:7.2.0"
@@ -2838,9 +2850,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.84.0":
-  version: 1.84.0
-  resolution: "sass@npm:1.84.0"
+"sass@npm:^1.85.0":
+  version: 1.85.0
+  resolution: "sass@npm:1.85.0"
   dependencies:
     "@parcel/watcher": "npm:^2.4.1"
     chokidar: "npm:^4.0.0"
@@ -2851,7 +2863,7 @@ __metadata:
       optional: true
   bin:
     sass: sass.js
-  checksum: 10/e0c093f13800276f7441c6925aa707dbba59a7ecd6e21925f1e04980970c3fb18b1cc5e7193f9bbed569a87dfb41ed780f5c6153f0b3def3e0ae1ccf80cf282e
+  checksum: 10/4af4627505087b692a29c575f346b12e30a3f58dd0254832ebc9ccff456e6f8a2c16d1f9b45d83d6aaae867e6fb54b98c485ddf79a226e328d595b54725c7f84
   languageName: node
   linkType: hard
 
@@ -3309,6 +3321,7 @@ __metadata:
   resolution: "vue-maplibre-gl@workspace:."
   dependencies:
     "@mdi/js": "npm:^7.4.47"
+    "@turf/area": "npm:^7.2.0"
     "@turf/bbox": "npm:^7.2.0"
     "@turf/boolean-point-in-polygon": "npm:^7.2.0"
     "@turf/circle": "npm:^7.2.0"
@@ -3322,7 +3335,7 @@ __metadata:
     maplibre-gl: "npm:^5.1.0"
     mitt: "npm:^3.0.1"
     modular-maptiler-sdk: "npm:^1.0.16"
-    sass: "npm:^1.84.0"
+    sass: "npm:^1.85.0"
     ts-essentials: "npm:^10.0.4"
     typescript: "npm:~5.7.3"
     vite: "npm:^6.1.0"

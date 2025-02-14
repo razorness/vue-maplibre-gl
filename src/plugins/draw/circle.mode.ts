@@ -4,7 +4,7 @@ import type { DrawPlugin } from '@/plugins/draw/plugin.ts';
 import type { DrawFeatureProperties, DrawModel, DrawModeSnapshot } from '@/plugins/draw/types.ts';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import type { Feature, Polygon, Position } from 'geojson';
-import type { GeoJSONSource, Map, MapLayerMouseEvent } from 'maplibre-gl';
+import type { GeoJSONSource, Map, MapLayerMouseEvent, MapLayerTouchEvent } from 'maplibre-gl';
 
 export class CircleMode extends AbstractDrawMode {
 
@@ -21,7 +21,7 @@ export class CircleMode extends AbstractDrawMode {
 		this.setModel(model);
 	}
 
-	onClick(e: MapLayerMouseEvent) {
+	onClick(e: MapLayerMouseEvent | MapLayerTouchEvent) {
 
 		if (this._mode) {
 			return;
@@ -40,14 +40,14 @@ export class CircleMode extends AbstractDrawMode {
 
 	}
 
-	onMouseDown(e: MapLayerMouseEvent) {
+	onMouseDown(e: MapLayerMouseEvent | MapLayerTouchEvent) {
 
 		if (!this.collection?.features.length) {
 			return;
 		}
 
 		for (let i = 0, len = this.collection.features[ 1 ].geometry.coordinates.length; i < len; i++) {
-			if (this.isNearby(this.collection.features[ 1 ].geometry.coordinates[ i ] as Position, e.point)) {
+			if (this.isNearby(this.collection.features[ 1 ].geometry.coordinates[ i ] as Position, e.point, this.isTouchEvent(e))) {
 				e.preventDefault();
 				this._resizeAnker = i;
 				this._mode        = 'resize';
@@ -64,7 +64,7 @@ export class CircleMode extends AbstractDrawMode {
 
 	}
 
-	onMouseMove(e: MapLayerMouseEvent) {
+	onMouseMove(e: MapLayerMouseEvent | MapLayerTouchEvent) {
 
 		if (!this._mode || !this.collection?.features.length) {
 			return;
@@ -127,7 +127,7 @@ export class CircleMode extends AbstractDrawMode {
 
 	}
 
-	onMouseUp(e: MapLayerMouseEvent) {
+	onMouseUp(e: MapLayerMouseEvent | MapLayerTouchEvent) {
 
 		if (!this._mode) {
 			return;
@@ -180,6 +180,9 @@ export class CircleMode extends AbstractDrawMode {
 		this.map.on('mousemove', this.onMouseMove);
 		this.map.on('mousedown', this.onMouseDown);
 		this.map.on('mouseup', this.onMouseUp);
+		this.map.on('touchstart', this.onMouseDown);
+		this.map.on('touchmove', this.onMouseMove);
+		this.map.on('touchend', this.onMouseUp);
 	}
 
 	unregister(): void {
@@ -187,6 +190,9 @@ export class CircleMode extends AbstractDrawMode {
 		this.map.off('mousemove', this.onMouseMove);
 		this.map.off('mousedown', this.onMouseDown);
 		this.map.off('mouseup', this.onMouseUp);
+		this.map.off('touchstart', this.onMouseDown);
+		this.map.off('touchmove', this.onMouseMove);
+		this.map.off('touchend', this.onMouseUp);
 	}
 
 	setModel(model: DrawModel | undefined) {

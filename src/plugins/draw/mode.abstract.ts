@@ -1,10 +1,13 @@
 import type { DrawPlugin } from '@/plugins/draw/plugin.ts';
 import type { DrawFeatureProperties, DrawModel } from '@/plugins/draw/types.ts';
+import area from '@turf/area';
 import circle from '@turf/circle';
 import type { Feature, FeatureCollection, MultiPoint, Polygon, Position } from 'geojson';
-import type { GeoJSONSource, LngLatLike, Map } from 'maplibre-gl';
+import type { GeoJSONSource, LngLatLike, Map, MapLayerMouseEvent, MapLayerTouchEvent } from 'maplibre-gl';
 
 export abstract class AbstractDrawMode {
+
+	private readonly earthRadius = 6371000;
 
 	plugin: DrawPlugin;
 	map: Map;
@@ -26,9 +29,12 @@ export abstract class AbstractDrawMode {
 		return this.getPolygon().geometry.coordinates[ 0 ].map((p) => [ p[ 0 ], p[ 1 ] ]) as Position[];
 	}
 
-	isNearby(a: Position, b: { x: number, y: number }, tolerance: number = 25): boolean {
-		const point = this.map.project(a as LngLatLike);
-		return Math.abs(b.x - point.x) < 25 && Math.abs(b.y - point.y) <= tolerance;
+	isNearby(a: Position, b: { x: number, y: number }, isTouch: boolean): boolean {
+		const tolerance = isTouch ? this.plugin.options.pointerPrecision.touch : this.plugin.options.pointerPrecision.mouse,
+			  point     = this.map.project(a as LngLatLike),
+			  distance  = Math.sqrt((b.x - point.x) ** 2 + (b.y - point.y) ** 2);
+		console.log('isTouch', isTouch, tolerance, distance, distance <= tolerance);
+		return distance <= tolerance;
 	}
 
 	getMidpoint(a: Position, b: Position): Position {
@@ -40,6 +46,11 @@ export abstract class AbstractDrawMode {
 	}
 
 	render() {
+		if (this.plugin.options.minArea.size && this.collection?.features[ 0 ]) {
+			const areaSize                                     = this.getAreaSize(this.collection!.features[ 0 ] as Feature<Polygon, DrawFeatureProperties>);
+			this.collection!.features[ 0 ].properties.area     = areaSize;
+			this.collection!.features[ 0 ].properties.tooSmall = areaSize < this.plugin.options.minArea.size;
+		}
 		this.source.setData(this.collection ?? { type: 'FeatureCollection', features: [] });
 	}
 
@@ -52,7 +63,23 @@ export abstract class AbstractDrawMode {
 	}
 
 	createCircle(center: Position, radius: number, steps = 64): Feature<Polygon, DrawFeatureProperties> {
-		return circle<DrawFeatureProperties>(center, radius, { units: 'degrees', steps, properties: { center, radius, meta: 'circle' } });
+		const c               = circle<DrawFeatureProperties>(center, radius, { units: 'degrees', steps, properties: { center, radius, meta: 'circle' } });
+		c.properties.area     = this.getAreaSize(c);
+		c.properties.tooSmall = c.properties.area < (this.plugin.options.minArea.size ?? -1);
+		return c;
+	}
+
+	// returns m²
+	getAreaSize(model: Feature<Polygon, DrawFeatureProperties>): number {
+		if (model.properties.meta === 'circle' && model.properties.radius) {
+			const radius = model.properties.radius * (Math.PI / 180) * this.earthRadius;
+			return Math.PI * Math.pow(radius, 2);
+		}
+		return area(model);
+	}
+
+	isTouchEvent(e: MapLayerMouseEvent | MapLayerTouchEvent): boolean {
+		return e.originalEvent instanceof TouchEvent;
 	}
 
 	abstract register(): void;

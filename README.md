@@ -81,6 +81,12 @@ or in a parent components `.vue` file
 
 Draw Plugin adds few dependencies from [Turf.js](https://turfjs.org/). That's all.
 
+### Features
+
+- draw/edit polygon
+- draw/edit circle like polygon or viewport drag/zoom
+- visualize area below minimal area size (in m²)
+
 ## Usage
 
 Add CSS:
@@ -131,7 +137,7 @@ To customize the design when drawing polygon or circle, you can set your own by:
 
 ## Styling Circle Static Mode
 
-The draw component automatically uses padding settings from `fitBoundsOptions` of map instance. If you want to set them manually, you can set padding by:
+The draw component automatically uses padding settings from `fitBoundsOptions` of map instance. If you want to set them manually, you can do this by:
 ```scss
 .maplibregl-draw-circle-mode {
   top: 50px;

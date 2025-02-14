@@ -14,7 +14,9 @@ export default /*#__PURE__*/ defineComponent({
 		model       : { type: Object as PropType<DrawModel> },
 		mode        : { type: String as PropType<DrawMode | 'POLYGON' | 'CIRCLE' | 'CIRCLE_STATIC'>, default: DrawMode.POLYGON },
 		defaultMode : { type: String as PropType<DrawMode | 'POLYGON' | 'CIRCLE' | 'CIRCLE_STATIC'>, default: DrawMode.POLYGON },
-		zoomOnUpdate: { type: Boolean, default: true }
+		zoomOnUpdate: { type: Boolean, default: true },
+		minAreaSize : { type: Number },
+		minAreaColor: { type: String },
 	},
 	emits     : [ 'update:mode', 'update:model' ],
 	slots     : Object as SlotsType<{
@@ -28,6 +30,10 @@ export default /*#__PURE__*/ defineComponent({
 		const draw = reactive(new DrawPlugin(map.value!, props.model, {
 			mode            : props.mode as DrawMode,
 			zoomOnUpdate    : props.zoomOnUpdate,
+			minArea         : {
+				size : props.minAreaSize,
+				color: props.minAreaColor
+			},
 			fitBoundsOptions: fitBoundsOptions,
 			onUpdate        : (model) => emit('update:model', model),
 		}));
@@ -43,6 +49,8 @@ export default /*#__PURE__*/ defineComponent({
 
 		watch(() => props.mode, () => props.mode !== draw.mode && toggleMode(props.mode as DrawMode));
 		watch(() => props.model, () => draw.setModel(props.model));
+		watch(() => props.minAreaSize, () => draw.setMinAreaSize(props.minAreaSize));
+		watch(() => props.minAreaColor, () => draw.setMinAreaColor(props.minAreaColor));
 
 		onBeforeUnmount(() => draw.dispose());
 

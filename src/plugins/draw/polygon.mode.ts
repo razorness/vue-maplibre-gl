@@ -5,7 +5,7 @@ import type { DrawModel, DrawModeSnapshot } from '@/plugins/draw/types.ts';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import simplify from '@turf/simplify';
 import { type Feature, type Polygon, type Position } from 'geojson';
-import { type GeoJSONSource, type Map, type MapLayerMouseEvent } from 'maplibre-gl';
+import { type GeoJSONSource, type Map, type MapLayerMouseEvent, type MapLayerTouchEvent } from 'maplibre-gl';
 
 export class PolygonMode extends AbstractDrawMode {
 
@@ -23,7 +23,7 @@ export class PolygonMode extends AbstractDrawMode {
 		this.setModel(model);
 	}
 
-	private onClick(e: MapLayerMouseEvent) {
+	private onClick(e: MapLayerMouseEvent | MapLayerTouchEvent) {
 
 		const pos: Position = e.lngLat.toArray();
 		switch (this._mode) {
@@ -32,7 +32,7 @@ export class PolygonMode extends AbstractDrawMode {
 				const polygon = this.getPolygon();
 
 				// check if it's a closing click
-				if (this.isNearby(polygon.geometry.coordinates[ 0 ][ 0 ] as Position, e.point)) {
+				if (this.isNearby(polygon.geometry.coordinates[ 0 ][ 0 ] as Position, e.point, this.isTouchEvent(e))) {
 					const polygon = this.getPolygon();
 					polygon.geometry.coordinates[ 0 ].splice(1, 1); // remove last created by mousedown
 					this.endCreation();
@@ -68,7 +68,7 @@ export class PolygonMode extends AbstractDrawMode {
 					}
 
 					for (let i = 0; i < len; i++) {
-						if (this.isNearby(polygon.geometry.coordinates[ 0 ][ i ], e.point)) {
+						if (this.isNearby(polygon.geometry.coordinates[ 0 ][ i ], e.point, this.isTouchEvent(e))) {
 							polygon.geometry.coordinates[ 0 ].splice(i, 1);
 							if (i === 0) {
 								polygon.geometry.coordinates[ 0 ].splice(-1, 1);
@@ -119,7 +119,7 @@ export class PolygonMode extends AbstractDrawMode {
 
 	}
 
-	private onMouseMove(e: MapLayerMouseEvent) {
+	private onMouseMove(e: MapLayerMouseEvent | MapLayerTouchEvent) {
 
 		if (!this._mode || !this.collection?.features.length) {
 			return;
@@ -226,14 +226,14 @@ export class PolygonMode extends AbstractDrawMode {
 
 	}
 
-	onMouseDown(e: MapLayerMouseEvent) {
+	onMouseDown(e: MapLayerMouseEvent | MapLayerTouchEvent) {
 
 		if (this._mode === 'create' || !this.collection?.features.length) {
 			return;
 		}
 
 		for (let i = 0, len = this.collection.features[ 1 ].geometry.coordinates.length; i < len; i++) {
-			if (this.isNearby(this.collection.features[ 1 ].geometry.coordinates[ i ] as Position, e.point)) {
+			if (this.isNearby(this.collection.features[ 1 ].geometry.coordinates[ i ] as Position, e.point, this.isTouchEvent(e))) {
 				e.preventDefault();
 				this._moveStart = {
 					polygon: this.clonePolygon(),
@@ -246,7 +246,7 @@ export class PolygonMode extends AbstractDrawMode {
 		}
 
 		for (let i = 0, len = this.collection.features[ 2 ].geometry.coordinates.length; i < len; i++) {
-			if (this.isNearby(this.collection.features[ 2 ].geometry.coordinates[ i ] as Position, e.point)) {
+			if (this.isNearby(this.collection.features[ 2 ].geometry.coordinates[ i ] as Position, e.point, this.isTouchEvent(e))) {
 				e.preventDefault();
 				this._moveStart = {
 					polygon: this.clonePolygon(),
@@ -268,7 +268,7 @@ export class PolygonMode extends AbstractDrawMode {
 
 	}
 
-	onMouseUp(e: MapLayerMouseEvent) {
+	onMouseUp(e: MapLayerMouseEvent | MapLayerTouchEvent) {
 
 		if (!this._mode) {
 			return;
@@ -293,6 +293,9 @@ export class PolygonMode extends AbstractDrawMode {
 		this.map.on('mousemove', this.onMouseMove);
 		this.map.on('mousedown', this.onMouseDown);
 		this.map.on('mouseup', this.onMouseUp);
+		this.map.on('touchstart', this.onMouseDown);
+		this.map.on('touchmove', this.onMouseMove);
+		this.map.on('touchend', this.onMouseUp);
 	}
 
 	unregister(): void {
@@ -301,6 +304,9 @@ export class PolygonMode extends AbstractDrawMode {
 		this.map.off('mousemove', this.onMouseMove);
 		this.map.off('mousedown', this.onMouseDown);
 		this.map.off('mouseup', this.onMouseUp);
+		this.map.off('touchstart', this.onMouseDown);
+		this.map.off('touchmove', this.onMouseMove);
+		this.map.off('touchend', this.onMouseUp);
 	}
 
 	setModel(model: DrawModel | undefined): void {

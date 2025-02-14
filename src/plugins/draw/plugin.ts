@@ -9,7 +9,8 @@ import type { GeoJSONSource, LayerSpecification, LngLatBoundsLike, Map } from 'm
 
 export class DrawPlugin {
 
-	static readonly SOURCE_ID = 'mgl-draw-plugin';
+	static readonly SOURCE_ID           = 'mgl-draw-plugin';
+	static readonly MIN_AREA_PATTERN_ID = 'maplibre-draw-min-area-pattern';
 
 	map: Map;
 
@@ -17,7 +18,7 @@ export class DrawPlugin {
 	private _mode: DrawMode;
 	private _modeInstance: AbstractDrawMode | undefined;
 	private _source: GeoJSONSource | undefined;
-	options: DrawPluginOptions & Required<Pick<DrawPluginOptions, 'styles'>>;
+	options: DrawPluginOptions & Required<Pick<DrawPluginOptions, 'styles' | 'pointerPrecision' | 'minArea'>>;
 
 	constructor(map: Map, model: DrawModel | undefined, options: DrawPluginOptions = {}) {
 		this.map     = map;
@@ -25,8 +26,14 @@ export class DrawPlugin {
 		this._mode   = options.mode ?? DrawMode.POLYGON;
 		this.options = {
 			...options,
-			styles      : options.styles ?? DefaultDrawStyles,
-			zoomOnUpdate: true
+			styles          : options.styles ?? DefaultDrawStyles,
+			zoomOnUpdate    : true,
+			minArea         : options.minArea ?? {},
+			pointerPrecision: {
+				mouse: 24,
+				touch: 36,
+				...(options.pointerPrecision || {})
+			},
 		};
 
 		this.setup       = this.setup.bind(this);
@@ -103,6 +110,20 @@ export class DrawPlugin {
 		}
 	}
 
+	setMinAreaSize(size: number | undefined) {
+		this.options.minArea.size = size;
+		if (size) {
+			this.setMinAreaSizePattern();
+		}
+	}
+
+	setMinAreaColor(color: string | undefined) {
+		this.options.minArea.color = color;
+		if (this.options.minArea.size) {
+			this.setMinAreaSizePattern();
+		}
+	}
+
 	zoomToModel() {
 		if (this._model) {
 			this.map.fitBounds(bbox(this._model) as LngLatBoundsLike, this.options.fitBoundsOptions);
@@ -118,6 +139,65 @@ export class DrawPlugin {
 	private setup() {
 		this.setupMap();
 		this.setupMode();
+		if (this.options.minArea.size) {
+			this.setMinAreaSizePattern();
+		}
+	}
+
+	private setMinAreaSizePattern() {
+
+		const patternCanvas = document.createElement('canvas');
+		const ctx           = patternCanvas.getContext('2d', { antialias: true }) as CanvasRenderingContext2D;
+
+		const ratio            = window.devicePixelRatio || 1;
+		const canvasSideLength = 12 * ratio;
+		const width            = canvasSideLength;
+		const height           = canvasSideLength;
+		const divisions        = 16 * ratio;
+
+		patternCanvas.width  = width;
+		patternCanvas.height = height;
+		ctx.fillStyle        = this.options.minArea.color || '#e74b3c';
+
+		ctx.translate(width / 2, height / 2);
+		ctx.rotate(Math.PI / 2);
+		ctx.translate(-width / 2, -height / 2);
+
+		// Top line
+		ctx.beginPath();
+		ctx.moveTo(0, height * (1 / divisions));
+		ctx.lineTo(width * (1 / divisions), 0);
+		ctx.lineTo(0, 0);
+		ctx.lineTo(0, height * (1 / divisions));
+		ctx.fill();
+
+		// Middle line
+		ctx.beginPath();
+		ctx.moveTo(width, height * (1 / divisions));
+		ctx.lineTo(width * (1 / divisions), height);
+		ctx.lineTo(0, height);
+		ctx.lineTo(0, height * ((divisions - 1) / divisions));
+		ctx.lineTo(width * ((divisions - 1) / divisions), 0);
+		ctx.lineTo(width, 0);
+		ctx.lineTo(width, height * (1 / divisions));
+		ctx.fill();
+
+		// Bottom line
+		ctx.beginPath();
+		ctx.moveTo(width, height * ((divisions - 1) / divisions));
+		ctx.lineTo(width * ((divisions - 1) / divisions), height);
+		ctx.lineTo(width, height);
+		ctx.lineTo(width, height * ((divisions - 1) / divisions));
+		ctx.fill();
+
+		const pattern = ctx.getImageData(0, 0, width, height);
+
+		if (this.map.hasImage(DrawPlugin.MIN_AREA_PATTERN_ID)) {
+			this.map.updateImage(DrawPlugin.MIN_AREA_PATTERN_ID, pattern);
+		} else {
+			this.map.addImage(DrawPlugin.MIN_AREA_PATTERN_ID, pattern, { pixelRatio: 2 * ratio });
+		}
+
 	}
 
 	dispose() {

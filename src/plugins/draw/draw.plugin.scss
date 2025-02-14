@@ -23,4 +23,16 @@
   border-radius: 50%;
   background: rgba(231, 75, 60, 0.2);
   border: 2px solid #e74b3c;
+  color: #e74b3c; /* sets color on below min area size stripes */
+  overflow: hidden;
+
+  .maplibre-draw-min-area-pattern {
+    display: none;
+  }
+}
+
+.maplibregl-draw-circle-too-small {
+  .maplibre-draw-min-area-pattern {
+    display: block;
+  }
 }

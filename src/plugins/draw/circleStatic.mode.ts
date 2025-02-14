@@ -17,6 +17,14 @@ export class CircleStaticMode extends AbstractDrawMode {
 		this._container.classList.add('maplibregl-draw-circle-mode');
 		this._circle = document.createElement('div');
 		this._circle.classList.add('maplibregl-draw-circle-mode-circle');
+		this._circle.innerHTML = `<svg class="maplibre-draw-min-area-pattern" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    <defs>
+        <pattern id="maplibre-draw-min-area-pattern" patternUnits="userSpaceOnUse" width="4.5" height="4.5" patternTransform="rotate(135)">
+            <line x1="0" y="0" x2="0" y2="4.5" stroke="currentColor" stroke-width="1" />
+        </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#maplibre-draw-min-area-pattern)" :opacity="1" />
+</svg>`;
 		this._container.appendChild(this._circle);
 		this.setPadding();
 	}
@@ -24,6 +32,11 @@ export class CircleStaticMode extends AbstractDrawMode {
 	onViewportChange() {
 		this._model = this.viewportToModel();
 		this.emitOnUpdate(this._model);
+		if (this._model.properties.tooSmall) {
+			this._circle.classList.add('maplibregl-draw-circle-too-small');
+		} else {
+			this._circle.classList.remove('maplibregl-draw-circle-too-small');
+		}
 	}
 
 	viewportToModel() {

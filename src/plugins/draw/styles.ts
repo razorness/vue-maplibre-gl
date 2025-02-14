@@ -28,6 +28,15 @@ export const DefaultDrawStyles: DrawStyle[] = [
 			'fill-opacity'      : 0.1
 		}
 	},
+	// polygon fill below min area size
+	{
+		id    : 'gl-draw-polygon-fill-below-min-area-size',
+		type  : 'fill',
+		filter: [ 'all', [ '==', '$type', 'Polygon' ], [ '==', 'tooSmall', true ] ],
+		paint : {
+			'fill-pattern': 'maplibre-draw-min-area-pattern'
+		}
+	},
 	// polygon mid points
 	{
 		id    : 'gl-draw-polygon-midpoint',

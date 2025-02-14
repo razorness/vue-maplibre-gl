@@ -17,6 +17,7 @@
 					v-model:mode="drawMode"
 					:model="drawModel"
 					zoom-on-update
+					:min-area-size="8000000000"
 					@update:model="onDrawModelUpdate"
 				/>
 				<mgl-frame-rate-control/>
@@ -113,7 +114,7 @@
 	import type { FeatureCollection, LineString } from 'geojson';
 	import { type CircleLayerSpecification, type LineLayerSpecification, type LngLatBoundsLike, type LngLatLike, type MapLayerMouseEvent } from 'maplibre-gl';
 	import { defineComponent, onMounted, ref, watch } from 'vue';
-	import { drawCircleExample, drawCircleExample2, drawPolygonExample } from './drawData.ts';
+	import { drawCircleExample, drawPolygonExample } from './drawData.ts';
 
 	MglDefaults.style = 'https://api.maptiler.com/maps/streets/style.json?key=cQX2iET1gmOW38bedbUh';
 	console.log('MglDefaults', MglDefaults);
@@ -157,7 +158,7 @@
 				  loaded            = ref(0),
 				  markerCoordinates = ref<LngLatLike>([ 13.377507, 52.516267 ]),
 				  bounds            = ref<LngLatBoundsLike>(),
-				  drawMode          = ref<DrawMode>(DrawMode.CIRCLE_STATIC),
+				  drawMode          = ref<DrawMode>(DrawMode.CIRCLE),
 				  drawModel         = ref<DrawModel>(),
 				  geojsonSource     = {
 					  data: ref<FeatureCollection<LineString>>({
@@ -253,7 +254,7 @@
 				map.language = (e.target as HTMLSelectElement).value as ValidLanguages;
 			}
 
-			setTimeout(() => drawModel.value = drawCircleExample2, 5000);
+			// setTimeout(() => drawModel.value = drawCircleExample2, 5000);
 
 			return {
 				showCustomControl, loaded, map, mapVersion, markerCoordinates, geojsonSource, bounds, onLoad, onMouseenter, setLanguage,
