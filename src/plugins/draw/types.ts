@@ -18,10 +18,12 @@ export interface DrawPluginOptions {
 		size?: number; // m²
 		color?: string; // default: #e74b3c
 	};
-	pointerPrecision?: {
-		mouse: number; // default 24px
-		touch: number; // default 36px
-	};
+	pointerPrecision?: PointerPrecisionOption;
+}
+
+export interface PointerPrecisionOption {
+	mouse: number; // default 24px
+	touch: number; // default 36px
 }
 
 type WithoutSource<T> = T extends any ? Omit<T, 'source'> : never;

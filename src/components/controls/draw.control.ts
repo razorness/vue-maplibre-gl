@@ -2,7 +2,7 @@ import { MglButton, MglCustomControl } from '@/components';
 import { ButtonType } from '@/components/button.component.ts';
 import type { PositionProp } from '@/components/controls/position.enum.ts';
 import { Position } from '@/components/controls/position.enum.ts';
-import { DrawMode, type DrawModel, DrawPlugin } from '@/plugins/draw';
+import { DrawMode, type DrawModel, DrawPlugin, type PointerPrecisionOption } from '@/plugins/draw';
 import { fitBoundsOptionsSymbol, mapSymbol } from '@/types.ts';
 import { defineComponent, h, inject, onBeforeUnmount, type PropType, reactive, type SlotsType, watch } from 'vue';
 
@@ -10,13 +10,14 @@ export default /*#__PURE__*/ defineComponent({
 	name      : 'MglDrawControl',
 	components: { MglCustomControl },
 	props     : {
-		position    : { type: String as PropType<PositionProp>, default: Position.TOP_RIGHT },
-		model       : { type: Object as PropType<DrawModel> },
-		mode        : { type: String as PropType<DrawMode | 'POLYGON' | 'CIRCLE' | 'CIRCLE_STATIC'>, default: DrawMode.POLYGON },
-		defaultMode : { type: String as PropType<DrawMode | 'POLYGON' | 'CIRCLE' | 'CIRCLE_STATIC'>, default: DrawMode.POLYGON },
-		zoomOnUpdate: { type: Boolean, default: true },
-		minAreaSize : { type: Number },
-		minAreaColor: { type: String },
+		position        : { type: String as PropType<PositionProp>, default: Position.TOP_RIGHT },
+		model           : { type: Object as PropType<DrawModel> },
+		mode            : { type: String as PropType<DrawMode | 'POLYGON' | 'CIRCLE' | 'CIRCLE_STATIC'>, default: DrawMode.POLYGON },
+		defaultMode     : { type: String as PropType<DrawMode | 'POLYGON' | 'CIRCLE' | 'CIRCLE_STATIC'>, default: DrawMode.POLYGON },
+		zoomOnUpdate    : { type: Boolean, default: true },
+		minAreaSize     : { type: Number },
+		minAreaColor    : { type: String },
+		pointerPrecision: { type: Object as PropType<PointerPrecisionOption> }
 	},
 	emits     : [ 'update:mode', 'update:model' ],
 	slots     : Object as SlotsType<{
@@ -30,6 +31,7 @@ export default /*#__PURE__*/ defineComponent({
 		const draw = reactive(new DrawPlugin(map.value!, props.model, {
 			mode            : props.mode as DrawMode,
 			zoomOnUpdate    : props.zoomOnUpdate,
+			pointerPrecision: props.pointerPrecision,
 			minArea         : {
 				size : props.minAreaSize,
 				color: props.minAreaColor
