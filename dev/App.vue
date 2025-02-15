@@ -95,7 +95,6 @@
 <script lang="ts">
 	import MglButton from '@/components/button.component';
 	import MglCustomControl from '@/components/controls/custom.control';
-	import MglDrawControl from '@/components/controls/draw.control.ts';
 	import MglFrameRateControl from '@/components/controls/frameRate.control';
 	import MglFullscreenControl from '@/components/controls/fullscreen.control';
 	import MglGeolocationControl from '@/components/controls/geolocation.control';
@@ -109,7 +108,7 @@
 	import MglGeoJsonSource from '@/components/sources/geojson.source';
 	import MglVectorSource from '@/components/sources/vector.source';
 	import { type FitBoundsOptions, MglDefaults, type MglEvent, Position, type  StyleSwitchItem, useMap, type  ValidLanguages } from '@/main';
-	import { DrawMode, type DrawModel } from '@/plugins/draw';
+	import { DrawMode, type DrawModel, MglDrawControl } from '@/plugins/draw';
 	import { mdiCursorDefaultClick } from '@mdi/js';
 	import type { FeatureCollection, LineString } from 'geojson';
 	import { type CircleLayerSpecification, type LineLayerSpecification, type LngLatBoundsLike, type LngLatLike, type MapLayerMouseEvent } from 'maplibre-gl';
