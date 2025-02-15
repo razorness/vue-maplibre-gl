@@ -33,7 +33,6 @@ export abstract class AbstractDrawMode {
 		const tolerance = isTouch ? this.plugin.options.pointerPrecision.touch : this.plugin.options.pointerPrecision.mouse,
 			  point     = this.map.project(a as LngLatLike),
 			  distance  = Math.sqrt((b.x - point.x) ** 2 + (b.y - point.y) ** 2);
-		console.log('isTouch', isTouch, tolerance, distance, distance <= tolerance);
 		return distance <= tolerance;
 	}
 
