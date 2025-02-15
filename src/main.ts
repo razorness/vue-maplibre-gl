@@ -19,9 +19,11 @@ export * from '@/components';
 
 // addition exports
 export * from '@/types';
-export { useMap } from '@/lib/mapRegistry';
+export { useMap, type MapInstance } from '@/lib/mapRegistry';
 export { defaults as MglDefaults } from '@/defaults';
 export { Position } from '@/components/controls/position.enum';
 export { usePositionWatcher } from '@/composable/usePositionWatcher';
 export { useSource } from '@/composable/useSource';
 export { useDisposableLayer } from '@/composable/useDisposableLayer';
+
+export * from '@/plugins/draw';
