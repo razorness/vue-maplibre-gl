@@ -1,6 +1,6 @@
 {
   "name": "vue-maplibre-gl",
-  "version": "5.3.5",
+  "version": "5.3.6",
   "description": "Vue 3 plugin for maplibre-gl",
   "keywords": [
     "vue",
@@ -30,9 +30,8 @@
   "main": "dist/vue-maplibre-gl.cjs",
   "browser": "dist/vue-maplibre-gl.js",
   "module": "dist/vue-maplibre-gl.js",
-  "types": "types.d.ts",
+  "types": "dist/types/vue-maplibre-gl.d.ts",
   "files": [
-    "types.d.ts",
     "dist/**/*",
     "src/**/*"
   ],
