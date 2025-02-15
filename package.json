@@ -32,6 +32,7 @@
   "module": "dist/vue-maplibre-gl.js",
   "types": "types.d.ts",
   "files": [
+    "types.d.ts",
     "dist/**/*",
     "src/**/*"
   ],
