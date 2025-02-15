@@ -1,3 +1,4 @@
+import { throttle } from '@/lib/debounce.ts';
 import { AbstractDrawMode } from '@/plugins/draw/mode.abstract.ts';
 import type { DrawPlugin } from '@/plugins/draw/plugin.ts';
 import type { DrawModel } from '@/plugins/draw/types.ts';
@@ -11,7 +12,8 @@ export class CircleStaticMode extends AbstractDrawMode {
 
 	constructor(plugin: DrawPlugin, map: Map, source: GeoJSONSource, model: DrawModel | undefined) {
 		super(plugin, map, source);
-		this.onViewportChange = this.onViewportChange.bind(this);
+		this.onViewportChangeEnd = this.onViewportChangeEnd.bind(this);
+		this.onViewportChange    = throttle(this.onViewportChange.bind(this), 100);
 
 		this._model = model;
 		this._container.classList.add('maplibregl-draw-circle-mode');
@@ -30,6 +32,16 @@ export class CircleStaticMode extends AbstractDrawMode {
 	}
 
 	onViewportChange() {
+		this._model = this.viewportToModel();
+		if (this._model.properties.tooSmall) {
+			this._circle.classList.add('maplibregl-draw-circle-too-small');
+		} else {
+			this._circle.classList.remove('maplibregl-draw-circle-too-small');
+		}
+	}
+
+
+	onViewportChangeEnd() {
 		this._model = this.viewportToModel();
 		this.emitOnUpdate(this._model);
 		if (this._model.properties.tooSmall) {
@@ -52,14 +64,16 @@ export class CircleStaticMode extends AbstractDrawMode {
 
 	register(): void {
 		this.map.getCanvasContainer().appendChild(this._container);
-		this.map.on('dragend', this.onViewportChange);
-		this.map.on('zoomend', this.onViewportChange);
+		this.map.on('dragend', this.onViewportChangeEnd);
+		this.map.on('zoomend', this.onViewportChangeEnd);
+		this.map.on('zoom', this.onViewportChange);
 	}
 
 	unregister(): void {
 		this.map.getCanvasContainer().removeChild(this._container);
-		this.map.off('dragend', this.onViewportChange);
-		this.map.off('zoomend', this.onViewportChange);
+		this.map.off('dragend', this.onViewportChangeEnd);
+		this.map.off('zoomend', this.onViewportChangeEnd);
+		this.map.off('zoom', this.onViewportChange);
 	}
 
 	setModel(model: DrawModel | undefined): void {
