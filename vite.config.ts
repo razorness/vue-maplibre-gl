@@ -16,11 +16,9 @@ export default defineConfig(({ command }) => ({
 			entryRoot       : 'src',
 			include         : 'src',
 			insertTypesEntry: true,
+			staticImport    : true,
 			outDir          : 'dist/types',
 			tsconfigPath    : './tsconfig.app.json',
-			beforeWriteFile : (filePath, content) => ({
-				filePath, content: content.replace(/\.svg(\?(raw|component|skipsvgo))?/g, '.vue'),
-			})
 		}),
 		banner(`/*!
 * ${pkg.name} v${pkg.version}
