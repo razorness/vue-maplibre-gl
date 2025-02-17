@@ -36,6 +36,7 @@ export interface DrawFeatureProperties {
 	area?: number; // m²
 	tooSmall?: boolean;
 	minSizeLabel?: string;
+	hasHelperVertex?: boolean;
 	meta: 'polygon' | 'circle' | 'vertex' | 'midpoint';
 }
 

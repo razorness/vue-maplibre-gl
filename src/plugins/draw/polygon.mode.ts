@@ -10,7 +10,6 @@ import { type GeoJSONSource, type Map, type MapLayerMouseEvent, type MapLayerTou
 export class PolygonMode extends AbstractDrawMode {
 
 	private _mode: 'create' | 'move' | 'add_vertex' | 'move_vertex' | undefined;
-	private _hasHelperVertex = true;
 	private _moveStart: DrawModeSnapshot | undefined;
 
 	constructor(plugin: DrawPlugin, map: Map, source: GeoJSONSource, model: DrawModel | undefined) {
@@ -46,9 +45,9 @@ export class PolygonMode extends AbstractDrawMode {
 				const len          = polygon.geometry.coordinates[ 0 ].length,
 					  helperVertex = len - 2;
 
-				if (this._hasHelperVertex && len === 5) {
+				if (polygon.properties.hasHelperVertex && len === 5) {
 					polygon.geometry.coordinates[ 0 ].splice(helperVertex, 1);
-					this._hasHelperVertex = false;
+					polygon.properties.hasHelperVertex = false;
 				}
 				break;
 
@@ -82,14 +81,13 @@ export class PolygonMode extends AbstractDrawMode {
 
 				}
 
-				this._hasHelperVertex = true;
 				this.createFeatureCollection({
 					type      : 'Feature',
 					geometry  : {
 						type       : 'Polygon',
 						coordinates: [ [ pos, pos, pos, pos ] ]
 					},
-					properties: { meta: 'polygon' }
+					properties: { meta: 'polygon', hasHelperVertex: true }
 				});
 				this.collection!.features[ 1 ].geometry.coordinates = [ pos, pos ];
 
@@ -136,7 +134,7 @@ export class PolygonMode extends AbstractDrawMode {
 				const len                              = polygon.geometry.coordinates[ 0 ].length,
 					  helperVertex                     = len - 2;
 				polygon.geometry.coordinates[ 0 ][ 1 ] = pos;
-				if (this._hasHelperVertex) {
+				if (polygon.properties!.hasHelperVertex) {
 					const npos                                        = this.map.unproject([ e.point.x + 1, e.point.y ]),
 						  dist                                        = Math.abs((npos.lng - pos[ 0 ]) / 3);
 					polygon.geometry.coordinates[ 0 ][ helperVertex ] = this.calculateB(pos, polygon.geometry.coordinates[ 0 ][ 0 ], dist);
