@@ -12,7 +12,7 @@ export interface DrawPluginOptions {
 	mode?: DrawMode;
 	styles?: DrawStyle[];
 	onUpdate?: OnUpdateHandler;
-	zoomOnUpdate?: boolean;
+	autoZoom?: boolean; // true: automatic zoom an model changes and so on. false: you have to handle zoom on our own. default: true
 	fitBoundsOptions?: FitBoundsOptions;
 	minArea?: {
 		size?: number; // m²

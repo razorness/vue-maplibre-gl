@@ -27,7 +27,7 @@ export class DrawPlugin {
 		this.options = {
 			...options,
 			styles          : options.styles ?? DefaultDrawStyles,
-			zoomOnUpdate    : true,
+			autoZoom        : options.autoZoom ?? true,
 			minArea         : options.minArea ?? {},
 			pointerPrecision: {
 				mouse: 24,
@@ -105,9 +105,7 @@ export class DrawPlugin {
 	setModel(model: DrawModel | undefined) {
 		this._model = model;
 		this._modeInstance?.setModel(model);
-		if (model && this.options.zoomOnUpdate) {
-			this.zoomToModel();
-		}
+		this.zoomToModel();
 	}
 
 	setMinAreaSize(size: number | undefined) {
@@ -130,9 +128,13 @@ export class DrawPlugin {
 	}
 
 	zoomToModel() {
-		if (this._model) {
+		if (this._model && this.options.autoZoom) {
 			this.map.fitBounds(bbox(this._model) as LngLatBoundsLike, this.options.fitBoundsOptions);
 		}
+	}
+
+	setAutoZoom(autoZoom: boolean) {
+		this.options.autoZoom = autoZoom;
 	}
 
 	private removeStyles() {
