@@ -49,7 +49,13 @@ export abstract class AbstractDrawMode {
 			const areaSize                                         = this.getAreaSize(this.collection!.features[ 0 ] as Feature<Polygon, DrawFeatureProperties>);
 			this.collection!.features[ 0 ].properties.area         = areaSize;
 			this.collection!.features[ 0 ].properties.tooSmall     = areaSize < this.plugin.options.minArea.size;
-			this.collection!.features[ 0 ].properties.minSizeLabel = this.plugin.options.minArea.label;
+
+			// Polygon mode has at least 4 vertices on creation and will be always too small
+			if (this.collection!.features[ 0 ].properties.meta !== 'polygon' || this.collection!.features[ 0 ].geometry.coordinates.length > 4) {
+				this.collection!.features[ 0 ].properties.minSizeLabel = this.plugin.options.minArea.label;
+			} else {
+				this.collection!.features[ 0 ].properties.minSizeLabel = undefined;
+			}
 		}
 		this.source.setData(this.collection ?? { type: 'FeatureCollection', features: [] });
 	}
