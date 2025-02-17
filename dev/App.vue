@@ -18,7 +18,7 @@
 					v-model:mode="drawMode"
 					:model="drawModel"
 					zoom-on-update
-					:min-area-size="8000000000"
+					:min-area-size="800000000"
 					min-area-label="TOO SMALL"
 					@update:model="onDrawModelUpdate"
 				/>
