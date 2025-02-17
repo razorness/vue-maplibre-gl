@@ -14,6 +14,7 @@ import {
 	sourceIdSymbol,
 	type ValidLanguages
 } from '@/types';
+import type { ProjectionSpecification } from '@maplibre/maplibre-gl-style-spec';
 import { Map as MaplibreMap, type MapOptions, type StyleSpecification } from 'maplibre-gl';
 import mitt from 'mitt';
 import { setPrimaryLanguage } from 'modular-maptiler-sdk/src/language';
@@ -100,6 +101,7 @@ export default /*#__PURE__*/ defineComponent({
 		transformRequest      : { type: Function as PropType<NonNullable<MapOptions['transformRequest']>>, default: defaults.transformRequest },
 		validateStyle         : { type: Boolean as PropType<MapOptions['validateStyle']>, default: () => defaults.validateStyle },
 		zoom                  : { type: Number as PropType<MapOptions['zoom']>, default: () => defaults.zoom },
+		projection            : { type: Object as PropType<ProjectionSpecification> }
 	},
 	emits: [
 		'map:boxzoomcancel', 'map:boxzoomend', 'map:boxzoomstart', 'map:click', 'map:contextmenu', 'map:cooperativegestureprevented', 'map:data',
@@ -149,6 +151,7 @@ export default /*#__PURE__*/ defineComponent({
 		watch(() => props.mapStyle, v => v && map.value?.setStyle(v as StyleSpecification | string));
 		watch(() => props.transformRequest, v => v && map.value?.setTransformRequest(v));
 		watch(() => props.zoom, v => v && map.value?.setZoom(v));
+		watch(() => props.projection, v => v && map.value?.setProjection(v));
 
 		watch(() => props.language, v => {
 			if (isStyleReady.value && map.value && registryItem.language !== (v || null)) {
@@ -168,6 +171,9 @@ export default /*#__PURE__*/ defineComponent({
 				registryItem.language = props.language;
 			} else if (registryItem.language) {
 				setPrimaryLanguage(map.value! as any, props.language || '');
+			}
+			if (props.projection) {
+				map.value!.setProjection(props.projection);
 			}
 		}
 

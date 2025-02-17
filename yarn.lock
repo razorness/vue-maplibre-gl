@@ -1103,6 +1103,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vue/language-core@npm:2.2.2":
+  version: 2.2.2
+  resolution: "@vue/language-core@npm:2.2.2"
+  dependencies:
+    "@volar/language-core": "npm:~2.4.11"
+    "@vue/compiler-dom": "npm:^3.5.0"
+    "@vue/compiler-vue2": "npm:^2.7.16"
+    "@vue/shared": "npm:^3.5.0"
+    alien-signals: "npm:^1.0.3"
+    minimatch: "npm:^9.0.3"
+    muggle-string: "npm:^0.4.1"
+    path-browserify: "npm:^1.0.1"
+  peerDependencies:
+    typescript: "*"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10/325d7ecceeed5b994eadaa257bdc034bff22b09c3df925518d54e39fca4aac54bb57459d11d3caf32739de2718971dc4aae13356368727d572a4d3b7779301bd
+  languageName: node
+  linkType: hard
+
 "@vue/reactivity@npm:3.5.13":
   version: 3.5.13
   resolution: "@vue/reactivity@npm:3.5.13"
@@ -1257,6 +1278,13 @@ __metadata:
   version: 0.4.14
   resolution: "alien-signals@npm:0.4.14"
   checksum: 10/306a7f4a88a982d1619ff313ed078bdfe52bb9d1381590ef4c1c245812ce7274b9b645a6233214e764a1adbef21863bdf74d10aa4fb30917456b7dd7779df5fc
+  languageName: node
+  linkType: hard
+
+"alien-signals@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "alien-signals@npm:1.0.3"
+  checksum: 10/28b72a32811a90964c95179a4d97beaf587d44aebe9a1142eb6b26a89a45cc27eadd81209a18987f2ec5c1a497f50c809d40ee8be09b16f8d25a5a595330e40a
   languageName: node
   linkType: hard
 
@@ -3342,7 +3370,7 @@ __metadata:
     vite-plugin-banner: "npm:^0.8.0"
     vite-plugin-dts: "npm:^4.5.0"
     vue: "npm:^3.5.13"
-    vue-tsc: "npm:^2.2.0"
+    vue-tsc: "npm:^2.2.2"
   peerDependencies:
     maplibre-gl: ^5.1.0
     mitt: ^3.0.1
@@ -3350,17 +3378,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"vue-tsc@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "vue-tsc@npm:2.2.0"
+"vue-tsc@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "vue-tsc@npm:2.2.2"
   dependencies:
     "@volar/typescript": "npm:~2.4.11"
-    "@vue/language-core": "npm:2.2.0"
+    "@vue/language-core": "npm:2.2.2"
   peerDependencies:
     typescript: ">=5.0.0"
   bin:
     vue-tsc: ./bin/vue-tsc.js
-  checksum: 10/4370a69a63821cdb82f33b6ce234f468d68301f58e3a636445c3e36c347b1bbd8a710f9f3611c6bf54f8d650e155dcca1b120cb864119cb0a6b887b871d0f37a
+  checksum: 10/7c72a74a3b090e461da7b04341121efd44c8bf51a5f9c2fc5043b14e1d043c9ece2692a92e419e5240af676f48c58f4490a5424ece311f24b2223cd96b298537
   languageName: node
   linkType: hard
 

@@ -8,6 +8,7 @@
 				:center="center"
 				:zoom="zoom"
 				language="fr"
+				:projection="{type:'globe'}"
 				@map:load="onLoad"
 				@map:zoomstart="isZooming = true"
 				@map:zoomend="isZooming = false"
@@ -17,7 +18,7 @@
 					v-model:mode="drawMode"
 					:model="drawModel"
 					zoom-on-update
-					:min-area-size="8000000000"
+					:min-area-size="800000000"
 					@update:model="onDrawModelUpdate"
 				/>
 				<mgl-frame-rate-control/>
@@ -42,10 +43,11 @@
 					/>
 				</mgl-geo-json-source>
 
-				<mgl-vector-source source-id="libraries" :tiles="librariesSourceTiles">
-					<mgl-circle-layer layer-id="libraries" source-layer="libraries" :paint="librariesLayerCirclesPaint"
-									  :filter="librariesLayerCirclesFilter"/>
-				</mgl-vector-source>
+<!-- CORS ERRORS -->
+<!--				<mgl-vector-source source-id="libraries" :tiles="librariesSourceTiles">-->
+<!--					<mgl-circle-layer layer-id="libraries" source-layer="libraries" :paint="librariesLayerCirclesPaint"-->
+<!--									  :filter="librariesLayerCirclesFilter"/>-->
+<!--				</mgl-vector-source>-->
 
 			</mgl-map>
 		</div>
@@ -115,7 +117,13 @@
 	import { defineComponent, onMounted, ref, watch } from 'vue';
 	import { drawCircleExample, drawPolygonExample } from './drawData.ts';
 
-	MglDefaults.style = 'https://api.maptiler.com/maps/streets/style.json?key=cQX2iET1gmOW38bedbUh';
+	/*
+	 * To use custom style:
+	 * - create file /dev/.env
+	 * - add line: VITE_MAP_STYLE=https://..../style.json
+	 * - rerun dev server
+	 */
+	MglDefaults.style = import.meta.env.VITE_MAP_STYLE || 'https://demotiles.maplibre.org/style.json';
 	console.log('MglDefaults', MglDefaults);
 
 	const lineString = [
