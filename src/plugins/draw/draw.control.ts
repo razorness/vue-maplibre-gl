@@ -17,6 +17,7 @@ export default /*#__PURE__*/ defineComponent({
 		zoomOnUpdate    : { type: Boolean, default: true },
 		minAreaSize     : { type: Number },
 		minAreaColor    : { type: String },
+		minAreaLabel    : { type: String },
 		pointerPrecision: { type: Object as PropType<PointerPrecisionOption> }
 	},
 	emits     : [ 'update:mode', 'update:model' ],
@@ -34,7 +35,8 @@ export default /*#__PURE__*/ defineComponent({
 			pointerPrecision: props.pointerPrecision,
 			minArea         : {
 				size : props.minAreaSize,
-				color: props.minAreaColor
+				color: props.minAreaColor,
+				label: props.minAreaLabel,
 			},
 			fitBoundsOptions: fitBoundsOptions,
 			onUpdate        : (model) => emit('update:model', model),
@@ -53,6 +55,7 @@ export default /*#__PURE__*/ defineComponent({
 		watch(() => props.model, () => draw.setModel(props.model));
 		watch(() => props.minAreaSize, () => draw.setMinAreaSize(props.minAreaSize));
 		watch(() => props.minAreaColor, () => draw.setMinAreaColor(props.minAreaColor));
+		watch(() => props.minAreaLabel, () => draw.setMinAreaColor(props.minAreaLabel));
 
 		onBeforeUnmount(() => draw.dispose());
 

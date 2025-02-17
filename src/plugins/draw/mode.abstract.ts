@@ -46,9 +46,10 @@ export abstract class AbstractDrawMode {
 
 	render() {
 		if (this.plugin.options.minArea.size && this.collection?.features[ 0 ]) {
-			const areaSize                                     = this.getAreaSize(this.collection!.features[ 0 ] as Feature<Polygon, DrawFeatureProperties>);
-			this.collection!.features[ 0 ].properties.area     = areaSize;
-			this.collection!.features[ 0 ].properties.tooSmall = areaSize < this.plugin.options.minArea.size;
+			const areaSize                                         = this.getAreaSize(this.collection!.features[ 0 ] as Feature<Polygon, DrawFeatureProperties>);
+			this.collection!.features[ 0 ].properties.area         = areaSize;
+			this.collection!.features[ 0 ].properties.tooSmall     = areaSize < this.plugin.options.minArea.size;
+			this.collection!.features[ 0 ].properties.minSizeLabel = this.plugin.options.minArea.label;
 		}
 		this.source.setData(this.collection ?? { type: 'FeatureCollection', features: [] });
 	}
@@ -62,7 +63,11 @@ export abstract class AbstractDrawMode {
 	}
 
 	createCircle(center: Position, radius: number, steps = 64): Feature<Polygon, DrawFeatureProperties> {
-		const c               = circle<DrawFeatureProperties>(center, radius, { units: 'degrees', steps, properties: { center, radius, meta: 'circle' } });
+		const c               = circle<DrawFeatureProperties>(center, radius,
+			{
+				units     : 'degrees', steps,
+				properties: { center, radius, meta: 'circle', minSizeLabel: this.plugin.options.minArea.label }
+			});
 		c.properties.area     = this.getAreaSize(c);
 		c.properties.tooSmall = c.properties.area < (this.plugin.options.minArea.size ?? -1);
 		return c;
@@ -86,5 +91,7 @@ export abstract class AbstractDrawMode {
 	abstract unregister(): void;
 
 	abstract setModel(model: DrawModel | undefined): void;
+
+	abstract onOptionsUpdate(): void;
 
 }

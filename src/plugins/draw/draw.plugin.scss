@@ -19,6 +19,7 @@
 }
 
 .maplibregl-draw-circle-mode-circle {
+  position: relative;
   aspect-ratio: 1/1;
   border-radius: 50%;
   background: rgba(231, 75, 60, 0.2);
@@ -29,10 +30,33 @@
   .maplibre-draw-min-area-pattern {
     display: none;
   }
+
+  .maplibre-draw-circle-mode-below-min-area-size-label {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    padding: 4px;
+    border-radius: 4px;
+    background: #ffffff;
+    white-space: nowrap;
+    color: #e74b3c;
+    font-size: 24px;
+    transform: translate(-50%, -50%);
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+  }
 }
 
 .maplibregl-draw-circle-too-small {
+
   .maplibre-draw-min-area-pattern {
     display: block;
   }
+
+  .maplibre-draw-circle-mode-below-min-area-size-label {
+    display: block;
+  }
+
 }

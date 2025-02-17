@@ -205,4 +205,10 @@ export class CircleMode extends AbstractDrawMode {
 		this.render();
 	}
 
+	onOptionsUpdate() {
+		if (this.collection?.features[ 0 ]) {
+			this.collection.features[ 0 ].properties.minSizeLabel = this.plugin.options.minArea.label;
+		}
+	}
+
 }

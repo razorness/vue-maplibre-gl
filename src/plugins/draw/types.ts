@@ -17,6 +17,7 @@ export interface DrawPluginOptions {
 	minArea?: {
 		size?: number; // m²
 		color?: string; // default: #e74b3c
+		label?: string;
 	};
 	pointerPrecision?: PointerPrecisionOption;
 }
@@ -34,6 +35,7 @@ export interface DrawFeatureProperties {
 	radius?: number; // degree
 	area?: number; // m²
 	tooSmall?: boolean;
+	minSizeLabel?: string;
 	meta: 'polygon' | 'circle' | 'vertex' | 'midpoint';
 }
 

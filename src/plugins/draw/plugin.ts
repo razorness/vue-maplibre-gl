@@ -124,6 +124,11 @@ export class DrawPlugin {
 		}
 	}
 
+	setMinAreaLabel(label: string | undefined) {
+		this.options.minArea.label = label;
+		this._modeInstance?.onOptionsUpdate();
+	}
+
 	zoomToModel() {
 		if (this._model) {
 			this.map.fitBounds(bbox(this._model) as LngLatBoundsLike, this.options.fitBoundsOptions);

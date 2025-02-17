@@ -319,6 +319,12 @@ export class PolygonMode extends AbstractDrawMode {
 		this.render();
 	}
 
+	onOptionsUpdate() {
+		if (this.collection?.features[ 0 ]) {
+			this.collection.features[ 0 ].properties.minSizeLabel = this.plugin.options.minArea.label;
+		}
+	}
+
 	private createFeatureCollection(model: DrawModel) {
 		this.collection = {
 			type: 'FeatureCollection', features: [

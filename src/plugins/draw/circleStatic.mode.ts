@@ -9,6 +9,7 @@ export class CircleStaticMode extends AbstractDrawMode {
 	private _model: DrawModel | undefined;
 	private _container = document.createElement('div');
 	private _circle: HTMLDivElement;
+	private _minSizeLabel: HTMLDivElement;
 
 	constructor(plugin: DrawPlugin, map: Map, source: GeoJSONSource, model: DrawModel | undefined) {
 		super(plugin, map, source);
@@ -27,7 +28,13 @@ export class CircleStaticMode extends AbstractDrawMode {
     </defs>
     <rect width="100%" height="100%" fill="url(#maplibre-draw-min-area-pattern)" :opacity="1" />
 </svg>`;
+		this._minSizeLabel     = document.createElement('div');
+		this._minSizeLabel.classList.add('maplibre-draw-circle-mode-below-min-area-size-label');
+		if (plugin.options.minArea.label) {
+			this._minSizeLabel.textContent = plugin.options.minArea.label;
+		}
 		this._container.appendChild(this._circle);
+		this._circle.appendChild(this._minSizeLabel);
 		this.setPadding();
 	}
 
@@ -98,6 +105,12 @@ export class CircleStaticMode extends AbstractDrawMode {
 					}
 				}
 				break;
+		}
+	}
+
+	onOptionsUpdate() {
+		if (this.plugin.options.minArea.label) {
+			this._minSizeLabel.textContent = this.plugin.options.minArea.label;
 		}
 	}
 

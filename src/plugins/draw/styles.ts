@@ -37,6 +37,26 @@ export const DefaultDrawStyles: DrawStyle[] = [
 			'fill-pattern': 'maplibre-draw-min-area-pattern'
 		}
 	},
+	// polygon label below min area size
+	{
+		id    : 'gl-draw-polygon-fill-below-min-area-size-label',
+		type  : 'symbol',
+		filter: [ 'all', [ '==', '$type', 'Polygon' ], [ '==', 'tooSmall', true ], [ 'has', 'minSizeLabel' ] ],
+		layout: {
+			'text-field'      : [ 'get', 'minSizeLabel' ],
+			'text-font'       : [ 'Open Sans Bold' ],
+			'text-size'       : 24,
+			'text-justify'    : 'center',
+			'text-anchor'     : 'center',
+			'symbol-placement': 'point',
+			'text-overlap'    : 'always'
+		},
+		paint : {
+			'text-color'     : '#e74b3c',
+			'text-halo-color': '#fff',
+			'text-halo-width': 3
+		}
+	},
 	// polygon mid points
 	{
 		id    : 'gl-draw-polygon-midpoint',

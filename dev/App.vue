@@ -18,7 +18,8 @@
 					v-model:mode="drawMode"
 					:model="drawModel"
 					zoom-on-update
-					:min-area-size="800000000"
+					:min-area-size="8000000000"
+					min-area-label="TOO SMALL"
 					@update:model="onDrawModelUpdate"
 				/>
 				<mgl-frame-rate-control/>
@@ -43,7 +44,7 @@
 					/>
 				</mgl-geo-json-source>
 
-<!-- CORS ERRORS -->
+<!-- Test source not working anymore: CORS ERRORS -->
 <!--				<mgl-vector-source source-id="libraries" :tiles="librariesSourceTiles">-->
 <!--					<mgl-circle-layer layer-id="libraries" source-layer="libraries" :paint="librariesLayerCirclesPaint"-->
 <!--									  :filter="librariesLayerCirclesFilter"/>-->
@@ -165,7 +166,7 @@
 				  loaded            = ref(0),
 				  markerCoordinates = ref<LngLatLike>([ 13.377507, 52.516267 ]),
 				  bounds            = ref<LngLatBoundsLike>(),
-				  drawMode          = ref<DrawMode>(DrawMode.CIRCLE),
+				  drawMode          = ref<DrawMode>(DrawMode.CIRCLE_STATIC),
 				  drawModel         = ref<DrawModel>(),
 				  geojsonSource     = {
 					  data: ref<FeatureCollection<LineString>>({
