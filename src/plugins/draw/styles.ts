@@ -47,9 +47,7 @@ export const DefaultDrawStyles: DrawStyle[] = [
 			'text-font'       : [ 'Open Sans Bold' ],
 			'text-size'       : 24,
 			'text-justify'    : 'center',
-			'text-anchor'     : 'center',
-			'symbol-placement': 'point',
-			'text-overlap'    : 'always'
+			'text-anchor'     : 'center'
 		},
 		paint : {
 			'text-color'     : '#e74b3c',
