@@ -21,6 +21,10 @@ export abstract class AbstractDrawMode {
 		this.source = source;
 	}
 
+	hasPolygon() {
+		return !!this.collection?.features[ 0 ];
+	}
+
 	getPolygon(): Feature<Polygon, DrawFeatureProperties> {
 		return this.collection!.features[ 0 ] as Feature<Polygon, DrawFeatureProperties>;
 	}

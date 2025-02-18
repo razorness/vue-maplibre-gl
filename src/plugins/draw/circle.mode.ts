@@ -27,6 +27,15 @@ export class CircleMode extends AbstractDrawMode {
 			return;
 		}
 
+		if (this.hasPolygon()) {
+			const polygon = this.getPolygon();
+			if (booleanPointInPolygon(e.lngLat.toArray(), polygon)) {
+				e.preventDefault();
+				return;
+			}
+		}
+
+
 		const pos    = e.lngLat.toArray(),
 			  pixel  = this.map.unproject([ e.point.x + 1, e.point.y ]),
 			  radius = Math.abs(pixel.lng - e.lngLat.lng) * 50,

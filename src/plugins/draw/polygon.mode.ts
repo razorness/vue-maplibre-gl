@@ -1,7 +1,7 @@
 import { throttle } from '@/lib/debounce.ts';
 import { AbstractDrawMode } from '@/plugins/draw/mode.abstract.ts';
 import type { DrawPlugin } from '@/plugins/draw/plugin.ts';
-import type { DrawModel, DrawModeSnapshot } from '@/plugins/draw/types.ts';
+import type { DrawFeatureProperties, DrawModel, DrawModeSnapshot } from '@/plugins/draw/types.ts';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import simplify from '@turf/simplify';
 import { type Feature, type Polygon, type Position } from 'geojson';
@@ -25,10 +25,11 @@ export class PolygonMode extends AbstractDrawMode {
 	private onClick(e: MapLayerMouseEvent | MapLayerTouchEvent) {
 
 		const pos: Position = e.lngLat.toArray();
+		let polygon: Feature<Polygon, DrawFeatureProperties> | undefined;
 		switch (this._mode) {
 			case 'create':
 
-				const polygon = this.getPolygon();
+				polygon = this.getPolygon();
 
 				// check if it's a closing click
 				if (this.isNearby(polygon.geometry.coordinates[ 0 ][ 0 ] as Position, e.point, this.isTouchEvent(e))) {
@@ -80,6 +81,15 @@ export class PolygonMode extends AbstractDrawMode {
 					}
 
 				}
+
+				if (this.hasPolygon()) {
+					polygon = this.getPolygon();
+					if (booleanPointInPolygon(e.lngLat.toArray(), polygon)) {
+						e.preventDefault();
+						return;
+					}
+				}
+
 
 				this.createFeatureCollection({
 					type      : 'Feature',
