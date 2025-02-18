@@ -213,9 +213,13 @@ export class DrawPlugin {
 		try {
 			if (this.map) {
 				for (let i = 0, len = this.options.styles.length; i < len; i++) {
-					this.map.removeLayer(this.options.styles[ i ].id);
+					if (this.map.getLayer(this.options.styles[ i ].id)) {
+						this.map.removeLayer(this.options.styles[ i ].id);
+					}
 				}
-				this.map.removeSource(DrawPlugin.SOURCE_ID);
+				if (this.map.getSource(DrawPlugin.SOURCE_ID)) {
+					this.map.removeSource(DrawPlugin.SOURCE_ID);
+				}
 			}
 		} catch (e) {
 			// nothing
