@@ -211,7 +211,12 @@ export class DrawPlugin {
 		this._modeInstance?.unregister();
 		this.map.off('resize', this.zoomToModel);
 		try {
-			this.map?.removeSource(DrawPlugin.SOURCE_ID);
+			if (this.map) {
+				for (let i = 0, len = this.options.styles.length; i < len; i++) {
+					this.map.removeLayer(this.options.styles[ i ].id);
+				}
+				this.map.removeSource(DrawPlugin.SOURCE_ID);
+			}
 		} catch (e) {
 			// nothing
 		}
