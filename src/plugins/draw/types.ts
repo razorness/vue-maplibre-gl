@@ -20,6 +20,7 @@ export interface DrawPluginOptions {
 		label?: string;
 	};
 	pointerPrecision?: PointerPrecisionOption;
+	waitForSetup?: boolean;
 }
 
 export interface PointerPrecisionOption {

@@ -3,7 +3,7 @@ import { ButtonType } from '@/components/button.component.ts';
 import type { PositionProp } from '@/components/controls/position.enum.ts';
 import { Position } from '@/components/controls/position.enum.ts';
 import { DrawMode, type DrawModel, DrawPlugin, type PointerPrecisionOption } from '@/plugins/draw';
-import { fitBoundsOptionsSymbol, mapSymbol } from '@/types.ts';
+import { fitBoundsOptionsSymbol, isLoadedSymbol, mapSymbol } from '@/types.ts';
 import { defineComponent, h, inject, onBeforeUnmount, type PropType, reactive, type SlotsType, watch } from 'vue';
 
 export default /*#__PURE__*/ defineComponent({
@@ -27,6 +27,7 @@ export default /*#__PURE__*/ defineComponent({
 	setup(props, { emit, slots }) {
 
 		const map              = inject(mapSymbol)!,
+			  isLoaded         = inject(isLoadedSymbol)!,
 			  fitBoundsOptions = inject(fitBoundsOptionsSymbol);
 
 		const draw = reactive(new DrawPlugin(map.value!, props.model, {
@@ -40,6 +41,7 @@ export default /*#__PURE__*/ defineComponent({
 			},
 			fitBoundsOptions: fitBoundsOptions,
 			onUpdate        : (model) => emit('update:model', model),
+			waitForSetup    : true
 		}));
 
 		function toggleMode(m: DrawMode) {
@@ -57,6 +59,7 @@ export default /*#__PURE__*/ defineComponent({
 		watch(() => props.minAreaSize, () => draw.setMinAreaSize(props.minAreaSize));
 		watch(() => props.minAreaColor, () => draw.setMinAreaColor(props.minAreaColor));
 		watch(() => props.minAreaLabel, () => draw.setMinAreaColor(props.minAreaLabel));
+		watch(isLoaded, () => isLoaded.value && draw.setup(), { immediate: true });
 
 		onBeforeUnmount(() => draw.dispose());
 

@@ -38,10 +38,9 @@ export class DrawPlugin {
 
 		this.setup       = this.setup.bind(this);
 		this.zoomToModel = this.zoomToModel.bind(this);
-		if (this.map.isStyleLoaded()) {
+
+		if (!options.waitForSetup) {
 			this.setup();
-		} else {
-			this.map.once('load', this.setup);
 		}
 	}
 
@@ -82,12 +81,12 @@ export class DrawPlugin {
 	}
 
 	private setupMap() {
-
-		this.map.addSource(DrawPlugin.SOURCE_ID, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-		this._source = this.map.getSource(DrawPlugin.SOURCE_ID);
-		this.setupStyles();
-		this.map.on('resize', this.zoomToModel);
-
+		if (!this.map.getSource(DrawPlugin.SOURCE_ID)) {
+			this.map.addSource(DrawPlugin.SOURCE_ID, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+			this._source = this.map.getSource(DrawPlugin.SOURCE_ID);
+			this.setupStyles();
+			this.map.on('resize', this.zoomToModel);
+		}
 	}
 
 	private setupStyles() {
@@ -147,7 +146,7 @@ export class DrawPlugin {
 		}
 	}
 
-	private setup() {
+	setup() {
 		this.setupMap();
 		this.setupMode();
 		if (this.options.minArea.size) {
@@ -219,14 +218,10 @@ export class DrawPlugin {
 				for (let i = 0, len = this.options.styles.length; i < len; i++) {
 					if (this.map.getLayer(this.options.styles[ i ].id)) {
 						this.map.removeLayer(this.options.styles[ i ].id);
-					} else {
-						console.log('NO LAYER', this.options.styles[ i ].id);
 					}
 				}
 				if (this.map.getSource(DrawPlugin.SOURCE_ID)) {
 					this.map.removeSource(DrawPlugin.SOURCE_ID);
-				} else {
-					console.log('NO SOURCE', DrawPlugin.SOURCE_ID);
 				}
 			}
 		} catch (e) {
