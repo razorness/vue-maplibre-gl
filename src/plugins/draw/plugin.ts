@@ -38,7 +38,11 @@ export class DrawPlugin {
 
 		this.setup       = this.setup.bind(this);
 		this.zoomToModel = this.zoomToModel.bind(this);
-		this.map.once('load', this.setup);
+		if (this.map.isStyleLoaded()) {
+			this.setup();
+		} else {
+			this.map.once('load', this.setup);
+		}
 	}
 
 	get mode(): DrawMode {
@@ -215,10 +219,14 @@ export class DrawPlugin {
 				for (let i = 0, len = this.options.styles.length; i < len; i++) {
 					if (this.map.getLayer(this.options.styles[ i ].id)) {
 						this.map.removeLayer(this.options.styles[ i ].id);
+					} else {
+						console.log('NO LAYER', this.options.styles[ i ].id);
 					}
 				}
 				if (this.map.getSource(DrawPlugin.SOURCE_ID)) {
 					this.map.removeSource(DrawPlugin.SOURCE_ID);
+				} else {
+					console.log('NO SOURCE', DrawPlugin.SOURCE_ID);
 				}
 			}
 		} catch (e) {

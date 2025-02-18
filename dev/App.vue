@@ -14,10 +14,11 @@
 				@map:zoomend="isZooming = false"
 			>
 				<mgl-draw-control
+					v-if="useDrawPlugin"
 					position="top-left"
 					v-model:mode="drawMode"
 					:model="drawModel"
-					zoom-on-update
+					auto-zoom
 					:min-area-size="800000000"
 					min-area-label="TOO SMALL"
 					@update:model="onDrawModelUpdate"
@@ -44,11 +45,11 @@
 					/>
 				</mgl-geo-json-source>
 
-<!-- Test source not working anymore: CORS ERRORS -->
-<!--				<mgl-vector-source source-id="libraries" :tiles="librariesSourceTiles">-->
-<!--					<mgl-circle-layer layer-id="libraries" source-layer="libraries" :paint="librariesLayerCirclesPaint"-->
-<!--									  :filter="librariesLayerCirclesFilter"/>-->
-<!--				</mgl-vector-source>-->
+				<!-- Test source not working anymore: CORS ERRORS -->
+				<!--				<mgl-vector-source source-id="libraries" :tiles="librariesSourceTiles">-->
+				<!--					<mgl-circle-layer layer-id="libraries" source-layer="libraries" :paint="librariesLayerCirclesPaint"-->
+				<!--									  :filter="librariesLayerCirclesFilter"/>-->
+				<!--				</mgl-vector-source>-->
 
 			</mgl-map>
 		</div>
@@ -69,6 +70,10 @@
 			<label for="four">bottom-right</label>
 			<br/>
 			<span>Attribution Position: {{ controlPosition }}</span>
+		</div>
+		<div>
+			<input type="checkbox" v-model="useDrawPlugin" id="use-draw">
+			<label for="use-draw">Use Draw Plugin</label>
 		</div>
 		<div>
 			<input type="checkbox" v-model="useClasses" id="noclasses">
@@ -163,6 +168,7 @@
 			const map               = useMap(),
 				  mapVersion        = ref<string>(),
 				  showCustomControl = ref(true),
+				  useDrawPlugin     = ref(true),
 				  loaded            = ref(0),
 				  markerCoordinates = ref<LngLatLike>([ 13.377507, 52.516267 ]),
 				  bounds            = ref<LngLatBoundsLike>(),
@@ -265,7 +271,7 @@
 			// setTimeout(() => drawModel.value = drawCircleExample2, 5000);
 
 			return {
-				showCustomControl, loaded, map, mapVersion, markerCoordinates, geojsonSource, bounds, onLoad, onMouseenter, setLanguage,
+				showCustomControl, useDrawPlugin, loaded, map, mapVersion, markerCoordinates, geojsonSource, bounds, onLoad, onMouseenter, setLanguage,
 				geojsonSourceData          : geojsonSource.data,
 				isZooming                  : ref(false),
 				controlPosition            : ref(Position.TOP_LEFT),
