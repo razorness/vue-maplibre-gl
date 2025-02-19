@@ -2,6 +2,7 @@ import { throttle } from '@/lib/debounce.ts';
 import { AbstractDrawMode } from '@/plugins/draw/mode.abstract.ts';
 import type { DrawPlugin } from '@/plugins/draw/plugin.ts';
 import type { DrawModel } from '@/plugins/draw/types.ts';
+import distance from '@turf/distance';
 import { type GeoJSONSource, type Map, type PaddingOptions } from 'maplibre-gl';
 
 export class CircleStaticMode extends AbstractDrawMode {
@@ -61,10 +62,10 @@ export class CircleStaticMode extends AbstractDrawMode {
 	viewportToModel() {
 		const left      = this._container.offsetLeft + this._circle.offsetLeft,
 			  top       = this._container.offsetTop + this._circle.offsetTop,
-			  center    = this.map.unproject([ Math.round(left + (this._circle.offsetWidth / 2)), Math.round(top + (this._circle.offsetHeight / 2)) ]),
-			  topCenter = this.map.unproject([ left, top ]),
-			  radius    = Math.abs(topCenter.lat - center.lat),
-			  pos       = center.toArray();
+			  center    = this.map.unproject([ left + (this._circle.offsetWidth / 2), top + (this._circle.offsetHeight / 2) ]),
+			  topCenter = this.map.unproject([ left + (this._circle.offsetWidth / 2), top ]),
+			  pos       = center.toArray(),
+			  radius    = distance(topCenter.toArray(), pos, { units: 'meters' });
 
 		return this.createCircle(pos, radius);
 	}

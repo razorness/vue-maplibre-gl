@@ -1,6 +1,6 @@
 {
   "name": "vue-maplibre-gl",
-  "version": "5.4.10",
+  "version": "5.5.0",
   "description": "Vue 3 plugin for maplibre-gl",
   "keywords": [
     "vue",
@@ -47,6 +47,7 @@
     "@turf/boolean-point-in-polygon": "^7.2.0",
     "@turf/circle": "^7.2.0",
     "@turf/clone": "^7.2.0",
+    "@turf/distance": "^7.2.0",
     "@turf/simplify": "^7.2.0",
     "maplibre-gl": "^5.1.0",
     "mitt": "^3.0.1",

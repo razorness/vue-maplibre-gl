@@ -3,6 +3,7 @@ import { AbstractDrawMode } from '@/plugins/draw/mode.abstract.ts';
 import type { DrawPlugin } from '@/plugins/draw/plugin.ts';
 import type { DrawFeatureProperties, DrawModel, DrawModeSnapshot } from '@/plugins/draw/types.ts';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
+import distance from '@turf/distance';
 import type { Feature, Polygon, Position } from 'geojson';
 import type { GeoJSONSource, Map, MapLayerMouseEvent, MapLayerTouchEvent } from 'maplibre-gl';
 
@@ -37,8 +38,8 @@ export class CircleMode extends AbstractDrawMode {
 
 
 		const pos    = e.lngLat.toArray(),
-			  pixel  = this.map.unproject([ e.point.x + 1, e.point.y ]),
-			  radius = Math.abs(pixel.lng - e.lngLat.lng) * 50,
+			  pixel  = this.map.unproject([ e.point.x + this.plugin.options.circleMode.creationSize, e.point.y ]),
+			  radius = distance(pos, pixel.toArray(), { units: 'meters' }),
 			  c      = this.createCircle(pos, radius);
 
 		this.createFeatureCollection(c);
@@ -112,19 +113,8 @@ export class CircleMode extends AbstractDrawMode {
 
 				e.preventDefault();
 
-				polygon = this.getPolygon();
-				let radius: number;
-				switch (this._resizeAnker) {
-					case 0:
-					case 2:
-						radius = Math.abs(polygon.properties.center![ 1 ] - e.lngLat.lat);
-						break;
-					case 1:
-					case 3:
-						radius = Math.abs(polygon.properties.center![ 0 ] - e.lngLat.lng) * Math.cos((e.lngLat.lat * Math.PI) / 180);
-						break;
-				}
-
+				polygon                           = this.getPolygon();
+				const radius                      = distance(polygon.properties.center!, e.lngLat.toArray(), { units: 'meters' });
 				polygon.geometry.coordinates[ 0 ] = this.createCircle(polygon.properties.center!, radius!).geometry.coordinates[ 0 ];
 				polygon.properties.radius         = radius!;
 

@@ -21,6 +21,9 @@ export interface DrawPluginOptions {
 	};
 	pointerPrecision?: PointerPrecisionOption;
 	waitForSetup?: boolean;
+	circleMode?: {
+		creationSize: number; // default: 75 pixels
+	};
 }
 
 export interface PointerPrecisionOption {
@@ -33,7 +36,7 @@ export type DrawStyle = WithoutSource<LayerSpecification>
 
 export interface DrawFeatureProperties {
 	center?: Position;
-	radius?: number; // degree
+	radius?: number; // meters
 	area?: number; // m²
 	tooSmall?: boolean;
 	minSizeLabel?: string;

@@ -860,6 +860,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@turf/distance@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "@turf/distance@npm:7.2.0"
+  dependencies:
+    "@turf/helpers": "npm:^7.2.0"
+    "@turf/invariant": "npm:^7.2.0"
+    "@types/geojson": "npm:^7946.0.10"
+    tslib: "npm:^2.8.1"
+  checksum: 10/0cd48d1fa6552396a635fbaac0c8221de773870ed69dc27982835d8cb4568ea524416138b728ebb2376cdf6e204c32b981d4818fa069f11a506aa8da8de9f54a
+  languageName: node
+  linkType: hard
+
 "@turf/helpers@npm:^7.2.0":
   version: 7.2.0
   resolution: "@turf/helpers@npm:7.2.0"
@@ -3365,6 +3377,7 @@ __metadata:
     "@turf/boolean-point-in-polygon": "npm:^7.2.0"
     "@turf/circle": "npm:^7.2.0"
     "@turf/clone": "npm:^7.2.0"
+    "@turf/distance": "npm:^7.2.0"
     "@turf/simplify": "npm:^7.2.0"
     "@types/geojson": "npm:^7946.0.16"
     "@types/node": "npm:^22.13.1"

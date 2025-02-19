@@ -26,6 +26,7 @@
   border: 2px solid #e74b3c;
   color: #e74b3c; /* sets color on below min area size stripes */
   overflow: hidden;
+  box-sizing: border-box;
 
   .maplibre-draw-min-area-pattern {
     display: none;

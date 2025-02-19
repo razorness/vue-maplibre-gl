@@ -19,7 +19,7 @@ export class DrawPlugin {
 	private _mode: DrawMode;
 	private _modeInstance: AbstractDrawMode | undefined;
 	private _source: GeoJSONSource | undefined;
-	options: DrawPluginOptions & Required<Pick<DrawPluginOptions, 'styles' | 'pointerPrecision' | 'minArea'>>;
+	options: DrawPluginOptions & Required<Pick<DrawPluginOptions, 'styles' | 'pointerPrecision' | 'minArea' | 'circleMode'>>;
 
 	constructor(map: Map, model: DrawModel | undefined, options: DrawPluginOptions = {}) {
 		this.map     = map;
@@ -35,6 +35,10 @@ export class DrawPlugin {
 				touch: 36,
 				...(options.pointerPrecision || {})
 			},
+			circleMode      : {
+				creationSize: 75,
+				...(options.circleMode || {})
+			}
 		};
 
 		this.setup       = this.setup.bind(this);

@@ -7,8 +7,6 @@ import type { GeoJSONSource, LngLatLike, Map, MapLayerMouseEvent, MapLayerTouchE
 
 export abstract class AbstractDrawMode {
 
-	private readonly earthRadius = 6371000;
-
 	plugin: DrawPlugin;
 	map: Map;
 	source: GeoJSONSource;
@@ -69,7 +67,7 @@ export abstract class AbstractDrawMode {
 	createCircle(center: Position, radius: number, steps = 64): Feature<Polygon, DrawFeatureProperties> {
 		const c               = circle<DrawFeatureProperties>(center, radius,
 			{
-				units     : 'degrees', steps,
+				units     : 'meters', steps,
 				properties: { center, radius, meta: 'circle', minSizeLabel: this.plugin.options.minArea.label }
 			});
 		c.properties.area     = this.getAreaSize(c);
@@ -80,8 +78,7 @@ export abstract class AbstractDrawMode {
 	// returns m²
 	getAreaSize(model: Feature<Polygon, DrawFeatureProperties>): number {
 		if (model.properties.meta === 'circle' && model.properties.radius) {
-			const radius = model.properties.radius * (Math.PI / 180) * this.earthRadius;
-			return Math.PI * Math.pow(radius, 2);
+			return Math.PI * Math.pow(model.properties.radius, 2);
 		}
 		return area(model);
 	}
