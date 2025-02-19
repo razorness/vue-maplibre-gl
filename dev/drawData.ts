@@ -1,21 +1,21 @@
 import type { DrawModel } from '@/plugins/draw';
 
-export const drawCircleExample: DrawModel = {
-	"type": "Feature",
-	"properties": {
-		"center": [
+export const drawCircleExample: DrawModel = Object.freeze({
+	'type'      : 'Feature',
+	'properties': {
+		'center'      : [
 			10.010300035650772,
 			53.55286295947664
 		],
-		"radius": 26158.912849222437,
-		"meta": "circle",
-		"minSizeLabel": "TOO SMALL",
-		"area": 2149756420.251772,
-		"tooSmall": false
+		'radius'      : 26158.912849222437,
+		'meta'        : 'circle',
+		'minSizeLabel': 'TOO SMALL',
+		'area'        : 2149756420.251772,
+		'tooSmall'    : false
 	},
-	"geometry": {
-		"type": "Polygon",
-		"coordinates": [
+	'geometry'  : {
+		'type'       : 'Polygon',
+		'coordinates': [
 			[
 				[
 					10.010300035650772,
@@ -280,24 +280,24 @@ export const drawCircleExample: DrawModel = {
 			]
 		]
 	}
-};
+});
 
-export const drawCircleExample2: DrawModel = {
-	"type": "Feature",
-	"properties": {
-		"center": [
+export const drawCircleExample2: DrawModel = Object.freeze({
+	'type'      : 'Feature',
+	'properties': {
+		'center'      : [
 			8.54997026487834,
 			53.5689240486912
 		],
-		"radius": 26158.912849222437,
-		"meta": "circle",
-		"minSizeLabel": "TOO SMALL",
-		"area": 2149756420.251772,
-		"tooSmall": false
+		'radius'      : 26158.912849222437,
+		'meta'        : 'circle',
+		'minSizeLabel': 'TOO SMALL',
+		'area'        : 2149756420.251772,
+		'tooSmall'    : false
 	},
-	"geometry": {
-		"type": "Polygon",
-		"coordinates": [
+	'geometry'  : {
+		'type'       : 'Polygon',
+		'coordinates': [
 			[
 				[
 					8.54997026487834,
@@ -562,9 +562,9 @@ export const drawCircleExample2: DrawModel = {
 			]
 		]
 	}
-};
+});
 
-export const drawPolygonExample: DrawModel = {
+export const drawPolygonExample: DrawModel = Object.freeze({
 	'type'      : 'Feature',
 	'properties': {
 		'meta': 'polygon'
@@ -672,4 +672,4 @@ export const drawPolygonExample: DrawModel = {
 			]
 		]
 	}
-};
+});

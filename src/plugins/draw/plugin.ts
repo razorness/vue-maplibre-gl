@@ -54,7 +54,7 @@ export class DrawPlugin {
 	}
 
 	setMode(value: DrawMode, model?: DrawModel) {
-		this._model = model;
+		this._model = model ? clone(model) : undefined;
 		if (this._mode !== value) {
 			this._mode = value;
 			this.setupMode();
