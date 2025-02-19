@@ -280,7 +280,7 @@ export const drawCircleExample: DrawModel = Object.freeze({
 			]
 		]
 	}
-});
+}) as DrawModel;
 
 export const drawCircleExample2: DrawModel = Object.freeze({
 	'type'      : 'Feature',
@@ -562,7 +562,7 @@ export const drawCircleExample2: DrawModel = Object.freeze({
 			]
 		]
 	}
-});
+}) as DrawModel;
 
 export const drawPolygonExample: DrawModel = Object.freeze({
 	'type'      : 'Feature',
@@ -672,4 +672,4 @@ export const drawPolygonExample: DrawModel = Object.freeze({
 			]
 		]
 	}
-});
+}) as DrawModel;
