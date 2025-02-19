@@ -3364,6 +3364,7 @@ __metadata:
     "@turf/bbox": "npm:^7.2.0"
     "@turf/boolean-point-in-polygon": "npm:^7.2.0"
     "@turf/circle": "npm:^7.2.0"
+    "@turf/clone": "npm:^7.2.0"
     "@turf/simplify": "npm:^7.2.0"
     "@types/geojson": "npm:^7946.0.16"
     "@types/node": "npm:^22.13.1"

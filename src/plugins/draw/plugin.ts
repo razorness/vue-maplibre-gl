@@ -5,6 +5,7 @@ import { PolygonMode } from '@/plugins/draw/polygon.mode.ts';
 import { DefaultDrawStyles } from '@/plugins/draw/styles.ts';
 import { DrawMode, type DrawModel, type DrawPluginOptions, type DrawStyle, type OnUpdateHandler } from '@/plugins/draw/types.ts';
 import bbox from '@turf/bbox';
+import clone from '@turf/clone';
 import type { GeoJSONSource, LayerSpecification, LngLatBoundsLike, Map } from 'maplibre-gl';
 
 export class DrawPlugin {
@@ -22,7 +23,7 @@ export class DrawPlugin {
 
 	constructor(map: Map, model: DrawModel | undefined, options: DrawPluginOptions = {}) {
 		this.map     = map;
-		this._model  = model;
+		this._model  = model ? clone(model) : undefined;
 		this._mode   = options.mode ?? DrawMode.POLYGON;
 		this.options = {
 			...options,
@@ -106,8 +107,8 @@ export class DrawPlugin {
 	}
 
 	setModel(model: DrawModel | undefined) {
-		this._model = model;
-		this._modeInstance?.setModel(model);
+		this._model = model ? clone(model) : undefined;
+		this._modeInstance?.setModel(this._model);
 		this.zoomToModel();
 	}
 
