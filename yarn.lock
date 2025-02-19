@@ -2648,7 +2648,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.48, postcss@npm:^8.5.1":
+"postcss@npm:^8.4.48":
   version: 8.5.1
   resolution: "postcss@npm:8.5.1"
   dependencies:
@@ -2656,6 +2656,17 @@ __metadata:
     picocolors: "npm:^1.1.1"
     source-map-js: "npm:^1.2.1"
   checksum: 10/1fbd28753143f7f03e4604813639918182b15343c7ad0f4e72f3875fc2cc0b8494c887f55dc05008fad5fbf1e1e908ce2edbbce364a91f84dcefb71edf7cd31d
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.5.2":
+  version: 8.5.2
+  resolution: "postcss@npm:8.5.2"
+  dependencies:
+    nanoid: "npm:^3.3.8"
+    picocolors: "npm:^1.1.1"
+    source-map-js: "npm:^1.2.1"
+  checksum: 10/e08c2be3cf461cc63cf4c8e97bb3d5185e196ee0a9b75879cf130590f32bc38c7829c6c4e260158e214fb68a828a95bdac84c8f17fefba993d3ced686643c3e2
   languageName: node
   linkType: hard
 
@@ -3274,13 +3285,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "vite@npm:6.1.0"
+"vite@npm:^6.1.1":
+  version: 6.1.1
+  resolution: "vite@npm:6.1.1"
   dependencies:
     esbuild: "npm:^0.24.2"
     fsevents: "npm:~2.3.3"
-    postcss: "npm:^8.5.1"
+    postcss: "npm:^8.5.2"
     rollup: "npm:^4.30.1"
   peerDependencies:
     "@types/node": ^18.0.0 || ^20.0.0 || >=22.0.0
@@ -3322,7 +3333,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/5de360ac0ecb3cac85f796ec97d5347e2c8102a8845309af87f52296279464a6d5b880beb740bc42740936ec9de8bf0acce6a6ed3b3b24a733162a5d63d9f46b
+  checksum: 10/3e70efdb4a87d0ccd1d5f019522cebd3e0e9e173df01dc58f50781a152f19a20c8e6597a3d50b79612309f925a3bd4aa0916ae0cfd2cf57e0e27750d441ec3cb
   languageName: node
   linkType: hard
 
@@ -3366,7 +3377,7 @@ __metadata:
     sass: "npm:^1.85.0"
     ts-essentials: "npm:^10.0.4"
     typescript: "npm:~5.7.3"
-    vite: "npm:^6.1.0"
+    vite: "npm:^6.1.1"
     vite-plugin-banner: "npm:^0.8.0"
     vite-plugin-dts: "npm:^4.5.0"
     vue: "npm:^3.5.13"
