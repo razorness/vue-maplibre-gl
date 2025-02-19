@@ -18,9 +18,19 @@
 
 }
 
+.maplibregl-draw-circle-mode-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1;
+  width: 100%;
+}
+
+
 .maplibregl-draw-circle-mode-circle {
   position: relative;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1;
+  width: 100%;
   border-radius: 50%;
   background: rgba(231, 75, 60, 0.2);
   border: 2px solid #e74b3c;
