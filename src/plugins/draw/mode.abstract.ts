@@ -43,10 +43,14 @@ export abstract class AbstractDrawMode {
 	}
 
 	clear() {
-		this.source.setData({ type: 'FeatureCollection', features: [] });
+		this.source?.setData({ type: 'FeatureCollection', features: [] });
 	}
 
 	render() {
+		if (!this.source) {
+			return;
+		}
+
 		if (this.plugin.options.minArea.size && this.collection?.features[ 0 ]) {
 			const areaSize                                         = this.getAreaSize(this.collection!.features[ 0 ] as Feature<Polygon, DrawFeatureProperties>);
 			this.collection!.features[ 0 ].properties.area         = areaSize;

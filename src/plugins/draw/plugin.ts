@@ -81,16 +81,23 @@ export class DrawPlugin {
 				throw new Error(`Unsupported mode "${this._mode}"`);
 		}
 		this.zoomToModel();
-		this._modeInstance?.register();
+		if (this._modeInstance) {
+			this._modeInstance.register();
+			this._modeInstance.render();
+		}
 
 	}
 
 	private setupMap() {
-		if (!this.map.getSource(DrawPlugin.SOURCE_ID)) {
+		this._source = this.map.getSource(DrawPlugin.SOURCE_ID);
+		if (!this._source) {
 			this.map.addSource(DrawPlugin.SOURCE_ID, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
 			this._source = this.map.getSource(DrawPlugin.SOURCE_ID);
 			this.setupStyles();
 			this.map.on('resize', this.zoomToModel);
+		}
+		if (this._modeInstance) {
+			this._modeInstance.source = this._source!;
 		}
 	}
 

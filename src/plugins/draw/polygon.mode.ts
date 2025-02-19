@@ -75,7 +75,7 @@ export class PolygonMode extends AbstractDrawMode {
 								polygon.geometry.coordinates[ 0 ].push(polygon.geometry.coordinates[ 0 ][ 0 ]);
 							}
 							this.generateCollectionWithVertexes();
-							this.source.setData(this.collection);
+							this.source?.setData(this.collection);
 							return;
 						}
 					}
