@@ -23,7 +23,7 @@ export class DrawPlugin {
 
 	constructor(map: Map, model: DrawModel | undefined, options: DrawPluginOptions = {}) {
 		this.map     = map;
-		this._model  = model ? clone(model) : undefined;
+		this._model  = model ? this.prepareModel(model) : undefined;
 		this._mode   = options.mode ?? DrawMode.POLYGON;
 		this.options = {
 			...options,
@@ -54,7 +54,7 @@ export class DrawPlugin {
 	}
 
 	setMode(value: DrawMode, model?: DrawModel) {
-		this._model = model ? clone(model) : undefined;
+		this._model = model ? this.prepareModel(model) : undefined;
 		if (this._mode !== value) {
 			this._mode = value;
 			this.setupMode();
@@ -118,7 +118,7 @@ export class DrawPlugin {
 	}
 
 	setModel(model: DrawModel | undefined) {
-		this._model = model ? clone(model) : undefined;
+		this._model = model ? this.prepareModel(model) : undefined;
 		this._modeInstance?.setModel(this._model);
 		this.zoomToModel();
 	}
@@ -164,6 +164,20 @@ export class DrawPlugin {
 		if (this.options.minArea.size) {
 			this.setMinAreaSizePattern();
 		}
+	}
+
+	prepareModel(model: DrawModel): DrawModel {
+		const m = clone(model);
+		if (m.geometry.coordinates?.[ 0 ]?.length) {
+
+			const start    = m.geometry.coordinates[ 0 ][ 0 ],
+				  end      = m.geometry.coordinates[ 0 ][ m.geometry.coordinates[ 0 ].length - 1 ],
+				  isClosed = start[ 0 ] === end[ 0 ] && end[ 1 ] === end[ 1 ];
+			if (!isClosed) {
+				m.geometry.coordinates[ 0 ].push(m.geometry.coordinates[ 0 ][ 0 ]);
+			}
+		}
+		return m;
 	}
 
 	private setMinAreaSizePattern() {
