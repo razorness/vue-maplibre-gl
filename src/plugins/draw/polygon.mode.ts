@@ -76,6 +76,7 @@ export class PolygonMode extends AbstractDrawMode {
 							}
 							this.generateCollectionWithVertexes();
 							this.source?.setData(this.collection);
+							this.emitOnUpdate();
 							return;
 						}
 					}
@@ -289,7 +290,12 @@ export class PolygonMode extends AbstractDrawMode {
 				e.preventDefault();
 				this._mode      = undefined;
 				this._moveStart = undefined;
-				this.emitOnUpdate();
+
+				// don't emit on ctrl click, this will be handled separately in onClick
+				if (!e.originalEvent.ctrlKey) {
+					this.emitOnUpdate();
+				}
+
 				break;
 		}
 
