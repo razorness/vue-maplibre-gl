@@ -1,6 +1,6 @@
 <template>
 	<div style="padding: 20px">
-		<div style="height: 400px; width: 800px; resize: both; overflow: auto; border: 1px solid #d6d6d6; margin-bottom: 20px">
+		<div class="map-container">
 			<mgl-map
 				v-if="showMap"
 				:fit-bounds-options="defaultBoundsOptions"
@@ -333,4 +333,15 @@
 	body {
 		margin: 0;
 	}
+
+	.map-container {
+		height: 400px;
+		width: 800px;
+		max-width: 100%;
+		resize: both;
+		overflow: auto;
+		border: 1px solid #d6d6d6;
+		margin-bottom: 20px
+	}
+
 </style>
