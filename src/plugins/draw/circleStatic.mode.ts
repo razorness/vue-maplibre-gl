@@ -1,4 +1,5 @@
 import { throttle } from '@/lib/debounce.ts';
+import { createElement } from '@/plugins/draw/html.ts';
 import { AbstractDrawMode } from '@/plugins/draw/mode.abstract.ts';
 import type { DrawPlugin } from '@/plugins/draw/plugin.ts';
 import type { DrawModel } from '@/plugins/draw/types.ts';
@@ -8,9 +9,10 @@ import { type GeoJSONSource, type Map, type PaddingOptions } from 'maplibre-gl';
 export class CircleStaticMode extends AbstractDrawMode {
 
 	private _model: DrawModel | undefined;
-	private _container = document.createElement('div');
+	private _container: HTMLDivElement;
 	private _circle: HTMLDivElement;
-	private _wrapper: HTMLDivElement;
+	private _widthContstraint: HTMLDivElement;
+	private _heightConstraint: HTMLDivElement;
 	private _minSizeLabel: HTMLDivElement;
 
 	constructor(plugin: DrawPlugin, map: Map, source: GeoJSONSource, model: DrawModel | undefined) {
@@ -19,11 +21,11 @@ export class CircleStaticMode extends AbstractDrawMode {
 		this.onViewportChange    = throttle(this.onViewportChange.bind(this), 100);
 
 		this._model = model;
-		this._container.classList.add('maplibregl-draw-circle-mode');
-		this._wrapper = document.createElement('div');
-		this._wrapper.classList.add('maplibregl-draw-circle-mode-wrapper');
-		this._circle = document.createElement('div');
-		this._circle.classList.add('maplibregl-draw-circle-mode-circle');
+
+		this._container        = createElement('div', 'maplibregl-draw-circle-mode');
+		this._widthContstraint = createElement('div', 'maplibregl-draw-circle-mode-width-constraint');
+		this._heightConstraint = createElement('div', 'maplibregl-draw-circle-mode-height-constraint');
+		this._circle           = createElement('div', 'maplibregl-draw-circle-mode-circle');
 		this._circle.innerHTML = `<svg class="maplibre-draw-min-area-pattern" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
     <defs>
         <pattern id="maplibre-draw-min-area-pattern" patternUnits="userSpaceOnUse" width="4.5" height="4.5" patternTransform="rotate(135)">
@@ -32,13 +34,13 @@ export class CircleStaticMode extends AbstractDrawMode {
     </defs>
     <rect width="100%" height="100%" fill="url(#maplibre-draw-min-area-pattern)" :opacity="1" />
 </svg>`;
-		this._minSizeLabel     = document.createElement('div');
-		this._minSizeLabel.classList.add('maplibre-draw-circle-mode-below-min-area-size-label');
+		this._minSizeLabel     = createElement('div', 'maplibre-draw-circle-mode-below-min-area-size-label');
 		if (plugin.options.minArea.label) {
 			this._minSizeLabel.textContent = plugin.options.minArea.label;
 		}
-		this._container.appendChild(this._wrapper);
-		this._wrapper.appendChild(this._circle);
+		this._container.appendChild(this._heightConstraint);
+		this._heightConstraint.appendChild(this._widthContstraint);
+		this._widthContstraint.appendChild(this._circle);
 		this._circle.appendChild(this._minSizeLabel);
 		this.setPadding();
 	}
