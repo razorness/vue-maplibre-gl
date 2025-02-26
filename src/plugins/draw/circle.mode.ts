@@ -56,6 +56,11 @@ export class CircleMode extends AbstractDrawMode {
 			return;
 		}
 
+		if ((e as MapLayerTouchEvent).points?.length > 1) {
+			// multi touch event
+			return;
+		}
+
 		for (let i = 0, len = this.collection.features[ 1 ].geometry.coordinates.length; i < len; i++) {
 			if (this.isNearby(this.collection.features[ 1 ].geometry.coordinates[ i ] as Position, e.point, this.isTouchEvent(e))) {
 				e.preventDefault();
