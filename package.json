@@ -1,6 +1,6 @@
 {
   "name": "vue-maplibre-gl",
-  "version": "5.5.8",
+  "version": "5.5.9",
   "description": "Vue 3 plugin for maplibre-gl",
   "keywords": [
     "vue",
@@ -64,11 +64,11 @@
     "modular-maptiler-sdk": "^1.0.16",
     "sass": "^1.85.1",
     "ts-essentials": "^10.0.4",
-    "typescript": "~5.7.3",
+    "typescript": "~5.8.2",
     "vite": "^6.2.0",
     "vite-plugin-banner": "^0.8.0",
-    "vite-plugin-dts": "^4.5.0",
-    "vue-tsc": "^2.2.4"
+    "vite-plugin-dts": "^4.5.3",
+    "vue-tsc": "^2.2.8"
   },
   "peerDependencies": {
     "maplibre-gl": "^5.1.0",

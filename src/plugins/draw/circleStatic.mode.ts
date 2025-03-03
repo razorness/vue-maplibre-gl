@@ -63,6 +63,9 @@ export class CircleStaticMode extends AbstractDrawMode {
 		} else {
 			this._circle.classList.remove('maplibregl-draw-circle-too-small');
 		}
+		// to debug: make polygon visible on map
+		// this.collection = { type: 'FeatureCollection', features: [ this._model ] };
+		// this.render();
 	}
 
 	viewportToModel() {

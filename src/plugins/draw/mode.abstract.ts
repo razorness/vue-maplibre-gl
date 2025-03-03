@@ -7,6 +7,7 @@ import type { GeoJSONSource, LngLatLike, Map, MapLayerMouseEvent, MapLayerTouchE
 
 export abstract class AbstractDrawMode {
 
+	isTouchEventSupported: boolean = window !== undefined && !!window.TouchEvent;
 	plugin: DrawPlugin;
 	map: Map;
 	source: GeoJSONSource;
@@ -88,7 +89,10 @@ export abstract class AbstractDrawMode {
 	}
 
 	isTouchEvent(e: MapLayerMouseEvent | MapLayerTouchEvent): boolean {
-		return e.originalEvent instanceof TouchEvent;
+		if (this.isTouchEventSupported) {
+			return e.originalEvent instanceof TouchEvent;
+		}
+		return false;
 	}
 
 	abstract register(): void;
