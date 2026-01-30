@@ -1,7 +1,7 @@
 import { useSource } from '@/composable/useSource';
 import { AllSourceOptions } from '@/types';
 import type GeoJSON from 'geojson';
-import type { GeoJSONSource, GeoJSONSourceOptions, GeoJSONSourceSpecification } from 'maplibre-gl';
+import type { GeoJSONSource, GeoJSONSourceSpecification } from 'maplibre-gl';
 import { createCommentVNode, defineComponent, isRef, type PropType, type SlotsType, watch } from 'vue';
 
 const sourceOpts = AllSourceOptions<GeoJSONSourceSpecification>({
@@ -31,25 +31,25 @@ export default /*#__PURE__*/ defineComponent({
 			type    : String as PropType<string>,
 			required: true
 		},
-		data             : [ Object, String ] as PropType<GeoJSONSourceOptions['data']>,
-		maxzoom          : Number as PropType<GeoJSONSourceOptions['maxzoom']>,
-		attribution      : String as PropType<GeoJSONSourceOptions['attribution']>,
-		buffer           : Number as PropType<GeoJSONSourceOptions['buffer']>,
-		tolerance        : Number as PropType<GeoJSONSourceOptions['tolerance']>,
-		cluster          : [ Number, Boolean ] as PropType<GeoJSONSourceOptions['cluster']>,
-		clusterRadius    : Number as PropType<GeoJSONSourceOptions['clusterRadius']>,
-		clusterMaxZoom   : Number as PropType<GeoJSONSourceOptions['clusterMaxZoom']>,
-		clusterMinPoints : Number as PropType<GeoJSONSourceOptions['clusterMinPoints']>,
-		clusterProperties: Object as PropType<GeoJSONSourceOptions['clusterProperties']>,
-		lineMetrics      : Boolean as PropType<GeoJSONSourceOptions['lineMetrics']>,
-		generateId       : Boolean as PropType<GeoJSONSourceOptions['generateId']>,
-		promoteId        : [ Object, String ] as PropType<GeoJSONSourceOptions['promoteId']>,
-		filter           : [ Array, String, Object ] as PropType<GeoJSONSourceOptions['filter']>
+		data             : [ Object, String ] as PropType<GeoJSONSourceSpecification['data']>,
+		maxzoom          : Number as PropType<GeoJSONSourceSpecification['maxzoom']>,
+		attribution      : String as PropType<GeoJSONSourceSpecification['attribution']>,
+		buffer           : Number as PropType<GeoJSONSourceSpecification['buffer']>,
+		tolerance        : Number as PropType<GeoJSONSourceSpecification['tolerance']>,
+		cluster          : [ Number, Boolean ] as PropType<GeoJSONSourceSpecification['cluster']>,
+		clusterRadius    : Number as PropType<GeoJSONSourceSpecification['clusterRadius']>,
+		clusterMaxZoom   : Number as PropType<GeoJSONSourceSpecification['clusterMaxZoom']>,
+		clusterMinPoints : Number as PropType<GeoJSONSourceSpecification['clusterMinPoints']>,
+		clusterProperties: Object as PropType<GeoJSONSourceSpecification['clusterProperties']>,
+		lineMetrics      : Boolean as PropType<GeoJSONSourceSpecification['lineMetrics']>,
+		generateId       : Boolean as PropType<GeoJSONSourceSpecification['generateId']>,
+		promoteId        : [ Object, String ] as PropType<GeoJSONSourceSpecification['promoteId']>,
+		filter           : [ Array, String, Object ] as PropType<GeoJSONSourceSpecification['filter']>
 	},
 	slots: Object as SlotsType<{ default: {} }>,
 	setup(props, { slots }) {
 
-		const source = useSource<GeoJSONSource, GeoJSONSourceOptions>(props, 'geojson', sourceOpts);
+		const source = useSource<GeoJSONSource, GeoJSONSourceSpecification>(props, 'geojson', sourceOpts);
 
 		watch(isRef(props.data) ? props.data : () => props.data, v => {
 			source.value?.setData(v as DataType || { type: 'FeatureCollection', features: [] });

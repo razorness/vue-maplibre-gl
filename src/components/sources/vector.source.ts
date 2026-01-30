@@ -12,7 +12,8 @@ const sourceOpts = AllSourceOptions<VectorSourceSpecification>({
 	maxzoom    : undefined,
 	attribution: undefined,
 	promoteId  : undefined,
-	volatile   : undefined
+	volatile   : undefined,
+	encoding   : undefined
 });
 
 export default /*#__PURE__*/ defineComponent({
@@ -30,7 +31,8 @@ export default /*#__PURE__*/ defineComponent({
 		maxzoom    : Number as PropType<VectorSourceSpecification['maxzoom']>,
 		attribution: String as PropType<VectorSourceSpecification['attribution']>,
 		promoteId  : [ Object, String ] as PropType<VectorSourceSpecification['promoteId']>,
-		volatile   : Boolean as PropType<VectorSourceSpecification['volatile']>
+		volatile   : Boolean as PropType<VectorSourceSpecification['volatile']>,
+		encoding   : String as PropType<VectorSourceSpecification['encoding']>,
 	},
 	slots: Object as SlotsType<{ default: {} }>,
 	setup(props, { slots }) {

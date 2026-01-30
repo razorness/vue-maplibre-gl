@@ -29,7 +29,7 @@ interface SlotProps {
 	toggleOpen: (forceIsOpen?: boolean | Event, e?: Event) => void,
 	setStyle: (s: StyleSwitchItem) => void,
 	mapStyles: StyleSwitchItem[],
-	currentStyle: Ref<StyleSwitchItem | null>,
+	currentStyle: Ref<StyleSwitchItem | undefined>,
 }
 
 export default /*#__PURE__*/ defineComponent({
@@ -64,15 +64,15 @@ export default /*#__PURE__*/ defineComponent({
 			  emitter       = inject(emitterSymbol)!,
 			  isAdded       = ref(false),
 			  isOpen        = ref(props.isOpen === undefined ? false : props.isOpen),
-			  modelValue    = shallowRef(props.modelValue === undefined ? (props.mapStyles.length ? props.mapStyles[ 0 ] : null) : props.modelValue),
+			  modelValue    = shallowRef(props.modelValue === undefined ? (props.mapStyles.length ? props.mapStyles[ 0 ] : undefined) : props.modelValue),
 			  control       = new CustomControl(isAdded, false),
 			  closer        = toggleOpen.bind(null, false);
 
 		function setStyleByMap() {
 			const name = map.value!.getStyle().name;
 			for (let i = 0, len = props.mapStyles.length; i < len; i++) {
-				if (props.mapStyles[ i ].name === name) {
-					setStyle(props.mapStyles[ i ]);
+				if (props.mapStyles[ i ]!.name === name) {
+					setStyle(props.mapStyles[ i ]!);
 					break;
 				}
 			}
@@ -116,7 +116,7 @@ export default /*#__PURE__*/ defineComponent({
 			 * Skip diff as long as Maplibre-GL doesn't fie `style.load` correctly
 			 * @see https://github.com/maplibre/maplibre-gl-js/issues/2587
 			*/
-			map.value!.setStyle(s.style, {diff: false});
+			map.value!.setStyle(s.style, { diff: false });
 			if (props.modelValue === undefined) {
 				modelValue.value = s;
 			}
@@ -196,8 +196,8 @@ export default /*#__PURE__*/ defineComponent({
 	// just only for code assist
 	template: `
 		<slot>
-		<slot name="button"></slot>
-		<slot name="styleList"></slot>
+			<slot name="button"></slot>
+			<slot name="styleList"></slot>
 		</slot>
 	`
 });

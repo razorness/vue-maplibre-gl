@@ -8,7 +8,7 @@ export interface MapInstance {
 	map?: MaplibreMap;
 	isMounted: boolean;
 	isLoaded: boolean;
-	language: ValidLanguages | null;
+	language: ValidLanguages | undefined;
 }
 
 const instances  = new Map<symbol | string, MapInstance>(),
@@ -18,7 +18,7 @@ const instances  = new Map<symbol | string, MapInstance>(),
 export function useMap(key: symbol | string = defaultKey): MapInstance {
 	let component = instances.get(key);
 	if (!component) {
-		component = reactive({ isLoaded: false, isMounted: false, language: null });
+		component = reactive({ isLoaded: false, isMounted: false, language: undefined });
 		instances.set(key, component);
 	}
 	return component;
@@ -27,7 +27,7 @@ export function useMap(key: symbol | string = defaultKey): MapInstance {
 export function registerMap(instance: InstanceType<typeof MglMap>, map: ShallowRef<MaplibreMap | undefined>, key: symbol | string = defaultKey): MapInstance {
 	let component = instances.get(key);
 	if (!component) {
-		component = reactive({ isLoaded: false, isMounted: false, language: null });
+		component = reactive({ isLoaded: false, isMounted: false, language: undefined });
 		instances.set(key, component);
 	}
 

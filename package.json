@@ -48,10 +48,7 @@
     "@turf/circle": "^7.3.3",
     "@turf/clone": "^7.3.3",
     "@turf/distance": "^7.3.3",
-    "@turf/simplify": "^7.3.3",
-    "maplibre-gl": "^5.17.0",
-    "mitt": "^3.0.1",
-    "vue": "^3.5.27"
+    "@turf/simplify": "^7.3.3"
   },
   "devDependencies": {
     "@mdi/js": "^7.4.47",
@@ -61,19 +58,21 @@
     "@vue/tsconfig": "^0.8.1",
     "geojson": "^0.5.0",
     "lightningcss": "^1.31.1",
-    "modular-maptiler-sdk": "^1.0.16",
+    "maplibre-gl": "^5.17.0",
+    "mitt": "^3.0.1",
     "sass": "^1.97.3",
     "ts-essentials": "^10.1.1",
     "typescript": "~5.9.3",
     "vite": "^7.3.1",
     "vite-plugin-banner": "^0.8.1",
     "vite-plugin-dts": "^4.5.4",
+    "vue": "^3.5.27",
     "vue-tsc": "^3.2.4"
   },
   "peerDependencies": {
-    "maplibre-gl": "^5.1.0",
+    "maplibre-gl": "^5.17.0",
     "mitt": "^3.0.1",
-    "vue": "^3.5.13"
+    "vue": "^3.5.27"
   },
   "engines": {
     "node": ">=20"

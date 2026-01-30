@@ -1,5 +1,6 @@
 import { defaults } from '@/defaults';
 import { debounce } from '@/lib/debounce';
+import { setPrimaryLanguage } from '@/lib/language.ts';
 import { MapLib } from '@/lib/map.lib';
 import { registerMap } from '@/lib/mapRegistry';
 import {
@@ -17,7 +18,6 @@ import {
 import type { ProjectionSpecification } from '@maplibre/maplibre-gl-style-spec';
 import { Map as MaplibreMap, type MapOptions, type StyleSpecification } from 'maplibre-gl';
 import mitt from 'mitt';
-import { setPrimaryLanguage } from 'modular-maptiler-sdk/src/language';
 import {
 	defineComponent,
 	getCurrentInstance,
@@ -66,7 +66,7 @@ export default /*#__PURE__*/ defineComponent({
 		hash                   : { type: [ Boolean, String ] as PropType<MapOptions['hash']>, default: () => defaults.hash },
 		interactive            : { type: Boolean as PropType<MapOptions['interactive']>, default: () => defaults.interactive },
 		keyboard               : { type: Boolean as PropType<MapOptions['keyboard']>, default: () => defaults.keyboard },
-		language               : { type: String as PropType<ValidLanguages | null>, default: () => defaults.language || null },
+		language               : { type: String as PropType<ValidLanguages | undefined>, default: () => defaults.language || undefined },
 		locale                 : { type: Object as PropType<MapOptions['locale']>, default: () => defaults.locale },
 
 		localIdeographFontFamily: {
@@ -153,28 +153,31 @@ export default /*#__PURE__*/ defineComponent({
 		watch(() => props.zoom, v => v && map.value?.setZoom(v));
 		watch(() => props.projection, v => v && map.value?.setProjection(v));
 
-		watch(() => props.language, v => {
-			if (isStyleReady.value && map.value && registryItem.language !== (v || null)) {
-				setPrimaryLanguage(map.value as any, v || '');
-				registryItem.language = v || null;
+		if (props.language) {
+			registryItem.language = props.language;
+		}
+
+		watch(() => props.language, (v) => {
+			if (isStyleReady.value && map.value && registryItem.language !== (v || undefined)) {
+				setPrimaryLanguage(map.value, v);
+				registryItem.language = v || undefined;
 			}
 		});
-		watch(() => registryItem.language, v => {
+		watch(() => registryItem.language, (v) => {
 			if (isStyleReady.value && map.value) {
-				setPrimaryLanguage(map.value as any, v || '');
+				setPrimaryLanguage(map.value, v);
 			}
 		});
 
 		function onStyleReady() {
 			isStyleReady.value = true;
-			if (props.language) {
-				registryItem.language = props.language;
-			} else if (registryItem.language) {
-				setPrimaryLanguage(map.value! as any, props.language || '');
-			}
 			if (props.projection) {
 				map.value!.setProjection(props.projection);
 			}
+		}
+
+		function onStyleLoad() {
+			setPrimaryLanguage(map.value!, registryItem.language);
 		}
 
 		function initialize() {
@@ -193,9 +196,13 @@ export default /*#__PURE__*/ defineComponent({
 			map.value           = markRaw(new MaplibreMap(opts));
 			registryItem.map    = map.value;
 			isInitialized.value = true;
-			boundMapEvents.set('__load', () => (isLoaded.value = true, registryItem.isLoaded = true));
+			boundMapEvents.set('__load', () => {
+				isLoaded.value        = true;
+				registryItem.isLoaded = true;
+			});
 			map.value.once('styledata', onStyleReady);
 			map.value.on('load', boundMapEvents.get('__load') as any);
+			map.value.on('style.load', onStyleLoad);
 
 			// bind events
 			if (component.vnode.props) {
@@ -221,6 +228,7 @@ export default /*#__PURE__*/ defineComponent({
 
 			if (map.value) {
 				// unbind events
+				map.value.off('style.load', onStyleLoad);
 				map.value.getCanvas().removeEventListener('webglcontextlost', restart);
 				map.value._controls.forEach((control) => {
 					map.value!.removeControl(control);
