@@ -332,6 +332,8 @@
 
 	body {
 		margin: 0;
+		font-family: Roboto, "Helvetica Neue", sans-serif;
+		font-size: 14px;
 	}
 
 	.map-container {

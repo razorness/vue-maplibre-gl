@@ -42,33 +42,33 @@
     "upgrade": "npx taze major -I"
   },
   "dependencies": {
-    "@turf/area": "^7.2.0",
-    "@turf/bbox": "^7.2.0",
-    "@turf/boolean-point-in-polygon": "^7.2.0",
-    "@turf/circle": "^7.2.0",
-    "@turf/clone": "^7.2.0",
-    "@turf/distance": "^7.2.0",
-    "@turf/simplify": "^7.2.0",
-    "maplibre-gl": "^5.1.1",
+    "@turf/area": "^7.3.3",
+    "@turf/bbox": "^7.3.3",
+    "@turf/boolean-point-in-polygon": "^7.3.3",
+    "@turf/circle": "^7.3.3",
+    "@turf/clone": "^7.3.3",
+    "@turf/distance": "^7.3.3",
+    "@turf/simplify": "^7.3.3",
+    "maplibre-gl": "^5.17.0",
     "mitt": "^3.0.1",
-    "vue": "^3.5.13"
+    "vue": "^3.5.27"
   },
   "devDependencies": {
     "@mdi/js": "^7.4.47",
     "@types/geojson": "^7946.0.16",
     "@types/node": "^22.13.1",
-    "@vitejs/plugin-vue": "^5.2.1",
-    "@vue/tsconfig": "^0.7.0",
+    "@vitejs/plugin-vue": "^6.0.3",
+    "@vue/tsconfig": "^0.8.1",
     "geojson": "^0.5.0",
-    "lightningcss": "^1.29.1",
+    "lightningcss": "^1.31.1",
     "modular-maptiler-sdk": "^1.0.16",
-    "sass": "^1.85.1",
-    "ts-essentials": "^10.0.4",
-    "typescript": "~5.8.2",
-    "vite": "^6.2.0",
-    "vite-plugin-banner": "^0.8.0",
-    "vite-plugin-dts": "^4.5.3",
-    "vue-tsc": "^2.2.8"
+    "sass": "^1.97.3",
+    "ts-essentials": "^10.1.1",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1",
+    "vite-plugin-banner": "^0.8.1",
+    "vite-plugin-dts": "^4.5.4",
+    "vue-tsc": "^3.2.4"
   },
   "peerDependencies": {
     "maplibre-gl": "^5.1.0",
@@ -78,5 +78,5 @@
   "engines": {
     "node": ">=20"
   },
-  "packageManager": "yarn@4.6.0"
+  "packageManager": "yarn@4.12.0"
 }
