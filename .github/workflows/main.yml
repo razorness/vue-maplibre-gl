@@ -7,6 +7,10 @@ on:
     release:
         types: [ created ]
 
+permissions:
+    id-token: write   # OIDC
+    contents: read
+
 jobs:
     #  build:
     #    runs-on: ubuntu-latest
@@ -22,16 +26,14 @@ jobs:
         #    needs: build
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@v3
-            -   uses: actions/setup-node@v3
+            -   uses: actions/checkout@v4
+            -   uses: actions/setup-node@v4
                 with:
                     node-version: 24
                     registry-url: https://registry.npmjs.org/
             -   run: yarn install
             -   run: yarn build
-            -   run: yarn npm publish
-                env:
-                    NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            -   run: npm publish
 
 #    publish-gpr:
 #        #    needs: build
