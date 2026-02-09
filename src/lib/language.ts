@@ -3,8 +3,6 @@ import { type LayerSpecification, Map as MaplibreMap } from 'maplibre-gl';
 
 export function setPrimaryLanguage(map: MaplibreMap, lang: ValidLanguages | undefined) {
 
-	console.log('setPrimaryLanguage', lang);
-
 	const style = map.getStyle();
 	if (!style?.layers) return;
 
