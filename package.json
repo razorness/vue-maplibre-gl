@@ -42,23 +42,23 @@
     "upgrade": "npx taze major -I"
   },
   "dependencies": {
-    "@turf/area": "^7.3.3",
-    "@turf/bbox": "^7.3.3",
-    "@turf/boolean-point-in-polygon": "^7.3.3",
-    "@turf/circle": "^7.3.3",
-    "@turf/clone": "^7.3.3",
-    "@turf/distance": "^7.3.3",
-    "@turf/simplify": "^7.3.3"
+    "@turf/area": "^7.3.4",
+    "@turf/bbox": "^7.3.4",
+    "@turf/boolean-point-in-polygon": "^7.3.4",
+    "@turf/circle": "^7.3.4",
+    "@turf/clone": "^7.3.4",
+    "@turf/distance": "^7.3.4",
+    "@turf/simplify": "^7.3.4"
   },
   "devDependencies": {
     "@mdi/js": "^7.4.47",
     "@types/geojson": "^7946.0.16",
     "@types/node": "^22.13.1",
-    "@vitejs/plugin-vue": "^6.0.3",
+    "@vitejs/plugin-vue": "^6.0.4",
     "@vue/tsconfig": "^0.8.1",
     "geojson": "^0.5.0",
     "lightningcss": "^1.31.1",
-    "maplibre-gl": "^5.17.0",
+    "maplibre-gl": "^5.19.0",
     "mitt": "^3.0.1",
     "sass": "^1.97.3",
     "ts-essentials": "^10.1.1",
@@ -66,8 +66,8 @@
     "vite": "^7.3.1",
     "vite-plugin-banner": "^0.8.1",
     "vite-plugin-dts": "^4.5.4",
-    "vue": "^3.5.27",
-    "vue-tsc": "^3.2.4"
+    "vue": "^3.5.28",
+    "vue-tsc": "^3.2.5"
   },
   "peerDependencies": {
     "maplibre-gl": "^5.17.0",

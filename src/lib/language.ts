@@ -1,6 +1,8 @@
 import type { ValidLanguages } from '@/types.ts';
 import { type LayerSpecification, Map as MaplibreMap } from 'maplibre-gl';
 
+const nameRegex = /\{name(:\S+)?\}/;
+
 export function setPrimaryLanguage(map: MaplibreMap, lang: ValidLanguages | undefined) {
 
 	const style = map.getStyle();
@@ -10,8 +12,7 @@ export function setPrimaryLanguage(map: MaplibreMap, lang: ValidLanguages | unde
 
 	function replaceTextField(expr: any): any {
 		if (typeof expr === 'string') {
-			// "{name}" oder "{name:xx}" → coalesce verwenden
-			if (/\{name(:\S+)?\}/.test(expr)) {
+			if (nameRegex.test(expr)) {
 				return [ 'coalesce', [ 'get', langField ], [ 'get', 'name' ] ];
 			}
 			return expr;
@@ -23,10 +24,8 @@ export function setPrimaryLanguage(map: MaplibreMap, lang: ValidLanguages | unde
 				}
 				return expr;
 			} else if (op === 'concat' || op === 'format' || op === 'case') {
-				// rekursiv alle Unter-Elemente bearbeiten
 				return expr.map(replaceTextField);
 			} else {
-				// generisch: rekursiv alles bearbeiten
 				return expr.map(replaceTextField);
 			}
 		}
