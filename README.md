@@ -33,7 +33,8 @@ A small Vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-g
 # Installation
 
 ```shell
-yarn add vue-maplibre-gl maplibre-gl mitt
+yarn add vue-maplibre-gl maplibre-gl mitt geojson
+npm install vue-maplibre-gl maplibre-gl mitt geojson
 ```
 
 ## Default import
