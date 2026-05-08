@@ -9,7 +9,10 @@ export default /*#__PURE__*/ defineComponent({
 		...LayerLib.SHARED.props,
 		layout: Object as PropType<HillshadeLayerSpecification['layout']>,
 		paint : Object as PropType<HillshadeLayerSpecification['paint']>,
-		filter: [ Boolean, Array ] as PropType<HillshadeLayerSpecification['filter']>
+		filter: {
+			type: [ Boolean, Array ] as PropType<HillshadeLayerSpecification['filter']>,
+			default: undefined
+		},
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {
