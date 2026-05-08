@@ -9,7 +9,10 @@ export default /*#__PURE__*/ defineComponent({
 		...LayerLib.SHARED.props,
 		layout: Object as PropType<RasterLayerSpecification['layout']>,
 		paint : Object as PropType<RasterLayerSpecification['paint']>,
-		filter: [ Boolean, Array ] as PropType<RasterLayerSpecification['filter']>
+		filter: {
+			type: [ Boolean, Array ] as PropType<RasterLayerSpecification['filter']>,
+			default: undefined
+		},
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {

@@ -9,7 +9,10 @@ export default /*#__PURE__*/ defineComponent({
 		...LayerLib.SHARED.props,
 		layout: Object as PropType<HeatmapLayerSpecification['layout']>,
 		paint : Object as PropType<HeatmapLayerSpecification['paint']>,
-		filter: [ Boolean, Array ] as PropType<HeatmapLayerSpecification['filter']>
+		filter: {
+			type: [ Boolean, Array ] as PropType<HeatmapLayerSpecification['filter']>,
+			default: undefined
+		},
 	},
 	emits: [ ...LayerLib.SHARED.emits ],
 	setup(props) {
