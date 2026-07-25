@@ -1,0 +1,9 @@
+packages:
+  - 'packages/*'
+  - 'playground'
+  - 'docs'
+allowBuilds:
+  # optional native file watcher; chokidar is used as fallback, no native build needed
+  '@parcel/watcher': false
+minimumReleaseAgeExclude:
+  - eslint@10.8.0

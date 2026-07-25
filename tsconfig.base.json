@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "useDefineForClassFields": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noUncheckedSideEffectImports": true,
+    /*
+     * DEFERRED to phase 5/7, not abandoned. Turning this on yields 91 errors, *all* of them in the
+     * draw plugin's geometry code (polygon.mode.ts 61, circle.mode.ts 16, plugin.ts 8,
+     * mode.abstract.ts 6) and almost all the same shape: `polygon.geometry.coordinates[0]`, whose
+     * presence is guaranteed by construction. Everything outside plugins/draw already satisfies it.
+     *
+     * Patching 91 sites in untested pointer/ring math is exactly the change that should be made
+     * *with* tests, and phase 5 restructures polygon.mode.ts anyway (a `getRing()` accessor collapses
+     * most of them). Flip this to `true` in phase 5 once the phase 7 draw tests exist.
+     */
+    "noUncheckedIndexedAccess": false,
+    /* every TS enum was converted to a const object + same-named type, so nothing needs emitting */
+    "erasableSyntaxOnly": true
+  }
+}

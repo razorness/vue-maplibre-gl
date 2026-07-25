@@ -1,81 +1,47 @@
 {
-  "name": "vue-maplibre-gl",
-  "version": "5.6.1",
-  "description": "Vue 3 plugin for maplibre-gl",
-  "keywords": [
-    "vue",
-    "vue3",
-    "vuejs",
-    "vue3js",
-    "component",
-    "vue-component",
-    "vue3-component",
-    "maplibre",
-    "maplibre-gl",
-    "map",
-    "maptiler"
-  ],
-  "author": {
-    "name": "Volker Nauruhn",
-    "email": "mensch.meier@live.de",
-    "url": "razorness.de"
-  },
+  "name": "vue-maplibre-gl-monorepo",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/razorness/vue-maplibre-gl.git"
   },
-  "license": "MIT",
-  "type": "module",
-  "sideEffects": false,
-  "main": "dist/vue-maplibre-gl.cjs",
-  "browser": "dist/vue-maplibre-gl.js",
-  "module": "dist/vue-maplibre-gl.js",
-  "types": "dist/types/vue-maplibre-gl.d.ts",
-  "files": [
-    "dist/**/*",
-    "src/**/*"
-  ],
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview",
-    "upgrade": "npx taze major -I"
-  },
-  "dependencies": {
-    "@turf/area": "^7.3.4",
-    "@turf/bbox": "^7.3.4",
-    "@turf/boolean-point-in-polygon": "^7.3.4",
-    "@turf/circle": "^7.3.4",
-    "@turf/clone": "^7.3.4",
-    "@turf/distance": "^7.3.4",
-    "@turf/simplify": "^7.3.4"
+    "build": "pnpm --filter vue-maplibre-gl build",
+    "dev": "pnpm --filter playground dev",
+    "typecheck": "pnpm -r --parallel typecheck",
+    "lint": "pnpm lint:oxlint && pnpm lint:eslint && pnpm format:check && pnpm lint:padding",
+    "lint:oxlint": "oxlint --type-aware",
+    "lint:eslint": "eslint .",
+    "lint:fix": "oxlint --type-aware --fix && eslint . --fix && pnpm format",
+    "test": "pnpm --filter vue-maplibre-gl test",
+    "test:coverage": "pnpm --filter vue-maplibre-gl test:coverage",
+    "docs:dev": "pnpm --filter docs dev",
+    "docs:build": "pnpm --filter docs build",
+    "upgrade": "npx taze major -I -r",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint:padding": "node scripts/check-padded-blocks.mjs"
   },
   "devDependencies": {
-    "@mdi/js": "^7.4.47",
-    "@types/geojson": "^7946.0.16",
-    "@types/node": "^22.13.1",
-    "@vitejs/plugin-vue": "^6.0.4",
-    "@vue/tsconfig": "^0.8.1",
-    "geojson": "^0.5.0",
-    "lightningcss": "^1.31.1",
-    "maplibre-gl": "^5.19.0",
-    "mitt": "^3.0.1",
-    "sass": "^1.97.3",
-    "ts-essentials": "^10.1.1",
-    "typescript": "~5.9.3",
-    "vite": "^7.3.1",
-    "vite-plugin-banner": "^0.8.1",
-    "vite-plugin-dts": "^4.5.4",
-    "vue": "^3.5.28",
-    "vue-tsc": "^3.2.5"
-  },
-  "peerDependencies": {
-    "maplibre-gl": "^5.17.0",
-    "mitt": "^3.0.1",
-    "vue": "^3.5.27"
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
+    "@types/node": "^26.1.1",
+    "@vue/eslint-config-typescript": "^14.9.0",
+    "eslint": "^10.8.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-oxlint": "^1.75.0",
+    "eslint-plugin-vue": "^10.10.0",
+    "globals": "^17.7.0",
+    "jiti": "^2.7.0",
+    "oxlint": "^1.75.0",
+    "oxlint-tsgolint": "^7.0.2001",
+    "prettier": "^3.9.6",
+    "typescript": "~6.0.3",
+    "vue-tsc": "^3.3.8"
   },
   "engines": {
-    "node": ">=20"
+    "node": "^20.19.0 || >=22.12.0"
   },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "pnpm@11.17.0"
 }

@@ -5,14 +5,14 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/" # Location of package manifests
+  - package-ecosystem: 'npm'
+    directory: '/' # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     allow:
-      - dependency-name: "maplibre-gl"
-        dependency-type: "direct"
-      - dependency-name: "vue"
-        dependency-type: "direct"
-      - dependency-name: "typescript"
-        dependency-type: "direct"
+      - dependency-name: 'maplibre-gl'
+        dependency-type: 'direct'
+      - dependency-name: 'vue'
+        dependency-type: 'direct'
+      - dependency-name: 'typescript'
+        dependency-type: 'direct'
