@@ -1,0 +1,10 @@
+node_modules
+dist
+coverage
+pnpm-lock.yaml
+*.tsbuildinfo
+**/.vitepress/cache
+**/.vitepress/dist
+
+# large generated fixture, reformatting it is pure noise
+playground/drawData.ts

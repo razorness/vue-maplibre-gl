@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "useTabs": true,
+  "tabWidth": 4,
+  "printWidth": 140,
+  "singleQuote": true,
+  "semi": true,
+  "trailingComma": "none",
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "endOfLine": "lf",
+  "vueIndentScriptAndStyle": false,
+  "plugins": ["@ianvs/prettier-plugin-sort-imports", "./scripts/prettier-plugin-padded-blocks.mjs"],
+  "importOrder": [
+    "<BUILTIN_MODULES>",
+    "<THIRD_PARTY_MODULES>",
+    "^(components|composable|css|lib|plugins|types)(/.*)?$",
+    "^@test/(.*)$",
+    "^@/(.*)$",
+    "^[.]"
+  ],
+  "overrides": [
+    {
+      "files": ["*.json", "*.jsonc", "*.yml", "*.yaml", "*.md"],
+      "options": {
+        "useTabs": false,
+        "tabWidth": 2
+      }
+    }
+  ]
+}

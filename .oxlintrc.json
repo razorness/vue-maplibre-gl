@@ -1,0 +1,122 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "import", "promise", "vue"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "error",
+    "pedantic": "off",
+    "style": "off"
+  },
+  "env": {
+    "browser": true,
+    "es2024": true
+  },
+  "rules": {
+    "no-console": "error",
+
+    /*
+     * `separate-type-imports`, NOT `inline-type-imports`: with `verbatimModuleSyntax` an
+     * `import { type A } from 'x'` statement survives compilation and is resolved at runtime.
+     * For type-only packages such as `geojson` (we only depend on `@types/geojson`) that
+     * breaks the bundler. A top-level `import type` is erased completely.
+     */
+    "typescript/consistent-type-imports": ["error", { "prefer": "type-imports", "fixStyle": "separate-type-imports" }],
+    "typescript/no-explicit-any": "warn",
+
+    "import/no-duplicates": "error",
+
+    /*
+     * The real `lib/ <-> components/` cycles are fixed. What remains is the draw plugin's
+     * `plugin.ts <-> *.mode.ts` and `mode.abstract.ts <-> plugin.ts` pairs, which are
+     * `import type` only and therefore fully erased at runtime — an abstract base that knows
+     * its owner is the intended design. Kept as a warning so new *runtime* cycles still show up.
+     */
+    "import/no-cycle": "warn",
+
+    /* bare `import './x.css'` is exactly how a CSS side effect is declared */
+    "import/no-unassigned-import": "off",
+
+    /*
+     * MapLib / LayerLib / SourceLib are deliberate static-only namespace holders. Phase 2
+     * replaces their key lists with `keysOf`, at which point they become plain modules.
+     */
+    "typescript/no-extraneous-class": "off",
+
+    /*
+     * False positive for the draw modes: every handler is rebound as an own property in the
+     * constructor (`this.onClick = this.onClick.bind(this)`), which this flow-insensitive
+     * rule cannot see.
+     */
+    "typescript/unbound-method": "off",
+
+    /*
+     * These fire almost exclusively on the `props: any` composable boundary and the
+     * `as PropType<...>` prop casts, i.e. on the code that the generic components replace.
+     * Re-enable once phase 3 has landed — then they should be clean.
+     */
+    "typescript/no-unsafe-type-assertion": "off",
+    "typescript/no-unsafe-member-access": "off",
+    "typescript/no-unsafe-argument": "off",
+    "typescript/no-unnecessary-type-parameters": "off",
+
+    /* `_mode` / `_moveStart` / `_source` are the repo's convention for private class fields */
+    "no-underscore-dangle": "off",
+
+    /*
+     * Reusing `len` / `polygon` inside sibling switch branches and nested loops is pervasive
+     * in the draw geometry code. Advisory only; polygon.mode.ts is restructured in phase 5.
+     */
+    "no-shadow": "warn",
+
+    /*
+     * Non-visual components (controls wrapping a native maplibre control, MglMarker) render
+     * nothing on purpose — `render() { /* nothing *\/ }`. Phase 3/4 turns them into SFCs.
+     */
+    "vue/require-render-return": "off",
+
+    "unicorn/filename-case": "off",
+    "unicorn/prefer-query-selector": "off",
+    "unicorn/no-null": "off",
+    "unicorn/no-array-for-each": "off",
+    "unicorn/prefer-add-event-listener": "off"
+  },
+  "overrides": [
+    {
+      // The glob is anchored at the repo root, so a leading "test/" would never reach
+      // packages/vue-maplibre-gl/test/ — it has to be prefixed with a wildcard segment.
+      "files": ["**/*.spec.ts", "**/test/**/*.ts"],
+      "rules": {
+        "typescript/no-explicit-any": "off",
+        "typescript/no-non-null-assertion": "off",
+        /* a style-switch loop must let each round settle before the next, so Promise.all defeats the point */
+        "no-await-in-loop": "off",
+        /* the FakeMap iterates a copy on purpose, so a handler may unsubscribe itself while firing */
+        "unicorn/no-useless-spread": "off",
+        "unicorn/no-useless-fallback-in-spread": "off",
+        /* its --fix strips the `as never` that tsc requires where `h()` cannot infer an SFC generic */
+        "typescript/no-unnecessary-type-assertion": "off"
+      }
+    },
+    {
+      "files": ["**/vite.config.ts", "**/vitest.config.ts", "eslint.config.ts", "scripts/**"],
+      "env": { "node": true, "browser": false },
+      "rules": {
+        // repo tooling run from the terminal: printing the result is the whole point
+        "no-console": "off",
+        // check-padded-blocks formats file by file on purpose, so a failure names one file and
+        // memory stays flat; Promise.all over the whole repo would buy nothing here
+        "no-await-in-loop": "off"
+      }
+    },
+    {
+      /* the playground is demo code: logging event payloads to the console is the point */
+      "files": ["playground/**"],
+      "rules": {
+        "no-console": "off",
+        "unicorn/consistent-function-scoping": "off"
+      }
+    }
+  ],
+  "ignorePatterns": ["**/dist/**", "**/node_modules/**", "**/.vitepress/cache/**", "**/.vitepress/dist/**", "**/coverage/**"]
+}
