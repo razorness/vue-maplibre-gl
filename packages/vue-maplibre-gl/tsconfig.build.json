@@ -1,0 +1,25 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "allowImportingTsExtensions": false,
+    "outDir": "dist/types",
+    "types": ["vite/client"],
+    /* mirrors tsconfig.src.json — the d.ts emit has to resolve the same aliases */
+    "paths": {
+      "components": ["./src/components/index.ts"],
+      "components/*": ["./src/components/*"],
+      "composable/*": ["./src/composable/*"],
+      "css/*": ["./src/css/*"],
+      "lib/*": ["./src/lib/*"],
+      "plugins/*": ["./src/plugins/*"],
+      "types": ["./src/types/index.ts"],
+      "types/*": ["./src/types/*"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["src/**/*.spec.ts"]
+}

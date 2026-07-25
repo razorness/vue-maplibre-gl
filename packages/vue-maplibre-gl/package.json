@@ -1,0 +1,103 @@
+{
+  "name": "vue-maplibre-gl",
+  "version": "5.6.1",
+  "description": "Vue 3 plugin for maplibre-gl",
+  "keywords": [
+    "vue",
+    "vue3",
+    "vuejs",
+    "vue3js",
+    "component",
+    "vue-component",
+    "vue3-component",
+    "maplibre",
+    "maplibre-gl",
+    "map",
+    "maptiler"
+  ],
+  "author": {
+    "name": "Volker Nauruhn",
+    "email": "mensch.meier@live.de",
+    "url": "razorness.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/razorness/vue-maplibre-gl.git",
+    "directory": "packages/vue-maplibre-gl"
+  },
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./draw": {
+      "types": "./dist/draw.d.ts",
+      "default": "./dist/draw.js"
+    },
+    "./style.css": "./dist/index.css",
+    "./draw.css": "./dist/draw.css",
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "vue-tsc -b --force && vite build",
+    "typecheck": "vue-tsc -b --force",
+    "test": "vitest run --project unit --project ssr",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --project unit --project ssr --coverage",
+    "preview": "vite preview",
+    "test:browser": "vitest run --project browser"
+  },
+  "dependencies": {
+    "@turf/area": "^7.3.4",
+    "@turf/bbox": "^7.3.4",
+    "@turf/boolean-point-in-polygon": "^7.3.4",
+    "@turf/circle": "^7.3.4",
+    "@turf/clone": "^7.3.4",
+    "@turf/distance": "^7.3.4",
+    "@turf/simplify": "^7.3.4"
+  },
+  "devDependencies": {
+    "@microsoft/api-extractor": "^7.58.12",
+    "@types/geojson": "^7946.0.16",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vitest/coverage-v8": "^4.1.10",
+    "@vue/server-renderer": "^3.5.40",
+    "@vue/test-utils": "^2.4.11",
+    "jsdom": "^29.1.1",
+    "maplibre-gl": "^6.0.0",
+    "mitt": "^3.0.1",
+    "rollup": "^4.62.2",
+    "typescript": "~6.0.3",
+    "vite": "^8.1.5",
+    "vite-plugin-banner": "^0.8.1",
+    "vite-plugin-dts": "^5.0.3",
+    "vitest": "^4.1.10",
+    "vue": "^3.5.40",
+    "vue-tsc": "^3.3.8"
+  },
+  "peerDependencies": {
+    "@types/geojson": "^7946.0.16",
+    "maplibre-gl": "^6.0.0",
+    "mitt": "^3.0.1",
+    "vue": "^3.5.27"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/geojson": {
+      "optional": true
+    }
+  }
+}

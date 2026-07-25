@@ -1,4 +1,4 @@
-import type { DrawModel } from '@/plugins/draw';
+import type { DrawModel } from 'vue-maplibre-gl/draw';
 
 export const drawCircleExample: DrawModel = Object.freeze({
 	'type'      : 'Feature',

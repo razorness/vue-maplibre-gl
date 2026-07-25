@@ -1,0 +1,5 @@
+{
+  "$schema": "https://cdn.jsdelivr.net/npm/@arethetypeswrong/cli/schema.json",
+  "profile": "esm-only",
+  "excludeEntrypoints": ["./style.css", "./draw.css"]
+}

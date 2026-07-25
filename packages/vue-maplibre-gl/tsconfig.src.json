@@ -1,0 +1,30 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "noEmit": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.src.tsbuildinfo",
+    "types": ["vite/client"],
+    /*
+     * Package-internal aliases: bare specifiers for the six root folders of src/, plus `@/` for
+     * src itself. Keep these in sync with `resolve.alias` in vite.config.ts, vitest.config.ts,
+     * tsconfig.build.json and the playground's config pair — nothing derives one from the other.
+     *
+     * `paths` are resolved relative to the tsconfig that *declares* them, which is why they cannot
+     * live in tsconfig.base.json.
+     */
+    "paths": {
+      "components": ["./src/components/index.ts"],
+      "components/*": ["./src/components/*"],
+      "composable/*": ["./src/composable/*"],
+      "css/*": ["./src/css/*"],
+      "lib/*": ["./src/lib/*"],
+      "plugins/*": ["./src/plugins/*"],
+      "types": ["./src/types/index.ts"],
+      "types/*": ["./src/types/*"],
+      "@/*": ["./src/*"],
+      "@test/*": ["./test/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "test/**/*.ts"]
+}

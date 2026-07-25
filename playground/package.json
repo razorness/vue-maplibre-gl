@@ -1,0 +1,26 @@
+{
+  "name": "playground",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "vue-tsc --noEmit",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue-maplibre-gl": "workspace:*"
+  },
+  "devDependencies": {
+    "@mdi/js": "^7.4.47",
+    "@types/geojson": "^7946.0.16",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "maplibre-gl": "^6.0.0",
+    "mitt": "^3.0.1",
+    "typescript": "~6.0.3",
+    "vite": "^8.1.5",
+    "vue": "^3.5.40",
+    "vue-tsc": "^3.3.8"
+  }
+}
