@@ -1,0 +1,158 @@
+/*!
+ * vue-maplibre-gl core styles
+ *
+ * Plain CSS, no preprocessor: the previous SCSS used nothing but nesting, which browsers now do natively.
+ *
+ * Everything lives in the `vue-maplibre-gl` cascade layer, and every value that is worth changing is a
+ * `--mgl-*` custom property, so you can restyle the library without a single `!important` and without
+ * fighting specificity. See the theming notes at the bottom.
+ */
+
+/*
+ * Declared before use so the order is fixed even if this file is loaded after your own layers. Tailwind
+ * v4 declares `theme, base, components, utilities`; naming ours here lets you place it relative to those
+ * by re-declaring the full order once in your own entry CSS.
+ */
+@layer vue-maplibre-gl;
+
+/*
+ * Registered so it can be transitioned and so an invalid value falls back instead of breaking layout.
+ * Only properties that are actually animated or type-sensitive get this treatment.
+ */
+@property --mgl-ctrl-active-bg {
+	syntax: '<color>';
+	inherits: false;
+	initial-value: rgb(0 0 0 / 5%);
+}
+
+@layer vue-maplibre-gl {
+	/*
+	 * Design tokens.
+	 *
+	 * Scoped to the map container rather than `:root`, so two maps on one page can be themed
+	 * independently and the library never writes to the global scope.
+	 *
+	 * Dark mode is three declarations rather than `light-dark()` on purpose:
+	 *   - `light-dark()` gets downlevelled by lightningcss into `--lightningcss-light/dark` helper
+	 *     variables, which would leak into every consumer's `.mgl-container` scope, and
+	 *   - it offers no way to *force* a theme. A map inside an app with its own theme switch has to be
+	 *     overridable, hence the `data-mgl-theme` hook, which wins in both directions.
+	 */
+	.mgl-container {
+		/*
+		 * No `color-scheme` here on purpose: it changes how the browser paints UA widgets and scrollbars
+		 * inside the container, which is the application's call, not a map library's. It was only needed to
+		 * make `light-dark()` resolve, and lightningcss emits `--lightningcss-light/dark` helper variables
+		 * into this scope for it — so dropping both keeps the consumer's scope clean.
+		 */
+		--mgl-ctrl-icon-offset: 2px;
+		--mgl-ctrl-active-bg: rgb(0 0 0 / 5%);
+
+		--mgl-style-list-padding-inline: 0.3125rem;
+		--mgl-style-list-active-weight: 700;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.mgl-container {
+			--mgl-ctrl-active-bg: rgb(255 255 255 / 12%);
+		}
+	}
+
+	/* explicit override, e.g. `<div data-mgl-theme="dark">` around the map or on the map itself */
+	[data-mgl-theme='light'] .mgl-container,
+	.mgl-container[data-mgl-theme='light'] {
+		--mgl-ctrl-active-bg: rgb(0 0 0 / 5%);
+	}
+
+	[data-mgl-theme='dark'] .mgl-container,
+	.mgl-container[data-mgl-theme='dark'] {
+		--mgl-ctrl-active-bg: rgb(255 255 255 / 12%);
+	}
+
+	.mgl-container {
+		position: relative;
+	}
+
+	/* the element maplibre renders into; absolutely positioned so the container can be sized freely */
+	.mgl-wrapper {
+		position: absolute;
+		inset: 0;
+	}
+
+	.maplibregl-ctrl {
+		.maplibregl-ctrl-icon svg {
+			margin-block-start: var(--mgl-ctrl-icon-offset);
+		}
+
+		.maplibregl-ctrl-icon.is-active {
+			background-color: var(--mgl-ctrl-active-bg);
+		}
+	}
+
+	/* MglStyleSwitchControl: the toggle and the list swap places */
+	.maplibregl-ctrl {
+		.maplibregl-style-switch {
+			display: block;
+
+			&.is-open {
+				display: none;
+			}
+		}
+
+		.maplibregl-style-list {
+			display: none;
+
+			&.is-open {
+				display: block;
+			}
+
+			button {
+				width: 100%;
+				padding-inline: var(--mgl-style-list-padding-inline);
+				text-align: start;
+
+				&.is-active {
+					font-weight: var(--mgl-style-list-active-weight);
+				}
+			}
+		}
+	}
+
+	/*
+	 * The list grows away from the map edge, so it reads outward on the right-hand corners.
+	 * `text-align: start/end` rather than left/right, so this also behaves in RTL.
+	 */
+	:is(.maplibregl-ctrl-top-left, .maplibregl-ctrl-bottom-left) .maplibregl-style-list button {
+		text-align: start;
+	}
+
+	:is(.maplibregl-ctrl-top-right, .maplibregl-ctrl-bottom-right) .maplibregl-style-list button {
+		text-align: end;
+	}
+}
+
+/*
+ * Theming
+ * -------
+ * Override the tokens on `.mgl-container`, or on any ancestor:
+ *
+ *   .mgl-container { --mgl-ctrl-active-bg: oklch(70% 0.18 25 / 20%); }
+ *
+ * Force a theme regardless of the OS setting:
+ *
+ *   <div data-mgl-theme="dark"><MglMap … /></div>
+ *
+ * With Tailwind v4, expose them as theme variables and use the generated utilities:
+ *
+ *   @theme {
+ *     --color-map-accent: oklch(65% 0.2 250);
+ *   }
+ *   .mgl-container { --mgl-ctrl-active-bg: --alpha(var(--color-map-accent) / 15%); }
+ *
+ * And if you need our rules to lose against your utilities, declare the order once:
+ *
+ *   @layer theme, base, components, vue-maplibre-gl, utilities;
+ *
+ * No class in this file is a plausible utility name (`mgl-` prefix, or maplibre's own `maplibregl-`),
+ * so nothing here can collide with a Tailwind class.
+ */
