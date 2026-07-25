@@ -1,0 +1,123 @@
+/*!
+ * vue-maplibre-gl draw plugin styles
+ *
+ * Only `CIRCLE_STATIC` needs CSS: unlike the other modes it is not map geometry but DOM pinned to the
+ * viewport, so it is styled here rather than with paint properties.
+ *
+ * Plain CSS in the `vue-maplibre-gl-draw` layer, tokens as `--mgl-draw-*`.
+ */
+
+@layer vue-maplibre-gl-draw;
+
+@property --mgl-draw-accent {
+	syntax: '<color>';
+	inherits: true;
+	initial-value: #e74b3c;
+}
+
+@layer vue-maplibre-gl-draw {
+	.maplibregl-draw-circle-mode {
+		--mgl-draw-accent: #e74b3c;
+		--mgl-draw-fill-opacity: 20%;
+		--mgl-draw-border-width: 2px;
+		--mgl-draw-label-bg: #fff;
+		--mgl-draw-label-size: 1.5rem;
+		--mgl-draw-label-radius: 4px;
+
+		/*
+		 * Padding comes from the plugin, which writes `fitBoundsOptions.padding` into these at runtime —
+		 * that is how the static circle stays inside the same viewport inset the camera uses.
+		 */
+		--mgl-draw-padding: 10px;
+		--mgl-draw-padding-top: var(--mgl-draw-padding);
+		--mgl-draw-padding-right: var(--mgl-draw-padding);
+		--mgl-draw-padding-bottom: var(--mgl-draw-padding);
+		--mgl-draw-padding-left: var(--mgl-draw-padding);
+
+		position: absolute;
+		inset: var(--mgl-draw-padding-top) var(--mgl-draw-padding-right) var(--mgl-draw-padding-bottom) var(--mgl-draw-padding-left);
+
+		display: flex;
+		align-items: stretch;
+		justify-content: center;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.maplibregl-draw-circle-mode {
+			--mgl-draw-label-bg: #1c1c1c;
+		}
+	}
+
+	[data-mgl-theme='light'] .maplibregl-draw-circle-mode {
+		--mgl-draw-label-bg: #fff;
+	}
+
+	[data-mgl-theme='dark'] .maplibregl-draw-circle-mode {
+		--mgl-draw-label-bg: #1c1c1c;
+	}
+
+	/*
+	 * Two nested constraint boxes, one limited by height and one by width. Together with
+	 * `aspect-ratio: 1` they keep the circle round and as large as the viewport allows, whichever axis runs
+	 * out first — the reason this is DOM rather than a drawn geometry.
+	 */
+	.maplibregl-draw-circle-mode-height-constraint,
+	.maplibregl-draw-circle-mode-width-constraint {
+		display: flex;
+		min-width: 0;
+		margin: auto;
+		aspect-ratio: 1;
+	}
+
+	.maplibregl-draw-circle-mode-height-constraint {
+		width: auto;
+		height: 100%;
+	}
+
+	.maplibregl-draw-circle-mode-width-constraint {
+		width: 100%;
+		height: auto;
+	}
+
+	.maplibregl-draw-circle-mode-circle {
+		position: relative;
+		box-sizing: border-box;
+		overflow: hidden;
+		width: 100%;
+		height: 100%;
+		border: var(--mgl-draw-border-width) solid var(--mgl-draw-accent);
+		border-radius: 50%;
+		/* `color` is inherited by the too-small hatch pattern, which is an inline SVG */
+		color: var(--mgl-draw-accent);
+		background: color-mix(in oklab, var(--mgl-draw-accent) var(--mgl-draw-fill-opacity), transparent);
+
+		.maplibre-draw-min-area-pattern {
+			display: none;
+		}
+
+		.maplibre-draw-circle-mode-below-min-area-size-label {
+			display: none;
+			position: absolute;
+			inset-block-start: 50%;
+			inset-inline-start: 50%;
+			z-index: 1;
+			transform: translate(-50%, -50%);
+			padding: 4px;
+			border-radius: var(--mgl-draw-label-radius);
+			background: var(--mgl-draw-label-bg);
+			color: var(--mgl-draw-accent);
+			font-family: inherit;
+			font-size: var(--mgl-draw-label-size);
+			font-weight: 700;
+			white-space: nowrap;
+		}
+	}
+
+	/* set by the plugin once the drawn area is below `minArea.size` */
+	.maplibregl-draw-circle-too-small {
+		.maplibre-draw-min-area-pattern,
+		.maplibre-draw-circle-mode-below-min-area-size-label {
+			display: block;
+		}
+	}
+}

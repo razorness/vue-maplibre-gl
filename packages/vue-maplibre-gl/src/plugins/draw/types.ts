@@ -1,12 +1,18 @@
-import type { FitBoundsOptions } from '@/types.ts';
 import type { Feature, Polygon, Position } from 'geojson';
 import type { LayerSpecification, LngLat } from 'maplibre-gl';
+import type { FitBoundsOptions } from 'types';
 
-export enum DrawMode {
-	POLYGON       = 'POLYGON',
-	CIRCLE        = 'CIRCLE',
-	CIRCLE_STATIC = 'CIRCLE_STATIC',
-}
+/*
+ * `const` object + same-named type instead of an `enum`: erasable, no emitted runtime helper, and
+ * `DrawMode.POLYGON` / `mode: DrawMode` keep working exactly as before.
+ */
+export const DrawMode = {
+	POLYGON: 'POLYGON',
+	CIRCLE: 'CIRCLE',
+	CIRCLE_STATIC: 'CIRCLE_STATIC'
+} as const;
+
+export type DrawMode = (typeof DrawMode)[keyof typeof DrawMode];
 
 export interface DrawPluginOptions {
 	mode?: DrawMode;
@@ -32,7 +38,7 @@ export interface PointerPrecisionOption {
 }
 
 type WithoutSource<T> = T extends any ? Omit<T, 'source'> : never;
-export type DrawStyle = WithoutSource<LayerSpecification>
+export type DrawStyle = WithoutSource<LayerSpecification>;
 
 export interface DrawFeatureProperties {
 	center?: Position;

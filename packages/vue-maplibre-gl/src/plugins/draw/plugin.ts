@@ -1,16 +1,16 @@
-import { CircleMode } from '@/plugins/draw/circle.mode.ts';
-import { CircleStaticMode } from '@/plugins/draw/circleStatic.mode.ts';
-import type { AbstractDrawMode } from '@/plugins/draw/mode.abstract.ts';
-import { PolygonMode } from '@/plugins/draw/polygon.mode.ts';
-import { DefaultDrawStyles } from '@/plugins/draw/styles.ts';
-import { DrawMode, type DrawModel, type DrawPluginOptions, type DrawStyle, type OnUpdateHandler } from '@/plugins/draw/types.ts';
-import bbox from '@turf/bbox';
-import clone from '@turf/clone';
+import { bbox } from '@turf/bbox';
+import { clone } from '@turf/clone';
 import type { GeoJSONSource, LayerSpecification, LngLatBoundsLike, Map } from 'maplibre-gl';
+import { CircleMode } from 'plugins/draw/circle.mode';
+import { CircleStaticMode } from 'plugins/draw/circleStatic.mode';
+import type { AbstractDrawMode } from 'plugins/draw/mode.abstract';
+import { PolygonMode } from 'plugins/draw/polygon.mode';
+import { DefaultDrawStyles } from 'plugins/draw/styles';
+import { DrawMode, type DrawModel, type DrawPluginOptions, type DrawStyle, type OnUpdateHandler } from 'plugins/draw/types';
 
 export class DrawPlugin {
 
-	static readonly SOURCE_ID           = 'mgl-draw-plugin';
+	static readonly SOURCE_ID = 'mgl-draw-plugin';
 	static readonly MIN_AREA_PATTERN_ID = 'maplibre-draw-min-area-pattern';
 
 	map: Map;
@@ -22,31 +22,33 @@ export class DrawPlugin {
 	options: DrawPluginOptions & Required<Pick<DrawPluginOptions, 'styles' | 'pointerPrecision' | 'minArea' | 'circleMode'>>;
 
 	constructor(map: Map, model: DrawModel | undefined, options: DrawPluginOptions = {}) {
-		this.map     = map;
-		this._model  = model ? this.prepareModel(model) : undefined;
-		this._mode   = options.mode ?? DrawMode.POLYGON;
+
+		this.map = map;
+		this._model = model ? this.prepareModel(model) : undefined;
+		this._mode = options.mode ?? DrawMode.POLYGON;
 		this.options = {
 			...options,
-			styles          : options.styles ?? DefaultDrawStyles,
-			autoZoom        : options.autoZoom ?? true,
-			minArea         : options.minArea ?? {},
+			styles: options.styles ?? DefaultDrawStyles,
+			autoZoom: options.autoZoom ?? true,
+			minArea: options.minArea ?? {},
 			pointerPrecision: {
 				mouse: 24,
 				touch: 36,
-				...(options.pointerPrecision || {})
+				...options.pointerPrecision
 			},
-			circleMode      : {
+			circleMode: {
 				creationSize: 75,
-				...(options.circleMode || {})
+				...options.circleMode
 			}
 		};
 
-		this.setup       = this.setup.bind(this);
+		this.setup = this.setup.bind(this);
 		this.zoomToModel = this.zoomToModel.bind(this);
 
 		if (!options.waitForSetup) {
 			this.setup();
 		}
+
 	}
 
 	get mode(): DrawMode {
@@ -54,11 +56,13 @@ export class DrawPlugin {
 	}
 
 	setMode(value: DrawMode, model?: DrawModel) {
+
 		this._model = model ? this.prepareModel(model) : undefined;
 		if (this._mode !== value) {
 			this._mode = value;
 			this.setupMode();
 		}
+
 	}
 
 	private setupMode() {
@@ -78,7 +82,7 @@ export class DrawPlugin {
 				this._modeInstance = new CircleStaticMode(this, this.map, this._source!, this._model);
 				break;
 			default:
-				throw new Error(`Unsupported mode "${this._mode}"`);
+				throw new Error(`Unsupported mode "${String(this._mode)}"`);
 		}
 		this.zoomToModel();
 		if (this._modeInstance) {
@@ -89,6 +93,7 @@ export class DrawPlugin {
 	}
 
 	private setupMap() {
+
 		this._source = this.map.getSource(DrawPlugin.SOURCE_ID);
 		if (!this._source) {
 			this.map.addSource(DrawPlugin.SOURCE_ID, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
@@ -99,11 +104,12 @@ export class DrawPlugin {
 		if (this._modeInstance) {
 			this._modeInstance.source = this._source!;
 		}
+
 	}
 
 	private setupStyles() {
 		for (let i = 0, len = this.options.styles.length; i < len; i++) {
-			this.map.addLayer({ ...this.options.styles[ i ], source: DrawPlugin.SOURCE_ID, } as LayerSpecification);
+			this.map.addLayer({ ...this.options.styles[i], source: DrawPlugin.SOURCE_ID } as LayerSpecification);
 		}
 	}
 
@@ -154,46 +160,56 @@ export class DrawPlugin {
 
 	private removeStyles() {
 		for (let i = 0, len = this.options.styles.length; i < len; i++) {
-			this.map.removeLayer(this.options.styles[ i ].id);
+			this.map.removeLayer(this.options.styles[i].id);
 		}
 	}
 
 	setup() {
+
 		this.setupMap();
 		this.setupMode();
 		if (this.options.minArea.size) {
 			this.setMinAreaSizePattern();
 		}
+
 	}
 
 	prepareModel(model: DrawModel): DrawModel {
-		const m = clone(model);
-		if (m.geometry.coordinates?.[ 0 ]?.length) {
 
-			const start    = m.geometry.coordinates[ 0 ][ 0 ],
-				  end      = m.geometry.coordinates[ 0 ][ m.geometry.coordinates[ 0 ].length - 1 ],
-				  isClosed = start[ 0 ] === end[ 0 ] && end[ 1 ] === end[ 1 ];
+		const m = clone(model),
+			ring = m.geometry.coordinates?.[0];
+		if (ring?.length) {
+			const start = ring[0],
+				end = ring[ring.length - 1],
+				/*
+				 * Was `start[0] === end[0] && end[1] === end[1]`. The second comparison compared `end`
+				 * to itself and so was always true, meaning any ring whose first and last *longitude*
+				 * matched was treated as closed even when the latitudes differed — leaving an open
+				 * ring that maplibre then renders with a gap.
+				 */
+				isClosed = start[0] === end[0] && start[1] === end[1];
 			if (!isClosed) {
-				m.geometry.coordinates[ 0 ].push(m.geometry.coordinates[ 0 ][ 0 ]);
+				ring.push(start);
 			}
 		}
 		return m;
+
 	}
 
 	private setMinAreaSizePattern() {
 
 		const patternCanvas = document.createElement('canvas');
-		const ctx           = patternCanvas.getContext('2d', { antialias: true }) as CanvasRenderingContext2D;
+		const ctx = patternCanvas.getContext('2d', { antialias: true }) as CanvasRenderingContext2D;
 
-		const ratio            = window.devicePixelRatio || 1;
+		const ratio = window.devicePixelRatio || 1;
 		const canvasSideLength = 12 * ratio;
-		const width            = canvasSideLength;
-		const height           = canvasSideLength;
-		const divisions        = 16 * ratio;
+		const width = canvasSideLength;
+		const height = canvasSideLength;
+		const divisions = 16 * ratio;
 
-		patternCanvas.width  = width;
+		patternCanvas.width = width;
 		patternCanvas.height = height;
-		ctx.fillStyle        = this.options.minArea.color || '#e74b3c';
+		ctx.fillStyle = this.options.minArea.color || '#e74b3c';
 
 		ctx.translate(width / 2, height / 2);
 		ctx.rotate(Math.PI / 2);
@@ -237,22 +253,24 @@ export class DrawPlugin {
 	}
 
 	dispose() {
+
 		this._modeInstance?.unregister();
 		this.map.off('resize', this.zoomToModel);
 		try {
 			if (this.map) {
 				for (let i = 0, len = this.options.styles.length; i < len; i++) {
-					if (this.map.getLayer(this.options.styles[ i ].id)) {
-						this.map.removeLayer(this.options.styles[ i ].id);
+					if (this.map.getLayer(this.options.styles[i].id)) {
+						this.map.removeLayer(this.options.styles[i].id);
 					}
 				}
 				if (this.map.getSource(DrawPlugin.SOURCE_ID)) {
 					this.map.removeSource(DrawPlugin.SOURCE_ID);
 				}
 			}
-		} catch (e) {
-			// nothing
+		} catch {
+			// the map may already be torn down; nothing to clean up then
 		}
+
 	}
 
 }
