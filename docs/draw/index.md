@@ -57,7 +57,23 @@ convention: `features[0]` is the polygon, `[1]` the vertices, `[2]` the midpoint
 
 ## Styling
 
-The layers are generated from `DefaultDrawStyles`, and the whole array can be replaced. `minArea` renders a
+The layers are generated from `DefaultDrawStyles`, and the whole array can be replaced through the
+`styles` prop:
+
+```vue
+<MglDrawControl :styles="myStyles" />
+```
+
+```ts
+import { DefaultDrawStyles, type DrawStyle } from 'vue-maplibre-gl/draw';
+
+// each entry is a layer specification *without* `source` — the plugin fills that in
+const myStyles: DrawStyle[] = DefaultDrawStyles.map(style =>
+  style.id === 'draw-polygon-fill' ? { ...style, paint: { ...style.paint, 'fill-color': '#8e44ad' } } : style
+);
+```
+
+Passing a new array swaps the layers at runtime. `minArea` renders a
 hatch pattern to a canvas and registers it as a maplibre image.
 
 Pointer hit-testing uses a pixel radius (`pointerPrecision`, 24px for mouse and 36px for touch) rather than
@@ -65,6 +81,6 @@ maplibre feature queries, so grabbing a vertex works at the size a finger actual
 
 ## Status
 
-This plugin is the least modernised part of the package: it was moved to its own entry, wrapped in an SFC and
-made SSR-safe, but its internals are still the v5 implementation. Expect its API to gain types rather than
-change shape.
+This plugin is the least modernised part of the package. Its entry, its Vue wrapper, its SSR safety, its
+`styles` prop and its types are current; its internals are still the v5 implementation, and its pointer
+maths is not yet covered by tests. Expect the API to gain types rather than change shape.

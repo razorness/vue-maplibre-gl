@@ -527,6 +527,8 @@ repo — **that path has never actually run**; watch the first release and expec
 - `LayerLib.SHARED.props.interactive` is `@deprecated` and ignored: `interactive` is not a maplibre
   layer specification key and used to be forwarded into `addLayer` as an unknown property. `ref` was in
   the old key list too, equally bogus, and is gone.
-- `noUncheckedIndexedAccess` is **off** (`tsconfig.base.json` explains why): enabling it produces 91
-  errors, all in the draw plugin's geometry code. Scheduled for phase 5, once the phase 7 draw tests
-  exist. Everything outside `plugins/draw` already satisfies it.
+- `noUncheckedIndexedAccess` is **off** (`tsconfig.base.json` explains why): enabling it produces **184**
+  errors, all in the draw plugin's geometry code, 156 of them `Object is possibly 'undefined'` on ring and
+  feature indexing. Everything outside `plugins/draw` already satisfies it. The plugin's _surface_ is
+  tested now, but the pointer sequences in `polygon.mode.ts` and `circle.mode.ts` are not — those tests
+  come before the refactor, not after.

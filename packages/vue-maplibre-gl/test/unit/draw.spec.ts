@@ -8,7 +8,7 @@ import { FakeMap } from '@test/fake-map';
  * The draw plugin is framework-agnostic: it takes a maplibre map and drives it directly, so it can be
  * tested without mounting anything. `MglDrawControl` is a thin wrapper around exactly this API.
  */
-function makePlugin(options: Parameters<typeof DrawPlugin>[2] = {}, model?: Feature<Polygon, DrawFeatureProperties>) {
+function makePlugin(options: ConstructorParameters<typeof DrawPlugin>[2] = {}, model?: Feature<Polygon, DrawFeatureProperties>) {
 	const map = new FakeMap({ container: document.createElement('div') } as never);
 	map.emitLoad();
 	const plugin = new DrawPlugin(map as never, model, options);
