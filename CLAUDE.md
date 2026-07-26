@@ -149,13 +149,17 @@ never import turf outside `src/plugins/draw/`.
 
 ### Two component flavours, on purpose
 
-**`MglSource.vue` / `MglLayer.vue` are the primary API** and the only `.vue` files so far. They are
-generic SFCs (`<script setup lang="ts" generic="T extends MglSourceKind">`), which is the only way to get
-`options` narrowed by `type` all the way through to the consumer's template.
+**`MglSource.vue` / `MglLayer.vue` are the primary API.** They are generic SFCs
+(`<script setup lang="ts" generic="T extends MglSourceKind">`), which is the only way to get `options`
+narrowed by `type` all the way through to the consumer's template.
 
-Everything else is still `defineComponent({...})` in a `.ts` file with an `h()` render function. Each is
-prefixed `/*#__PURE__*/`; the package declares `sideEffects: ["*.css"]`, so tree-shaking is load-bearing —
-don't add module-level side effects. Non-visual components (controls, `MglMarker`) `render() {}`.
+**Every component is an SFC** — all 41 of them, `<template>` first, then `<script setup lang="ts">`, then
+`<style>` if any. Values that are not the component itself live in a sibling `.ts`, because an SFC can only
+export the component: `buttonType.ts`, `controls/customControl.ts`, `controls/frameRateControl.ts`,
+`controls/scaleControlUnit.ts`, `controls/controlEvents.ts`, `components/mapProps.ts`.
+
+The package declares `sideEffects: ["*.css"]`, so tree-shaking is load-bearing — don't add module-level
+side effects. Non-visual components (controls, `MglMarker`) render a comment-only template.
 
 The `Mgl*Source` / `Mgl*Layer` files are **named shims** over the two generic components. They keep their
 original flat props verbatim so existing templates compile unchanged, then collect them into `options`
@@ -427,8 +431,8 @@ Two things worth knowing when adding one:
 
 - **Whitespace is Prettier's job, not yours** — write it however, then `pnpm format`. See the
   _Commands_ section for the settings.
-- Imports: see the _Imports_ section above (relative only inside the package, no `.ts` extensions, top-level `import type`).
-- New public component: add to `src/components/index.ts` (which `src/index.ts` re-exports and the plugin `install` auto-registers by export name).
+- Imports: see the _Imports_ section above (bare aliases inside the package, never a relative path, no `.ts` extensions, top-level `import type`).
+- New public component: add to `src/components/index.ts` (which `src/index.ts` re-exports and the plugin `install` auto-registers by export name), give every prop a `/** … */` comment, then run `pnpm meta` — the barrel is also what the docs and `web-types.json` are generated from.
 - **CSS is plain CSS, no preprocessor.** `src/css/index.css` (core) and
   `src/plugins/draw/draw.plugin.css` (the `CIRCLE_STATIC` DOM overlay). The old SCSS used nothing but
   nesting, which browsers do natively and lightningcss flattens for older targets. Do not reintroduce Sass.
