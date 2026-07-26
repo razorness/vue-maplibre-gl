@@ -27,3 +27,7 @@ coverage
 *.sln
 *.sw?
 .env
+
+# vitepress
+docs/.vitepress/dist
+docs/.vitepress/cache

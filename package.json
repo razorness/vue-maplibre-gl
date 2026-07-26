@@ -22,7 +22,8 @@
     "upgrade": "npx taze major -I -r",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint:padding": "node scripts/check-padded-blocks.mjs"
+    "lint:padding": "node scripts/check-padded-blocks.mjs",
+    "meta": "node scripts/gen-meta.mjs"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
@@ -38,6 +39,7 @@
     "oxlint-tsgolint": "^7.0.2001",
     "prettier": "^3.9.6",
     "typescript": "~6.0.3",
+    "vue-component-meta": "^3.3.8",
     "vue-tsc": "^3.3.8"
   },
   "engines": {

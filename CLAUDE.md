@@ -78,7 +78,7 @@ A published Vue 3 library wrapping maplibre-gl — not an application. Layout:
 | --------------------------- | ----------------------------------------------------------------------------------------------- |
 | `packages/vue-maplibre-gl/` | the published package (the only publishable workspace)                                          |
 | `playground/`               | dev sandbox; consumes the library **from source** via vite aliases, so library edits hot-reload |
-| `docs/`                     | documentation site                                                                              |
+| `docs/`                     | VitePress 2 site; also consumes the library from source, so the demos are the second playground |
 
 **ESM only.** maplibre-gl v6 publishes no CommonJS entry (`exports` has no `require` condition and
 there is no `main`), so `require('maplibre-gl')` is impossible and a CJS build of this package would
@@ -381,6 +381,39 @@ plugin phase, plus the named layer/source wrappers and most controls.
 - The model is always a closed `Feature<Polygon, DrawFeatureProperties>`; `prepareModel` clones input and closes the ring. Properties carry `center`/`radius`/`area`/`tooSmall`/`meta`, which the default styles filter on.
 - `minArea` renders a hatch pattern drawn to a canvas and registered as a maplibre image (`MIN_AREA_PATTERN_ID`).
 - Pointer hit-testing uses `pointerPrecision` (mouse 24px / touch 36px) via `isNearby`, not maplibre feature queries.
+
+## Docs and IDE metadata
+
+`docs/` is a VitePress 2 site (still alpha) that consumes the library from source through the same alias
+set as the playground, so a library edit hot-reloads in the demos. `pnpm docs:dev` / `pnpm docs:build`.
+
+**Never hand-write a prop, event or slot table.** `scripts/gen-meta.mjs` (`pnpm meta`) runs
+`vue-component-meta` over the components and emits two artefacts from that one source:
+
+| Artefact                                    | Consumer                                    |
+| ------------------------------------------- | ------------------------------------------- |
+| `docs/.vitepress/generated/components.json` | the `<ApiTable name="…" />` theme component |
+| `packages/vue-maplibre-gl/web-types.json`   | JetBrains IDEs (shipped in the tarball)     |
+
+Both are **generated and committed** — regenerate with `pnpm meta` after touching a prop, an event, a
+slot or a doc comment; `docs:dev` and `docs:build` run it themselves. Editing either by hand is pointless,
+it is overwritten. Freshness is not yet asserted in CI (phase 9).
+
+Three things about the generator that are not obvious:
+
+- The component list comes from the **barrels** (`components/index.ts`, `plugins/draw/index.ts`), not a
+  glob: those define the public names, and `install()` registers exactly them. Not exported means not
+  documented.
+- The named layer wrappers declare no `emits`, so the checker reports **zero events** for them. The
+  generator copies `MglLayer`'s events onto them and marks them `forwarded`, because
+  `<MglFillLayer @click>` does work — via `$attrs`. Without that the docs would lie by omission.
+- `MglMap`'s event payloads come out as `any[]`, because its emits are a runtime array
+  (`keysOf`-derived). The real payload is always `MglEvent`. Spelling the emits out as a type — the
+  `MglLayerEmits` treatment — would fix it and is the one remaining typing gap of note.
+
+Doc comments on props are the input to all of this: one JSDoc line lands in the emitted d.ts, in the IDE
+and on the website at once. **301 of 330 props still have none** — `pnpm meta` prints the count and a few
+names every run.
 
 ## Conventions
 

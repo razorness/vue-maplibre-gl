@@ -1,0 +1,31 @@
+{
+  // standalone (non-composite), like the playground: the docs consume the package straight from
+  // source through the aliases below, which project references cannot express without an emitted dist.
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["vite/client", "node"],
+    "resolveJsonModule": true,
+    "paths": {
+      // mirrors packages/vue-maplibre-gl/tsconfig.src.json — the package is type-checked from source here
+      "components": ["../packages/vue-maplibre-gl/src/components/index.ts"],
+      "components/*": ["../packages/vue-maplibre-gl/src/components/*"],
+      "composable/*": ["../packages/vue-maplibre-gl/src/composable/*"],
+      "css/*": ["../packages/vue-maplibre-gl/src/css/*"],
+      "lib/*": ["../packages/vue-maplibre-gl/src/lib/*"],
+      "plugins/*": ["../packages/vue-maplibre-gl/src/plugins/*"],
+      "types": ["../packages/vue-maplibre-gl/src/types/index.ts"],
+      "types/*": ["../packages/vue-maplibre-gl/src/types/*"],
+      "@/*": ["../packages/vue-maplibre-gl/src/*"],
+      "vue-maplibre-gl": ["../packages/vue-maplibre-gl/src/index.ts"],
+      "vue-maplibre-gl/draw": ["../packages/vue-maplibre-gl/src/plugins/draw/index.ts"]
+    }
+  },
+  "include": [
+    ".vitepress/**/*.ts",
+    ".vitepress/**/*.vue",
+    "../packages/vue-maplibre-gl/src/**/*.ts",
+    "../packages/vue-maplibre-gl/src/**/*.vue"
+  ],
+  "exclude": [".vitepress/dist", ".vitepress/cache"]
+}

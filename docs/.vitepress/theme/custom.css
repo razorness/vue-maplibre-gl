@@ -1,0 +1,95 @@
+/*
+ * Docs-only styling. Nothing here belongs to the published package — the library's own tokens live in
+ * packages/vue-maplibre-gl/src/css/index.css and are documented under Theming.
+ */
+
+:root {
+	--vp-c-brand-1: #2f7fd8;
+	--vp-c-brand-2: #1f6ec7;
+	--vp-c-brand-3: #175aa6;
+}
+
+/* ---- live demos ------------------------------------------------------------------------- */
+
+.demo {
+	margin: 1.5rem 0;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.demo-map {
+	width: 100%;
+}
+
+/* ---- generated API tables ---------------------------------------------------------------- */
+
+.api-table {
+	margin: 2rem 0 3rem;
+}
+
+.api-table table {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+}
+
+.api-table th:nth-child(1),
+.api-table td:nth-child(1) {
+	width: 22%;
+}
+
+.api-table code {
+	white-space: normal;
+	overflow-wrap: anywhere;
+	font-size: 0.8em;
+}
+
+.api-source code {
+	font-size: 0.85em;
+}
+
+.api-type {
+	color: var(--vp-c-text-2);
+}
+
+.api-empty {
+	color: var(--vp-c-text-3);
+}
+
+.api-note {
+	font-size: 0.9em;
+	color: var(--vp-c-text-2);
+}
+
+.api-missing {
+	padding: 0.75rem 1rem;
+	border-radius: 6px;
+	background: var(--vp-c-warning-soft);
+}
+
+.api-badge {
+	display: inline-block;
+	margin-inline-start: 0.35em;
+	padding: 0.05em 0.4em;
+	border-radius: 4px;
+	font-size: 0.7rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	vertical-align: middle;
+}
+
+.api-badge--required {
+	background: var(--vp-c-danger-soft);
+	color: var(--vp-c-danger-1);
+}
+
+.api-badge--deprecated {
+	background: var(--vp-c-warning-soft);
+	color: var(--vp-c-warning-1);
+}
+
+/* the tables are wide; give the content column more room than the default theme does */
+.VPDoc:not(.has-aside) .content-container {
+	max-width: 1024px;
+}

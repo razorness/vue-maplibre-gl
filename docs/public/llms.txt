@@ -1,0 +1,47 @@
+# vue-maplibre-gl
+
+> Vue 3 components and composables for maplibre-gl v6. Props are named after and derived from maplibre's own option types, the key lists are proven complete at compile time, and every base feature is available both as a component and as a composable. ESM only, tree-shakeable, SSR-safe.
+
+Install: `pnpm add vue-maplibre-gl maplibre-gl mitt`. Peers: `vue` ^3.5, `maplibre-gl` ^6, `mitt` ^3. Optional peer: `@types/geojson` (see below).
+
+Two entry points: `vue-maplibre-gl` (everything except draw) and `vue-maplibre-gl/draw` (the draw plugin, kept separate so `@turf/*` stays out of the main bundle). Stylesheets: `vue-maplibre-gl/style.css` and `vue-maplibre-gl/draw.css`, plus maplibre's own `maplibre-gl/dist/maplibre-gl.css`.
+
+## Conventions that answer most questions
+
+- Props are named exactly after maplibre options. Two renames, both forced: `mapStyle` for `style` (HTML attribute) and `sourceLayer` for `source-layer` (not an identifier).
+- Map events are prefixed: `@map:load`, `@map:click`, … Payload is `MglEvent` = `{ type, map, component, event }`. Layer events are unprefixed (`@click`, `@mouseenter`, …) with maplibre's own payloads.
+- A layer nested in a source binds to it automatically; no `source` prop needed.
+- Generic components are the primary API: `<MglSource type="geojson" :options="…">`, `<MglLayer type="fill" :options="…">`. `options` is narrowed by `type`. The named components (`MglGeoJsonSource`, `MglFillLayer`, …) are thin wrappers that keep flat props.
+- Option changes apply to the live map: `paint`/`layout` per property, `filter` via `setFilter`, zoom range via `setLayerZoomRange`, geojson `data` via `setData`. What has no maplibre setter recreates the object, layers first.
+- `MglMap` needs an explicit height; it has no intrinsic size.
+
+## Docs
+
+- [Installation](https://razorness.github.io/vue-maplibre-gl/guide/installation): ESM-only rationale, plugin vs. individual imports, and the `@types/geojson` strict-vs-loose decision
+- [Getting started](https://razorness.github.io/vue-maplibre-gl/guide/getting-started): first map, adding data, reading the map instance
+- [Sources & layers](https://razorness.github.io/vue-maplibre-gl/guide/sources-and-layers): generic vs. named, the tri-state source handle, what diffs in place and what recreates
+- [Composables](https://razorness.github.io/vue-maplibre-gl/guide/composables): `useMglMap`, `useSource`, `useLayer`, `useMarker`, `usePopup`, `useMap`, `useMapEvent`, working against a raw maplibre map
+- [Camera binding](https://razorness.github.io/vue-maplibre-gl/guide/camera): `v-model:center|zoom|bearing|pitch|roll|bounds` and why the loop guard is origin-based
+- [Style switching](https://razorness.github.io/vue-maplibre-gl/guide/style-switching): the re-add sequence, and the difference between `MglStyleSwitchControl` and a plain `setStyle`
+- [Terrain, sky & globe](https://razorness.github.io/vue-maplibre-gl/guide/style-settings): the six style-level settings and why they need components
+- [Marker & popup](https://razorness.github.io/vue-maplibre-gl/guide/marker-and-popup): slots, dragging, and how a nested popup attaches to its marker
+- [Theming](https://razorness.github.io/vue-maplibre-gl/guide/theming): `--mgl-*` tokens scoped to the container, dark mode, Tailwind v4 layer order
+- [SSR & Nuxt](https://razorness.github.io/vue-maplibre-gl/guide/ssr): what makes it server-safe and how to use it in Nuxt today
+- [Migration from v5](https://razorness.github.io/vue-maplibre-gl/migration): breaking changes and the bugs that are fixed
+
+## API reference
+
+Generated from the components' types and doc comments, so it cannot drift from the code.
+
+- [Map](https://razorness.github.io/vue-maplibre-gl/api/map) — `MglMap`, 62 props, 61 `map:*` events
+- [Sources](https://razorness.github.io/vue-maplibre-gl/api/sources) — `MglSource` plus geojson, vector, raster, raster-dem, image, video, canvas
+- [Layers](https://razorness.github.io/vue-maplibre-gl/api/layers) — `MglLayer` plus background, circle, color-relief, fill, fill-extrusion, heatmap, hillshade, line, raster, symbol
+- [Controls](https://razorness.github.io/vue-maplibre-gl/api/controls) — navigation, scale, attribution, fullscreen, geolocation, globe, terrain, logo, frame rate, style switch, custom
+- [Style settings](https://razorness.github.io/vue-maplibre-gl/api/style) — terrain, sky, light, projection, image, global state
+- [Marker & popup](https://razorness.github.io/vue-maplibre-gl/api/marker-popup)
+- [Composables](https://razorness.github.io/vue-maplibre-gl/api/composables) — signatures and options
+- [Draw plugin](https://razorness.github.io/vue-maplibre-gl/draw/) — `MglDrawControl`, `DrawPlugin`, the three modes
+
+## The GeoJSON typing detail
+
+maplibre types GeoJSON against the global UMD namespace `GeoJSON` from `@types/geojson`. TypeScript only exposes that namespace when a project includes it explicitly — installing the package is not enough, and `allowUmdGlobalAccess` does not help. Without it, and with the usual `skipLibCheck: true`, every GeoJSON type degrades to `any` **silently**. For strict typing: `pnpm add -D @types/geojson` and add `/// <reference types="geojson" />` to a `.d.ts` in your project. The library deliberately does not inject that reference, because it would force strict mode on everyone and break anyone without the package.

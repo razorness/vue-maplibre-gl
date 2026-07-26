@@ -45,8 +45,10 @@
     "./dist/*": "./dist/*",
     "./package.json": "./package.json"
   },
+  "web-types": "./web-types.json",
   "files": [
     "dist",
+    "web-types.json",
     "README.md"
   ],
   "scripts": {

@@ -1,0 +1,3376 @@
+[
+  {
+    "name": "MglSource",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/MglSource.vue",
+    "props": [
+      {
+        "name": "options",
+        "type": "MglSourceOptions<T>",
+        "required": true,
+        "description": "The maplibre source specification minus `type`. Applied incrementally on change."
+      },
+      {
+        "name": "sourceId",
+        "type": "string",
+        "required": true,
+        "description": "Id the source is registered under. Layers in the default slot bind to it automatically."
+      },
+      {
+        "name": "type",
+        "type": "T",
+        "required": true,
+        "description": "Source kind. Discriminates `options`."
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "type": "any",
+        "description": "Rendered once the source is on the map, so nested layers can add themselves immediately."
+      }
+    ],
+    "exposed": []
+  },
+  {
+    "name": "MglLayer",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/MglLayer.vue",
+    "props": [
+      {
+        "name": "layerId",
+        "type": "string",
+        "required": true,
+        "description": "Layer id on the map."
+      },
+      {
+        "name": "type",
+        "type": "T",
+        "required": true,
+        "description": "Layer kind. Discriminates `options`."
+      },
+      {
+        "name": "before",
+        "type": "string | undefined",
+        "required": false,
+        "description": "Insert the layer before this one."
+      },
+      {
+        "name": "options",
+        "type": "MglLayerOptions<T> | undefined",
+        "required": false,
+        "description": "The maplibre layer specification minus `id`, `type` and `source`. Applied incrementally on change — see `lib/layerDiff.ts`."
+      },
+      {
+        "name": "source",
+        "type": "string | Source | undefined",
+        "required": false,
+        "description": "Source id, or a maplibre `Source` instance. Optional inside a `<MglSource>`, which provides it. Only a string id participates in source-readiness tracking."
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "type": "[ev: MapLayerMouseEvent]"
+      },
+      {
+        "name": "dblclick",
+        "type": "[ev: MapLayerMouseEvent]"
+      },
+      {
+        "name": "mousedown",
+        "type": "[ev: MapLayerMouseEvent]"
+      },
+      {
+        "name": "mouseup",
+        "type": "[ev: MapLayerMouseEvent]"
+      },
+      {
+        "name": "mousemove",
+        "type": "[ev: MapLayerMouseEvent]"
+      },
+      {
+        "name": "mouseenter",
+        "type": "[ev: MapLayerMouseEvent]"
+      },
+      {
+        "name": "mouseleave",
+        "type": "[ev: MapLayerMouseEvent]"
+      },
+      {
+        "name": "mouseover",
+        "type": "[ev: MapLayerMouseEvent]"
+      },
+      {
+        "name": "mouseout",
+        "type": "[ev: MapLayerMouseEvent]"
+      },
+      {
+        "name": "contextmenu",
+        "type": "[ev: MapLayerMouseEvent]"
+      },
+      {
+        "name": "touchstart",
+        "type": "[ev: MapLayerTouchEvent]"
+      },
+      {
+        "name": "touchend",
+        "type": "[ev: MapLayerTouchEvent]"
+      },
+      {
+        "name": "touchcancel",
+        "type": "[ev: MapLayerTouchEvent]"
+      }
+    ],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglMap",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/MglMap.vue",
+    "props": [
+      {
+        "name": "anisotropicFilterPitch",
+        "type": "number | null | undefined",
+        "required": false,
+        "default": "defaults.anisotropicFilterPitch"
+      },
+      {
+        "name": "aroundCenter",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.aroundCenter"
+      },
+      {
+        "name": "attributionControl",
+        "type": "false | AttributionControlOptions | undefined",
+        "required": false,
+        "default": "defaults.attributionControl"
+      },
+      {
+        "name": "bearing",
+        "type": "number | undefined",
+        "required": false,
+        "default": "defaults.bearing"
+      },
+      {
+        "name": "bearingSnap",
+        "type": "number | undefined",
+        "required": false,
+        "default": "defaults.bearingSnap"
+      },
+      {
+        "name": "bounds",
+        "type": "LngLatBoundsLike | undefined",
+        "required": false,
+        "default": "defaults.bounds"
+      },
+      {
+        "name": "boxZoom",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.boxZoom"
+      },
+      {
+        "name": "cancelPendingTileRequestsWhileZooming",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.cancelPendingTileRequestsWhileZooming"
+      },
+      {
+        "name": "canvasContextAttributes",
+        "type": "WebGLContextAttributesWithType | undefined",
+        "required": false,
+        "default": "defaults.canvasContextAttributes"
+      },
+      {
+        "name": "center",
+        "type": "LngLatLike | undefined",
+        "required": false,
+        "default": "defaults.center"
+      },
+      {
+        "name": "centerClampedToGround",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.centerClampedToGround"
+      },
+      {
+        "name": "clickTolerance",
+        "type": "number | undefined",
+        "required": false,
+        "default": "defaults.clickTolerance"
+      },
+      {
+        "name": "collectResourceTiming",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.collectResourceTiming"
+      },
+      {
+        "name": "cooperativeGestures",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.cooperativeGestures"
+      },
+      {
+        "name": "crossSourceCollisions",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.crossSourceCollisions"
+      },
+      {
+        "name": "doubleClickZoom",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.doubleClickZoom"
+      },
+      {
+        "name": "dragPan",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.dragPan"
+      },
+      {
+        "name": "dragRotate",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.dragRotate"
+      },
+      {
+        "name": "elevation",
+        "type": "number | undefined",
+        "required": false,
+        "default": "defaults.elevation"
+      },
+      {
+        "name": "fadeDuration",
+        "type": "number | undefined",
+        "required": false,
+        "default": "defaults.fadeDuration"
+      },
+      {
+        "name": "fitBoundsOptions",
+        "type": "(AnimationOptions & CenterZoomBearing & { pitch?: number | undefined; roll?: number | undefined; elevation?: number | undefined; } & { curve?: number | undefined; minZoom?: number | undefined; speed?: number | undefined; screenSpeed?: number | undefined; maxDuration?: number | undefined; padding?: number | PaddingOptions | undefined; } & { linear?: boolean | undefined; offset?: PointLike | undefined; maxZoom?: number | undefined; } & { useOnBoundsUpdate?: boolean | undefined; }) | undefined",
+        "required": false,
+        "default": "defaults.fitBoundsOptions"
+      },
+      {
+        "name": "hash",
+        "type": "string | boolean | undefined",
+        "required": false,
+        "default": "defaults.hash"
+      },
+      {
+        "name": "height",
+        "type": "string | number | undefined",
+        "required": false,
+        "default": "'100%'"
+      },
+      {
+        "name": "interactive",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.interactive"
+      },
+      {
+        "name": "keyboard",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.keyboard"
+      },
+      {
+        "name": "language",
+        "type": "ValidLanguages | undefined",
+        "required": false,
+        "default": "defaults.language || undefined"
+      },
+      {
+        "name": "locale",
+        "type": "Record<string, string> | undefined",
+        "required": false,
+        "default": "defaults.locale"
+      },
+      {
+        "name": "localIdeographFontFamily",
+        "type": "string | false | undefined",
+        "required": false,
+        "default": "defaults.localIdeographFontFamily"
+      },
+      {
+        "name": "logoPosition",
+        "type": "ControlPosition | undefined",
+        "required": false,
+        "default": "defaults.logoPosition"
+      },
+      {
+        "name": "mapKey",
+        "type": "string | symbol | undefined",
+        "required": false
+      },
+      {
+        "name": "maplibreLogo",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.maplibreLogo"
+      },
+      {
+        "name": "mapStyle",
+        "type": "string | object | undefined",
+        "required": false,
+        "default": "defaults.style"
+      },
+      {
+        "name": "maxBounds",
+        "type": "LngLatBoundsLike | undefined",
+        "required": false,
+        "default": "defaults.maxBounds"
+      },
+      {
+        "name": "maxCanvasSize",
+        "type": "[number, number] | undefined",
+        "required": false,
+        "default": "defaults.maxCanvasSize"
+      },
+      {
+        "name": "maxPitch",
+        "type": "number | null | undefined",
+        "required": false,
+        "default": "defaults.maxPitch"
+      },
+      {
+        "name": "maxTileCacheSize",
+        "type": "number | undefined",
+        "required": false,
+        "default": "defaults.maxTileCacheSize"
+      },
+      {
+        "name": "maxTileCacheZoomLevels",
+        "type": "number | undefined",
+        "required": false,
+        "default": "defaults.maxTileCacheZoomLevels"
+      },
+      {
+        "name": "maxZoom",
+        "type": "number | null | undefined",
+        "required": false,
+        "default": "defaults.maxZoom"
+      },
+      {
+        "name": "minPitch",
+        "type": "number | null | undefined",
+        "required": false,
+        "default": "defaults.minPitch"
+      },
+      {
+        "name": "minZoom",
+        "type": "number | null | undefined",
+        "required": false,
+        "default": "defaults.minZoom"
+      },
+      {
+        "name": "pitch",
+        "type": "number | undefined",
+        "required": false,
+        "default": "defaults.pitch"
+      },
+      {
+        "name": "pitchWithRotate",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.pitchWithRotate"
+      },
+      {
+        "name": "pixelRatio",
+        "type": "number | undefined",
+        "required": false,
+        "default": "defaults.pixelRatio"
+      },
+      {
+        "name": "projection",
+        "type": "ProjectionSpecification | undefined",
+        "required": false
+      },
+      {
+        "name": "reduceMotion",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.reduceMotion"
+      },
+      {
+        "name": "refreshExpiredTiles",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.refreshExpiredTiles"
+      },
+      {
+        "name": "renderWorldCopies",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.renderWorldCopies"
+      },
+      {
+        "name": "roll",
+        "type": "number | undefined",
+        "required": false,
+        "default": "defaults.roll"
+      },
+      {
+        "name": "rollEnabled",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.rollEnabled"
+      },
+      {
+        "name": "scrollZoom",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.scrollZoom"
+      },
+      {
+        "name": "terrainSkirtLength",
+        "type": "\"none\" | \"auto\" | undefined",
+        "required": false,
+        "default": "defaults.terrainSkirtLength"
+      },
+      {
+        "name": "touchPitch",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.touchPitch"
+      },
+      {
+        "name": "touchZoomRotate",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.touchZoomRotate"
+      },
+      {
+        "name": "trackResize",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.trackResize"
+      },
+      {
+        "name": "transformCameraUpdate",
+        "type": "CameraUpdateTransformFunction | undefined",
+        "required": false,
+        "default": "defaults.transformCameraUpdate"
+      },
+      {
+        "name": "transformConstrain",
+        "type": "TransformConstrainFunction | undefined",
+        "required": false,
+        "default": "defaults.transformConstrain"
+      },
+      {
+        "name": "transformRequest",
+        "type": "RequestTransformFunction | undefined",
+        "required": false,
+        "default": "defaults.transformRequest"
+      },
+      {
+        "name": "validateStyle",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "defaults.validateStyle"
+      },
+      {
+        "name": "width",
+        "type": "string | number | undefined",
+        "required": false,
+        "default": "'100%'"
+      },
+      {
+        "name": "zoom",
+        "type": "number | undefined",
+        "required": false,
+        "default": "defaults.zoom"
+      },
+      {
+        "name": "zoomLevelsToOverscale",
+        "type": "number | undefined",
+        "required": false,
+        "default": "defaults.zoomLevelsToOverscale"
+      },
+      {
+        "name": "zoomSnap",
+        "type": "number | undefined",
+        "required": false,
+        "default": "defaults.zoomSnap"
+      }
+    ],
+    "events": [
+      {
+        "name": "map:data",
+        "type": "any[]"
+      },
+      {
+        "name": "map:click",
+        "type": "any[]"
+      },
+      {
+        "name": "map:dblclick",
+        "type": "any[]"
+      },
+      {
+        "name": "map:mousedown",
+        "type": "any[]"
+      },
+      {
+        "name": "map:mouseup",
+        "type": "any[]"
+      },
+      {
+        "name": "map:mousemove",
+        "type": "any[]"
+      },
+      {
+        "name": "map:mouseover",
+        "type": "any[]"
+      },
+      {
+        "name": "map:mouseout",
+        "type": "any[]"
+      },
+      {
+        "name": "map:contextmenu",
+        "type": "any[]"
+      },
+      {
+        "name": "map:touchstart",
+        "type": "any[]"
+      },
+      {
+        "name": "map:touchend",
+        "type": "any[]"
+      },
+      {
+        "name": "map:touchcancel",
+        "type": "any[]"
+      },
+      {
+        "name": "map:remove",
+        "type": "any[]"
+      },
+      {
+        "name": "map:error",
+        "type": "any[]"
+      },
+      {
+        "name": "map:load",
+        "type": "any[]"
+      },
+      {
+        "name": "map:idle",
+        "type": "any[]"
+      },
+      {
+        "name": "map:render",
+        "type": "any[]"
+      },
+      {
+        "name": "map:resize",
+        "type": "any[]"
+      },
+      {
+        "name": "map:webglcontextlost",
+        "type": "any[]"
+      },
+      {
+        "name": "map:webglcontextrestored",
+        "type": "any[]"
+      },
+      {
+        "name": "map:dataloading",
+        "type": "any[]"
+      },
+      {
+        "name": "map:sourcedataloading",
+        "type": "any[]"
+      },
+      {
+        "name": "map:styledataloading",
+        "type": "any[]"
+      },
+      {
+        "name": "map:sourcedata",
+        "type": "any[]"
+      },
+      {
+        "name": "map:styledata",
+        "type": "any[]"
+      },
+      {
+        "name": "map:style.load",
+        "type": "any[]"
+      },
+      {
+        "name": "map:styleimagemissing",
+        "type": "any[]"
+      },
+      {
+        "name": "map:dataabort",
+        "type": "any[]"
+      },
+      {
+        "name": "map:sourcedataabort",
+        "type": "any[]"
+      },
+      {
+        "name": "map:boxzoomcancel",
+        "type": "any[]"
+      },
+      {
+        "name": "map:boxzoomstart",
+        "type": "any[]"
+      },
+      {
+        "name": "map:boxzoomend",
+        "type": "any[]"
+      },
+      {
+        "name": "map:touchmove",
+        "type": "any[]"
+      },
+      {
+        "name": "map:movestart",
+        "type": "any[]"
+      },
+      {
+        "name": "map:move",
+        "type": "any[]"
+      },
+      {
+        "name": "map:moveend",
+        "type": "any[]"
+      },
+      {
+        "name": "map:zoomstart",
+        "type": "any[]"
+      },
+      {
+        "name": "map:zoom",
+        "type": "any[]"
+      },
+      {
+        "name": "map:zoomend",
+        "type": "any[]"
+      },
+      {
+        "name": "map:rotatestart",
+        "type": "any[]"
+      },
+      {
+        "name": "map:rotate",
+        "type": "any[]"
+      },
+      {
+        "name": "map:rotateend",
+        "type": "any[]"
+      },
+      {
+        "name": "map:dragstart",
+        "type": "any[]"
+      },
+      {
+        "name": "map:drag",
+        "type": "any[]"
+      },
+      {
+        "name": "map:dragend",
+        "type": "any[]"
+      },
+      {
+        "name": "map:pitchstart",
+        "type": "any[]"
+      },
+      {
+        "name": "map:pitch",
+        "type": "any[]"
+      },
+      {
+        "name": "map:pitchend",
+        "type": "any[]"
+      },
+      {
+        "name": "map:rollstart",
+        "type": "any[]"
+      },
+      {
+        "name": "map:roll",
+        "type": "any[]"
+      },
+      {
+        "name": "map:rollend",
+        "type": "any[]"
+      },
+      {
+        "name": "map:wheel",
+        "type": "any[]"
+      },
+      {
+        "name": "map:terrain",
+        "type": "any[]"
+      },
+      {
+        "name": "map:cooperativegestureprevented",
+        "type": "any[]"
+      },
+      {
+        "name": "map:projectiontransition",
+        "type": "any[]"
+      },
+      {
+        "name": "update:bounds",
+        "type": "any[]"
+      },
+      {
+        "name": "update:zoom",
+        "type": "any[]"
+      },
+      {
+        "name": "update:pitch",
+        "type": "any[]"
+      },
+      {
+        "name": "update:roll",
+        "type": "any[]"
+      },
+      {
+        "name": "update:center",
+        "type": "any[]"
+      },
+      {
+        "name": "update:bearing",
+        "type": "any[]"
+      }
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "type": "any",
+        "description": "Rendered only once the map object exists, so children can assume `map.value` is set."
+      }
+    ],
+    "exposed": [
+      {
+        "name": "map",
+        "type": "Map | undefined"
+      },
+      {
+        "name": "isInitialized",
+        "type": "boolean"
+      },
+      {
+        "name": "isLoaded",
+        "type": "boolean"
+      },
+      {
+        "name": "restart",
+        "type": "() => void"
+      },
+      {
+        "name": "dispose",
+        "type": "() => void"
+      }
+    ]
+  },
+  {
+    "name": "MglAttributionControl",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/controls/MglAttributionControl.vue",
+    "props": [
+      {
+        "name": "compact",
+        "type": "boolean | undefined",
+        "required": false
+      },
+      {
+        "name": "customAttribution",
+        "type": "string | string[] | undefined",
+        "required": false
+      },
+      {
+        "name": "position",
+        "type": "Position | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglCustomControl",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/controls/MglCustomControl.vue",
+    "props": [
+      {
+        "name": "noClasses",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "position",
+        "type": "Position | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "type": "any"
+      }
+    ],
+    "exposed": [
+      {
+        "name": "control",
+        "type": "CustomControl"
+      }
+    ]
+  },
+  {
+    "name": "MglFullscreenControl",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/controls/MglFullscreenControl.vue",
+    "props": [
+      {
+        "name": "container",
+        "type": "HTMLElement | undefined",
+        "required": false,
+        "default": "null"
+      },
+      {
+        "name": "position",
+        "type": "Position | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "fullscreenstart",
+        "type": "[ev: FullscreenEvent]"
+      },
+      {
+        "name": "fullscreenend",
+        "type": "[ev: FullscreenEvent]"
+      }
+    ],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglGlobeControl",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/controls/MglGlobeControl.vue",
+    "props": [
+      {
+        "name": "position",
+        "type": "Position | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglLogoControl",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/controls/MglLogoControl.vue",
+    "props": [
+      {
+        "name": "compact",
+        "type": "boolean | undefined",
+        "required": false
+      },
+      {
+        "name": "position",
+        "type": "Position | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglTerrainControl",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/controls/MglTerrainControl.vue",
+    "props": [
+      {
+        "name": "source",
+        "type": "string",
+        "required": true,
+        "description": "Id of a `raster-dem` source."
+      },
+      {
+        "name": "exaggeration",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "position",
+        "type": "Position | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglFrameRateControl",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/controls/MglFrameRateControl.vue",
+    "props": [
+      {
+        "name": "background",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "barWidth",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "font",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "graphHeight",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "graphRight",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "graphTop",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "graphWidth",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "position",
+        "type": "Position | undefined",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "exposed": [
+      {
+        "name": "control",
+        "type": "FrameRateControl"
+      }
+    ]
+  },
+  {
+    "name": "MglGeolocationControl",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/controls/MglGeolocationControl.vue",
+    "props": [
+      {
+        "name": "fitBoundsOptions",
+        "type": "FitBoundsOptions | undefined",
+        "required": false,
+        "default": "{ maxZoom: 15 }"
+      },
+      {
+        "name": "position",
+        "type": "Position | undefined",
+        "required": false
+      },
+      {
+        "name": "positionOptions",
+        "type": "PositionOptions | undefined",
+        "required": false,
+        "default": "{ enableHighAccuracy: false, timeout: 6000 }"
+      },
+      {
+        "name": "showAccuracyCircle",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "true"
+      },
+      {
+        "name": "showUserLocation",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "true"
+      },
+      {
+        "name": "trackUserLocation",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "false"
+      }
+    ],
+    "events": [
+      {
+        "name": "error",
+        "type": "[ev: GeolocateErrorEvent]"
+      },
+      {
+        "name": "geolocate",
+        "type": "[ev: GeolocatePositionEvent]"
+      },
+      {
+        "name": "outofmaxbounds",
+        "type": "[ev: GeolocatePositionEvent]"
+      },
+      {
+        "name": "trackuserlocationstart",
+        "type": "[ev: GeolocateEvent]"
+      },
+      {
+        "name": "trackuserlocationend",
+        "type": "[ev: GeolocateEvent]"
+      },
+      {
+        "name": "userlocationfocus",
+        "type": "[ev: GeolocateEvent]"
+      },
+      {
+        "name": "userlocationlostfocus",
+        "type": "[ev: GeolocateEvent]"
+      }
+    ],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglNavigationControl",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/controls/MglNavigationControl.vue",
+    "props": [
+      {
+        "name": "position",
+        "type": "Position | undefined",
+        "required": false
+      },
+      {
+        "name": "showCompass",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "true"
+      },
+      {
+        "name": "showZoom",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "true"
+      },
+      {
+        "name": "visualizePitch",
+        "type": "boolean | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglScaleControl",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/controls/MglScaleControl.vue",
+    "props": [
+      {
+        "name": "maxWidth",
+        "type": "number | undefined",
+        "required": false,
+        "default": "100"
+      },
+      {
+        "name": "position",
+        "type": "Position | undefined",
+        "required": false
+      },
+      {
+        "name": "unit",
+        "type": "ScaleControlUnit | undefined",
+        "required": false,
+        "default": "ScaleControlUnit.METRIC"
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglStyleSwitchControl",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/controls/MglStyleSwitchControl.vue",
+    "props": [
+      {
+        "name": "isOpen",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "undefined"
+      },
+      {
+        "name": "mapStyles",
+        "type": "StyleSwitchItem[] | undefined",
+        "required": false,
+        "default": "[]"
+      },
+      {
+        "name": "modelValue",
+        "type": "StyleSwitchItem | undefined",
+        "required": false
+      },
+      {
+        "name": "position",
+        "type": "Position | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "update:modelValue",
+        "type": "[style: StyleSwitchItem]"
+      },
+      {
+        "name": "update:isOpen",
+        "type": "[isOpen: boolean]"
+      }
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "type": "StyleSwitchSlotProps"
+      },
+      {
+        "name": "button",
+        "type": "StyleSwitchSlotProps"
+      },
+      {
+        "name": "styleList",
+        "type": "StyleSwitchSlotProps"
+      }
+    ],
+    "exposed": []
+  },
+  {
+    "name": "MglButton",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/MglButton.vue",
+    "props": [
+      {
+        "name": "path",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "type",
+        "type": "ButtonType | undefined",
+        "required": false,
+        "default": "ButtonType.DEFAULT"
+      },
+      {
+        "name": "viewbox",
+        "type": "string | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "type": "any"
+      }
+    ],
+    "exposed": []
+  },
+  {
+    "name": "MglMarker",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/MglMarker.vue",
+    "props": [
+      {
+        "name": "coordinates",
+        "type": "LngLatLike",
+        "required": true
+      },
+      {
+        "name": "anchor",
+        "type": "PositionAnchor | undefined",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "clickTolerance",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "draggable",
+        "type": "boolean | undefined",
+        "required": false
+      },
+      {
+        "name": "offset",
+        "type": "PointLike | undefined",
+        "required": false
+      },
+      {
+        "name": "opacity",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "opacityWhenCovered",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "pitchAlignment",
+        "type": "\"map\" | \"auto\" | \"viewport\" | undefined",
+        "required": false
+      },
+      {
+        "name": "rotation",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "rotationAlignment",
+        "type": "\"map\" | \"auto\" | \"viewport\" | undefined",
+        "required": false
+      },
+      {
+        "name": "scale",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "subpixelPositioning",
+        "type": "boolean | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "type": "[marker: Marker]"
+      },
+      {
+        "name": "dragstart",
+        "type": "[marker: Marker]"
+      },
+      {
+        "name": "drag",
+        "type": "[marker: Marker]"
+      },
+      {
+        "name": "dragend",
+        "type": "[marker: Marker]"
+      },
+      {
+        "name": "update:coordinates",
+        "type": "[value: LngLatLike]"
+      }
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "type": "any",
+        "description": "Custom marker content. Omit it to get maplibre's default pin."
+      },
+      {
+        "name": "popup",
+        "type": "any",
+        "description": "For a nested `<MglPopup>`; it attaches to this marker rather than to the map."
+      }
+    ],
+    "exposed": [
+      {
+        "name": "marker",
+        "type": "Marker | undefined"
+      }
+    ]
+  },
+  {
+    "name": "MglPopup",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/MglPopup.vue",
+    "props": [
+      {
+        "name": "anchor",
+        "type": "PositionAnchor | undefined",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "closeButton",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "true"
+      },
+      {
+        "name": "closeOnClick",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "true"
+      },
+      {
+        "name": "closeOnMove",
+        "type": "boolean | undefined",
+        "required": false
+      },
+      {
+        "name": "coordinates",
+        "type": "LngLatLike | undefined",
+        "required": false,
+        "description": "Optional when nested in an `<MglMarker>` (the marker's position wins) or with `track-pointer`."
+      },
+      {
+        "name": "focusAfterOpen",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "true"
+      },
+      {
+        "name": "locationOccludedOpacity",
+        "type": "string | number | undefined",
+        "required": false
+      },
+      {
+        "name": "maxWidth",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "offset",
+        "type": "Offset | undefined",
+        "required": false
+      },
+      {
+        "name": "open",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "undefined",
+        "description": "Two-way: `v-model:open`. Leave unset for an always-open popup."
+      },
+      {
+        "name": "padding",
+        "type": "PaddingOptions | undefined",
+        "required": false
+      },
+      {
+        "name": "subpixelPositioning",
+        "type": "boolean | undefined",
+        "required": false
+      },
+      {
+        "name": "trackPointer",
+        "type": "boolean | undefined",
+        "required": false,
+        "description": "Follow the cursor instead of sticking to a coordinate."
+      }
+    ],
+    "events": [
+      {
+        "name": "update:open",
+        "type": "[open: boolean]"
+      },
+      {
+        "name": "popupopen",
+        "type": "[]"
+      },
+      {
+        "name": "popupclose",
+        "type": "[]"
+      }
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "type": "any"
+      }
+    ],
+    "exposed": [
+      {
+        "name": "popup",
+        "type": "Popup | undefined"
+      },
+      {
+        "name": "isOpen",
+        "type": "boolean"
+      },
+      {
+        "name": "close",
+        "type": "() => void"
+      }
+    ]
+  },
+  {
+    "name": "MglGlobalState",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/style/MglGlobalState.vue",
+    "props": [
+      {
+        "name": "state",
+        "type": "Record<string, unknown>",
+        "required": true,
+        "description": "Values for the style's global state, addressable from expressions via `['global-state', 'key']`. New in maplibre v6."
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglImage",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/style/MglImage.vue",
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "Name layers reference in `icon-image` / `fill-pattern` / `line-pattern`."
+      },
+      {
+        "name": "image",
+        "type": "StyleImageSource",
+        "required": true,
+        "description": "Bitmap, `ImageData`, `ImageBitmap`, or a `StyleImageInterface` for a procedural icon."
+      },
+      {
+        "name": "pixelRatio",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "sdf",
+        "type": "boolean | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglLight",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/style/MglLight.vue",
+    "props": [
+      {
+        "name": "light",
+        "type": "LightSpecification",
+        "required": true,
+        "description": "The maplibre light specification (`anchor`, `position`, `color`, `intensity`)."
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglProjection",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/style/MglProjection.vue",
+    "props": [
+      {
+        "name": "type",
+        "type": "PropertyValueSpecification<ProjectionDefinitionSpecification> | undefined",
+        "required": true,
+        "description": "`'globe'` | `'mercator'` | `'vertical-perspective'`, or an interpolating expression."
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglSky",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/style/MglSky.vue",
+    "props": [
+      {
+        "name": "sky",
+        "type": "SkySpecification",
+        "required": true,
+        "description": "The maplibre sky specification (`sky-color`, `horizon-blend`, `fog-color`, …)."
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglTerrain",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/style/MglTerrain.vue",
+    "props": [
+      {
+        "name": "source",
+        "type": "string",
+        "required": true,
+        "description": "Id of a `raster-dem` source."
+      },
+      {
+        "name": "exaggeration",
+        "type": "number | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglCanvasSource",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/sources/MglCanvasSource.vue",
+    "props": [
+      {
+        "name": "sourceId",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "animate",
+        "type": "boolean | undefined",
+        "required": false
+      },
+      {
+        "name": "canvas",
+        "type": "string | HTMLCanvasElement | undefined",
+        "required": false
+      },
+      {
+        "name": "coordinates",
+        "type": "[[number, number], [number, number], [number, number], [number, number]] | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "type": "any"
+      }
+    ],
+    "exposed": []
+  },
+  {
+    "name": "MglGeoJsonSource",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/sources/MglGeoJsonSource.vue",
+    "props": [
+      {
+        "name": "sourceId",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "attribution",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "buffer",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "cluster",
+        "type": "boolean | undefined",
+        "required": false
+      },
+      {
+        "name": "clusterMaxZoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "clusterMinPoints",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "clusterProperties",
+        "type": "unknown",
+        "required": false
+      },
+      {
+        "name": "clusterRadius",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "data",
+        "type": "string | GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | undefined",
+        "required": false
+      },
+      {
+        "name": "filter",
+        "type": "FilterSpecification | undefined",
+        "required": false
+      },
+      {
+        "name": "generateId",
+        "type": "boolean | undefined",
+        "required": false
+      },
+      {
+        "name": "lineMetrics",
+        "type": "boolean | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "promoteId",
+        "type": "PromoteIdSpecification | undefined",
+        "required": false
+      },
+      {
+        "name": "tolerance",
+        "type": "number | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "type": "any"
+      }
+    ],
+    "exposed": []
+  },
+  {
+    "name": "MglImageSource",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/sources/MglImageSource.vue",
+    "props": [
+      {
+        "name": "sourceId",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "coordinates",
+        "type": "[[number, number], [number, number], [number, number], [number, number]] | undefined",
+        "required": false
+      },
+      {
+        "name": "url",
+        "type": "string | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "type": "any"
+      }
+    ],
+    "exposed": []
+  },
+  {
+    "name": "MglRasterSource",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/sources/MglRasterSource.vue",
+    "props": [
+      {
+        "name": "sourceId",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "attribution",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "bounds",
+        "type": "[number, number, number, number] | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "minzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "scheme",
+        "type": "\"xyz\" | \"tms\" | undefined",
+        "required": false
+      },
+      {
+        "name": "tiles",
+        "type": "string[] | undefined",
+        "required": false
+      },
+      {
+        "name": "tileSize",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "url",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "volatile",
+        "type": "boolean | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "type": "any"
+      }
+    ],
+    "exposed": []
+  },
+  {
+    "name": "MglRasterDemSource",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/sources/MglRasterDemSource.vue",
+    "props": [
+      {
+        "name": "sourceId",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "attribution",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "baseShift",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "blueFactor",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "bounds",
+        "type": "[number, number, number, number] | undefined",
+        "required": false
+      },
+      {
+        "name": "encoding",
+        "type": "\"terrarium\" | \"mapbox\" | \"custom\" | undefined",
+        "required": false
+      },
+      {
+        "name": "greenFactor",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "minzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "redFactor",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "tiles",
+        "type": "string[] | undefined",
+        "required": false
+      },
+      {
+        "name": "tileSize",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "url",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "volatile",
+        "type": "boolean | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "type": "any"
+      }
+    ],
+    "exposed": []
+  },
+  {
+    "name": "MglVectorSource",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/sources/MglVectorSource.vue",
+    "props": [
+      {
+        "name": "sourceId",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "attribution",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "bounds",
+        "type": "[number, number, number, number] | undefined",
+        "required": false
+      },
+      {
+        "name": "encoding",
+        "type": "\"mvt\" | \"mlt\" | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "minzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "promoteId",
+        "type": "PromoteIdSpecification | undefined",
+        "required": false
+      },
+      {
+        "name": "scheme",
+        "type": "\"xyz\" | \"tms\" | undefined",
+        "required": false
+      },
+      {
+        "name": "tiles",
+        "type": "string[] | undefined",
+        "required": false
+      },
+      {
+        "name": "url",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "volatile",
+        "type": "boolean | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "type": "any"
+      }
+    ],
+    "exposed": []
+  },
+  {
+    "name": "MglVideoSource",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/sources/MglVideoSource.vue",
+    "props": [
+      {
+        "name": "sourceId",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "coordinates",
+        "type": "[[number, number], [number, number], [number, number], [number, number]] | undefined",
+        "required": false
+      },
+      {
+        "name": "urls",
+        "type": "string[] | undefined",
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "type": "any"
+      }
+    ],
+    "exposed": []
+  },
+  {
+    "name": "MglBackgroundLayer",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/layers/MglBackgroundLayer.vue",
+    "props": [
+      {
+        "name": "layerId",
+        "type": "string | undefined",
+        "required": true
+      },
+      {
+        "name": "before",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "interactive",
+        "type": "boolean | undefined",
+        "required": false,
+        "deprecated": true,
+        "description": "**Deprecated.** Never had any effect: `interactive` is not part of the maplibre layer specification, and it used to be forwarded into `addLayer` as an unknown property. It is now ignored. Bind layer events (`@click`, `@mouseenter`, …) instead."
+      },
+      {
+        "name": "layout",
+        "type": "{ visibility?: VisibilitySpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "metadata",
+        "type": "any",
+        "required": false
+      },
+      {
+        "name": "minzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "paint",
+        "type": "{ \"background-color\"?: PropertyValueSpecification<string> | undefined; \"background-color-transition\"?: TransitionSpecification | undefined; \"background-pattern\"?: PropertyValueSpecification<string> | undefined; \"background-pattern-transition\"?: TransitionSpecification | undefined; \"background-opacity\"?: PropertyValueSpecification<number> | undefined; \"background-opacity-transition\"?: TransitionSpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "source",
+        "type": "string | Source | undefined",
+        "required": false
+      },
+      {
+        "name": "sourceLayer",
+        "type": "string | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "dblclick",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousedown",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseup",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousemove",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseenter",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseleave",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseover",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseout",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "contextmenu",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchstart",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchend",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchcancel",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      }
+    ],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglCircleLayer",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/layers/MglCircleLayer.vue",
+    "props": [
+      {
+        "name": "layerId",
+        "type": "string | undefined",
+        "required": true
+      },
+      {
+        "name": "before",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "filter",
+        "type": "FilterSpecification | undefined",
+        "required": false
+      },
+      {
+        "name": "interactive",
+        "type": "boolean | undefined",
+        "required": false,
+        "deprecated": true,
+        "description": "**Deprecated.** Never had any effect: `interactive` is not part of the maplibre layer specification, and it used to be forwarded into `addLayer` as an unknown property. It is now ignored. Bind layer events (`@click`, `@mouseenter`, …) instead."
+      },
+      {
+        "name": "layout",
+        "type": "{ \"circle-sort-key\"?: DataDrivenPropertyValueSpecification<number> | undefined; visibility?: VisibilitySpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "metadata",
+        "type": "any",
+        "required": false
+      },
+      {
+        "name": "minzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "paint",
+        "type": "{ \"circle-radius\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"circle-radius-transition\"?: TransitionSpecification | undefined; \"circle-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"circle-color-transition\"?: TransitionSpecification | undefined; \"circle-blur\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"circle-blur-transition\"?: TransitionSpecification | undefined; \"circle-opacity\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"circle-opacity-transition\"?: TransitionSpecification | undefined; \"circle-translate\"?: PropertyValueSpecification<[number, number]> | undefined; \"circle-translate-transition\"?: TransitionSpecification | undefined; \"circle-translate-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"circle-pitch-scale\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"circle-pitch-alignment\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"circle-stroke-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"circle-stroke-width-transition\"?: TransitionSpecification | undefined; \"circle-stroke-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"circle-stroke-color-transition\"?: TransitionSpecification | undefined; \"circle-stroke-opacity\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"circle-stroke-opacity-transition\"?: TransitionSpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "source",
+        "type": "string | Source | undefined",
+        "required": false
+      },
+      {
+        "name": "sourceLayer",
+        "type": "string | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "dblclick",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousedown",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseup",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousemove",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseenter",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseleave",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseover",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseout",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "contextmenu",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchstart",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchend",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchcancel",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      }
+    ],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglColorReliefLayer",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/layers/MglColorReliefLayer.vue",
+    "props": [
+      {
+        "name": "layerId",
+        "type": "string | undefined",
+        "required": true
+      },
+      {
+        "name": "before",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "filter",
+        "type": "FilterSpecification | undefined",
+        "required": false
+      },
+      {
+        "name": "interactive",
+        "type": "boolean | undefined",
+        "required": false,
+        "deprecated": true,
+        "description": "**Deprecated.** Never had any effect: `interactive` is not part of the maplibre layer specification, and it used to be forwarded into `addLayer` as an unknown property. It is now ignored. Bind layer events (`@click`, `@mouseenter`, …) instead."
+      },
+      {
+        "name": "layout",
+        "type": "{ visibility?: VisibilitySpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "metadata",
+        "type": "any",
+        "required": false
+      },
+      {
+        "name": "minzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "paint",
+        "type": "{ \"color-relief-opacity\"?: PropertyValueSpecification<number> | undefined; \"color-relief-opacity-transition\"?: TransitionSpecification | undefined; \"color-relief-color\"?: ExpressionSpecification | undefined; resampling?: PropertyValueSpecification<\"linear\" | \"nearest\"> | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "source",
+        "type": "string | Source | undefined",
+        "required": false
+      },
+      {
+        "name": "sourceLayer",
+        "type": "string | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "dblclick",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousedown",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseup",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousemove",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseenter",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseleave",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseover",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseout",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "contextmenu",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchstart",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchend",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchcancel",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      }
+    ],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglFillLayer",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/layers/MglFillLayer.vue",
+    "props": [
+      {
+        "name": "layerId",
+        "type": "string | undefined",
+        "required": true
+      },
+      {
+        "name": "before",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "filter",
+        "type": "FilterSpecification | undefined",
+        "required": false
+      },
+      {
+        "name": "interactive",
+        "type": "boolean | undefined",
+        "required": false,
+        "deprecated": true,
+        "description": "**Deprecated.** Never had any effect: `interactive` is not part of the maplibre layer specification, and it used to be forwarded into `addLayer` as an unknown property. It is now ignored. Bind layer events (`@click`, `@mouseenter`, …) instead."
+      },
+      {
+        "name": "layout",
+        "type": "{ \"fill-sort-key\"?: DataDrivenPropertyValueSpecification<number> | undefined; visibility?: VisibilitySpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "metadata",
+        "type": "any",
+        "required": false
+      },
+      {
+        "name": "minzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "paint",
+        "type": "{ \"fill-antialias\"?: PropertyValueSpecification<boolean> | undefined; \"fill-opacity\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"fill-opacity-transition\"?: TransitionSpecification | undefined; \"fill-layer-opacity\"?: PropertyValueSpecification<number> | undefined; \"fill-layer-opacity-transition\"?: TransitionSpecification | undefined; \"fill-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"fill-color-transition\"?: TransitionSpecification | undefined; \"fill-outline-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"fill-outline-color-transition\"?: TransitionSpecification | undefined; \"fill-translate\"?: PropertyValueSpecification<[number, number]> | undefined; \"fill-translate-transition\"?: TransitionSpecification | undefined; \"fill-translate-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"fill-pattern\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"fill-pattern-transition\"?: TransitionSpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "source",
+        "type": "string | Source | undefined",
+        "required": false
+      },
+      {
+        "name": "sourceLayer",
+        "type": "string | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "dblclick",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousedown",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseup",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousemove",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseenter",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseleave",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseover",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseout",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "contextmenu",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchstart",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchend",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchcancel",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      }
+    ],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglFillExtrusionLayer",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/layers/MglFillExtrusionLayer.vue",
+    "props": [
+      {
+        "name": "layerId",
+        "type": "string | undefined",
+        "required": true
+      },
+      {
+        "name": "before",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "filter",
+        "type": "FilterSpecification | undefined",
+        "required": false
+      },
+      {
+        "name": "interactive",
+        "type": "boolean | undefined",
+        "required": false,
+        "deprecated": true,
+        "description": "**Deprecated.** Never had any effect: `interactive` is not part of the maplibre layer specification, and it used to be forwarded into `addLayer` as an unknown property. It is now ignored. Bind layer events (`@click`, `@mouseenter`, …) instead."
+      },
+      {
+        "name": "layout",
+        "type": "{ visibility?: VisibilitySpecification | undefined; \"fill-extrusion-rounded-corner-distance\"?: number | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "metadata",
+        "type": "any",
+        "required": false
+      },
+      {
+        "name": "minzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "paint",
+        "type": "{ \"fill-extrusion-opacity\"?: PropertyValueSpecification<number> | undefined; \"fill-extrusion-opacity-transition\"?: TransitionSpecification | undefined; \"fill-extrusion-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"fill-extrusion-color-transition\"?: TransitionSpecification | undefined; \"fill-extrusion-translate\"?: PropertyValueSpecification<[number, number]> | undefined; \"fill-extrusion-translate-transition\"?: TransitionSpecification | undefined; \"fill-extrusion-translate-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"fill-extrusion-pattern\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"fill-extrusion-pattern-transition\"?: TransitionSpecification | undefined; \"fill-extrusion-height\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"fill-extrusion-height-transition\"?: TransitionSpecification | undefined; \"fill-extrusion-base\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"fill-extrusion-base-transition\"?: TransitionSpecification | undefined; \"fill-extrusion-vertical-gradient\"?: PropertyValueSpecification<boolean> | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "source",
+        "type": "string | Source | undefined",
+        "required": false
+      },
+      {
+        "name": "sourceLayer",
+        "type": "string | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "dblclick",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousedown",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseup",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousemove",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseenter",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseleave",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseover",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseout",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "contextmenu",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchstart",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchend",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchcancel",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      }
+    ],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglHeatmapLayer",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/layers/MglHeatmapLayer.vue",
+    "props": [
+      {
+        "name": "layerId",
+        "type": "string | undefined",
+        "required": true
+      },
+      {
+        "name": "before",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "filter",
+        "type": "FilterSpecification | undefined",
+        "required": false
+      },
+      {
+        "name": "interactive",
+        "type": "boolean | undefined",
+        "required": false,
+        "deprecated": true,
+        "description": "**Deprecated.** Never had any effect: `interactive` is not part of the maplibre layer specification, and it used to be forwarded into `addLayer` as an unknown property. It is now ignored. Bind layer events (`@click`, `@mouseenter`, …) instead."
+      },
+      {
+        "name": "layout",
+        "type": "{ visibility?: VisibilitySpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "metadata",
+        "type": "any",
+        "required": false
+      },
+      {
+        "name": "minzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "paint",
+        "type": "{ \"heatmap-radius\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"heatmap-radius-transition\"?: TransitionSpecification | undefined; \"heatmap-weight\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"heatmap-intensity\"?: PropertyValueSpecification<number> | undefined; \"heatmap-intensity-transition\"?: TransitionSpecification | undefined; \"heatmap-color\"?: ExpressionSpecification | undefined; \"heatmap-opacity\"?: PropertyValueSpecification<number> | undefined; \"heatmap-opacity-transition\"?: TransitionSpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "source",
+        "type": "string | Source | undefined",
+        "required": false
+      },
+      {
+        "name": "sourceLayer",
+        "type": "string | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "dblclick",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousedown",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseup",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousemove",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseenter",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseleave",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseover",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseout",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "contextmenu",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchstart",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchend",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchcancel",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      }
+    ],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglHillshadeLayer",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/layers/MglHillshadeLayer.vue",
+    "props": [
+      {
+        "name": "layerId",
+        "type": "string | undefined",
+        "required": true
+      },
+      {
+        "name": "before",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "filter",
+        "type": "FilterSpecification | undefined",
+        "required": false
+      },
+      {
+        "name": "interactive",
+        "type": "boolean | undefined",
+        "required": false,
+        "deprecated": true,
+        "description": "**Deprecated.** Never had any effect: `interactive` is not part of the maplibre layer specification, and it used to be forwarded into `addLayer` as an unknown property. It is now ignored. Bind layer events (`@click`, `@mouseenter`, …) instead."
+      },
+      {
+        "name": "layout",
+        "type": "{ visibility?: VisibilitySpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "metadata",
+        "type": "any",
+        "required": false
+      },
+      {
+        "name": "minzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "paint",
+        "type": "{ \"hillshade-illumination-direction\"?: PropertyValueSpecification<NumberArraySpecification> | undefined; \"hillshade-illumination-altitude\"?: PropertyValueSpecification<NumberArraySpecification> | undefined; \"hillshade-illumination-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"hillshade-exaggeration\"?: PropertyValueSpecification<number> | undefined; \"hillshade-exaggeration-transition\"?: TransitionSpecification | undefined; \"hillshade-shadow-color\"?: PropertyValueSpecification<ColorArraySpecification> | undefined; \"hillshade-shadow-color-transition\"?: TransitionSpecification | undefined; \"hillshade-highlight-color\"?: PropertyValueSpecification<ColorArraySpecification> | undefined; \"hillshade-highlight-color-transition\"?: TransitionSpecification | undefined; \"hillshade-accent-color\"?: PropertyValueSpecification<string> | undefined; \"hillshade-accent-color-transition\"?: TransitionSpecification | undefined; \"hillshade-method\"?: PropertyValueSpecification<\"standard\" | \"basic\" | \"combined\" | \"igor\" | \"multidirectional\"> | undefined; resampling?: PropertyValueSpecification<\"linear\" | \"nearest\"> | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "source",
+        "type": "string | Source | undefined",
+        "required": false
+      },
+      {
+        "name": "sourceLayer",
+        "type": "string | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "dblclick",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousedown",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseup",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousemove",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseenter",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseleave",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseover",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseout",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "contextmenu",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchstart",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchend",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchcancel",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      }
+    ],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglLineLayer",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/layers/MglLineLayer.vue",
+    "props": [
+      {
+        "name": "layerId",
+        "type": "string | undefined",
+        "required": true
+      },
+      {
+        "name": "before",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "filter",
+        "type": "FilterSpecification | undefined",
+        "required": false
+      },
+      {
+        "name": "interactive",
+        "type": "boolean | undefined",
+        "required": false,
+        "deprecated": true,
+        "description": "**Deprecated.** Never had any effect: `interactive` is not part of the maplibre layer specification, and it used to be forwarded into `addLayer` as an unknown property. It is now ignored. Bind layer events (`@click`, `@mouseenter`, …) instead."
+      },
+      {
+        "name": "layout",
+        "type": "{ \"line-cap\"?: DataDrivenPropertyValueSpecification<\"round\" | \"butt\" | \"square\"> | undefined; \"line-join\"?: DataDrivenPropertyValueSpecification<\"round\" | \"bevel\" | \"miter\"> | undefined; \"line-miter-limit\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-round-limit\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-sort-key\"?: DataDrivenPropertyValueSpecification<number> | undefined; visibility?: VisibilitySpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "metadata",
+        "type": "any",
+        "required": false
+      },
+      {
+        "name": "minzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "paint",
+        "type": "{ \"line-opacity\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-opacity-transition\"?: TransitionSpecification | undefined; \"line-layer-opacity\"?: PropertyValueSpecification<number> | undefined; \"line-layer-opacity-transition\"?: TransitionSpecification | undefined; \"line-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"line-color-transition\"?: TransitionSpecification | undefined; \"line-translate\"?: PropertyValueSpecification<[number, number]> | undefined; \"line-translate-transition\"?: TransitionSpecification | undefined; \"line-translate-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"line-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-width-transition\"?: TransitionSpecification | undefined; \"line-gap-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-gap-width-transition\"?: TransitionSpecification | undefined; \"line-offset\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-offset-transition\"?: TransitionSpecification | undefined; \"line-blur\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-blur-transition\"?: TransitionSpecification | undefined; \"line-dasharray\"?: DataDrivenPropertyValueSpecification<number[]> | undefined; \"line-dasharray-transition\"?: TransitionSpecification | undefined; \"line-pattern\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"line-pattern-transition\"?: TransitionSpecification | undefined; \"line-gradient\"?: ExpressionSpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "source",
+        "type": "string | Source | undefined",
+        "required": false
+      },
+      {
+        "name": "sourceLayer",
+        "type": "string | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "dblclick",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousedown",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseup",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousemove",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseenter",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseleave",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseover",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseout",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "contextmenu",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchstart",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchend",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchcancel",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      }
+    ],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglRasterLayer",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/layers/MglRasterLayer.vue",
+    "props": [
+      {
+        "name": "layerId",
+        "type": "string | undefined",
+        "required": true
+      },
+      {
+        "name": "before",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "filter",
+        "type": "FilterSpecification | undefined",
+        "required": false
+      },
+      {
+        "name": "interactive",
+        "type": "boolean | undefined",
+        "required": false,
+        "deprecated": true,
+        "description": "**Deprecated.** Never had any effect: `interactive` is not part of the maplibre layer specification, and it used to be forwarded into `addLayer` as an unknown property. It is now ignored. Bind layer events (`@click`, `@mouseenter`, …) instead."
+      },
+      {
+        "name": "layout",
+        "type": "{ visibility?: VisibilitySpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "metadata",
+        "type": "any",
+        "required": false
+      },
+      {
+        "name": "minzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "paint",
+        "type": "{ \"raster-opacity\"?: PropertyValueSpecification<number> | undefined; \"raster-opacity-transition\"?: TransitionSpecification | undefined; \"raster-hue-rotate\"?: PropertyValueSpecification<number> | undefined; \"raster-hue-rotate-transition\"?: TransitionSpecification | undefined; \"raster-brightness-min\"?: PropertyValueSpecification<number> | undefined; \"raster-brightness-min-transition\"?: TransitionSpecification | undefined; \"raster-brightness-max\"?: PropertyValueSpecification<number> | undefined; \"raster-brightness-max-transition\"?: TransitionSpecification | undefined; \"raster-saturation\"?: PropertyValueSpecification<number> | undefined; \"raster-saturation-transition\"?: TransitionSpecification | undefined; \"raster-contrast\"?: PropertyValueSpecification<number> | undefined; \"raster-contrast-transition\"?: TransitionSpecification | undefined; resampling?: PropertyValueSpecification<\"linear\" | \"nearest\"> | undefined; \"raster-resampling\"?: PropertyValueSpecification<\"linear\" | \"nearest\"> | undefined; \"raster-fade-duration\"?: PropertyValueSpecification<number> | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "source",
+        "type": "string | Source | undefined",
+        "required": false
+      },
+      {
+        "name": "sourceLayer",
+        "type": "string | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "dblclick",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousedown",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseup",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousemove",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseenter",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseleave",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseover",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseout",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "contextmenu",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchstart",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchend",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchcancel",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      }
+    ],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglSymbolLayer",
+    "entry": "vue-maplibre-gl",
+    "source": "src/components/layers/MglSymbolLayer.vue",
+    "props": [
+      {
+        "name": "layerId",
+        "type": "string | undefined",
+        "required": true
+      },
+      {
+        "name": "before",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "filter",
+        "type": "FilterSpecification | undefined",
+        "required": false
+      },
+      {
+        "name": "interactive",
+        "type": "boolean | undefined",
+        "required": false,
+        "deprecated": true,
+        "description": "**Deprecated.** Never had any effect: `interactive` is not part of the maplibre layer specification, and it used to be forwarded into `addLayer` as an unknown property. It is now ignored. Bind layer events (`@click`, `@mouseenter`, …) instead."
+      },
+      {
+        "name": "layout",
+        "type": "{ \"symbol-placement\"?: PropertyValueSpecification<\"line\" | \"point\" | \"line-center\"> | undefined; \"symbol-spacing\"?: PropertyValueSpecification<number> | undefined; \"symbol-avoid-edges\"?: PropertyValueSpecification<boolean> | undefined; \"symbol-sort-key\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"symbol-z-order\"?: PropertyValueSpecification<\"source\" | \"auto\" | \"viewport-y\"> | undefined; \"icon-allow-overlap\"?: PropertyValueSpecification<boolean> | undefined; \"icon-overlap\"?: PropertyValueSpecification<\"never\" | \"always\" | \"cooperative\"> | undefined; \"icon-ignore-placement\"?: PropertyValueSpecification<boolean> | undefined; \"icon-optional\"?: PropertyValueSpecification<boolean> | undefined; \"icon-rotation-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\"> | undefined; \"icon-size\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-text-fit\"?: PropertyValueSpecification<\"none\" | \"width\" | \"height\" | \"both\"> | undefined; \"icon-text-fit-padding\"?: PropertyValueSpecification<[number, number, number, number]> | undefined; \"icon-image\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"icon-rotate\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-padding\"?: DataDrivenPropertyValueSpecification<PaddingSpecification> | undefined; \"icon-keep-upright\"?: PropertyValueSpecification<boolean> | undefined; \"icon-offset\"?: DataDrivenPropertyValueSpecification<[number, number]> | undefined; \"icon-anchor\"?: DataDrivenPropertyValueSpecification<\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\"> | undefined; \"icon-pitch-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\"> | undefined; \"text-pitch-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\"> | undefined; \"text-rotation-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\" | \"viewport-glyph\"> | undefined; \"text-field\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"text-font\"?: DataDrivenPropertyValueSpecification<string[]> | undefined; \"text-size\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-max-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-line-height\"?: PropertyValueSpecification<number> | undefined; \"text-letter-spacing\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-justify\"?: DataDrivenPropertyValueSpecification<\"center\" | \"auto\" | \"right\" | \"left\"> | undefined; \"text-radial-offset\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-variable-anchor\"?: PropertyValueSpecification<(\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\")[]> | undefined; \"text-variable-anchor-offset\"?: DataDrivenPropertyValueSpecification<VariableAnchorOffsetCollectionSpecification> | undefined; \"text-anchor\"?: DataDrivenPropertyValueSpecification<\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\"> | undefined; \"text-max-angle\"?: PropertyValueSpecification<number> | undefined; \"text-writing-mode\"?: PropertyValueSpecification<(\"horizontal\" | \"vertical\")[]> | undefined; \"text-rotate\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-padding\"?: PropertyValueSpecification<number> | undefined; \"text-keep-upright\"?: PropertyValueSpecification<boolean> | undefined; \"text-transform\"?: DataDrivenPropertyValueSpecification<\"none\" | \"uppercase\" | \"lowercase\"> | undefined; \"text-offset\"?: DataDrivenPropertyValueSpecification<[number, number]> | undefined; \"text-allow-overlap\"?: PropertyValueSpecification<boolean> | undefined; \"text-overlap\"?: PropertyValueSpecification<\"never\" | \"always\" | \"cooperative\"> | undefined; \"text-ignore-placement\"?: PropertyValueSpecification<boolean> | undefined; \"text-optional\"?: PropertyValueSpecification<boolean> | undefined; visibility?: VisibilitySpecification | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "maxzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "metadata",
+        "type": "any",
+        "required": false
+      },
+      {
+        "name": "minzoom",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "paint",
+        "type": "{ \"icon-opacity\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-opacity-transition\"?: TransitionSpecification | undefined; \"icon-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"icon-color-transition\"?: TransitionSpecification | undefined; \"icon-halo-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"icon-halo-color-transition\"?: TransitionSpecification | undefined; \"icon-halo-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-halo-width-transition\"?: TransitionSpecification | undefined; \"icon-halo-blur\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-halo-blur-transition\"?: TransitionSpecification | undefined; \"icon-translate\"?: PropertyValueSpecification<[number, number]> | undefined; \"icon-translate-transition\"?: TransitionSpecification | undefined; \"icon-translate-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"text-opacity\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-opacity-transition\"?: TransitionSpecification | undefined; \"text-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"text-color-transition\"?: TransitionSpecification | undefined; \"text-halo-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"text-halo-color-transition\"?: TransitionSpecification | undefined; \"text-halo-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-halo-width-transition\"?: TransitionSpecification | undefined; \"text-halo-blur\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-halo-blur-transition\"?: TransitionSpecification | undefined; \"text-translate\"?: PropertyValueSpecification<[number, number]> | undefined; \"text-translate-transition\"?: TransitionSpecification | undefined; \"text-translate-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; } | undefined",
+        "required": false
+      },
+      {
+        "name": "source",
+        "type": "string | Source | undefined",
+        "required": false
+      },
+      {
+        "name": "sourceLayer",
+        "type": "string | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "dblclick",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousedown",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseup",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mousemove",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseenter",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseleave",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseover",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "mouseout",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "contextmenu",
+        "type": "[ev: MapLayerMouseEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchstart",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchend",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      },
+      {
+        "name": "touchcancel",
+        "type": "[ev: MapLayerTouchEvent]",
+        "forwarded": true
+      }
+    ],
+    "slots": [],
+    "exposed": []
+  },
+  {
+    "name": "MglDrawControl",
+    "entry": "vue-maplibre-gl/draw",
+    "source": "src/plugins/draw/MglDrawControl.vue",
+    "props": [
+      {
+        "name": "autoZoom",
+        "type": "boolean | undefined",
+        "required": false,
+        "default": "true"
+      },
+      {
+        "name": "defaultMode",
+        "type": "DrawMode | undefined",
+        "required": false,
+        "default": "DrawMode.POLYGON"
+      },
+      {
+        "name": "minAreaColor",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "minAreaLabel",
+        "type": "string | undefined",
+        "required": false
+      },
+      {
+        "name": "minAreaSize",
+        "type": "number | undefined",
+        "required": false
+      },
+      {
+        "name": "mode",
+        "type": "DrawMode | undefined",
+        "required": false,
+        "default": "DrawMode.POLYGON"
+      },
+      {
+        "name": "model",
+        "type": "DrawModel | undefined",
+        "required": false
+      },
+      {
+        "name": "pointerPrecision",
+        "type": "PointerPrecisionOption | undefined",
+        "required": false
+      },
+      {
+        "name": "position",
+        "type": "Position | undefined",
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "update:mode",
+        "type": "[mode: DrawMode]"
+      },
+      {
+        "name": "update:model",
+        "type": "[model: DrawModel | undefined]"
+      }
+    ],
+    "slots": [
+      {
+        "name": "buttons",
+        "type": "{ mode: DrawMode; setMode: (mode: DrawMode) => void; }",
+        "description": "Replaces the default mode buttons."
+      }
+    ],
+    "exposed": [
+      {
+        "name": "draw",
+        "type": "DrawPlugin"
+      }
+    ]
+  }
+]
