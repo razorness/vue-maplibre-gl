@@ -93,3 +93,51 @@
 .VPDoc:not(.has-aside) .content-container {
 	max-width: 1024px;
 }
+
+/* ---- demo chrome ------------------------------------------------------------------------- */
+
+.demo-bar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	align-items: center;
+	padding: 0.6rem 0.8rem;
+	border-bottom: 1px solid var(--vp-c-divider);
+	background: var(--vp-c-bg-soft);
+	font-size: 0.85rem;
+}
+
+.demo-bar label {
+	display: inline-flex;
+	gap: 0.4rem;
+	align-items: center;
+}
+
+.demo-bar button {
+	padding: 0.2rem 0.6rem;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 5px;
+	background: var(--vp-c-bg);
+	font-size: 0.85rem;
+	cursor: pointer;
+}
+
+.demo-status {
+	margin: 0;
+	padding: 0.5rem 0.8rem;
+	border-top: 1px solid var(--vp-c-divider);
+	color: var(--vp-c-text-2);
+	font-size: 0.85rem;
+}
+
+.demo-bar .demo-status {
+	padding: 0;
+	border: 0;
+}
+
+.demo-pin {
+	font-size: 1.75rem;
+	line-height: 1;
+	cursor: grab;
+	filter: drop-shadow(0 1px 2px rgb(0 0 0 / 40%));
+}

@@ -28,6 +28,11 @@ Props follow maplibre's option names, but a hyphen is not a valid identifier. `s
 `source-layer` when the layer object is built. The same applies to `mapStyle` → `style` on `MglMap`.
 :::
 
+<DemoSourcesLayers />
+
+The sliders change `paint` properties and the button replaces the source data. Neither recreates
+anything: the paint change goes through `setPaintProperty` per property, the data through `setData`.
+
 ## Nesting binds them together
 
 A layer inside a source needs no `source` prop:

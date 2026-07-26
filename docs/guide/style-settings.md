@@ -24,6 +24,8 @@ survive a style switch:
 | `MglImage`       | `addImage` / `updateImage` |
 | `MglGlobalState` | `setGlobalStateProperty`   |
 
+<DemoGlobe />
+
 ## Why these need a component at all
 
 Each of those calls shares an awkward lifecycle: it only works once the style has loaded, **and** every

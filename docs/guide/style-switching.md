@@ -32,6 +32,8 @@ What happens, in order:
 `style.load` ([maplibre-gl-js#2587](https://github.com/maplibre/maplibre-gl-js/issues/2587)), and the
 whole sequence hinges on that event.
 
+<DemoStyleSwitch />
+
 ## With a plain `setStyle` or a changed `mapStyle` prop
 
 ```vue

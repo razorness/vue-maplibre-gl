@@ -15,6 +15,8 @@ The slot content is rendered into a **detached** element that is handed to mapli
 the content is teleported rather than rendered as a normal child, and why you cannot reach it through the
 component's own DOM subtree.
 
+<DemoMarkerPopup />
+
 ## Dragging
 
 ```vue

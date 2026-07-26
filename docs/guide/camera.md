@@ -9,6 +9,8 @@ Six camera properties are two-way bindable:
 `center`, `zoom`, `bearing`, `pitch`, `roll` and `bounds`. Set one and the map moves; move the map and the
 binding updates.
 
+<DemoCamera />
+
 ## Only what you bind is bound
 
 Nothing is wired for a property you did not `v-model`. If you only bind `zoom`, no `moveend` handler is
