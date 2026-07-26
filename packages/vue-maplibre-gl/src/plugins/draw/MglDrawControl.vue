@@ -23,7 +23,7 @@ import { ButtonType } from 'components/buttonType';
 import MglCustomControl from 'components/controls/MglCustomControl.vue';
 import { Position, positionProp } from 'components/controls/position.enum';
 import MglButton from 'components/MglButton.vue';
-import { DrawMode, DrawPlugin, type DrawModel, type PointerPrecisionOption } from 'plugins/draw';
+import { DrawMode, DrawPlugin, type DrawModel, type DrawStyle, type PointerPrecisionOption } from 'plugins/draw';
 import { fitBoundsOptionsSymbol, isLoadedSymbol, mapSymbol } from 'types';
 
 defineOptions({ name: 'MglDrawControl' });
@@ -46,7 +46,15 @@ const props = defineProps({
 	/** Label shown on an area below `minAreaSize`. */
 	minAreaLabel: String,
 	/** Grab radius in pixels for vertices and midpoints. Defaults to 24 for mouse and 36 for touch. */
-	pointerPrecision: Object as PropType<PointerPrecisionOption>
+	pointerPrecision: Object as PropType<PointerPrecisionOption>,
+	/**
+	 * Replaces the whole layer style array. Each entry is a layer specification without `source`, which
+	 * the plugin fills in with its own; `DefaultDrawStyles` is the starting point to copy from.
+	 *
+	 * The README documented this as `:style` until v6, which landed on the DOM style attribute and never
+	 * reached the plugin.
+	 */
+	styles: Array as PropType<DrawStyle[]>
 });
 
 const emit = defineEmits<{
@@ -75,6 +83,7 @@ const draw: DrawPlugin = shallowReactive(
 		autoZoom: props.autoZoom,
 		pointerPrecision: props.pointerPrecision,
 		minArea: { size: props.minAreaSize, color: props.minAreaColor, label: props.minAreaLabel },
+		styles: props.styles,
 		fitBoundsOptions,
 		onUpdate: model => emit('update:model', model),
 		waitForSetup: true
@@ -130,6 +139,11 @@ watch(
 	() => props.minAreaLabel,
 	// was setMinAreaColor(props.minAreaLabel) — copy/paste, so the label never updated
 	() => draw.setMinAreaLabel(props.minAreaLabel)
+);
+/* `setStyles` removes the old layers and adds the new ones, so a whole new array is the unit of change */
+watch(
+	() => props.styles,
+	styles => styles && draw.setStyles(styles)
 );
 watch(isLoaded, () => isLoaded.value && draw.setup(), { immediate: true });
 

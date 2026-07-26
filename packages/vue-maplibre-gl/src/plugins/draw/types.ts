@@ -1,5 +1,5 @@
 import type { Feature, Polygon, Position } from 'geojson';
-import type { LayerSpecification, LngLat } from 'maplibre-gl';
+import type { DistributiveOmit, LayerSpecification, LngLat } from 'maplibre-gl';
 import type { FitBoundsOptions } from 'types';
 
 /*
@@ -37,8 +37,15 @@ export interface PointerPrecisionOption {
 	touch: number; // default 36px
 }
 
-type WithoutSource<T> = T extends any ? Omit<T, 'source'> : never;
-export type DrawStyle = WithoutSource<LayerSpecification>;
+/**
+ * A layer specification without `source` — the plugin fills that in with its own source id.
+ *
+ * Uses maplibre's exported `DistributiveOmit` rather than a hand-rolled `T extends any ? Omit<…>`,
+ * which is the same thing but ours to maintain. It has to distribute over the union: a plain
+ * `Omit<LayerSpecification, 'source'>` collapses the ten layer kinds into one object type and loses the
+ * discrimination between `paint` shapes.
+ */
+export type DrawStyle = DistributiveOmit<LayerSpecification, 'source'>;
 
 export interface DrawFeatureProperties {
 	center?: Position;
