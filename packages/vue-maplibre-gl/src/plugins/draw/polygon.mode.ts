@@ -31,22 +31,23 @@ export class PolygonMode extends AbstractDrawMode {
 		switch (this._mode) {
 			case 'create':
 				polygon = this.getPolygon();
+				const createRing = this.ring;
 
 				// check if it's a closing click
-				if (this.isNearby(polygon.geometry.coordinates[0][0], e.point, this.isTouchEvent(e))) {
-					polygon.geometry.coordinates[0].splice(1, 1); // remove last created by mousedown
+				if (this.isNearby(createRing[0]!, e.point, this.isTouchEvent(e))) {
+					createRing.splice(1, 1); // remove last created by mousedown
 					this.endCreation();
 					return;
 				}
 
-				polygon.geometry.coordinates[0].splice(1, 0, pos);
-				this.collection!.features[1].geometry.coordinates[1] = pos;
+				createRing.splice(1, 0, pos);
+				this.vertices.geometry.coordinates[1] = pos;
 
-				const len = polygon.geometry.coordinates[0].length,
+				const len = createRing.length,
 					helperVertex = len - 2;
 
 				if (polygon.properties.hasHelperVertex && len === 5) {
-					polygon.geometry.coordinates[0].splice(helperVertex, 1);
+					createRing.splice(helperVertex, 1);
 					polygon.properties.hasHelperVertex = false;
 				}
 				break;
@@ -56,20 +57,21 @@ export class PolygonMode extends AbstractDrawMode {
 				if (e.originalEvent.ctrlKey && this.collection) {
 					e.preventDefault();
 
-					const polygon = this.getPolygon(),
-						len = polygon.geometry.coordinates[0].length;
+					const ring = this.ring,
+						len = ring.length;
 
 					if (len < 5) {
 						// we dont remove vertices on triangles
 						return;
 					}
 
-					for (let i = 0; i < len; i++) {
-						if (this.isNearby(polygon.geometry.coordinates[0][i], e.point, this.isTouchEvent(e))) {
-							polygon.geometry.coordinates[0].splice(i, 1);
+					for (const [i, position] of ring.entries()) {
+						if (this.isNearby(position, e.point, this.isTouchEvent(e))) {
+							ring.splice(i, 1);
 							if (i === 0) {
-								polygon.geometry.coordinates[0].splice(-1, 1);
-								polygon.geometry.coordinates[0].push(polygon.geometry.coordinates[0][0]);
+								// the ring is closed, so dropping the first position also drops the repeat at the end
+								ring.splice(-1, 1);
+								ring.push(ring[0]!);
 							}
 							this.generateCollectionWithVertexes();
 							void this.source?.setData(this.collection);
@@ -95,7 +97,7 @@ export class PolygonMode extends AbstractDrawMode {
 					},
 					properties: { meta: 'polygon', hasHelperVertex: true }
 				});
-				this.collection!.features[1].geometry.coordinates = [pos, pos];
+				this.vertices.geometry.coordinates = [pos, pos];
 
 				this._mode = 'create';
 		}
@@ -133,13 +135,13 @@ export class PolygonMode extends AbstractDrawMode {
 				polygon = this.getPolygon();
 				pos = e.lngLat.toArray();
 
-				const len = polygon.geometry.coordinates[0].length,
-					helperVertex = len - 2;
-				polygon.geometry.coordinates[0][1] = pos;
+				const moveRing = this.ring,
+					helperVertex = moveRing.length - 2;
+				moveRing[1] = pos;
 				if (polygon.properties!.hasHelperVertex) {
 					const npos = this.map.unproject([e.point.x + 1, e.point.y]),
-						dist = Math.abs((npos.lng - pos[0]) / 3);
-					polygon.geometry.coordinates[0][helperVertex] = this.calculateB(pos, polygon.geometry.coordinates[0][0], dist);
+						dist = Math.abs((npos.lng - pos[0]!) / 3);
+					moveRing[helperVertex] = this.calculateB(pos, moveRing[0]!, dist);
 				}
 				this.render();
 				break;
@@ -154,10 +156,11 @@ export class PolygonMode extends AbstractDrawMode {
 				polygon = this.getPolygon();
 
 				const lngd = e.lngLat.lng - this._moveStart.start.lng,
-					latd = e.lngLat.lat - this._moveStart.start.lat;
-				for (let i = 0, len = polygon.geometry.coordinates[0].length; i < len; i++) {
-					polygon.geometry.coordinates[0][i][0] = this._moveStart.polygon[i][0] + lngd;
-					polygon.geometry.coordinates[0][i][1] = this._moveStart.polygon[i][1] + latd;
+					latd = e.lngLat.lat - this._moveStart.start.lat,
+					dragSnapshot = this._moveStart.polygon;
+				for (const [i, position] of this.ring.entries()) {
+					position[0] = dragSnapshot[i]![0]! + lngd;
+					position[1] = dragSnapshot[i]![1]! + latd;
 				}
 				this.generateCollectionWithVertexes();
 				this.render();
@@ -173,14 +176,15 @@ export class PolygonMode extends AbstractDrawMode {
 				polygon = this.getPolygon();
 				pos = e.lngLat.toArray();
 
-				for (let i = 0, len = polygon.geometry.coordinates[0].length; i < len; i++) {
-					if (
-						this._moveStart.polygon[i][0] === this._moveStart.point![0] &&
-						this._moveStart.polygon[i][1] === this._moveStart.point![1]
-					) {
-						polygon.geometry.coordinates[0][i] = pos;
+				const vertexRing = this.ring,
+					vertexSnapshot = this._moveStart.polygon,
+					grabbed = this._moveStart.point!;
+				for (const [i] of vertexRing.entries()) {
+					if (vertexSnapshot[i]![0] === grabbed[0] && vertexSnapshot[i]![1] === grabbed[1]) {
+						vertexRing[i] = pos;
+						// the ring is closed, so moving the first position has to move the repeat at the end too
 						if (i === 0) {
-							polygon.geometry.coordinates[0][polygon.geometry.coordinates[0].length - 1] = pos;
+							vertexRing[vertexRing.length - 1] = pos;
 						}
 						break;
 					}
@@ -200,10 +204,12 @@ export class PolygonMode extends AbstractDrawMode {
 				polygon = this.getPolygon();
 				pos = e.lngLat.toArray();
 
-				for (let i = 0, len = polygon.geometry.coordinates[0].length; i < len - 1; i++) {
-					const midpoint = this.getMidpoint(polygon.geometry.coordinates[0][i], polygon.geometry.coordinates[0][i + 1]);
-					if (midpoint[0] === this._moveStart.point![0] && midpoint[1] === this._moveStart.point![1]) {
-						polygon.geometry.coordinates[0].splice(i + 1, 0, midpoint);
+				const addRing = this.ring,
+					grabbedMidpoint = this._moveStart.point!;
+				for (let i = 0, len = addRing.length; i < len - 1; i++) {
+					const midpoint = this.getMidpoint(addRing[i]!, addRing[i + 1]!);
+					if (midpoint[0] === grabbedMidpoint[0] && midpoint[1] === grabbedMidpoint[1]) {
+						addRing.splice(i + 1, 0, midpoint);
 
 						this._moveStart = {
 							polygon: this.clonePolygon(),
@@ -233,27 +239,19 @@ export class PolygonMode extends AbstractDrawMode {
 			return;
 		}
 
-		for (let i = 0, len = this.collection.features[1].geometry.coordinates.length; i < len; i++) {
-			if (this.isNearby(this.collection.features[1].geometry.coordinates[i] as Position, e.point, this.isTouchEvent(e))) {
+		for (const vertex of this.vertices.geometry.coordinates) {
+			if (this.isNearby(vertex, e.point, this.isTouchEvent(e))) {
 				e.preventDefault();
-				this._moveStart = {
-					polygon: this.clonePolygon(),
-					point: this.collection.features[1].geometry.coordinates[i] as Position,
-					start: e.lngLat
-				};
+				this._moveStart = { polygon: this.clonePolygon(), point: vertex, start: e.lngLat };
 				this._mode = 'move_vertex';
 				return;
 			}
 		}
 
-		for (let i = 0, len = this.collection.features[2].geometry.coordinates.length; i < len; i++) {
-			if (this.isNearby(this.collection.features[2].geometry.coordinates[i] as Position, e.point, this.isTouchEvent(e))) {
+		for (const midpoint of this.midpoints.geometry.coordinates) {
+			if (this.isNearby(midpoint, e.point, this.isTouchEvent(e))) {
 				e.preventDefault();
-				this._moveStart = {
-					polygon: this.clonePolygon(),
-					point: this.collection.features[2].geometry.coordinates[i] as Position,
-					start: e.lngLat
-				};
+				this._moveStart = { polygon: this.clonePolygon(), point: midpoint, start: e.lngLat };
 				this._mode = 'add_vertex';
 				return;
 			}
@@ -381,27 +379,28 @@ export class PolygonMode extends AbstractDrawMode {
 			return;
 		}
 
-		const polygon = this.getPolygon(),
-			len = polygon.geometry.coordinates[0].length;
+		const ring = this.ring,
+			len = ring.length;
 
-		this.collection.features[1].geometry.coordinates = polygon.geometry.coordinates[0].slice(0, -1);
+		// the ring repeats its first position at the end; a vertex must not be drawn twice for it
+		this.vertices.geometry.coordinates = ring.slice(0, -1);
 
 		const midpoints: Position[] = [];
 		for (let i = 0; i < len - 1; i++) {
-			midpoints.push(this.getMidpoint(polygon.geometry.coordinates[0][i], polygon.geometry.coordinates[0][i + 1]));
+			midpoints.push(this.getMidpoint(ring[i]!, ring[i + 1]!));
 		}
-		this.collection.features[2].geometry.coordinates = midpoints;
+		this.midpoints.geometry.coordinates = midpoints;
 
 	}
 
 	private calculateB(a: Position, c: Position, dist: number): Position {
 
-		const dx = a[0] - c[0];
-		const dy = a[1] - c[1];
+		const dx = a[0]! - c[0]!;
+		const dy = a[1]! - c[1]!;
 		const lengthAC = Math.sqrt(dx * dx + dy * dy);
 
-		const xB = c[0] + dist * (-dy / lengthAC);
-		const yB = c[1] + dist * (dx / lengthAC);
+		const xB = c[0]! + dist * (-dy / lengthAC);
+		const yB = c[1]! + dist * (dx / lengthAC);
 
 		return [xB, yB];
 

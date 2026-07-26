@@ -1,7 +1,7 @@
 <template>
 	<div class="demo">
 		<ClientOnly>
-			<MglMap :map-style="demoStyles[0].style" :center="[7.1, 50.7]" :zoom="4" class="demo-map" style="height: 340px">
+			<MglMap :map-style="demoStyles[0]!.style" :center="[7.1, 50.7]" :zoom="4" class="demo-map" style="height: 340px">
 				<MglStyleSwitchControl :map-styles="demoStyles" position="top-right" />
 				<!--
 					The point of the demo: this source and layer are added by the components, thrown away by

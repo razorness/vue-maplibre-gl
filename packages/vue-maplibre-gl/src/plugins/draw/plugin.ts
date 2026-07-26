@@ -159,8 +159,8 @@ export class DrawPlugin {
 	}
 
 	private removeStyles() {
-		for (let i = 0, len = this.options.styles.length; i < len; i++) {
-			this.map.removeLayer(this.options.styles[i].id);
+		for (const style of this.options.styles) {
+			this.map.removeLayer(style.id);
 		}
 	}
 
@@ -187,9 +187,9 @@ export class DrawPlugin {
 				 * matched was treated as closed even when the latitudes differed — leaving an open
 				 * ring that maplibre then renders with a gap.
 				 */
-				isClosed = start[0] === end[0] && start[1] === end[1];
+				isClosed = start![0] === end![0] && start![1] === end![1];
 			if (!isClosed) {
-				ring.push(start);
+				ring.push(start!);
 			}
 		}
 		return m;
@@ -258,9 +258,9 @@ export class DrawPlugin {
 		this.map.off('resize', this.zoomToModel);
 		try {
 			if (this.map) {
-				for (let i = 0, len = this.options.styles.length; i < len; i++) {
-					if (this.map.getLayer(this.options.styles[i].id)) {
-						this.map.removeLayer(this.options.styles[i].id);
+				for (const style of this.options.styles) {
+					if (this.map.getLayer(style.id)) {
+						this.map.removeLayer(style.id);
 					}
 				}
 				if (this.map.getSource(DrawPlugin.SOURCE_ID)) {

@@ -42,7 +42,7 @@ function collection(map: FakeMap) {
 	};
 }
 
-const ring = (map: FakeMap) => collection(map).features[0].geometry.coordinates[0];
+const ring = (map: FakeMap) => collection(map).features[0].geometry.coordinates[0]!;
 
 /*
  * `onMouseMove` is throttled to 16 ms, and in `create` mode that move is what positions the rubber-band
@@ -253,7 +253,7 @@ describe('circle mode', () => {
 		expect(polygon.properties.radius).toBeGreaterThan(0);
 		expect(polygon.properties.center).toBeDefined();
 		// a circle is approximated by many positions, not by the handful a polygon has
-		expect(polygon.geometry.coordinates[0].length).toBeGreaterThan(16);
+		expect(polygon.geometry.coordinates[0]!.length).toBeGreaterThan(16);
 	});
 
 	it('computes the area from the radius rather than from the polygon', () => {

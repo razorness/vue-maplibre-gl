@@ -309,8 +309,8 @@ export default defineComponent({
 								geometry: {
 									type: 'LineString',
 									coordinates: [
-										...geojsonSource.data.value.features[0]!.geometry.coordinates,
-										lineString[geojsonSource.data.value.features[0]!.geometry.coordinates.length]
+										...geojsonSource.data.value.features[0]!.geometry.coordinates!,
+										lineString[geojsonSource.data.value.features[0]!.geometry.coordinates.length]!
 									]
 								}
 							}

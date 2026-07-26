@@ -1,6 +1,6 @@
 import { booleanPointInPolygon } from '@turf/boolean-point-in-polygon';
 import { distance } from '@turf/distance';
-import type { Feature, Polygon, Position } from 'geojson';
+import type { Feature, Polygon } from 'geojson';
 import type { GeoJSONSource, Map, MapLayerMouseEvent, MapLayerTouchEvent } from 'maplibre-gl';
 import { throttle } from 'lib/debounce';
 import { AbstractDrawMode } from 'plugins/draw/mode.abstract';
@@ -62,8 +62,8 @@ export class CircleMode extends AbstractDrawMode {
 			return;
 		}
 
-		for (let i = 0, len = this.collection.features[1].geometry.coordinates.length; i < len; i++) {
-			if (this.isNearby(this.collection.features[1].geometry.coordinates[i] as Position, e.point, this.isTouchEvent(e))) {
+		for (const [i, vertex] of this.vertices.geometry.coordinates.entries()) {
+			if (this.isNearby(vertex, e.point, this.isTouchEvent(e))) {
 				e.preventDefault();
 				this._resizeAnker = i;
 				this._mode = 'resize';
@@ -99,12 +99,14 @@ export class CircleMode extends AbstractDrawMode {
 
 				const latd = e.lngLat.lat - this._moveStart.start.lat,
 					lngd = e.lngLat.lng - this._moveStart.start.lng;
-				for (let i = 0, len = polygon.geometry.coordinates[0].length; i < len; i++) {
-					polygon.geometry.coordinates[0][i][1] = this._moveStart.polygon[i][1] + latd;
-					polygon.geometry.coordinates[0][i][0] = this._moveStart.polygon[i][0] + lngd;
+				const ring = this.ring,
+					snapshot = this._moveStart.polygon;
+				for (const [i, position] of ring.entries()) {
+					position[1] = snapshot[i]![1]! + latd;
+					position[0] = snapshot[i]![0]! + lngd;
 				}
-				polygon.properties.center![1] = this._moveStart.point![1] + latd;
-				polygon.properties.center![0] = this._moveStart.point![0] + lngd;
+				polygon.properties.center![1] = this._moveStart.point![1]! + latd;
+				polygon.properties.center![0] = this._moveStart.point![0]! + lngd;
 
 				this.generateVertices();
 				this.render();
@@ -119,7 +121,7 @@ export class CircleMode extends AbstractDrawMode {
 
 				polygon = this.getPolygon();
 				const radius = distance(polygon.properties.center!, e.lngLat.toArray(), { units: 'meters' });
-				polygon.geometry.coordinates[0] = this.createCircle(polygon.properties.center!, radius).geometry.coordinates[0];
+				polygon.geometry.coordinates[0] = this.createCircle(polygon.properties.center!, radius).geometry.coordinates[0]!;
 				polygon.properties.radius = radius!;
 
 				this.generateVertices();
@@ -157,7 +159,7 @@ export class CircleMode extends AbstractDrawMode {
 		const polygon = this.getPolygon(),
 			vertices = this.createCircle(polygon.properties.center!, polygon.properties.radius!, 4);
 
-		this.collection.features[1].geometry.coordinates = vertices.geometry.coordinates[0].slice(0, -1);
+		this.vertices.geometry.coordinates = vertices.geometry.coordinates[0]!.slice(0, -1);
 
 	}
 

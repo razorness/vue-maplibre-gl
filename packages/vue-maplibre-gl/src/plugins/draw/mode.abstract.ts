@@ -38,8 +38,29 @@ export abstract class AbstractDrawMode {
 		return this.collection!.features[0] as Feature<Polygon, DrawFeatureProperties>;
 	}
 
+	/**
+	 * The polygon's outer ring.
+	 *
+	 * Every mode works on a single-ring polygon and `getPolygon()` only ever returns one that has its
+	 * ring, so `coordinates[0]` is present by construction. Asserting it once here is what keeps
+	 * `noUncheckedIndexedAccess` from flagging the ~40 sites that would otherwise index it directly.
+	 */
+	get ring(): Position[] {
+		return this.getPolygon().geometry.coordinates[0]!;
+	}
+
+	/** The vertex feature — `features[1]` of the positional collection. */
+	get vertices(): Feature<MultiPoint, DrawFeatureProperties> {
+		return this.collection!.features[1] as Feature<MultiPoint, DrawFeatureProperties>;
+	}
+
+	/** The midpoint feature — `features[2]` of the positional collection. */
+	get midpoints(): Feature<MultiPoint, DrawFeatureProperties> {
+		return this.collection!.features[2] as Feature<MultiPoint, DrawFeatureProperties>;
+	}
+
 	clonePolygon(): Position[] {
-		return this.getPolygon().geometry.coordinates[0].map(p => [p[0], p[1]]);
+		return this.ring.map(p => [p[0]!, p[1]!]);
 	}
 
 	isNearby(a: Position, b: { x: number; y: number }, isTouch: boolean): boolean {
@@ -50,7 +71,7 @@ export abstract class AbstractDrawMode {
 	}
 
 	getMidpoint(a: Position, b: Position): Position {
-		return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+		return [(a[0]! + b[0]!) / 2, (a[1]! + b[1]!) / 2];
 	}
 
 	clear() {

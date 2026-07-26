@@ -90,7 +90,7 @@ describe('DrawPlugin styles', () => {
 		plugin.setup();
 
 		expect(map.getLayer('only-fill')).toBeDefined();
-		expect(map.getLayer(DefaultDrawStyles[0].id)).toBeUndefined();
+		expect(map.getLayer(DefaultDrawStyles[0]!.id)).toBeUndefined();
 	});
 
 	it('swaps the layers when the styles change at runtime', () => {
@@ -100,7 +100,7 @@ describe('DrawPlugin styles', () => {
 		plugin.setStyles([{ id: 'swapped', type: 'fill', paint: { 'fill-color': '#fff' } }]);
 
 		expect(map.getLayer('swapped')).toBeDefined();
-		expect(map.getLayer(DefaultDrawStyles[0].id)).toBeUndefined();
+		expect(map.getLayer(DefaultDrawStyles[0]!.id)).toBeUndefined();
 	});
 });
 
@@ -111,7 +111,7 @@ describe('DrawPlugin.prepareModel', () => {
 		const ring = prepared.geometry.coordinates[0];
 
 		expect(ring).toHaveLength(5);
-		expect(ring[0]).toEqual(ring[ring.length - 1]);
+		expect(ring![0]).toEqual(ring![ring!.length - 1]);
 	});
 
 	it('leaves an already closed ring alone', () => {
@@ -146,7 +146,7 @@ describe('DrawPlugin.prepareModel', () => {
 		const ring = plugin.prepareModel(sameLng).geometry.coordinates[0];
 
 		expect(ring).toHaveLength(4);
-		expect(ring[ring.length - 1]).toEqual([0, 0]);
+		expect(ring![ring!.length - 1]).toEqual([0, 0]);
 	});
 
 	it('does not mutate the input', () => {
@@ -206,7 +206,7 @@ describe('DrawPlugin model and minArea', () => {
 		plugin.setModel(openSquare());
 
 		const data = lastData(map);
-		expect(data.features[0].geometry.coordinates[0]).toHaveLength(5);
+		expect(data.features[0]!.geometry.coordinates[0]).toHaveLength(5);
 	});
 
 	/*
@@ -220,8 +220,8 @@ describe('DrawPlugin model and minArea', () => {
 		plugin.setModel(openSquare(2));
 
 		const data = lastData(map);
-		expect(data.features[0].properties.meta).toBe('polygon');
-		expect(data.features[1].geometry.type).toBe('MultiPoint');
+		expect(data.features[0]!.properties.meta).toBe('polygon');
+		expect(data.features[1]!.geometry.type).toBe('MultiPoint');
 	});
 
 	it('registers the hatch pattern only when a minimum area is set', () => {
@@ -240,8 +240,8 @@ describe('DrawPlugin model and minArea', () => {
 		plugin.setModel(openSquare(0.001));
 
 		const data = lastData(map);
-		expect(data.features[0].properties.tooSmall).toBe(true);
-		expect(data.features[0].properties.minSizeLabel).toBe('too small');
+		expect(data.features[0]!.properties.tooSmall).toBe(true);
+		expect(data.features[0]!.properties.minSizeLabel).toBe('too small');
 	});
 
 	it('does not flag a polygon above the minimum area', () => {
@@ -250,7 +250,7 @@ describe('DrawPlugin model and minArea', () => {
 		plugin.setModel(openSquare(1));
 
 		const data = lastData(map);
-		expect(data.features[0].properties.tooSmall).toBe(false);
+		expect(data.features[0]!.properties.tooSmall).toBe(false);
 	});
 
 	/*
@@ -272,6 +272,6 @@ describe('DrawPlugin model and minArea', () => {
 		const { map, plugin } = makePlugin({}, openSquare());
 		plugin.setup();
 
-		expect(lastData(map).features[0].geometry.coordinates[0]).toHaveLength(5);
+		expect(lastData(map).features[0]!.geometry.coordinates[0]).toHaveLength(5);
 	});
 });

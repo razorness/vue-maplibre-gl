@@ -20,20 +20,8 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noUncheckedSideEffectImports": true,
-    /*
-     * STILL OFF, and measured rather than guessed: enabling it produces **184** errors, all of them in
-     * the draw plugin's geometry code (polygon.mode.ts 183, circle.mode.ts 48, plugin.ts 24,
-     * mode.abstract.ts 18 — files overlap in the count). Everything outside `plugins/draw` already
-     * satisfies it, so the flag is one refactor away from being turnable.
-     *
-     * What blocks it is the order of work, not the effort: 156 of the errors are
-     * `Object is possibly 'undefined'` on ring and feature indexing, and rewriting that many sites in
-     * pointer/ring math needs tests underneath. The plugin *surface* is now tested (test/unit/draw.spec.ts
-     * — setup, teardown, styles, ring closing, modes, minArea), but the pointer sequences of
-     * polygon.mode.ts and circle.mode.ts are not. Those come first; then accessors on
-     * `AbstractDrawMode` (`ring`, `vertices`, `midpoints`) collapse most of the remaining sites.
-     */
-    "noUncheckedIndexedAccess": false,
+    /* on since the draw plugin's geometry code was reworked to satisfy it; see CLAUDE.md */
+    "noUncheckedIndexedAccess": true,
     /* every TS enum was converted to a const object + same-named type, so nothing needs emitting */
     "erasableSyntaxOnly": true
   }
