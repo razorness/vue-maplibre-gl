@@ -115,7 +115,12 @@ export class FakeMap {
 
 	private isLoaded = false;
 	private readonly canvas = { addEventListener: () => {}, removeEventListener: () => {} };
-	private readonly canvasContainer = { appendChild: () => {}, removeChild: () => {} };
+	/*
+	 * A real element, because maplibre's canvas container is one and plugins append to it: the draw
+	 * plugin's CIRCLE_STATIC mode builds a DOM overlay and puts it here, which a stub with two no-op
+	 * methods swallowed silently.
+	 */
+	private readonly canvasContainer = document.createElement('div');
 
 	/* ---------------------------------------------------------------- events */
 

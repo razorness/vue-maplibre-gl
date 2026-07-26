@@ -113,7 +113,12 @@ export class CircleMode extends AbstractDrawMode {
 				break;
 
 			case 'resize':
-				if (!this._resizeAnker) {
+				/*
+				 * `=== undefined`, not `!`: the anchor is the *index* of the grabbed vertex, so grabbing the
+				 * first one stored `0` and the falsy check bailed out — resizing a circle by its first vertex
+				 * silently did nothing while the other three worked.
+				 */
+				if (this._resizeAnker === undefined) {
 					return;
 				}
 
