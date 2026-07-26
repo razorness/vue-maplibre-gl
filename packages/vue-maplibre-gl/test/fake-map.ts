@@ -465,10 +465,21 @@ export class FakeMap {
 
 	/* -------------------------------------------------------------- controls */
 
+	/*
+	 * maplibre appends whatever `onAdd` returns into the map container, and control code relies on that:
+	 * `MglCustomControl` and `MglStyleSwitchControl` teleport their slots into it, and
+	 * `MglFrameRateControl`'s `onRemove` reaches for `parentNode`. Keeping the element out of the DOM made
+	 * a teleport target unreachable and a removal throw, so the fake attaches it too.
+	 */
 	addControl(control: IControl) {
+
 		this.controls.push(control);
-		control.onAdd?.(this as never);
+		const element = control.onAdd?.(this as never);
+		if (element) {
+			this.controlContainer.append(element);
+		}
 		return this;
+
 	}
 	removeControl(control: IControl) {
 
@@ -490,6 +501,14 @@ export class FakeMap {
 	getCanvasContainer() {
 		return this.canvasContainer as unknown as HTMLElement;
 	}
+
+	/** Stands in for maplibre's control corners. In the document, so teleports and queries work. */
+	readonly controlContainer: HTMLElement = (() => {
+		const element = document.createElement('div');
+		element.className = 'maplibregl-control-container';
+		document.body.append(element);
+		return element;
+	})();
 
 	remove() {
 		this.removed = true;
