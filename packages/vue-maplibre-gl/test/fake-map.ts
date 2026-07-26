@@ -389,11 +389,26 @@ export class FakeMap {
 		this.renderWorldCopies = v;
 		return this;
 	}
-	project() {
-		return { x: 0, y: 0 };
+	/*
+	 * A linear, *invertible* projection — the draw plugin converts screen pixels to coordinates and back
+	 * (`isNearby` works in pixels, not with maplibre feature queries), so constant stubs made every
+	 * pointer test vacuous: everything was 0.5 pixels from everything else.
+	 *
+	 * Equirectangular with a fixed scale, y flipped like a screen. Not geographically meaningful, but
+	 * `unproject(project(x)) === x`, which is the only property the plugin relies on.
+	 */
+	static readonly PROJECTION_SCALE = 10;
+
+	project(lngLat: [number, number] | { lng: number; lat: number }) {
+		const [lng, lat] = Array.isArray(lngLat) ? lngLat : [lngLat.lng, lngLat.lat];
+		return { x: lng * FakeMap.PROJECTION_SCALE, y: -lat * FakeMap.PROJECTION_SCALE };
 	}
-	unproject() {
-		return { lng: 0, lat: 0, toArray: () => [0, 0] };
+
+	unproject(point: { x: number; y: number } | [number, number]) {
+		const [x, y] = Array.isArray(point) ? point : [point.x, point.y];
+		const lng = x / FakeMap.PROJECTION_SCALE;
+		const lat = -y / FakeMap.PROJECTION_SCALE;
+		return { lng, lat, toArray: () => [lng, lat] };
 	}
 	resize() {
 		return this;

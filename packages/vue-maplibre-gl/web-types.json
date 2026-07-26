@@ -4539,6 +4539,15 @@
                 "kind": "expression",
                 "type": "Position | undefined"
               }
+            },
+            {
+              "name": "styles",
+              "description": "Replaces the whole layer style array. Each entry is a layer specification without `source`, which the plugin fills in with its own; `DefaultDrawStyles` is the starting point to copy from. The README documented this as `:style` until v6, which landed on the DOM style attribute and never reached the plugin.",
+              "required": false,
+              "value": {
+                "kind": "expression",
+                "type": "DrawStyle[] | undefined"
+              }
             }
           ],
           "js": {

@@ -177,3 +177,49 @@ vi.mock('maplibre-gl', () => {
 		LogoControl: FakeControl
 	};
 });
+
+/*
+ * jsdom implements no canvas, so `getContext('2d')` returns null. The draw plugin draws its
+ * minimum-area hatch pattern to a canvas and hands the pixels to `map.addImage`, which means the whole
+ * minArea path is untestable without a 2D context. This records the calls instead of rasterising —
+ * enough to assert that the pattern is produced and registered, without pulling in the `canvas` package
+ * and its native build.
+ */
+const drawCalls: string[] = [];
+
+HTMLCanvasElement.prototype.getContext = function fakeGetContext(this: HTMLCanvasElement, kind: string) {
+	if (kind !== '2d') return null;
+	const record =
+		(name: string) =>
+		(...args: unknown[]) =>
+			void drawCalls.push(`${name}(${args.join(',')})`);
+	return {
+		canvas: this,
+		fillStyle: '',
+		strokeStyle: '',
+		lineWidth: 1,
+		globalAlpha: 1,
+		beginPath: record('beginPath'),
+		closePath: record('closePath'),
+		moveTo: record('moveTo'),
+		lineTo: record('lineTo'),
+		stroke: record('stroke'),
+		fill: record('fill'),
+		fillRect: record('fillRect'),
+		clearRect: record('clearRect'),
+		translate: record('translate'),
+		rotate: record('rotate'),
+		scale: record('scale'),
+		save: record('save'),
+		restore: record('restore'),
+		setTransform: record('setTransform'),
+		getImageData: (_x: number, _y: number, w: number, h: number) => ({
+			width: w,
+			height: h,
+			data: new Uint8ClampedArray(w * h * 4)
+		})
+	} as unknown as CanvasRenderingContext2D;
+} as typeof HTMLCanvasElement.prototype.getContext;
+
+/** What the code under test drew, for a test that wants to assert on it. */
+export const canvasDrawCalls = drawCalls;

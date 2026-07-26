@@ -3661,6 +3661,12 @@
         "type": "Position | undefined",
         "required": false,
         "description": "Corner of the map the control is placed in."
+      },
+      {
+        "name": "styles",
+        "type": "DrawStyle[] | undefined",
+        "required": false,
+        "description": "Replaces the whole layer style array. Each entry is a layer specification without `source`, which the plugin fills in with its own; `DefaultDrawStyles` is the starting point to copy from. The README documented this as `:style` until v6, which landed on the DOM style attribute and never reached the plugin."
       }
     ],
     "events": [
