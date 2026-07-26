@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/web-types",
   "framework": "vue",
   "name": "vue-maplibre-gl",
-  "version": "5.6.1",
+  "version": "6.0.0",
   "js-types-syntax": "typescript",
   "description-markup": "markdown",
   "framework-config": {

@@ -16,6 +16,10 @@ pnpm lint:fix       # all three with --fix / --write
 pnpm format         # prettier --write .
 pnpm format:check   # prettier --check .  (part of `pnpm lint`)
 pnpm test           # vitest
+pnpm meta           # regenerate the API metadata + web-types.json (see Docs)
+pnpm docs:dev       # VitePress site (which is also the second playground)
+pnpm docs:build     # build the docs
+pnpm changeset      # record a change for the next release
 pnpm upgrade        # npx taze major -I -r (interactive dep upgrade)
 ```
 
@@ -431,7 +435,33 @@ Two things worth knowing when adding one:
   up on all ten named layer wrappers. `positionProp()` is the counter-example: it _returns_ the prop
   definition, so there is no property to annotate and each control documents `position` itself.
 
-## Conventions
+## CI and release
+
+Three workflows, all on pnpm with `--frozen-lockfile`:
+
+| Workflow      | Trigger            | Does                                                               |
+| ------------- | ------------------ | ------------------------------------------------------------------ |
+| `ci.yml`      | push to master, PR | four jobs: quality, tests (node 20.19/22.12/24), build, docs       |
+| `release.yml` | push to master     | changesets: opens the version PR, or publishes when one was merged |
+| `docs.yml`    | push to master     | builds the docs and deploys to GitHub Pages                        |
+
+The lint steps are listed individually rather than as `pnpm lint`, so a red run names the tool. Two checks
+exist that a local `pnpm lint` does not do:
+
+- **`pnpm meta` must produce no diff.** `web-types.json` ships in the tarball, so a stale one means the
+  published IDE metadata describes an older API than the code. Run `pnpm meta` and commit whenever a prop,
+  event, slot or doc comment changes — including after a **version bump**, since the version is embedded.
+- **`dist/` must contain no `.cjs`.** maplibre-gl v6 has no `require` condition, so a CommonJS bundle here
+  would be a file nobody can load.
+
+**The coverage gate is deliberately not enforced in CI yet.** `vitest.config.ts` has the 100 % thresholds,
+but actual coverage is ~41 %, so the step runs `pnpm test:coverage || true`. Drop the `|| true` when
+phase 7 lands — the gate is in place, only the tests are missing.
+
+Releases go through **changesets**: `pnpm changeset` to record one, and the workflow does the rest.
+`changeset:version` also runs `pnpm meta` and `pnpm format`, because the bump changes `web-types.json`.
+Publishing uses npm's OIDC trusted publishing plus `NPM_CONFIG_PROVENANCE`, so there is no token in the
+repo — **that path has never actually run**; watch the first release and expect to adjust the auth step.
 
 - **Whitespace is Prettier's job, not yours** — write it however, then `pnpm format`. See the
   _Commands_ section for the settings.

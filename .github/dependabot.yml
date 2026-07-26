@@ -1,18 +1,31 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
-
+# Groups rather than an allowlist: the previous config only ever offered updates for maplibre-gl, vue
+# and typescript, which is how the rest of the toolchain fell four years behind. Everything is in scope
+# now, batched so a week produces a handful of PRs instead of thirty.
 version: 2
 updates:
   - package-ecosystem: 'npm'
-    directory: '/' # Location of package manifests
+    directory: '/'
     schedule:
       interval: 'weekly'
-    allow:
-      - dependency-name: 'maplibre-gl'
-        dependency-type: 'direct'
-      - dependency-name: 'vue'
-        dependency-type: 'direct'
-      - dependency-name: 'typescript'
-        dependency-type: 'direct'
+    open-pull-requests-limit: 10
+    groups:
+      maplibre:
+        patterns: ['maplibre-gl', '@maplibre/*']
+      vue:
+        patterns: ['vue', 'vue-tsc', '@vue/*', 'vue-component-meta', 'vitepress']
+      turf:
+        patterns: ['@turf/*']
+      linting:
+        patterns: ['oxlint*', 'eslint*', '@eslint/*', 'prettier*', '@ianvs/*', 'globals']
+      build-and-test:
+        patterns: ['vite', 'vite-*', 'vitest', '@vitest/*', 'rollup', 'jsdom', 'typescript', 'publint', '@arethetypeswrong/*']
+      types:
+        patterns: ['@types/*']
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    groups:
+      actions:
+        patterns: ['*']

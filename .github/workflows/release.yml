@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write # changesets pushes the version PR and the tag
+  pull-requests: write
+  id-token: write # OIDC, for `npm publish --provenance`
+
+jobs:
+  release:
+    name: Version PR or publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # changesets needs the history to work out what changed
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - run: pnpm install --frozen-lockfile
+
+      # Publishing an unbuilt or unverified tree is the one mistake that cannot be taken back once
+      # it is on npm, so the gates run here too rather than being inherited from the CI workflow.
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+
+      # Either opens/updates the "Version Packages" PR, or — when such a PR was just merged and a
+      # changeset was consumed — publishes. `--provenance` needs the OIDC token above and links the
+      # tarball to this workflow run.
+      - name: Create version PR or publish
+        uses: changesets/action@v1
+        with:
+          version: pnpm changeset:version
+          publish: pnpm changeset:publish
+          commit: 'Release the versioned packages'
+          title: 'Release the versioned packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
