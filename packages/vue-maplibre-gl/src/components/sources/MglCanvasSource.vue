@@ -44,7 +44,10 @@ const props = defineProps({
 	canvas: [Object, String] as PropType<CanvasSourceSpecification['canvas']>
 });
 
-defineSlots<{ default?: () => unknown }>();
+defineSlots<{
+	/** Layers for this source. They pick up its id automatically, and are removed before the source is. */
+	default?: () => unknown;
+}>();
 
 /*
  * Previously this file also carried a `keysOf<MglSourceOptions<'canvas'>>({ … })` list purely to know

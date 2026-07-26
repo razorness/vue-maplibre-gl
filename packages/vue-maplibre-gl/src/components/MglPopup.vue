@@ -49,7 +49,10 @@ const emit = defineEmits<{
 	popupclose: [];
 }>();
 
-defineSlots<{ default?: () => unknown }>();
+defineSlots<{
+	/** Popup content. Teleported into the popup element, which maplibre owns. */
+	default?: () => unknown;
+}>();
 
 /*
  * maplibre takes ownership of this node via `setDOMContent`, so it is created once and the slot is

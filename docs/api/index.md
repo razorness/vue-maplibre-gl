@@ -16,6 +16,14 @@ from the code.
 | [Composables](/api/composables)     | the composable API                                   |
 | [Draw plugin](/draw/)               | `MglDrawControl` and `DrawPlugin`                    |
 
+::: info Why the event tables have no descriptions
+Props and slots carry their doc comments into these tables. Events do not, and cannot: emits are declared
+as a _type_ (`defineEmits<MglLayerEmits>()`), and `vue-component-meta` reports the payload type but drops
+the JSDoc for type-declared emits — whether the type is inline or imported. The comments exist in the
+source and show up on hover in an editor; what they say is in the guides. Payload types below are real,
+generated ones.
+:::
+
 ## Conventions across all components
 
 **Props are named after maplibre's options.** Two exceptions, both forced: `mapStyle` stands in for

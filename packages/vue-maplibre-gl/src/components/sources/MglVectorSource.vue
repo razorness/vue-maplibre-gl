@@ -70,7 +70,10 @@ const props = defineProps({
 	encoding: String as PropType<VectorSourceSpecification['encoding']>
 });
 
-defineSlots<{ default?: () => unknown }>();
+defineSlots<{
+	/** Layers for this source. They pick up its id automatically, and are removed before the source is. */
+	default?: () => unknown;
+}>();
 
 /*
  * Previously this file also carried a `keysOf<MglSourceOptions<'vector'>>({ … })` list purely to know

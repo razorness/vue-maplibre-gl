@@ -1089,7 +1089,8 @@
           },
           "slots": [
             {
-              "name": "default"
+              "name": "default",
+              "description": "Control content. Teleported into the control container once maplibre has added it."
             }
           ]
         },
@@ -1605,13 +1606,16 @@
           },
           "slots": [
             {
-              "name": "default"
+              "name": "default",
+              "description": "Replaces the whole control."
             },
             {
-              "name": "button"
+              "name": "button",
+              "description": "Replaces the button that opens the style list."
             },
             {
-              "name": "styleList"
+              "name": "styleList",
+              "description": "Replaces the list of styles."
             }
           ]
         },
@@ -1668,7 +1672,8 @@
           },
           "slots": [
             {
-              "name": "default"
+              "name": "default",
+              "description": "Button label, or extra content next to the icon."
             }
           ]
         },
@@ -2013,7 +2018,8 @@
           },
           "slots": [
             {
-              "name": "default"
+              "name": "default",
+              "description": "Popup content. Teleported into the popup element, which maplibre owns."
             }
           ]
         },
@@ -2255,7 +2261,8 @@
           },
           "slots": [
             {
-              "name": "default"
+              "name": "default",
+              "description": "Layers for this source. They pick up its id automatically, and are removed before the source is."
             }
           ]
         },
@@ -2410,7 +2417,8 @@
           },
           "slots": [
             {
-              "name": "default"
+              "name": "default",
+              "description": "Layers for this source. They pick up its id automatically, and are removed before the source is."
             }
           ]
         },
@@ -2457,7 +2465,8 @@
           },
           "slots": [
             {
-              "name": "default"
+              "name": "default",
+              "description": "Layers for this source. They pick up its id automatically, and are removed before the source is."
             }
           ]
         },
@@ -2567,7 +2576,8 @@
           },
           "slots": [
             {
-              "name": "default"
+              "name": "default",
+              "description": "Layers for this source. They pick up its id automatically, and are removed before the source is."
             }
           ]
         },
@@ -2713,7 +2723,8 @@
           },
           "slots": [
             {
-              "name": "default"
+              "name": "default",
+              "description": "Layers for this source. They pick up its id automatically, and are removed before the source is."
             }
           ]
         },
@@ -2832,7 +2843,8 @@
           },
           "slots": [
             {
-              "name": "default"
+              "name": "default",
+              "description": "Layers for this source. They pick up its id automatically, and are removed before the source is."
             }
           ]
         },
@@ -2879,7 +2891,8 @@
           },
           "slots": [
             {
-              "name": "default"
+              "name": "default",
+              "description": "Layers for this source. They pick up its id automatically, and are removed before the source is."
             }
           ]
         },

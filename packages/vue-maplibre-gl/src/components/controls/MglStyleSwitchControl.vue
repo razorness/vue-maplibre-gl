@@ -74,8 +74,11 @@ export interface StyleSwitchSlotProps {
 }
 
 defineSlots<{
+	/** Replaces the whole control. */
 	default?: (props: StyleSwitchSlotProps) => unknown;
+	/** Replaces the button that opens the style list. */
 	button?: (props: StyleSwitchSlotProps) => unknown;
+	/** Replaces the list of styles. */
 	styleList?: (props: StyleSwitchSlotProps) => unknown;
 }>();
 

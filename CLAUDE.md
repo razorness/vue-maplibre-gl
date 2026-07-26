@@ -423,6 +423,10 @@ Two things worth knowing when adding one:
 
 - It must be a `/** … */` block. A plain `/* … */` above a prop is invisible to the checker — two props
   had one and read as undocumented.
+- **Event descriptions cannot be generated.** Props and slots carry their JSDoc into the metadata; emits
+  do not, because they are declared as a type and `vue-component-meta` keeps only the payload type —
+  measured with the JSDoc both inline and imported. The comments on `MglLayerEmits` and friends are still
+  worth having (editor hover), but the prose that explains an event has to live in the guide pages.
 - JSDoc on a **shared** prop definition propagates. `LayerLib.SHARED.props` is documented once and shows
   up on all ten named layer wrappers. `positionProp()` is the counter-example: it _returns_ the prop
   definition, so there is no property to annotate and each control documents `position` itself.

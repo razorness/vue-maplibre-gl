@@ -12,12 +12,19 @@ import type { AssertNever } from 'types/exhaustive';
  */
 
 export interface MglGeolocationEmits {
+	/** A position was reported by the browser. */
 	geolocate: [ev: GeolocateControlEventType['geolocate']];
+	/** The browser refused or failed to provide a position — denied permission, timeout, or no sensor. */
 	error: [ev: GeolocateControlEventType['error']];
+	/** The reported position lies outside the map's `maxBounds`. */
 	outofmaxbounds: [ev: GeolocateControlEventType['outofmaxbounds']];
+	/** The control began following the user. */
 	trackuserlocationstart: [ev: GeolocateControlEventType['trackuserlocationstart']];
+	/** The control stopped following the user. */
 	trackuserlocationend: [ev: GeolocateControlEventType['trackuserlocationend']];
+	/** The camera returned to the user position while tracking. */
 	userlocationfocus: [ev: GeolocateControlEventType['userlocationfocus']];
+	/** The user panned away while tracking, so the camera no longer follows. */
 	userlocationlostfocus: [ev: GeolocateControlEventType['userlocationlostfocus']];
 }
 
@@ -25,7 +32,9 @@ export type _GeolocationEmitsCoverEveryEvent = AssertNever<Exclude<keyof Geoloca
 export type _GeolocationEmitsHaveNoExtras = AssertNever<Exclude<keyof MglGeolocationEmits, keyof GeolocateControlEventType>>;
 
 export interface MglFullscreenEmits {
+	/** The map entered fullscreen. */
 	fullscreenstart: [ev: FullscreenControlEventType['fullscreenstart']];
+	/** The map left fullscreen. */
 	fullscreenend: [ev: FullscreenControlEventType['fullscreenend']];
 }
 

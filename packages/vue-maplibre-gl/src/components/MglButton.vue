@@ -31,7 +31,10 @@ const props = defineProps({
 	viewbox: String as PropType<string>
 });
 
-defineSlots<{ default?: () => unknown }>();
+defineSlots<{
+	/** Button label, or extra content next to the icon. */
+	default?: () => unknown;
+}>();
 
 if (!props.path && props.type !== ButtonType.TEXT) {
 	warn('property `path` must be set on MglButton');

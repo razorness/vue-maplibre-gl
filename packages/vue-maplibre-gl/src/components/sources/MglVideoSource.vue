@@ -40,7 +40,10 @@ const props = defineProps({
 	coordinates: Array as unknown as PropType<VideoSourceSpecification['coordinates']>
 });
 
-defineSlots<{ default?: () => unknown }>();
+defineSlots<{
+	/** Layers for this source. They pick up its id automatically, and are removed before the source is. */
+	default?: () => unknown;
+}>();
 
 /*
  * Previously this file also carried a `keysOf<MglSourceOptions<'video'>>({ … })` list purely to know

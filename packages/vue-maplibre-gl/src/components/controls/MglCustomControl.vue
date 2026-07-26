@@ -24,7 +24,10 @@ const props = defineProps({
 	noClasses: { type: Boolean, default: false }
 });
 
-defineSlots<{ default?: () => unknown }>();
+defineSlots<{
+	/** Control content. Teleported into the control container once maplibre has added it. */
+	default?: () => unknown;
+}>();
 
 const map = inject(mapSymbol)!,
 	isAdded = ref(false),

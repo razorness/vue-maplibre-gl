@@ -84,7 +84,10 @@ const props = defineProps({
 	baseShift: Number as PropType<RasterDEMSourceSpecification['baseShift']>
 });
 
-defineSlots<{ default?: () => unknown }>();
+defineSlots<{
+	/** Layers for this source. They pick up its id automatically, and are removed before the source is. */
+	default?: () => unknown;
+}>();
 
 /*
  * Previously this file also carried a `keysOf<MglSourceOptions<'raster-dem'>>({ … })` list purely to know

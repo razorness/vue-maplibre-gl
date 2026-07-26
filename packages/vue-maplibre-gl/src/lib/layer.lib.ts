@@ -33,18 +33,31 @@ export type LayerOptionProp = Exclude<LayerSpecKey, 'source-layer'> | 'sourceLay
  * The literal is guarded by the two assertions below, so it cannot drift from maplibre.
  */
 export interface MglLayerEmits {
+	/** A feature of this layer was clicked. `ev.features` holds the features under the pointer. */
 	click: [ev: MapLayerEventType['click']];
+	/** A feature of this layer was double-clicked. */
 	dblclick: [ev: MapLayerEventType['dblclick']];
+	/** A mouse button went down over a feature of this layer. */
 	mousedown: [ev: MapLayerEventType['mousedown']];
+	/** A mouse button was released over a feature of this layer. */
 	mouseup: [ev: MapLayerEventType['mouseup']];
+	/** The pointer moved while over a feature of this layer. Fires often — throttle anything expensive. */
 	mousemove: [ev: MapLayerEventType['mousemove']];
+	/** The pointer entered a feature of this layer. The usual place to set a hover state. */
 	mouseenter: [ev: MapLayerEventType['mouseenter']];
+	/** The pointer left the features of this layer. */
 	mouseleave: [ev: MapLayerEventType['mouseleave']];
+	/** The pointer moved onto a feature of this layer, including from one feature to another. */
 	mouseover: [ev: MapLayerEventType['mouseover']];
+	/** The pointer moved off a feature of this layer. */
 	mouseout: [ev: MapLayerEventType['mouseout']];
+	/** The context menu was requested over a feature of this layer. */
 	contextmenu: [ev: MapLayerEventType['contextmenu']];
+	/** A touch started on a feature of this layer. */
 	touchstart: [ev: MapLayerEventType['touchstart']];
+	/** A touch ended on a feature of this layer. */
 	touchend: [ev: MapLayerEventType['touchend']];
+	/** A touch on a feature of this layer was cancelled by the browser. */
 	touchcancel: [ev: MapLayerEventType['touchcancel']];
 }
 
