@@ -9,19 +9,34 @@ export function setPrimaryLanguage(map: MaplibreMap, lang: ValidLanguages | unde
 
 	const langField = lang ? `name:${lang}` : 'name';
 
+	const coalesceForLanguage = () => ['coalesce', ['get', langField], ['get', 'name']];
+
+	/** Recognises what an earlier call produced, so switching language twice does not nest twice. */
+	const isGeneratedCoalesce = (expr: unknown[]): boolean =>
+		expr.length === 3 &&
+		expr.slice(1).every(part => Array.isArray(part) && part[0] === 'get' && typeof part[1] === 'string' && part[1].startsWith('name'));
+
 	function replaceTextField(expr: any): any {
 		if (typeof expr === 'string') {
 			if (nameRegex.test(expr)) {
-				return ['coalesce', ['get', langField], ['get', 'name']];
+				return coalesceForLanguage();
 			}
 			return expr;
 		} else if (Array.isArray(expr)) {
 			const op = expr[0];
 			if (op === 'get') {
 				if (typeof expr[1] === 'string' && expr[1].startsWith('name')) {
-					return ['coalesce', ['get', langField], ['get', 'name']];
+					return coalesceForLanguage();
 				}
 				return expr;
+			} else if (op === 'coalesce' && isGeneratedCoalesce(expr)) {
+				/*
+				 * A `coalesce` this function wrote on an earlier call. Replacing it wholesale is what makes
+				 * repeated switching stable: descending into it would rewrite *both* of its `get`s — each of
+				 * which still starts with `name` — and wrap the result again, so the expression grew by one
+				 * level per language switch and never shrank.
+				 */
+				return coalesceForLanguage();
 			} else if (op === 'concat' || op === 'format' || op === 'case') {
 				return expr.map(replaceTextField);
 			} else {
