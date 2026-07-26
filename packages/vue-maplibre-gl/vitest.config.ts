@@ -47,6 +47,12 @@ export default defineConfig({
 			{
 				plugins: [vue()],
 				resolve: { alias },
+				/*
+				 * maplibre v6 loads its worker through `import.meta.url` from a separate chunk, which the dep
+				 * optimizer cannot pre-bundle — it warns and then serves a file that does not exist. Excluding
+				 * maplibre from optimisation is the documented way out.
+				 */
+				optimizeDeps: { exclude: ['maplibre-gl'] },
 				test: {
 					name: 'browser',
 					include: ['test/browser/**/*.spec.ts'],

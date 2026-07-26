@@ -10,7 +10,7 @@ survive a style switch:
 	<MglSky :sky="{ 'sky-color': '#8ec5fc' }" />
 	<MglLight :light="{ anchor: 'viewport', intensity: 0.4 }" />
 	<MglProjection type="globe" />
-	<MglImage id="pin" :image="pinUrl" />
+	<MglImage id="pin" :image="pinBitmap" />
 	<MglGlobalState :state="{ highlight: 'red' }" />
 </MglMap>
 ```
@@ -25,6 +25,12 @@ survive a style switch:
 | `MglGlobalState` | `setGlobalStateProperty`   |
 
 <DemoGlobe />
+
+::: warning `MglImage` takes a bitmap, not a URL
+`image` is passed straight to maplibre's `addImage`, which accepts an `ImageData`, an `ImageBitmap`, a
+loaded `HTMLImageElement` or a `StyleImageInterface` — a URL string is accepted by the type system and then
+does nothing. Load it first, e.g. with `await map.loadImage(url)`.
+:::
 
 ## Why these need a component at all
 

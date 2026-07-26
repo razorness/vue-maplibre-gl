@@ -380,8 +380,10 @@ accepted, and `erasableSyntaxOnly` is satisfied. Do not reintroduce enums or par
 
 ### The `browser` project
 
-Seven smoke tests, deliberately few. They exist for the one thing the other two cannot do: notice when
-maplibre changes the shape of its API, because everything else mocks it. Three things to know:
+**75 smoke tests over every base feature** — all seven source kinds, all ten layer kinds, all eleven
+controls, the six style settings, marker and popup, the composables, the map registry, language switching
+and the three draw modes. They exist for the one thing the other two projects cannot do: notice when
+maplibre changes the shape of its API, because everything else mocks it. Things to know:
 
 - **It must not have `setupFiles`.** The whole point is the real `maplibre-gl`.
 - **Software WebGL.** Headless Chromium has no GPU and maplibre will not start without a context, so the
@@ -390,8 +392,19 @@ maplibre changes the shape of its API, because everything else mocks it. Three t
   it stays dirty, so it never returns true — every test timed out on it while the library was working.
   Wait for the `@map:load` event instead.
 
+- **maplibre is excluded from dep optimisation.** v6 loads its worker through `import.meta.url` from a
+  separate chunk, which the optimizer cannot pre-bundle: it warns and then serves a file that is not there.
+- **Reading style properties during a switch throws.** The style is briefly gone while maplibre swaps it,
+  so anything that polls has to gate on `isStyleLoaded()` first — which v6 types as `boolean | void`.
+- **A `ref` is required to drive an update.** The children thunk is a render function, so only a reactive
+  read makes Vue re-run it; a mutated plain variable changes nothing and the test silently proves nothing.
+
 No tile server is involved (`test/browser/style.ts` holds complete inline styles), so the suite runs
-offline.
+offline. Shared scaffolding is in `test/browser/helpers.ts`.
+
+What the browser suite has caught so far, none of which any mocked test could: `:options` on the named
+wrappers (they take flat props), `MglImage` being handed a URL where maplibre wants a bitmap, and
+`useLayer` in the same `setup()` as `useSource` (whose `provide()` only reaches descendants).
 
 Coverage is at ~79 %, up from 41 %. What is left below 60 % is `circleStatic.mode.ts`, `circle.mode.ts`,
 `frameRateControl.ts` and the deprecated `useDisposableLayer.ts`. Whether 100 % is the right target is an
