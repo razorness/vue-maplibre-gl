@@ -23,8 +23,11 @@ defineOptions({ name: 'MglLineLayer', inheritAttrs: false });
 
 const props = defineProps({
 	...LayerLib.SHARED.props,
+	/** maplibre `layout` properties for this line layer. Diffed per property, through `setLayoutProperty`. */
 	layout: Object as () => LineLayerSpecification['layout'],
+	/** maplibre `paint` properties for this line layer. Diffed **per property**, so changing one does not restart the others' transitions. */
 	paint: Object as () => LineLayerSpecification['paint'],
+	/** Expression deciding which features of the source this layer draws. Applied through `setFilter`. */
 	filter: [Boolean, Array] as unknown as () => LineLayerSpecification['filter']
 });
 

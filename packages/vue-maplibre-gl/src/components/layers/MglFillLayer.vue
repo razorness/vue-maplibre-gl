@@ -23,8 +23,11 @@ defineOptions({ name: 'MglFillLayer', inheritAttrs: false });
 
 const props = defineProps({
 	...LayerLib.SHARED.props,
+	/** maplibre `layout` properties for this fill layer. Diffed per property, through `setLayoutProperty`. */
 	layout: Object as () => FillLayerSpecification['layout'],
+	/** maplibre `paint` properties for this fill layer. Diffed **per property**, so changing one does not restart the others' transitions. */
 	paint: Object as () => FillLayerSpecification['paint'],
+	/** Expression deciding which features of the source this layer draws. Applied through `setFilter`. */
 	filter: [Boolean, Array] as unknown as () => FillLayerSpecification['filter']
 });
 

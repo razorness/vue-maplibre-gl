@@ -18,7 +18,9 @@ import { mapSymbol } from 'types';
 defineOptions({ name: 'MglLogoControl' });
 
 const props = defineProps({
+	/** Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component. */
 	position: positionProp(Position.BOTTOM_LEFT),
+	/** Show the compact variant of the logo. */
 	compact: Boolean as PropType<boolean>
 });
 

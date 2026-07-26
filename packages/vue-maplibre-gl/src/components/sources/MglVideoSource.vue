@@ -23,11 +23,20 @@ import type { MglSourceOptions } from 'types';
 defineOptions({ name: 'MglVideoSource' });
 
 const props = defineProps({
+	/**
+	 * Id the source is registered under. Layers nested inside this component bind to it automatically.
+	 */
 	sourceId: {
 		type: String as PropType<string>,
 		required: true
 	},
+	/**
+	 * One URL per video format, so the browser can pick one it can play.
+	 */
 	urls: Array as PropType<VideoSourceSpecification['urls']>,
+	/**
+	 * The four corners of the image, clockwise from the top left. Applied through `setCoordinates`, so moving it does not recreate the source.
+	 */
 	coordinates: Array as unknown as PropType<VideoSourceSpecification['coordinates']>
 });
 

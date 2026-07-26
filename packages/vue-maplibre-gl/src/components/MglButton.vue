@@ -17,13 +17,17 @@ import { BUTTON_ICON_DEFAULTS, ButtonType, ButtonTypeValues } from 'components/b
 defineOptions({ name: 'MglButton' });
 
 const props = defineProps({
+	/** Icon convention to size the SVG by, or `text` for a label-only button. */
 	type: {
 		type: String as unknown as () => ButtonType,
 		default: ButtonType.DEFAULT,
 		validator: (v: unknown) => ButtonTypeValues.includes(v as ButtonType)
 	},
+	/** SVG path data for the icon. Required for every type except `text`. */
 	path: String as PropType<string>,
+	/** Icon size in pixels. Defaults to what the `type` implies. */
 	size: Number as PropType<number>,
+	/** SVG viewBox. Defaults to what the `type` implies. */
 	viewbox: String as PropType<string>
 });
 

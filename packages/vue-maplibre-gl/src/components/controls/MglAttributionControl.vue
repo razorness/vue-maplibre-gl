@@ -12,8 +12,11 @@ import { mapSymbol } from 'types';
 defineOptions({ name: 'MglAttributionControl' });
 
 const props = defineProps({
+	/** Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component. */
 	position: positionProp(),
+	/** Collapse into a small button that expands on click. Chosen automatically when unset. */
 	compact: Boolean as PropType<boolean>,
+	/** Extra attribution shown alongside what the sources declare. */
 	customAttribution: [String, Array] as PropType<string | string[]>
 });
 

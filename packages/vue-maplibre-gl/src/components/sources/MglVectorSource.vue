@@ -23,19 +23,50 @@ import type { MglSourceOptions } from 'types';
 defineOptions({ name: 'MglVectorSource' });
 
 const props = defineProps({
+	/**
+	 * Id the source is registered under. Layers nested inside this component bind to it automatically.
+	 */
 	sourceId: {
 		type: String as PropType<string>,
 		required: true
 	},
+	/**
+	 * URL of the resource. Applied through `setUrl` where maplibre supports it.
+	 */
 	url: String as PropType<VectorSourceSpecification['url']>,
+	/**
+	 * Tile URL templates, e.g. `https://host/{z}/{x}/{y}.png`. Applied through `setTiles`.
+	 */
 	tiles: Array as PropType<VectorSourceSpecification['tiles']>,
+	/**
+	 * Bounds outside which no tiles are requested, as `[west, south, east, north]`.
+	 */
 	bounds: Array as unknown as PropType<VectorSourceSpecification['bounds']>,
+	/**
+	 * Tile coordinate scheme: `'xyz'` (the default) or `'tms'`, which flips the y axis.
+	 */
 	scheme: String as PropType<VectorSourceSpecification['scheme']>,
+	/**
+	 * Minimum zoom level tiles are available for.
+	 */
 	minzoom: Number as PropType<VectorSourceSpecification['minzoom']>,
+	/**
+	 * Maximum zoom level tiles are available for. Beyond it, the last level is overscaled.
+	 */
 	maxzoom: Number as PropType<VectorSourceSpecification['maxzoom']>,
+	/**
+	 * Attribution text shown for this source. Usually a licence requirement of the data provider.
+	 */
 	attribution: String as PropType<VectorSourceSpecification['attribution']>,
+	/**
+	 * Use this property as the feature id, per source layer.
+	 */
 	promoteId: [Object, String] as PropType<VectorSourceSpecification['promoteId']>,
+	/**
+	 * Never cache these tiles — for data that changes faster than the cache would allow.
+	 */
 	volatile: Boolean as PropType<VectorSourceSpecification['volatile']>,
+	/** Tile encoding, for sources that serve more than one. */
 	encoding: String as PropType<VectorSourceSpecification['encoding']>
 });
 

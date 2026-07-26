@@ -173,6 +173,7 @@
           "props": [
             {
               "name": "anisotropicFilterPitch",
+              "description": "Pitch above which anisotropic texture filtering kicks in, trading fill rate for sharper oblique tiles.",
               "required": false,
               "default": "defaults.anisotropicFilterPitch",
               "value": {
@@ -182,6 +183,7 @@
             },
             {
               "name": "aroundCenter",
+              "description": "Zoom around the map centre rather than around the pointer.",
               "required": false,
               "default": "defaults.aroundCenter",
               "value": {
@@ -191,6 +193,7 @@
             },
             {
               "name": "attributionControl",
+              "description": "Show the attribution control, or configure it. Attribution is a licence requirement for most tile sources.",
               "required": false,
               "default": "defaults.attributionControl",
               "value": {
@@ -200,6 +203,7 @@
             },
             {
               "name": "bearing",
+              "description": "Initial bearing (rotation) in degrees counter-clockwise from north. Two-way bindable with `v-model:bearing`.",
               "required": false,
               "default": "defaults.bearing",
               "value": {
@@ -209,6 +213,7 @@
             },
             {
               "name": "bearingSnap",
+              "description": "Snap to north once the bearing is within this many degrees of it.",
               "required": false,
               "default": "defaults.bearingSnap",
               "value": {
@@ -218,6 +223,7 @@
             },
             {
               "name": "bounds",
+              "description": "Fit the map to these bounds instead of using `center` and `zoom`. Two-way bindable with `v-model:bounds`, where reading gives the current viewport and writing fits the map to the box — the fit uses {@link fitBoundsOptions }.",
               "required": false,
               "default": "defaults.bounds",
               "value": {
@@ -227,6 +233,7 @@
             },
             {
               "name": "boxZoom",
+              "description": "Allow shift-drag to zoom to a box.",
               "required": false,
               "default": "defaults.boxZoom",
               "value": {
@@ -236,6 +243,7 @@
             },
             {
               "name": "cancelPendingTileRequestsWhileZooming",
+              "description": "Abort in-flight tile requests while zooming, rather than letting them complete.",
               "required": false,
               "default": "defaults.cancelPendingTileRequestsWhileZooming",
               "value": {
@@ -245,6 +253,7 @@
             },
             {
               "name": "canvasContextAttributes",
+              "description": "WebGL context attributes, e.g. `{ antialias: true }` or `{ preserveDrawingBuffer: true }` for screenshots.",
               "required": false,
               "default": "defaults.canvasContextAttributes",
               "value": {
@@ -254,6 +263,7 @@
             },
             {
               "name": "center",
+              "description": "Initial centre as `[lng, lat]` or a `LngLat`. Two-way bindable with `v-model:center`.",
               "required": false,
               "default": "defaults.center",
               "value": {
@@ -263,6 +273,7 @@
             },
             {
               "name": "centerClampedToGround",
+              "description": "Keep the centre pinned to the ground rather than to the camera target when the terrain moves.",
               "required": false,
               "default": "defaults.centerClampedToGround",
               "value": {
@@ -272,6 +283,7 @@
             },
             {
               "name": "clickTolerance",
+              "description": "Pointer movement in pixels that still counts as a click rather than a drag.",
               "required": false,
               "default": "defaults.clickTolerance",
               "value": {
@@ -281,6 +293,7 @@
             },
             {
               "name": "collectResourceTiming",
+              "description": "Collect `resourceTiming` data for tile requests and report it on the data events.",
               "required": false,
               "default": "defaults.collectResourceTiming",
               "value": {
@@ -290,6 +303,7 @@
             },
             {
               "name": "cooperativeGestures",
+              "description": "Require ctrl/⌘ to zoom with the wheel and two fingers to pan, so the map does not hijack page scrolling.",
               "required": false,
               "default": "defaults.cooperativeGestures",
               "value": {
@@ -299,6 +313,7 @@
             },
             {
               "name": "crossSourceCollisions",
+              "description": "Let labels from different sources collide with each other. Turning this off speeds up label placement.",
               "required": false,
               "default": "defaults.crossSourceCollisions",
               "value": {
@@ -308,6 +323,7 @@
             },
             {
               "name": "doubleClickZoom",
+              "description": "Allow double-click and shift-double-click to zoom.",
               "required": false,
               "default": "defaults.doubleClickZoom",
               "value": {
@@ -317,6 +333,7 @@
             },
             {
               "name": "dragPan",
+              "description": "Allow panning by dragging.",
               "required": false,
               "default": "defaults.dragPan",
               "value": {
@@ -326,6 +343,7 @@
             },
             {
               "name": "dragRotate",
+              "description": "Allow rotating by right-drag or ctrl-drag.",
               "required": false,
               "default": "defaults.dragRotate",
               "value": {
@@ -335,6 +353,7 @@
             },
             {
               "name": "elevation",
+              "description": "Camera elevation in metres above the terrain.",
               "required": false,
               "default": "defaults.elevation",
               "value": {
@@ -344,6 +363,7 @@
             },
             {
               "name": "fadeDuration",
+              "description": "Cross-fade duration in milliseconds for labels and symbols as tiles change zoom level.",
               "required": false,
               "default": "defaults.fadeDuration",
               "value": {
@@ -353,6 +373,7 @@
             },
             {
               "name": "fitBoundsOptions",
+              "description": "Options for every `fitBounds` this map performs — padding, animation, `maxZoom`. Also shared with the draw plugin for its viewport padding. Set `useOnBoundsUpdate` to reuse these options when `v-model:bounds` writes a new box.",
               "required": false,
               "default": "defaults.fitBoundsOptions",
               "value": {
@@ -362,6 +383,7 @@
             },
             {
               "name": "hash",
+              "description": "Sync the camera to the URL hash (`#zoom/lat/lng`). A string uses it as the parameter name.",
               "required": false,
               "default": "defaults.hash",
               "value": {
@@ -371,6 +393,7 @@
             },
             {
               "name": "height",
+              "description": "Height of the map container. A number is treated as pixels. The map has no intrinsic size — with a percentage height, the *parent* needs a height of its own, or the map collapses to nothing.",
               "required": false,
               "default": "'100%'",
               "value": {
@@ -380,6 +403,7 @@
             },
             {
               "name": "interactive",
+              "description": "Master switch for all user interaction. `false` gives a static map that can still be moved from code.",
               "required": false,
               "default": "defaults.interactive",
               "value": {
@@ -389,6 +413,7 @@
             },
             {
               "name": "keyboard",
+              "description": "Allow keyboard navigation when the map has focus.",
               "required": false,
               "default": "defaults.keyboard",
               "value": {
@@ -398,6 +423,7 @@
             },
             {
               "name": "language",
+              "description": "Rewrites every symbol layer's `text-field` to this language, e.g. `'de'`. Not a maplibre option: the expressions are rewritten to `['coalesce', ['get', 'name:de'], ['get', 'name']]`, so it needs a style whose tiles carry `name:xx` fields. Also writeable through `useMap().language`.",
               "required": false,
               "default": "defaults.language || undefined",
               "value": {
@@ -407,6 +433,7 @@
             },
             {
               "name": "locale",
+              "description": "Overrides for maplibre's own UI strings, e.g. control tooltips.",
               "required": false,
               "default": "defaults.locale",
               "value": {
@@ -416,6 +443,7 @@
             },
             {
               "name": "localIdeographFontFamily",
+              "description": "Font family used to render CJK glyphs locally instead of loading them from the style's glyph endpoint.",
               "required": false,
               "default": "defaults.localIdeographFontFamily",
               "value": {
@@ -425,6 +453,7 @@
             },
             {
               "name": "logoPosition",
+              "description": "Corner the maplibre logo sits in.",
               "required": false,
               "default": "defaults.logoPosition",
               "value": {
@@ -434,6 +463,7 @@
             },
             {
               "name": "mapKey",
+              "description": "Key this map is registered under, so `useMap(key)` can reach it from anywhere. Not a maplibre option. Omit it and the map registers under a default symbol — which is fine until a second map is mounted, at which point both want the same slot.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -442,6 +472,7 @@
             },
             {
               "name": "maplibreLogo",
+              "description": "Show the maplibre logo. Check the licence of your tile source before turning this off.",
               "required": false,
               "default": "defaults.maplibreLogo",
               "value": {
@@ -451,6 +482,7 @@
             },
             {
               "name": "mapStyle",
+              "description": "The style: a URL, or a style specification object. This is maplibre's `style` option. It is called `mapStyle` because `style` is the HTML style attribute; the rename is undone when the map is constructed. Changing it calls `setStyle` with `{ diff: false }`, and sources and layers re-add themselves afterwards.",
               "required": false,
               "default": "defaults.style",
               "value": {
@@ -460,6 +492,7 @@
             },
             {
               "name": "maxBounds",
+              "description": "Restrict panning to these bounds. The camera is clamped, so what comes back from a move may differ from what you set.",
               "required": false,
               "default": "defaults.maxBounds",
               "value": {
@@ -469,6 +502,7 @@
             },
             {
               "name": "maxCanvasSize",
+              "description": "Upper bound for the canvas size as `[width, height]` in pixels.",
               "required": false,
               "default": "defaults.maxCanvasSize",
               "value": {
@@ -478,6 +512,7 @@
             },
             {
               "name": "maxPitch",
+              "description": "Maximum pitch in degrees, up to 85.",
               "required": false,
               "default": "defaults.maxPitch",
               "value": {
@@ -487,6 +522,7 @@
             },
             {
               "name": "maxTileCacheSize",
+              "description": "Number of tiles kept in the cache.",
               "required": false,
               "default": "defaults.maxTileCacheSize",
               "value": {
@@ -496,6 +532,7 @@
             },
             {
               "name": "maxTileCacheZoomLevels",
+              "description": "How many zoom levels' worth of tiles to keep cached.",
               "required": false,
               "default": "defaults.maxTileCacheZoomLevels",
               "value": {
@@ -505,6 +542,7 @@
             },
             {
               "name": "maxZoom",
+              "description": "Maximum zoom level.",
               "required": false,
               "default": "defaults.maxZoom",
               "value": {
@@ -514,6 +552,7 @@
             },
             {
               "name": "minPitch",
+              "description": "Minimum pitch in degrees.",
               "required": false,
               "default": "defaults.minPitch",
               "value": {
@@ -523,6 +562,7 @@
             },
             {
               "name": "minZoom",
+              "description": "Minimum zoom level.",
               "required": false,
               "default": "defaults.minZoom",
               "value": {
@@ -532,6 +572,7 @@
             },
             {
               "name": "pitch",
+              "description": "Initial pitch (tilt) in degrees away from straight down. Two-way bindable with `v-model:pitch`.",
               "required": false,
               "default": "defaults.pitch",
               "value": {
@@ -541,6 +582,7 @@
             },
             {
               "name": "pitchWithRotate",
+              "description": "Let a drag-rotate gesture change the pitch as well as the bearing.",
               "required": false,
               "default": "defaults.pitchWithRotate",
               "value": {
@@ -550,6 +592,7 @@
             },
             {
               "name": "pixelRatio",
+              "description": "Device pixel ratio to render at. Lowering it trades sharpness for frame rate.",
               "required": false,
               "default": "defaults.pixelRatio",
               "value": {
@@ -559,6 +602,7 @@
             },
             {
               "name": "projection",
+              "description": "Map projection, e.g. `{ type: 'globe' }`. Not a `MapOptions` key but a style-level setting, so it is applied through `setProjection` once the style is ready and re-applied after a style switch. `MglProjection` and `MglGlobeControl` are the declarative and interactive alternatives.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -567,6 +611,7 @@
             },
             {
               "name": "reduceMotion",
+              "description": "Skip camera animations, for users who asked for reduced motion.",
               "required": false,
               "default": "defaults.reduceMotion",
               "value": {
@@ -576,6 +621,7 @@
             },
             {
               "name": "refreshExpiredTiles",
+              "description": "Re-request tiles once their HTTP cache headers expire.",
               "required": false,
               "default": "defaults.refreshExpiredTiles",
               "value": {
@@ -585,6 +631,7 @@
             },
             {
               "name": "renderWorldCopies",
+              "description": "Repeat the world horizontally when zoomed out.",
               "required": false,
               "default": "defaults.renderWorldCopies",
               "value": {
@@ -594,6 +641,7 @@
             },
             {
               "name": "roll",
+              "description": "Initial roll in degrees around the camera axis. Two-way bindable with `v-model:roll`, and only effective with {@link rollEnabled }.",
               "required": false,
               "default": "defaults.roll",
               "value": {
@@ -603,6 +651,7 @@
             },
             {
               "name": "rollEnabled",
+              "description": "Allow the camera to roll.",
               "required": false,
               "default": "defaults.rollEnabled",
               "value": {
@@ -612,6 +661,7 @@
             },
             {
               "name": "scrollZoom",
+              "description": "Allow zooming with the mouse wheel. See {@link cooperativeGestures } to keep page scrolling working.",
               "required": false,
               "default": "defaults.scrollZoom",
               "value": {
@@ -621,6 +671,7 @@
             },
             {
               "name": "terrainSkirtLength",
+              "description": "Length of the skirt drawn around terrain tiles to hide seams.",
               "required": false,
               "default": "defaults.terrainSkirtLength",
               "value": {
@@ -630,6 +681,7 @@
             },
             {
               "name": "touchPitch",
+              "description": "Allow changing the pitch with a two-finger drag.",
               "required": false,
               "default": "defaults.touchPitch",
               "value": {
@@ -639,6 +691,7 @@
             },
             {
               "name": "touchZoomRotate",
+              "description": "Allow pinch to zoom and rotate.",
               "required": false,
               "default": "defaults.touchZoomRotate",
               "value": {
@@ -648,6 +701,7 @@
             },
             {
               "name": "trackResize",
+              "description": "Let maplibre resize the map on `window.resize`. Independent of this component's own `ResizeObserver`, which watches the *container* and therefore also catches layout changes that leave the window size untouched.",
               "required": false,
               "default": "defaults.trackResize",
               "value": {
@@ -657,6 +711,7 @@
             },
             {
               "name": "transformCameraUpdate",
+              "description": "Intercept every camera update, e.g. to constrain it. Called on each frame of an animation.",
               "required": false,
               "default": "defaults.transformCameraUpdate",
               "value": {
@@ -666,6 +721,7 @@
             },
             {
               "name": "transformConstrain",
+              "description": "Constrain the transform after every camera change — the low-level counterpart to {@link maxBounds }.",
               "required": false,
               "default": "defaults.transformConstrain",
               "value": {
@@ -675,6 +731,7 @@
             },
             {
               "name": "transformRequest",
+              "description": "Rewrite tile and resource requests — add an API key, a header, or a proxy.",
               "required": false,
               "default": "defaults.transformRequest",
               "value": {
@@ -684,6 +741,7 @@
             },
             {
               "name": "validateStyle",
+              "description": "Validate the style against the style specification. Worth leaving on in development and off in production.",
               "required": false,
               "default": "defaults.validateStyle",
               "value": {
@@ -693,6 +751,7 @@
             },
             {
               "name": "width",
+              "description": "Width of the map container. A number is treated as pixels.",
               "required": false,
               "default": "'100%'",
               "value": {
@@ -702,6 +761,7 @@
             },
             {
               "name": "zoom",
+              "description": "Initial zoom level. Two-way bindable with `v-model:zoom`; note that {@link zoomSnap } may round what comes back.",
               "required": false,
               "default": "defaults.zoom",
               "value": {
@@ -711,6 +771,7 @@
             },
             {
               "name": "zoomLevelsToOverscale",
+              "description": "Render tiles from this many zoom levels below the current one, instead of loading new ones.",
               "required": false,
               "default": "defaults.zoomLevelsToOverscale",
               "value": {
@@ -720,6 +781,7 @@
             },
             {
               "name": "zoomSnap",
+              "description": "Snap the zoom to multiples of this value. Set it to `0` for continuous zoom. This is why the camera binding cannot compare values to detect an echo: with the default of `1`, a `zoom` of `4.3` comes back as `4`.",
               "required": false,
               "default": "defaults.zoomSnap",
               "value": {
@@ -955,6 +1017,7 @@
           "props": [
             {
               "name": "compact",
+              "description": "Collapse into a small button that expands on click. Chosen automatically when unset.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -963,6 +1026,7 @@
             },
             {
               "name": "customAttribution",
+              "description": "Extra attribution shown alongside what the sources declare.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -971,6 +1035,7 @@
             },
             {
               "name": "position",
+              "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -995,6 +1060,7 @@
           "props": [
             {
               "name": "noClasses",
+              "description": "Skip maplibre's control classes, so the slot content is styled entirely by you.",
               "required": false,
               "default": "false",
               "value": {
@@ -1004,6 +1070,7 @@
             },
             {
               "name": "position",
+              "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1037,6 +1104,7 @@
           "props": [
             {
               "name": "container",
+              "description": "Element to make fullscreen instead of the map container.",
               "required": false,
               "default": "null",
               "value": {
@@ -1046,6 +1114,7 @@
             },
             {
               "name": "position",
+              "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1077,6 +1146,7 @@
           "props": [
             {
               "name": "position",
+              "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1101,6 +1171,7 @@
           "props": [
             {
               "name": "compact",
+              "description": "Show the compact variant of the logo.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1109,6 +1180,7 @@
             },
             {
               "name": "position",
+              "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1142,6 +1214,7 @@
             },
             {
               "name": "exaggeration",
+              "description": "Vertical exaggeration applied when the user turns terrain on.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1150,6 +1223,7 @@
             },
             {
               "name": "position",
+              "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1174,6 +1248,7 @@
           "props": [
             {
               "name": "background",
+              "description": "Background colour of the control.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1182,6 +1257,7 @@
             },
             {
               "name": "barWidth",
+              "description": "Width of one frame-time bar in pixels.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1190,6 +1266,7 @@
             },
             {
               "name": "color",
+              "description": "Colour of the bars.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1198,6 +1275,7 @@
             },
             {
               "name": "font",
+              "description": "CSS font used for the numeric readout.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1206,6 +1284,7 @@
             },
             {
               "name": "graphHeight",
+              "description": "Height of the graph area in pixels.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1214,6 +1293,7 @@
             },
             {
               "name": "graphRight",
+              "description": "Right offset of the graph inside the control.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1222,6 +1302,7 @@
             },
             {
               "name": "graphTop",
+              "description": "Top offset of the graph inside the control.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1230,6 +1311,7 @@
             },
             {
               "name": "graphWidth",
+              "description": "Width of the graph area in pixels.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1238,6 +1320,7 @@
             },
             {
               "name": "position",
+              "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1246,6 +1329,7 @@
             },
             {
               "name": "width",
+              "description": "Width of the control in pixels.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1275,6 +1359,7 @@
           "props": [
             {
               "name": "fitBoundsOptions",
+              "description": "Options for the camera move performed when a position arrives.",
               "required": false,
               "default": "{ maxZoom: 15 }",
               "value": {
@@ -1284,6 +1369,7 @@
             },
             {
               "name": "position",
+              "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1292,6 +1378,7 @@
             },
             {
               "name": "positionOptions",
+              "description": "Options passed to the browser geolocation API, e.g. `{ enableHighAccuracy: true }`. The default is a factory, because an object default would otherwise be shared by every instance.",
               "required": false,
               "default": "{ enableHighAccuracy: false, timeout: 6000 }",
               "value": {
@@ -1301,6 +1388,7 @@
             },
             {
               "name": "showAccuracyCircle",
+              "description": "Draw a circle showing the reported accuracy radius.",
               "required": false,
               "default": "true",
               "value": {
@@ -1310,6 +1398,7 @@
             },
             {
               "name": "showUserLocation",
+              "description": "Draw a dot at the reported position.",
               "required": false,
               "default": "true",
               "value": {
@@ -1319,6 +1408,7 @@
             },
             {
               "name": "trackUserLocation",
+              "description": "Keep following the user rather than moving once.",
               "required": false,
               "default": "false",
               "value": {
@@ -1366,6 +1456,7 @@
           "props": [
             {
               "name": "position",
+              "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1374,6 +1465,7 @@
             },
             {
               "name": "showCompass",
+              "description": "Show the compass button, which resets the bearing.",
               "required": false,
               "default": "true",
               "value": {
@@ -1383,6 +1475,7 @@
             },
             {
               "name": "showZoom",
+              "description": "Show the zoom in and zoom out buttons.",
               "required": false,
               "default": "true",
               "value": {
@@ -1392,6 +1485,7 @@
             },
             {
               "name": "visualizePitch",
+              "description": "Tilt the compass needle to visualise the current pitch.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1416,6 +1510,7 @@
           "props": [
             {
               "name": "maxWidth",
+              "description": "Maximum width of the scale bar in pixels.",
               "required": false,
               "default": "100",
               "value": {
@@ -1425,6 +1520,7 @@
             },
             {
               "name": "position",
+              "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1433,6 +1529,7 @@
             },
             {
               "name": "unit",
+              "description": "Unit system the distance is shown in.",
               "required": false,
               "default": "ScaleControlUnit.METRIC",
               "value": {
@@ -1458,6 +1555,7 @@
           "props": [
             {
               "name": "isOpen",
+              "description": "Whether the style list is expanded. Two-way bindable.",
               "required": false,
               "default": "undefined",
               "value": {
@@ -1467,6 +1565,7 @@
             },
             {
               "name": "mapStyles",
+              "description": "The styles to offer. Each entry needs a `name`, a `label` and a `style` (URL or specification).",
               "required": false,
               "default": "[]",
               "value": {
@@ -1476,6 +1575,7 @@
             },
             {
               "name": "modelValue",
+              "description": "Name of the selected style. Two-way bindable with `v-model`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1484,6 +1584,7 @@
             },
             {
               "name": "position",
+              "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1525,6 +1626,7 @@
           "props": [
             {
               "name": "path",
+              "description": "SVG path data for the icon. Required for every type except `text`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1533,6 +1635,7 @@
             },
             {
               "name": "size",
+              "description": "Icon size in pixels. Defaults to what the `type` implies.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1541,6 +1644,7 @@
             },
             {
               "name": "type",
+              "description": "Icon convention to size the SVG by, or `text` for a label-only button.",
               "required": false,
               "default": "ButtonType.DEFAULT",
               "value": {
@@ -1550,6 +1654,7 @@
             },
             {
               "name": "viewbox",
+              "description": "SVG viewBox. Defaults to what the `type` implies.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1578,6 +1683,7 @@
           "props": [
             {
               "name": "coordinates",
+              "description": "Where the marker sits. Two-way bindable with `v-model:coordinates`, which follows a drag.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -1586,6 +1692,7 @@
             },
             {
               "name": "anchor",
+              "description": "Which part of the marker sits on the coordinate, e.g. `'bottom'` for a pin.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1594,6 +1701,7 @@
             },
             {
               "name": "className",
+              "description": "Extra CSS class on the marker element.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1602,6 +1710,7 @@
             },
             {
               "name": "clickTolerance",
+              "description": "Pointer movement in pixels that still counts as a click rather than a drag.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1610,6 +1719,7 @@
             },
             {
               "name": "color",
+              "description": "Fill colour of the default marker. Ignored once you pass your own markup through the default slot.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1618,6 +1728,7 @@
             },
             {
               "name": "draggable",
+              "description": "Let the user drag the marker. Pair it with `v-model:coordinates` or the `dragend` event.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1626,6 +1737,7 @@
             },
             {
               "name": "offset",
+              "description": "Pixel offset from the coordinate, as `[x, y]` or a `Point`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1634,6 +1746,7 @@
             },
             {
               "name": "opacity",
+              "description": "Opacity while the marker is visible.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1642,6 +1755,7 @@
             },
             {
               "name": "opacityWhenCovered",
+              "description": "Opacity while the marker is hidden behind terrain.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1650,6 +1764,7 @@
             },
             {
               "name": "pitchAlignment",
+              "description": "Whether the marker tilts with the `map` or stays flat against the `viewport`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1658,6 +1773,7 @@
             },
             {
               "name": "rotation",
+              "description": "Rotation in degrees clockwise.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1666,6 +1782,7 @@
             },
             {
               "name": "rotationAlignment",
+              "description": "Whether `rotation` is relative to the `map` or the `viewport`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1674,6 +1791,7 @@
             },
             {
               "name": "scale",
+              "description": "Scale factor of the default marker.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1682,6 +1800,7 @@
             },
             {
               "name": "subpixelPositioning",
+              "description": "Position on fractional pixels. Smoother while animating, slightly blurrier at rest.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1736,6 +1855,7 @@
           "props": [
             {
               "name": "anchor",
+              "description": "Which part of the popup sits on the coordinate. Chosen automatically when unset.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1744,6 +1864,7 @@
             },
             {
               "name": "className",
+              "description": "Extra CSS class on the popup element.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1752,6 +1873,7 @@
             },
             {
               "name": "closeButton",
+              "description": "Show the close button.",
               "required": false,
               "default": "true",
               "value": {
@@ -1761,6 +1883,7 @@
             },
             {
               "name": "closeOnClick",
+              "description": "Close when the map is clicked.",
               "required": false,
               "default": "true",
               "value": {
@@ -1770,6 +1893,7 @@
             },
             {
               "name": "closeOnMove",
+              "description": "Close as soon as the map moves.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1787,6 +1911,7 @@
             },
             {
               "name": "focusAfterOpen",
+              "description": "Move keyboard focus into the popup when it opens. Leave on for accessibility unless it steals focus from a form.",
               "required": false,
               "default": "true",
               "value": {
@@ -1796,6 +1921,7 @@
             },
             {
               "name": "locationOccludedOpacity",
+              "description": "Opacity while the anchor point is hidden behind terrain.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1804,6 +1930,7 @@
             },
             {
               "name": "maxWidth",
+              "description": "Maximum width as a CSS length, e.g. `'240px'`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1812,6 +1939,7 @@
             },
             {
               "name": "offset",
+              "description": "Pixel offset from the coordinate. A number offsets in every direction; an object offsets per anchor.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1830,6 +1958,7 @@
             },
             {
               "name": "padding",
+              "description": "Inner padding. maplibre takes a `PaddingOptions` object here, not a number.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1838,6 +1967,7 @@
             },
             {
               "name": "subpixelPositioning",
+              "description": "Position on fractional pixels.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1941,6 +2071,7 @@
             },
             {
               "name": "pixelRatio",
+              "description": "Device pixel ratio of the image, so a 2x asset is drawn at the right size.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -1949,6 +2080,7 @@
             },
             {
               "name": "sdf",
+              "description": "Treat the image as a signed distance field, which lets `icon-color` recolour it.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2057,6 +2189,7 @@
             },
             {
               "name": "exaggeration",
+              "description": "Vertical exaggeration. `1` is true to scale; higher values make relief more legible.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2081,6 +2214,7 @@
           "props": [
             {
               "name": "sourceId",
+              "description": "Id the source is registered under. Layers nested inside this component bind to it automatically.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -2089,6 +2223,7 @@
             },
             {
               "name": "animate",
+              "description": "Re-read the canvas every frame. Turn it off for a canvas that rarely changes.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2097,6 +2232,7 @@
             },
             {
               "name": "canvas",
+              "description": "The canvas element, or its id.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2105,6 +2241,7 @@
             },
             {
               "name": "coordinates",
+              "description": "The four corners of the image, clockwise from the top left. Applied through `setCoordinates`, so moving it does not recreate the source.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2133,6 +2270,7 @@
           "props": [
             {
               "name": "sourceId",
+              "description": "Id the source is registered under. Layers nested inside this component bind to it automatically.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -2141,6 +2279,7 @@
             },
             {
               "name": "attribution",
+              "description": "Attribution text shown for this source. Usually a licence requirement of the data provider.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2149,6 +2288,7 @@
             },
             {
               "name": "buffer",
+              "description": "Buffer in pixels around each tile, so features near an edge are not clipped. Higher values cost tile size.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2157,6 +2297,7 @@
             },
             {
               "name": "cluster",
+              "description": "Cluster nearby points into aggregate features. Applied through `setClusterOptions`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2165,6 +2306,7 @@
             },
             {
               "name": "clusterMaxZoom",
+              "description": "Zoom level beyond which points are no longer clustered.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2173,6 +2315,7 @@
             },
             {
               "name": "clusterMinPoints",
+              "description": "Smallest number of points that forms a cluster.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2181,6 +2324,7 @@
             },
             {
               "name": "clusterProperties",
+              "description": "Aggregations computed per cluster, e.g. summing a property across the points it contains.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2189,6 +2333,7 @@
             },
             {
               "name": "clusterRadius",
+              "description": "Cluster radius in pixels.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2197,6 +2342,7 @@
             },
             {
               "name": "data",
+              "description": "The GeoJSON itself, or a URL to it. Applied through `setData`, so assigning a new value updates the source in place instead of recreating it. This type degrades to `any` unless your project includes `@types/geojson` explicitly — see the installation guide.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2205,6 +2351,7 @@
             },
             {
               "name": "filter",
+              "description": "Drop features that do not match this expression while the tiles are built, before any layer sees them.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2213,6 +2360,7 @@
             },
             {
               "name": "generateId",
+              "description": "Derive a feature id from the feature index. Needed for feature state when the data carries no ids.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2221,6 +2369,7 @@
             },
             {
               "name": "lineMetrics",
+              "description": "Compute `line-progress` along lines, which line gradients need.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2229,6 +2378,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Maximum zoom level tiles are available for. Beyond it, the last level is overscaled.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2237,6 +2387,7 @@
             },
             {
               "name": "promoteId",
+              "description": "Use this property as the feature id instead of the GeoJSON `id`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2245,6 +2396,7 @@
             },
             {
               "name": "tolerance",
+              "description": "Simplification tolerance. Higher values mean smaller tiles and coarser geometry.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2273,6 +2425,7 @@
           "props": [
             {
               "name": "sourceId",
+              "description": "Id the source is registered under. Layers nested inside this component bind to it automatically.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -2281,6 +2434,7 @@
             },
             {
               "name": "coordinates",
+              "description": "The four corners of the image, clockwise from the top left. Applied through `setCoordinates`, so moving it does not recreate the source.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2289,6 +2443,7 @@
             },
             {
               "name": "url",
+              "description": "URL of the resource. Applied through `setUrl` where maplibre supports it.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2317,6 +2472,7 @@
           "props": [
             {
               "name": "sourceId",
+              "description": "Id the source is registered under. Layers nested inside this component bind to it automatically.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -2325,6 +2481,7 @@
             },
             {
               "name": "attribution",
+              "description": "Attribution text shown for this source. Usually a licence requirement of the data provider.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2333,6 +2490,7 @@
             },
             {
               "name": "bounds",
+              "description": "Bounds outside which no tiles are requested, as `[west, south, east, north]`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2341,6 +2499,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Maximum zoom level tiles are available for. Beyond it, the last level is overscaled.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2349,6 +2508,7 @@
             },
             {
               "name": "minzoom",
+              "description": "Minimum zoom level tiles are available for.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2357,6 +2517,7 @@
             },
             {
               "name": "scheme",
+              "description": "Tile coordinate scheme: `'xyz'` (the default) or `'tms'`, which flips the y axis.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2365,6 +2526,7 @@
             },
             {
               "name": "tiles",
+              "description": "Tile URL templates, e.g. `https://host/{z}/{x}/{y}.png`. Applied through `setTiles`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2373,6 +2535,7 @@
             },
             {
               "name": "tileSize",
+              "description": "Tile size in pixels this source serves.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2381,6 +2544,7 @@
             },
             {
               "name": "url",
+              "description": "URL of the resource. Applied through `setUrl` where maplibre supports it.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2389,6 +2553,7 @@
             },
             {
               "name": "volatile",
+              "description": "Never cache these tiles — for data that changes faster than the cache would allow.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2417,6 +2582,7 @@
           "props": [
             {
               "name": "sourceId",
+              "description": "Id the source is registered under. Layers nested inside this component bind to it automatically.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -2425,6 +2591,7 @@
             },
             {
               "name": "attribution",
+              "description": "Attribution text shown for this source. Usually a licence requirement of the data provider.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2433,6 +2600,7 @@
             },
             {
               "name": "baseShift",
+              "description": "Offset applied to the decoded elevation. Only used with `encoding: custom`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2441,6 +2609,7 @@
             },
             {
               "name": "blueFactor",
+              "description": "Multiplier for the blue channel. Only used with `encoding: custom`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2449,6 +2618,7 @@
             },
             {
               "name": "bounds",
+              "description": "Bounds outside which no tiles are requested, as `[west, south, east, north]`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2457,6 +2627,7 @@
             },
             {
               "name": "encoding",
+              "description": "How elevation is packed into the RGB channels: `'mapbox'`, `'terrarium'` or `'custom'`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2465,6 +2636,7 @@
             },
             {
               "name": "greenFactor",
+              "description": "Multiplier for the green channel. Only used with `encoding: custom`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2473,6 +2645,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Maximum zoom level tiles are available for. Beyond it, the last level is overscaled.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2481,6 +2654,7 @@
             },
             {
               "name": "minzoom",
+              "description": "Minimum zoom level tiles are available for.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2489,6 +2663,7 @@
             },
             {
               "name": "redFactor",
+              "description": "Multiplier for the red channel. Only used with `encoding: custom`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2497,6 +2672,7 @@
             },
             {
               "name": "tiles",
+              "description": "Tile URL templates, e.g. `https://host/{z}/{x}/{y}.png`. Applied through `setTiles`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2505,6 +2681,7 @@
             },
             {
               "name": "tileSize",
+              "description": "Tile size in pixels this source serves.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2513,6 +2690,7 @@
             },
             {
               "name": "url",
+              "description": "URL of the resource. Applied through `setUrl` where maplibre supports it.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2521,6 +2699,7 @@
             },
             {
               "name": "volatile",
+              "description": "Never cache these tiles — for data that changes faster than the cache would allow.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2549,6 +2728,7 @@
           "props": [
             {
               "name": "sourceId",
+              "description": "Id the source is registered under. Layers nested inside this component bind to it automatically.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -2557,6 +2737,7 @@
             },
             {
               "name": "attribution",
+              "description": "Attribution text shown for this source. Usually a licence requirement of the data provider.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2565,6 +2746,7 @@
             },
             {
               "name": "bounds",
+              "description": "Bounds outside which no tiles are requested, as `[west, south, east, north]`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2573,6 +2755,7 @@
             },
             {
               "name": "encoding",
+              "description": "Tile encoding, for sources that serve more than one.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2581,6 +2764,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Maximum zoom level tiles are available for. Beyond it, the last level is overscaled.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2589,6 +2773,7 @@
             },
             {
               "name": "minzoom",
+              "description": "Minimum zoom level tiles are available for.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2597,6 +2782,7 @@
             },
             {
               "name": "promoteId",
+              "description": "Use this property as the feature id, per source layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2605,6 +2791,7 @@
             },
             {
               "name": "scheme",
+              "description": "Tile coordinate scheme: `'xyz'` (the default) or `'tms'`, which flips the y axis.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2613,6 +2800,7 @@
             },
             {
               "name": "tiles",
+              "description": "Tile URL templates, e.g. `https://host/{z}/{x}/{y}.png`. Applied through `setTiles`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2621,6 +2809,7 @@
             },
             {
               "name": "url",
+              "description": "URL of the resource. Applied through `setUrl` where maplibre supports it.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2629,6 +2818,7 @@
             },
             {
               "name": "volatile",
+              "description": "Never cache these tiles — for data that changes faster than the cache would allow.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2657,6 +2847,7 @@
           "props": [
             {
               "name": "sourceId",
+              "description": "Id the source is registered under. Layers nested inside this component bind to it automatically.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -2665,6 +2856,7 @@
             },
             {
               "name": "coordinates",
+              "description": "The four corners of the image, clockwise from the top left. Applied through `setCoordinates`, so moving it does not recreate the source.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2673,6 +2865,7 @@
             },
             {
               "name": "urls",
+              "description": "One URL per video format, so the browser can pick one it can play.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2701,6 +2894,7 @@
           "props": [
             {
               "name": "layerId",
+              "description": "Layer id on the map. Must be unique across the style.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -2709,6 +2903,7 @@
             },
             {
               "name": "before",
+              "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2727,6 +2922,7 @@
             },
             {
               "name": "layout",
+              "description": "maplibre `layout` properties for this background layer. Diffed per property, through `setLayoutProperty`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2735,6 +2931,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2743,6 +2940,7 @@
             },
             {
               "name": "metadata",
+              "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2751,6 +2949,7 @@
             },
             {
               "name": "minzoom",
+              "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2759,6 +2958,7 @@
             },
             {
               "name": "paint",
+              "description": "maplibre `paint` properties for this background layer. Diffed **per property**, so changing one does not restart the others' transitions.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2767,6 +2967,7 @@
             },
             {
               "name": "source",
+              "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2775,6 +2976,7 @@
             },
             {
               "name": "sourceLayer",
+              "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2839,6 +3041,7 @@
           "props": [
             {
               "name": "layerId",
+              "description": "Layer id on the map. Must be unique across the style.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -2847,6 +3050,7 @@
             },
             {
               "name": "before",
+              "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2855,6 +3059,7 @@
             },
             {
               "name": "filter",
+              "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2873,6 +3078,7 @@
             },
             {
               "name": "layout",
+              "description": "maplibre `layout` properties for this circle layer. Diffed per property, through `setLayoutProperty`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2881,6 +3087,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2889,6 +3096,7 @@
             },
             {
               "name": "metadata",
+              "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2897,6 +3105,7 @@
             },
             {
               "name": "minzoom",
+              "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2905,6 +3114,7 @@
             },
             {
               "name": "paint",
+              "description": "maplibre `paint` properties for this circle layer. Diffed **per property**, so changing one does not restart the others' transitions.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2913,6 +3123,7 @@
             },
             {
               "name": "source",
+              "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2921,6 +3132,7 @@
             },
             {
               "name": "sourceLayer",
+              "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -2985,6 +3197,7 @@
           "props": [
             {
               "name": "layerId",
+              "description": "Layer id on the map. Must be unique across the style.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -2993,6 +3206,7 @@
             },
             {
               "name": "before",
+              "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3001,6 +3215,7 @@
             },
             {
               "name": "filter",
+              "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3019,6 +3234,7 @@
             },
             {
               "name": "layout",
+              "description": "maplibre `layout` properties for this color-relief layer. Diffed per property, through `setLayoutProperty`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3027,6 +3243,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3035,6 +3252,7 @@
             },
             {
               "name": "metadata",
+              "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3043,6 +3261,7 @@
             },
             {
               "name": "minzoom",
+              "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3051,6 +3270,7 @@
             },
             {
               "name": "paint",
+              "description": "maplibre `paint` properties for this color-relief layer. Diffed **per property**, so changing one does not restart the others' transitions.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3059,6 +3279,7 @@
             },
             {
               "name": "source",
+              "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3067,6 +3288,7 @@
             },
             {
               "name": "sourceLayer",
+              "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3131,6 +3353,7 @@
           "props": [
             {
               "name": "layerId",
+              "description": "Layer id on the map. Must be unique across the style.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -3139,6 +3362,7 @@
             },
             {
               "name": "before",
+              "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3147,6 +3371,7 @@
             },
             {
               "name": "filter",
+              "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3165,6 +3390,7 @@
             },
             {
               "name": "layout",
+              "description": "maplibre `layout` properties for this fill layer. Diffed per property, through `setLayoutProperty`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3173,6 +3399,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3181,6 +3408,7 @@
             },
             {
               "name": "metadata",
+              "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3189,6 +3417,7 @@
             },
             {
               "name": "minzoom",
+              "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3197,6 +3426,7 @@
             },
             {
               "name": "paint",
+              "description": "maplibre `paint` properties for this fill layer. Diffed **per property**, so changing one does not restart the others' transitions.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3205,6 +3435,7 @@
             },
             {
               "name": "source",
+              "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3213,6 +3444,7 @@
             },
             {
               "name": "sourceLayer",
+              "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3277,6 +3509,7 @@
           "props": [
             {
               "name": "layerId",
+              "description": "Layer id on the map. Must be unique across the style.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -3285,6 +3518,7 @@
             },
             {
               "name": "before",
+              "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3293,6 +3527,7 @@
             },
             {
               "name": "filter",
+              "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3311,6 +3546,7 @@
             },
             {
               "name": "layout",
+              "description": "maplibre `layout` properties for this fill-extrusion layer. Diffed per property, through `setLayoutProperty`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3319,6 +3555,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3327,6 +3564,7 @@
             },
             {
               "name": "metadata",
+              "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3335,6 +3573,7 @@
             },
             {
               "name": "minzoom",
+              "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3343,6 +3582,7 @@
             },
             {
               "name": "paint",
+              "description": "maplibre `paint` properties for this fill-extrusion layer. Diffed **per property**, so changing one does not restart the others' transitions.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3351,6 +3591,7 @@
             },
             {
               "name": "source",
+              "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3359,6 +3600,7 @@
             },
             {
               "name": "sourceLayer",
+              "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3423,6 +3665,7 @@
           "props": [
             {
               "name": "layerId",
+              "description": "Layer id on the map. Must be unique across the style.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -3431,6 +3674,7 @@
             },
             {
               "name": "before",
+              "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3439,6 +3683,7 @@
             },
             {
               "name": "filter",
+              "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3457,6 +3702,7 @@
             },
             {
               "name": "layout",
+              "description": "maplibre `layout` properties for this heatmap layer. Diffed per property, through `setLayoutProperty`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3465,6 +3711,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3473,6 +3720,7 @@
             },
             {
               "name": "metadata",
+              "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3481,6 +3729,7 @@
             },
             {
               "name": "minzoom",
+              "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3489,6 +3738,7 @@
             },
             {
               "name": "paint",
+              "description": "maplibre `paint` properties for this heatmap layer. Diffed **per property**, so changing one does not restart the others' transitions.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3497,6 +3747,7 @@
             },
             {
               "name": "source",
+              "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3505,6 +3756,7 @@
             },
             {
               "name": "sourceLayer",
+              "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3569,6 +3821,7 @@
           "props": [
             {
               "name": "layerId",
+              "description": "Layer id on the map. Must be unique across the style.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -3577,6 +3830,7 @@
             },
             {
               "name": "before",
+              "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3585,6 +3839,7 @@
             },
             {
               "name": "filter",
+              "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3603,6 +3858,7 @@
             },
             {
               "name": "layout",
+              "description": "maplibre `layout` properties for this hillshade layer. Diffed per property, through `setLayoutProperty`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3611,6 +3867,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3619,6 +3876,7 @@
             },
             {
               "name": "metadata",
+              "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3627,6 +3885,7 @@
             },
             {
               "name": "minzoom",
+              "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3635,6 +3894,7 @@
             },
             {
               "name": "paint",
+              "description": "maplibre `paint` properties for this hillshade layer. Diffed **per property**, so changing one does not restart the others' transitions.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3643,6 +3903,7 @@
             },
             {
               "name": "source",
+              "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3651,6 +3912,7 @@
             },
             {
               "name": "sourceLayer",
+              "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3715,6 +3977,7 @@
           "props": [
             {
               "name": "layerId",
+              "description": "Layer id on the map. Must be unique across the style.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -3723,6 +3986,7 @@
             },
             {
               "name": "before",
+              "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3731,6 +3995,7 @@
             },
             {
               "name": "filter",
+              "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3749,6 +4014,7 @@
             },
             {
               "name": "layout",
+              "description": "maplibre `layout` properties for this line layer. Diffed per property, through `setLayoutProperty`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3757,6 +4023,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3765,6 +4032,7 @@
             },
             {
               "name": "metadata",
+              "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3773,6 +4041,7 @@
             },
             {
               "name": "minzoom",
+              "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3781,6 +4050,7 @@
             },
             {
               "name": "paint",
+              "description": "maplibre `paint` properties for this line layer. Diffed **per property**, so changing one does not restart the others' transitions.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3789,6 +4059,7 @@
             },
             {
               "name": "source",
+              "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3797,6 +4068,7 @@
             },
             {
               "name": "sourceLayer",
+              "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3861,6 +4133,7 @@
           "props": [
             {
               "name": "layerId",
+              "description": "Layer id on the map. Must be unique across the style.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -3869,6 +4142,7 @@
             },
             {
               "name": "before",
+              "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3877,6 +4151,7 @@
             },
             {
               "name": "filter",
+              "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3895,6 +4170,7 @@
             },
             {
               "name": "layout",
+              "description": "maplibre `layout` properties for this raster layer. Diffed per property, through `setLayoutProperty`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3903,6 +4179,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3911,6 +4188,7 @@
             },
             {
               "name": "metadata",
+              "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3919,6 +4197,7 @@
             },
             {
               "name": "minzoom",
+              "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3927,6 +4206,7 @@
             },
             {
               "name": "paint",
+              "description": "maplibre `paint` properties for this raster layer. Diffed **per property**, so changing one does not restart the others' transitions.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3935,6 +4215,7 @@
             },
             {
               "name": "source",
+              "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -3943,6 +4224,7 @@
             },
             {
               "name": "sourceLayer",
+              "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4007,6 +4289,7 @@
           "props": [
             {
               "name": "layerId",
+              "description": "Layer id on the map. Must be unique across the style.",
               "required": true,
               "value": {
                 "kind": "expression",
@@ -4015,6 +4298,7 @@
             },
             {
               "name": "before",
+              "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4023,6 +4307,7 @@
             },
             {
               "name": "filter",
+              "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4041,6 +4326,7 @@
             },
             {
               "name": "layout",
+              "description": "maplibre `layout` properties for this symbol layer. Diffed per property, through `setLayoutProperty`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4049,6 +4335,7 @@
             },
             {
               "name": "maxzoom",
+              "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4057,6 +4344,7 @@
             },
             {
               "name": "metadata",
+              "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4065,6 +4353,7 @@
             },
             {
               "name": "minzoom",
+              "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4073,6 +4362,7 @@
             },
             {
               "name": "paint",
+              "description": "maplibre `paint` properties for this symbol layer. Diffed **per property**, so changing one does not restart the others' transitions.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4081,6 +4371,7 @@
             },
             {
               "name": "source",
+              "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4089,6 +4380,7 @@
             },
             {
               "name": "sourceLayer",
+              "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4153,6 +4445,7 @@
           "props": [
             {
               "name": "autoZoom",
+              "description": "Zoom to the feature after it is drawn or loaded.",
               "required": false,
               "default": "true",
               "value": {
@@ -4162,6 +4455,7 @@
             },
             {
               "name": "defaultMode",
+              "description": "Mode to start in when drawing begins.",
               "required": false,
               "default": "DrawMode.POLYGON",
               "value": {
@@ -4171,6 +4465,7 @@
             },
             {
               "name": "minAreaColor",
+              "description": "Colour of the hatch pattern drawn for an area below `minAreaSize`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4179,6 +4474,7 @@
             },
             {
               "name": "minAreaLabel",
+              "description": "Label shown on an area below `minAreaSize`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4187,6 +4483,7 @@
             },
             {
               "name": "minAreaSize",
+              "description": "Smallest acceptable area. Below it, the feature is marked `tooSmall` and hatched.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4195,6 +4492,7 @@
             },
             {
               "name": "mode",
+              "description": "Active drawing mode. Two-way bindable, so the control reflects a mode set from code.",
               "required": false,
               "default": "DrawMode.POLYGON",
               "value": {
@@ -4204,6 +4502,7 @@
             },
             {
               "name": "model",
+              "description": "The drawn feature. Two-way bindable with `v-model` — always a closed `Feature<Polygon>`.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4212,6 +4511,7 @@
             },
             {
               "name": "pointerPrecision",
+              "description": "Grab radius in pixels for vertices and midpoints. Defaults to 24 for mouse and 36 for touch.",
               "required": false,
               "value": {
                 "kind": "expression",
@@ -4220,6 +4520,7 @@
             },
             {
               "name": "position",
+              "description": "Corner of the map the control is placed in.",
               "required": false,
               "value": {
                 "kind": "expression",

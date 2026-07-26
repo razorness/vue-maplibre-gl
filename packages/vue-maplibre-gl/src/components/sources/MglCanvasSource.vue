@@ -23,12 +23,24 @@ import type { MglSourceOptions } from 'types';
 defineOptions({ name: 'MglCanvasSource' });
 
 const props = defineProps({
+	/**
+	 * Id the source is registered under. Layers nested inside this component bind to it automatically.
+	 */
 	sourceId: {
 		type: String as PropType<string>,
 		required: true
 	},
+	/**
+	 * The four corners of the image, clockwise from the top left. Applied through `setCoordinates`, so moving it does not recreate the source.
+	 */
 	coordinates: Array as unknown as PropType<CanvasSourceSpecification['coordinates']>,
+	/**
+	 * Re-read the canvas every frame. Turn it off for a canvas that rarely changes.
+	 */
 	animate: Boolean as PropType<CanvasSourceSpecification['animate']>,
+	/**
+	 * The canvas element, or its id.
+	 */
 	canvas: [Object, String] as PropType<CanvasSourceSpecification['canvas']>
 });
 

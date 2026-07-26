@@ -12,8 +12,11 @@ defineOptions({ name: 'MglCircleLayer', inheritAttrs: false });
 
 const props = defineProps({
 	...LayerLib.SHARED.props,
+	/** maplibre `layout` properties for this circle layer. Diffed per property, through `setLayoutProperty`. */
 	layout: Object as () => CircleLayerSpecification['layout'],
+	/** maplibre `paint` properties for this circle layer. Diffed **per property**, so changing one does not restart the others' transitions. */
 	paint: Object as () => CircleLayerSpecification['paint'],
+	/** Expression deciding which features of the source this layer draws. Applied through `setFilter`. */
 	filter: [Boolean, Array] as unknown as () => CircleLayerSpecification['filter']
 });
 

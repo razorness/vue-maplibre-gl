@@ -13,18 +13,27 @@ import { mapSymbol } from 'types';
 defineOptions({ name: 'MglGeolocationControl' });
 
 const props = defineProps({
+	/** Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component. */
 	position: positionProp(Position.TOP_RIGHT),
-	/* object defaults must be factories, or every instance shares one object */
+	/**
+	 * Options passed to the browser geolocation API, e.g. `{ enableHighAccuracy: true }`.
+	 *
+	 * The default is a factory, because an object default would otherwise be shared by every instance.
+	 */
 	positionOptions: {
 		type: Object as PropType<PositionOptions>,
 		default: () => ({ enableHighAccuracy: false, timeout: 6000 })
 	},
+	/** Options for the camera move performed when a position arrives. */
 	fitBoundsOptions: {
 		type: Object as PropType<FitBoundsOptions>,
 		default: () => ({ maxZoom: 15 })
 	},
+	/** Keep following the user rather than moving once. */
 	trackUserLocation: { type: Boolean, default: false },
+	/** Draw a circle showing the reported accuracy radius. */
 	showAccuracyCircle: { type: Boolean, default: true },
+	/** Draw a dot at the reported position. */
 	showUserLocation: { type: Boolean, default: true }
 });
 

@@ -13,6 +13,7 @@ import { mapSymbol } from 'types';
 defineOptions({ name: 'MglGlobeControl' });
 
 const props = defineProps({
+	/** Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component. */
 	position: positionProp(Position.TOP_RIGHT)
 });
 

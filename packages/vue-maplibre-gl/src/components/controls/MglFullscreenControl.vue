@@ -13,7 +13,9 @@ import { mapSymbol } from 'types';
 defineOptions({ name: 'MglFullscreenControl' });
 
 const props = defineProps({
+	/** Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component. */
 	position: positionProp(Position.TOP_RIGHT),
+	/** Element to make fullscreen instead of the map container. */
 	container: { type: Object as PropType<HTMLElement>, default: null }
 });
 

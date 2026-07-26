@@ -23,7 +23,9 @@ defineOptions({ name: 'MglBackgroundLayer', inheritAttrs: false });
 
 const props = defineProps({
 	...LayerLib.SHARED.props,
+	/** maplibre `layout` properties for this background layer. Diffed per property, through `setLayoutProperty`. */
 	layout: Object as () => BackgroundLayerSpecification['layout'],
+	/** maplibre `paint` properties for this background layer. Diffed **per property**, so changing one does not restart the others' transitions. */
 	paint: Object as () => BackgroundLayerSpecification['paint']
 });
 

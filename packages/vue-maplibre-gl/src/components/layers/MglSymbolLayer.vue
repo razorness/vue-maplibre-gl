@@ -23,8 +23,11 @@ defineOptions({ name: 'MglSymbolLayer', inheritAttrs: false });
 
 const props = defineProps({
 	...LayerLib.SHARED.props,
+	/** maplibre `layout` properties for this symbol layer. Diffed per property, through `setLayoutProperty`. */
 	layout: Object as () => SymbolLayerSpecification['layout'],
+	/** maplibre `paint` properties for this symbol layer. Diffed **per property**, so changing one does not restart the others' transitions. */
 	paint: Object as () => SymbolLayerSpecification['paint'],
+	/** Expression deciding which features of the source this layer draws. Applied through `setFilter`. */
 	filter: [Boolean, Array] as unknown as () => SymbolLayerSpecification['filter']
 });
 

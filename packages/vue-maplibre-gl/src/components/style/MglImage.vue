@@ -17,7 +17,9 @@ const props = defineProps({
 	id: { type: String as PropType<string>, required: true },
 	/** Bitmap, `ImageData`, `ImageBitmap`, or a `StyleImageInterface` for a procedural icon. */
 	image: { type: [Object, null] as unknown as PropType<AddImageSource | StyleImageInterface>, required: true },
+	/** Device pixel ratio of the image, so a 2x asset is drawn at the right size. */
 	pixelRatio: Number as PropType<number>,
+	/** Treat the image as a signed distance field, which lets `icon-color` recolour it. */
 	sdf: Boolean as PropType<boolean>
 });
 

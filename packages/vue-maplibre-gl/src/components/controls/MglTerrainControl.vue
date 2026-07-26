@@ -17,9 +17,11 @@ import { mapSymbol } from 'types';
 defineOptions({ name: 'MglTerrainControl' });
 
 const props = defineProps({
+	/** Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component. */
 	position: positionProp(Position.TOP_RIGHT),
 	/** Id of a `raster-dem` source. */
 	source: { type: String as PropType<string>, required: true },
+	/** Vertical exaggeration applied when the user turns terrain on. */
 	exaggeration: Number as PropType<number>
 });
 

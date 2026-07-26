@@ -412,8 +412,16 @@ Three things about the generator that are not obvious:
   `MglLayerEmits` treatment — would fix it and is the one remaining typing gap of note.
 
 Doc comments on props are the input to all of this: one JSDoc line lands in the emitted d.ts, in the IDE
-and on the website at once. **301 of 330 props still have none** — `pnpm meta` prints the count and a few
-names every run.
+and on the website at once. **All 330 props carry one** — `pnpm meta` prints the number that do not, so a
+new prop without a comment is visible on the next run. Keep it at zero.
+
+Two things worth knowing when adding one:
+
+- It must be a `/** … */` block. A plain `/* … */` above a prop is invisible to the checker — two props
+  had one and read as undocumented.
+- JSDoc on a **shared** prop definition propagates. `LayerLib.SHARED.props` is documented once and shows
+  up on all ten named layer wrappers. `positionProp()` is the counter-example: it _returns_ the prop
+  definition, so there is no property to annotate and each control documents `position` itself.
 
 ## Conventions
 

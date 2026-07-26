@@ -23,8 +23,11 @@ defineOptions({ name: 'MglColorReliefLayer', inheritAttrs: false });
 
 const props = defineProps({
 	...LayerLib.SHARED.props,
+	/** maplibre `layout` properties for this color-relief layer. Diffed per property, through `setLayoutProperty`. */
 	layout: Object as () => ColorReliefLayerSpecification['layout'],
+	/** maplibre `paint` properties for this color-relief layer. Diffed **per property**, so changing one does not restart the others' transitions. */
 	paint: Object as () => ColorReliefLayerSpecification['paint'],
+	/** Expression deciding which features of the source this layer draws. Applied through `setFilter`. */
 	filter: [Boolean, Array] as unknown as () => ColorReliefLayerSpecification['filter']
 });
 

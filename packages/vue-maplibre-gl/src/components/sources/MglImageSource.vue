@@ -23,11 +23,20 @@ import type { MglSourceOptions } from 'types';
 defineOptions({ name: 'MglImageSource' });
 
 const props = defineProps({
+	/**
+	 * Id the source is registered under. Layers nested inside this component bind to it automatically.
+	 */
 	sourceId: {
 		type: String as PropType<string>,
 		required: true
 	},
+	/**
+	 * URL of the resource. Applied through `setUrl` where maplibre supports it.
+	 */
 	url: String as PropType<ImageSourceSpecification['url']>,
+	/**
+	 * The four corners of the image, clockwise from the top left. Applied through `setCoordinates`, so moving it does not recreate the source.
+	 */
 	coordinates: Array as unknown as PropType<ImageSourceSpecification['coordinates']>
 });
 

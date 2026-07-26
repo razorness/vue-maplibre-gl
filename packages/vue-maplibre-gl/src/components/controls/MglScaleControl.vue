@@ -13,8 +13,11 @@ import { mapSymbol } from 'types';
 defineOptions({ name: 'MglScaleControl' });
 
 const props = defineProps({
+	/** Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component. */
 	position: positionProp(),
+	/** Maximum width of the scale bar in pixels. */
 	maxWidth: { type: Number as PropType<number>, default: 100 },
+	/** Unit system the distance is shown in. */
 	unit: {
 		type: String as unknown as () => ScaleControlUnit,
 		default: ScaleControlUnit.METRIC,

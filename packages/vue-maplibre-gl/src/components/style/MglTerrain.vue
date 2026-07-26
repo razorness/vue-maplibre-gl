@@ -12,6 +12,7 @@ defineOptions({ name: 'MglTerrain' });
 const props = defineProps({
 	/** Id of a `raster-dem` source. */
 	source: { type: String as PropType<string>, required: true },
+	/** Vertical exaggeration. `1` is true to scale; higher values make relief more legible. */
 	exaggeration: Number as PropType<number>
 });
 

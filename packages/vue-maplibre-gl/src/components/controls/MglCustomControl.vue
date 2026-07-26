@@ -18,7 +18,9 @@ import { mapSymbol } from 'types';
 defineOptions({ name: 'MglCustomControl' });
 
 const props = defineProps({
+	/** Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component. */
 	position: positionProp(),
+	/** Skip maplibre's control classes, so the slot content is styled entirely by you. */
 	noClasses: { type: Boolean, default: false }
 });
 

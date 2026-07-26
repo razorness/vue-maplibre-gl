@@ -23,15 +23,25 @@ defineOptions({ name: 'MglFrameRateControl' });
  * constructor — which only ever runs in a browser.
  */
 const props = defineProps({
+	/** Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component. */
 	position: positionProp(Position.TOP_RIGHT),
+	/** Background colour of the control. */
 	background: String as PropType<string>,
+	/** Width of one frame-time bar in pixels. */
 	barWidth: Number as PropType<number>,
+	/** Colour of the bars. */
 	color: String as PropType<string>,
+	/** CSS font used for the numeric readout. */
 	font: String as PropType<string>,
+	/** Height of the graph area in pixels. */
 	graphHeight: Number as PropType<number>,
+	/** Width of the graph area in pixels. */
 	graphWidth: Number as PropType<number>,
+	/** Top offset of the graph inside the control. */
 	graphTop: Number as PropType<number>,
+	/** Right offset of the graph inside the control. */
 	graphRight: Number as PropType<number>,
+	/** Width of the control in pixels. */
 	width: Number as PropType<number>
 });
 

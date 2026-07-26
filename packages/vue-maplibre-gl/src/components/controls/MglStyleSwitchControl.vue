@@ -50,9 +50,13 @@ import { emitterSymbol, isInitializedSymbol, isLoadedSymbol, mapSymbol, type Sty
 defineOptions({ name: 'MglStyleSwitchControl' });
 
 const props = defineProps({
+	/** Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component. */
 	position: positionProp(),
+	/** The styles to offer. Each entry needs a `name`, a `label` and a `style` (URL or specification). */
 	mapStyles: { type: Array as PropType<StyleSwitchItem[]>, default: () => [] },
+	/** Name of the selected style. Two-way bindable with `v-model`. */
 	modelValue: Object as PropType<StyleSwitchItem>,
+	/** Whether the style list is expanded. Two-way bindable. */
 	isOpen: { type: Boolean, default: undefined }
 });
 

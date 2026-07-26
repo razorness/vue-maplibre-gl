@@ -29,14 +29,23 @@ import { fitBoundsOptionsSymbol, isLoadedSymbol, mapSymbol } from 'types';
 defineOptions({ name: 'MglDrawControl' });
 
 const props = defineProps({
+	/** Corner of the map the control is placed in. */
 	position: positionProp(Position.TOP_RIGHT),
+	/** The drawn feature. Two-way bindable with `v-model` — always a closed `Feature<Polygon>`. */
 	model: Object as PropType<DrawModel>,
+	/** Active drawing mode. Two-way bindable, so the control reflects a mode set from code. */
 	mode: { type: String as unknown as () => DrawMode, default: DrawMode.POLYGON },
+	/** Mode to start in when drawing begins. */
 	defaultMode: { type: String as unknown as () => DrawMode, default: DrawMode.POLYGON },
+	/** Zoom to the feature after it is drawn or loaded. */
 	autoZoom: { type: Boolean, default: true },
+	/** Smallest acceptable area. Below it, the feature is marked `tooSmall` and hatched. */
 	minAreaSize: Number,
+	/** Colour of the hatch pattern drawn for an area below `minAreaSize`. */
 	minAreaColor: String,
+	/** Label shown on an area below `minAreaSize`. */
 	minAreaLabel: String,
+	/** Grab radius in pixels for vertices and midpoints. Defaults to 24 for mouse and 36 for touch. */
 	pointerPrecision: Object as PropType<PointerPrecisionOption>
 });
 

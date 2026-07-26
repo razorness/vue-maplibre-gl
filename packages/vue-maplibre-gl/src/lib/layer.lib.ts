@@ -96,16 +96,42 @@ export class LayerLib {
 		touchstart: 0
 	});
 
+	/*
+	 * Documented once here, and inherited by all ten named layer wrappers — including into their
+	 * generated API tables and `web-types.json` entries.
+	 */
 	static readonly SHARED = {
 		props: {
+			/** Layer id on the map. Must be unique across the style. */
 			layerId: {
 				type: String as PropType<string>,
 				required: true
 			},
+
+			/**
+			 * Source id, or a maplibre `Source` instance.
+			 *
+			 * Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its
+			 * id. Only a string id participates in source-readiness tracking — pass a `Source` object and
+			 * the layer adds itself immediately.
+			 */
 			source: [String, Object] as PropType<string | Source>,
+
+			/** Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer. */
 			metadata: [Object, Array, String, Number] as PropType<any>,
+
+			/**
+			 * Layer within a vector source to draw. Required for vector and some raster-dem sources.
+			 *
+			 * Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either,
+			 * so changing it recreates the layer.
+			 */
 			sourceLayer: String as PropType<string>,
+
+			/** Hide the layer below this zoom level. Applied through `setLayerZoomRange`. */
 			minzoom: Number as PropType<number>,
+
+			/** Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`. */
 			maxzoom: Number as PropType<number>,
 			/**
 			 * @deprecated Never had any effect: `interactive` is not part of the maplibre layer
@@ -113,6 +139,8 @@ export class LayerLib {
 			 * It is now ignored. Bind layer events (`@click`, `@mouseenter`, …) instead.
 			 */
 			interactive: Boolean as PropType<boolean>,
+
+			/** Insert this layer beneath the layer with this id. Without it, layers are appended in mount order. */
 			before: String as PropType<string>
 		},
 		/** Derived from {@link LAYER_EVENTS} instead of duplicating the list. */

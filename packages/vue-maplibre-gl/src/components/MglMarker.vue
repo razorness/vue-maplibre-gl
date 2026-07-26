@@ -18,19 +18,33 @@ import { useMarker } from 'composable/useMarker';
 defineOptions({ name: 'MglMarker' });
 
 const props = defineProps({
+	/** Where the marker sits. Two-way bindable with `v-model:coordinates`, which follows a drag. */
 	coordinates: { type: [Object, Array] as unknown as PropType<LngLatLike>, required: true },
+	/** Pixel offset from the coordinate, as `[x, y]` or a `Point`. */
 	offset: [Object, Array] as PropType<PointLike>,
+	/** Which part of the marker sits on the coordinate, e.g. `'bottom'` for a pin. */
 	anchor: String as PropType<PositionAnchor>,
+	/** Fill colour of the default marker. Ignored once you pass your own markup through the default slot. */
 	color: String as PropType<string>,
+	/** Let the user drag the marker. Pair it with `v-model:coordinates` or the `dragend` event. */
 	draggable: Boolean as PropType<boolean>,
+	/** Pointer movement in pixels that still counts as a click rather than a drag. */
 	clickTolerance: Number as PropType<number>,
+	/** Rotation in degrees clockwise. */
 	rotation: Number as PropType<number>,
+	/** Whether `rotation` is relative to the `map` or the `viewport`. */
 	rotationAlignment: String as PropType<'map' | 'viewport' | 'auto'>,
+	/** Whether the marker tilts with the `map` or stays flat against the `viewport`. */
 	pitchAlignment: String as PropType<'map' | 'viewport' | 'auto'>,
+	/** Scale factor of the default marker. */
 	scale: Number as PropType<number>,
+	/** Extra CSS class on the marker element. */
 	className: String as PropType<string>,
+	/** Opacity while the marker is visible. */
 	opacity: String as PropType<string>,
+	/** Opacity while the marker is hidden behind terrain. */
 	opacityWhenCovered: String as PropType<string>,
+	/** Position on fractional pixels. Smoother while animating, slightly blurrier at rest. */
 	subpixelPositioning: Boolean as PropType<boolean>
 });
 

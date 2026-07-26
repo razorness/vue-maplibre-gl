@@ -135,371 +135,433 @@
         "name": "anisotropicFilterPitch",
         "type": "number | null | undefined",
         "required": false,
-        "default": "defaults.anisotropicFilterPitch"
+        "default": "defaults.anisotropicFilterPitch",
+        "description": "Pitch above which anisotropic texture filtering kicks in, trading fill rate for sharper oblique tiles."
       },
       {
         "name": "aroundCenter",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.aroundCenter"
+        "default": "defaults.aroundCenter",
+        "description": "Zoom around the map centre rather than around the pointer."
       },
       {
         "name": "attributionControl",
         "type": "false | AttributionControlOptions | undefined",
         "required": false,
-        "default": "defaults.attributionControl"
+        "default": "defaults.attributionControl",
+        "description": "Show the attribution control, or configure it. Attribution is a licence requirement for most tile sources."
       },
       {
         "name": "bearing",
         "type": "number | undefined",
         "required": false,
-        "default": "defaults.bearing"
+        "default": "defaults.bearing",
+        "description": "Initial bearing (rotation) in degrees counter-clockwise from north. Two-way bindable with `v-model:bearing`."
       },
       {
         "name": "bearingSnap",
         "type": "number | undefined",
         "required": false,
-        "default": "defaults.bearingSnap"
+        "default": "defaults.bearingSnap",
+        "description": "Snap to north once the bearing is within this many degrees of it."
       },
       {
         "name": "bounds",
         "type": "LngLatBoundsLike | undefined",
         "required": false,
-        "default": "defaults.bounds"
+        "default": "defaults.bounds",
+        "description": "Fit the map to these bounds instead of using `center` and `zoom`. Two-way bindable with `v-model:bounds`, where reading gives the current viewport and writing fits the map to the box — the fit uses {@link fitBoundsOptions }."
       },
       {
         "name": "boxZoom",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.boxZoom"
+        "default": "defaults.boxZoom",
+        "description": "Allow shift-drag to zoom to a box."
       },
       {
         "name": "cancelPendingTileRequestsWhileZooming",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.cancelPendingTileRequestsWhileZooming"
+        "default": "defaults.cancelPendingTileRequestsWhileZooming",
+        "description": "Abort in-flight tile requests while zooming, rather than letting them complete."
       },
       {
         "name": "canvasContextAttributes",
         "type": "WebGLContextAttributesWithType | undefined",
         "required": false,
-        "default": "defaults.canvasContextAttributes"
+        "default": "defaults.canvasContextAttributes",
+        "description": "WebGL context attributes, e.g. `{ antialias: true }` or `{ preserveDrawingBuffer: true }` for screenshots."
       },
       {
         "name": "center",
         "type": "LngLatLike | undefined",
         "required": false,
-        "default": "defaults.center"
+        "default": "defaults.center",
+        "description": "Initial centre as `[lng, lat]` or a `LngLat`. Two-way bindable with `v-model:center`."
       },
       {
         "name": "centerClampedToGround",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.centerClampedToGround"
+        "default": "defaults.centerClampedToGround",
+        "description": "Keep the centre pinned to the ground rather than to the camera target when the terrain moves."
       },
       {
         "name": "clickTolerance",
         "type": "number | undefined",
         "required": false,
-        "default": "defaults.clickTolerance"
+        "default": "defaults.clickTolerance",
+        "description": "Pointer movement in pixels that still counts as a click rather than a drag."
       },
       {
         "name": "collectResourceTiming",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.collectResourceTiming"
+        "default": "defaults.collectResourceTiming",
+        "description": "Collect `resourceTiming` data for tile requests and report it on the data events."
       },
       {
         "name": "cooperativeGestures",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.cooperativeGestures"
+        "default": "defaults.cooperativeGestures",
+        "description": "Require ctrl/⌘ to zoom with the wheel and two fingers to pan, so the map does not hijack page scrolling."
       },
       {
         "name": "crossSourceCollisions",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.crossSourceCollisions"
+        "default": "defaults.crossSourceCollisions",
+        "description": "Let labels from different sources collide with each other. Turning this off speeds up label placement."
       },
       {
         "name": "doubleClickZoom",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.doubleClickZoom"
+        "default": "defaults.doubleClickZoom",
+        "description": "Allow double-click and shift-double-click to zoom."
       },
       {
         "name": "dragPan",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.dragPan"
+        "default": "defaults.dragPan",
+        "description": "Allow panning by dragging."
       },
       {
         "name": "dragRotate",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.dragRotate"
+        "default": "defaults.dragRotate",
+        "description": "Allow rotating by right-drag or ctrl-drag."
       },
       {
         "name": "elevation",
         "type": "number | undefined",
         "required": false,
-        "default": "defaults.elevation"
+        "default": "defaults.elevation",
+        "description": "Camera elevation in metres above the terrain."
       },
       {
         "name": "fadeDuration",
         "type": "number | undefined",
         "required": false,
-        "default": "defaults.fadeDuration"
+        "default": "defaults.fadeDuration",
+        "description": "Cross-fade duration in milliseconds for labels and symbols as tiles change zoom level."
       },
       {
         "name": "fitBoundsOptions",
         "type": "(AnimationOptions & CenterZoomBearing & { pitch?: number | undefined; roll?: number | undefined; elevation?: number | undefined; } & { curve?: number | undefined; minZoom?: number | undefined; speed?: number | undefined; screenSpeed?: number | undefined; maxDuration?: number | undefined; padding?: number | PaddingOptions | undefined; } & { linear?: boolean | undefined; offset?: PointLike | undefined; maxZoom?: number | undefined; } & { useOnBoundsUpdate?: boolean | undefined; }) | undefined",
         "required": false,
-        "default": "defaults.fitBoundsOptions"
+        "default": "defaults.fitBoundsOptions",
+        "description": "Options for every `fitBounds` this map performs — padding, animation, `maxZoom`. Also shared with the draw plugin for its viewport padding. Set `useOnBoundsUpdate` to reuse these options when `v-model:bounds` writes a new box."
       },
       {
         "name": "hash",
         "type": "string | boolean | undefined",
         "required": false,
-        "default": "defaults.hash"
+        "default": "defaults.hash",
+        "description": "Sync the camera to the URL hash (`#zoom/lat/lng`). A string uses it as the parameter name."
       },
       {
         "name": "height",
         "type": "string | number | undefined",
         "required": false,
-        "default": "'100%'"
+        "default": "'100%'",
+        "description": "Height of the map container. A number is treated as pixels. The map has no intrinsic size — with a percentage height, the *parent* needs a height of its own, or the map collapses to nothing."
       },
       {
         "name": "interactive",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.interactive"
+        "default": "defaults.interactive",
+        "description": "Master switch for all user interaction. `false` gives a static map that can still be moved from code."
       },
       {
         "name": "keyboard",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.keyboard"
+        "default": "defaults.keyboard",
+        "description": "Allow keyboard navigation when the map has focus."
       },
       {
         "name": "language",
         "type": "ValidLanguages | undefined",
         "required": false,
-        "default": "defaults.language || undefined"
+        "default": "defaults.language || undefined",
+        "description": "Rewrites every symbol layer's `text-field` to this language, e.g. `'de'`. Not a maplibre option: the expressions are rewritten to `['coalesce', ['get', 'name:de'], ['get', 'name']]`, so it needs a style whose tiles carry `name:xx` fields. Also writeable through `useMap().language`."
       },
       {
         "name": "locale",
         "type": "Record<string, string> | undefined",
         "required": false,
-        "default": "defaults.locale"
+        "default": "defaults.locale",
+        "description": "Overrides for maplibre's own UI strings, e.g. control tooltips."
       },
       {
         "name": "localIdeographFontFamily",
         "type": "string | false | undefined",
         "required": false,
-        "default": "defaults.localIdeographFontFamily"
+        "default": "defaults.localIdeographFontFamily",
+        "description": "Font family used to render CJK glyphs locally instead of loading them from the style's glyph endpoint."
       },
       {
         "name": "logoPosition",
         "type": "ControlPosition | undefined",
         "required": false,
-        "default": "defaults.logoPosition"
+        "default": "defaults.logoPosition",
+        "description": "Corner the maplibre logo sits in."
       },
       {
         "name": "mapKey",
         "type": "string | symbol | undefined",
-        "required": false
+        "required": false,
+        "description": "Key this map is registered under, so `useMap(key)` can reach it from anywhere. Not a maplibre option. Omit it and the map registers under a default symbol — which is fine until a second map is mounted, at which point both want the same slot."
       },
       {
         "name": "maplibreLogo",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.maplibreLogo"
+        "default": "defaults.maplibreLogo",
+        "description": "Show the maplibre logo. Check the licence of your tile source before turning this off."
       },
       {
         "name": "mapStyle",
         "type": "string | object | undefined",
         "required": false,
-        "default": "defaults.style"
+        "default": "defaults.style",
+        "description": "The style: a URL, or a style specification object. This is maplibre's `style` option. It is called `mapStyle` because `style` is the HTML style attribute; the rename is undone when the map is constructed. Changing it calls `setStyle` with `{ diff: false }`, and sources and layers re-add themselves afterwards."
       },
       {
         "name": "maxBounds",
         "type": "LngLatBoundsLike | undefined",
         "required": false,
-        "default": "defaults.maxBounds"
+        "default": "defaults.maxBounds",
+        "description": "Restrict panning to these bounds. The camera is clamped, so what comes back from a move may differ from what you set."
       },
       {
         "name": "maxCanvasSize",
         "type": "[number, number] | undefined",
         "required": false,
-        "default": "defaults.maxCanvasSize"
+        "default": "defaults.maxCanvasSize",
+        "description": "Upper bound for the canvas size as `[width, height]` in pixels."
       },
       {
         "name": "maxPitch",
         "type": "number | null | undefined",
         "required": false,
-        "default": "defaults.maxPitch"
+        "default": "defaults.maxPitch",
+        "description": "Maximum pitch in degrees, up to 85."
       },
       {
         "name": "maxTileCacheSize",
         "type": "number | undefined",
         "required": false,
-        "default": "defaults.maxTileCacheSize"
+        "default": "defaults.maxTileCacheSize",
+        "description": "Number of tiles kept in the cache."
       },
       {
         "name": "maxTileCacheZoomLevels",
         "type": "number | undefined",
         "required": false,
-        "default": "defaults.maxTileCacheZoomLevels"
+        "default": "defaults.maxTileCacheZoomLevels",
+        "description": "How many zoom levels' worth of tiles to keep cached."
       },
       {
         "name": "maxZoom",
         "type": "number | null | undefined",
         "required": false,
-        "default": "defaults.maxZoom"
+        "default": "defaults.maxZoom",
+        "description": "Maximum zoom level."
       },
       {
         "name": "minPitch",
         "type": "number | null | undefined",
         "required": false,
-        "default": "defaults.minPitch"
+        "default": "defaults.minPitch",
+        "description": "Minimum pitch in degrees."
       },
       {
         "name": "minZoom",
         "type": "number | null | undefined",
         "required": false,
-        "default": "defaults.minZoom"
+        "default": "defaults.minZoom",
+        "description": "Minimum zoom level."
       },
       {
         "name": "pitch",
         "type": "number | undefined",
         "required": false,
-        "default": "defaults.pitch"
+        "default": "defaults.pitch",
+        "description": "Initial pitch (tilt) in degrees away from straight down. Two-way bindable with `v-model:pitch`."
       },
       {
         "name": "pitchWithRotate",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.pitchWithRotate"
+        "default": "defaults.pitchWithRotate",
+        "description": "Let a drag-rotate gesture change the pitch as well as the bearing."
       },
       {
         "name": "pixelRatio",
         "type": "number | undefined",
         "required": false,
-        "default": "defaults.pixelRatio"
+        "default": "defaults.pixelRatio",
+        "description": "Device pixel ratio to render at. Lowering it trades sharpness for frame rate."
       },
       {
         "name": "projection",
         "type": "ProjectionSpecification | undefined",
-        "required": false
+        "required": false,
+        "description": "Map projection, e.g. `{ type: 'globe' }`. Not a `MapOptions` key but a style-level setting, so it is applied through `setProjection` once the style is ready and re-applied after a style switch. `MglProjection` and `MglGlobeControl` are the declarative and interactive alternatives."
       },
       {
         "name": "reduceMotion",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.reduceMotion"
+        "default": "defaults.reduceMotion",
+        "description": "Skip camera animations, for users who asked for reduced motion."
       },
       {
         "name": "refreshExpiredTiles",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.refreshExpiredTiles"
+        "default": "defaults.refreshExpiredTiles",
+        "description": "Re-request tiles once their HTTP cache headers expire."
       },
       {
         "name": "renderWorldCopies",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.renderWorldCopies"
+        "default": "defaults.renderWorldCopies",
+        "description": "Repeat the world horizontally when zoomed out."
       },
       {
         "name": "roll",
         "type": "number | undefined",
         "required": false,
-        "default": "defaults.roll"
+        "default": "defaults.roll",
+        "description": "Initial roll in degrees around the camera axis. Two-way bindable with `v-model:roll`, and only effective with {@link rollEnabled }."
       },
       {
         "name": "rollEnabled",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.rollEnabled"
+        "default": "defaults.rollEnabled",
+        "description": "Allow the camera to roll."
       },
       {
         "name": "scrollZoom",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.scrollZoom"
+        "default": "defaults.scrollZoom",
+        "description": "Allow zooming with the mouse wheel. See {@link cooperativeGestures } to keep page scrolling working."
       },
       {
         "name": "terrainSkirtLength",
         "type": "\"none\" | \"auto\" | undefined",
         "required": false,
-        "default": "defaults.terrainSkirtLength"
+        "default": "defaults.terrainSkirtLength",
+        "description": "Length of the skirt drawn around terrain tiles to hide seams."
       },
       {
         "name": "touchPitch",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.touchPitch"
+        "default": "defaults.touchPitch",
+        "description": "Allow changing the pitch with a two-finger drag."
       },
       {
         "name": "touchZoomRotate",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.touchZoomRotate"
+        "default": "defaults.touchZoomRotate",
+        "description": "Allow pinch to zoom and rotate."
       },
       {
         "name": "trackResize",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.trackResize"
+        "default": "defaults.trackResize",
+        "description": "Let maplibre resize the map on `window.resize`. Independent of this component's own `ResizeObserver`, which watches the *container* and therefore also catches layout changes that leave the window size untouched."
       },
       {
         "name": "transformCameraUpdate",
         "type": "CameraUpdateTransformFunction | undefined",
         "required": false,
-        "default": "defaults.transformCameraUpdate"
+        "default": "defaults.transformCameraUpdate",
+        "description": "Intercept every camera update, e.g. to constrain it. Called on each frame of an animation."
       },
       {
         "name": "transformConstrain",
         "type": "TransformConstrainFunction | undefined",
         "required": false,
-        "default": "defaults.transformConstrain"
+        "default": "defaults.transformConstrain",
+        "description": "Constrain the transform after every camera change — the low-level counterpart to {@link maxBounds }."
       },
       {
         "name": "transformRequest",
         "type": "RequestTransformFunction | undefined",
         "required": false,
-        "default": "defaults.transformRequest"
+        "default": "defaults.transformRequest",
+        "description": "Rewrite tile and resource requests — add an API key, a header, or a proxy."
       },
       {
         "name": "validateStyle",
         "type": "boolean | undefined",
         "required": false,
-        "default": "defaults.validateStyle"
+        "default": "defaults.validateStyle",
+        "description": "Validate the style against the style specification. Worth leaving on in development and off in production."
       },
       {
         "name": "width",
         "type": "string | number | undefined",
         "required": false,
-        "default": "'100%'"
+        "default": "'100%'",
+        "description": "Width of the map container. A number is treated as pixels."
       },
       {
         "name": "zoom",
         "type": "number | undefined",
         "required": false,
-        "default": "defaults.zoom"
+        "default": "defaults.zoom",
+        "description": "Initial zoom level. Two-way bindable with `v-model:zoom`; note that {@link zoomSnap } may round what comes back."
       },
       {
         "name": "zoomLevelsToOverscale",
         "type": "number | undefined",
         "required": false,
-        "default": "defaults.zoomLevelsToOverscale"
+        "default": "defaults.zoomLevelsToOverscale",
+        "description": "Render tiles from this many zoom levels below the current one, instead of loading new ones."
       },
       {
         "name": "zoomSnap",
         "type": "number | undefined",
         "required": false,
-        "default": "defaults.zoomSnap"
+        "default": "defaults.zoomSnap",
+        "description": "Snap the zoom to multiples of this value. Set it to `0` for continuous zoom. This is why the camera binding cannot compare values to detect an echo: with the default of `1`, a `zoom` of `4.3` comes back as `4`."
       }
     ],
     "events": [
@@ -786,17 +848,20 @@
       {
         "name": "compact",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Collapse into a small button that expands on click. Chosen automatically when unset."
       },
       {
         "name": "customAttribution",
         "type": "string | string[] | undefined",
-        "required": false
+        "required": false,
+        "description": "Extra attribution shown alongside what the sources declare."
       },
       {
         "name": "position",
         "type": "Position | undefined",
-        "required": false
+        "required": false,
+        "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component."
       }
     ],
     "events": [],
@@ -812,12 +877,14 @@
         "name": "noClasses",
         "type": "boolean | undefined",
         "required": false,
-        "default": "false"
+        "default": "false",
+        "description": "Skip maplibre's control classes, so the slot content is styled entirely by you."
       },
       {
         "name": "position",
         "type": "Position | undefined",
-        "required": false
+        "required": false,
+        "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component."
       }
     ],
     "events": [],
@@ -843,12 +910,14 @@
         "name": "container",
         "type": "HTMLElement | undefined",
         "required": false,
-        "default": "null"
+        "default": "null",
+        "description": "Element to make fullscreen instead of the map container."
       },
       {
         "name": "position",
         "type": "Position | undefined",
-        "required": false
+        "required": false,
+        "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component."
       }
     ],
     "events": [
@@ -872,7 +941,8 @@
       {
         "name": "position",
         "type": "Position | undefined",
-        "required": false
+        "required": false,
+        "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component."
       }
     ],
     "events": [],
@@ -887,12 +957,14 @@
       {
         "name": "compact",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Show the compact variant of the logo."
       },
       {
         "name": "position",
         "type": "Position | undefined",
-        "required": false
+        "required": false,
+        "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component."
       }
     ],
     "events": [],
@@ -913,12 +985,14 @@
       {
         "name": "exaggeration",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Vertical exaggeration applied when the user turns terrain on."
       },
       {
         "name": "position",
         "type": "Position | undefined",
-        "required": false
+        "required": false,
+        "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component."
       }
     ],
     "events": [],
@@ -933,52 +1007,62 @@
       {
         "name": "background",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Background colour of the control."
       },
       {
         "name": "barWidth",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Width of one frame-time bar in pixels."
       },
       {
         "name": "color",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Colour of the bars."
       },
       {
         "name": "font",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "CSS font used for the numeric readout."
       },
       {
         "name": "graphHeight",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Height of the graph area in pixels."
       },
       {
         "name": "graphRight",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Right offset of the graph inside the control."
       },
       {
         "name": "graphTop",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Top offset of the graph inside the control."
       },
       {
         "name": "graphWidth",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Width of the graph area in pixels."
       },
       {
         "name": "position",
         "type": "Position | undefined",
-        "required": false
+        "required": false,
+        "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component."
       },
       {
         "name": "width",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Width of the control in pixels."
       }
     ],
     "events": [],
@@ -999,36 +1083,42 @@
         "name": "fitBoundsOptions",
         "type": "FitBoundsOptions | undefined",
         "required": false,
-        "default": "{ maxZoom: 15 }"
+        "default": "{ maxZoom: 15 }",
+        "description": "Options for the camera move performed when a position arrives."
       },
       {
         "name": "position",
         "type": "Position | undefined",
-        "required": false
+        "required": false,
+        "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component."
       },
       {
         "name": "positionOptions",
         "type": "PositionOptions | undefined",
         "required": false,
-        "default": "{ enableHighAccuracy: false, timeout: 6000 }"
+        "default": "{ enableHighAccuracy: false, timeout: 6000 }",
+        "description": "Options passed to the browser geolocation API, e.g. `{ enableHighAccuracy: true }`. The default is a factory, because an object default would otherwise be shared by every instance."
       },
       {
         "name": "showAccuracyCircle",
         "type": "boolean | undefined",
         "required": false,
-        "default": "true"
+        "default": "true",
+        "description": "Draw a circle showing the reported accuracy radius."
       },
       {
         "name": "showUserLocation",
         "type": "boolean | undefined",
         "required": false,
-        "default": "true"
+        "default": "true",
+        "description": "Draw a dot at the reported position."
       },
       {
         "name": "trackUserLocation",
         "type": "boolean | undefined",
         "required": false,
-        "default": "false"
+        "default": "false",
+        "description": "Keep following the user rather than moving once."
       }
     ],
     "events": [
@@ -1072,24 +1162,28 @@
       {
         "name": "position",
         "type": "Position | undefined",
-        "required": false
+        "required": false,
+        "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component."
       },
       {
         "name": "showCompass",
         "type": "boolean | undefined",
         "required": false,
-        "default": "true"
+        "default": "true",
+        "description": "Show the compass button, which resets the bearing."
       },
       {
         "name": "showZoom",
         "type": "boolean | undefined",
         "required": false,
-        "default": "true"
+        "default": "true",
+        "description": "Show the zoom in and zoom out buttons."
       },
       {
         "name": "visualizePitch",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Tilt the compass needle to visualise the current pitch."
       }
     ],
     "events": [],
@@ -1105,18 +1199,21 @@
         "name": "maxWidth",
         "type": "number | undefined",
         "required": false,
-        "default": "100"
+        "default": "100",
+        "description": "Maximum width of the scale bar in pixels."
       },
       {
         "name": "position",
         "type": "Position | undefined",
-        "required": false
+        "required": false,
+        "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component."
       },
       {
         "name": "unit",
         "type": "ScaleControlUnit | undefined",
         "required": false,
-        "default": "ScaleControlUnit.METRIC"
+        "default": "ScaleControlUnit.METRIC",
+        "description": "Unit system the distance is shown in."
       }
     ],
     "events": [],
@@ -1132,23 +1229,27 @@
         "name": "isOpen",
         "type": "boolean | undefined",
         "required": false,
-        "default": "undefined"
+        "default": "undefined",
+        "description": "Whether the style list is expanded. Two-way bindable."
       },
       {
         "name": "mapStyles",
         "type": "StyleSwitchItem[] | undefined",
         "required": false,
-        "default": "[]"
+        "default": "[]",
+        "description": "The styles to offer. Each entry needs a `name`, a `label` and a `style` (URL or specification)."
       },
       {
         "name": "modelValue",
         "type": "StyleSwitchItem | undefined",
-        "required": false
+        "required": false,
+        "description": "Name of the selected style. Two-way bindable with `v-model`."
       },
       {
         "name": "position",
         "type": "Position | undefined",
-        "required": false
+        "required": false,
+        "description": "Corner of the map the control is placed in. Adding, moving and removing is owned centrally, not by the component."
       }
     ],
     "events": [
@@ -1185,23 +1286,27 @@
       {
         "name": "path",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "SVG path data for the icon. Required for every type except `text`."
       },
       {
         "name": "size",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Icon size in pixels. Defaults to what the `type` implies."
       },
       {
         "name": "type",
         "type": "ButtonType | undefined",
         "required": false,
-        "default": "ButtonType.DEFAULT"
+        "default": "ButtonType.DEFAULT",
+        "description": "Icon convention to size the SVG by, or `text` for a label-only button."
       },
       {
         "name": "viewbox",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "SVG viewBox. Defaults to what the `type` implies."
       }
     ],
     "events": [],
@@ -1221,72 +1326,86 @@
       {
         "name": "coordinates",
         "type": "LngLatLike",
-        "required": true
+        "required": true,
+        "description": "Where the marker sits. Two-way bindable with `v-model:coordinates`, which follows a drag."
       },
       {
         "name": "anchor",
         "type": "PositionAnchor | undefined",
-        "required": false
+        "required": false,
+        "description": "Which part of the marker sits on the coordinate, e.g. `'bottom'` for a pin."
       },
       {
         "name": "className",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Extra CSS class on the marker element."
       },
       {
         "name": "clickTolerance",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Pointer movement in pixels that still counts as a click rather than a drag."
       },
       {
         "name": "color",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Fill colour of the default marker. Ignored once you pass your own markup through the default slot."
       },
       {
         "name": "draggable",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Let the user drag the marker. Pair it with `v-model:coordinates` or the `dragend` event."
       },
       {
         "name": "offset",
         "type": "PointLike | undefined",
-        "required": false
+        "required": false,
+        "description": "Pixel offset from the coordinate, as `[x, y]` or a `Point`."
       },
       {
         "name": "opacity",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Opacity while the marker is visible."
       },
       {
         "name": "opacityWhenCovered",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Opacity while the marker is hidden behind terrain."
       },
       {
         "name": "pitchAlignment",
         "type": "\"map\" | \"auto\" | \"viewport\" | undefined",
-        "required": false
+        "required": false,
+        "description": "Whether the marker tilts with the `map` or stays flat against the `viewport`."
       },
       {
         "name": "rotation",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Rotation in degrees clockwise."
       },
       {
         "name": "rotationAlignment",
         "type": "\"map\" | \"auto\" | \"viewport\" | undefined",
-        "required": false
+        "required": false,
+        "description": "Whether `rotation` is relative to the `map` or the `viewport`."
       },
       {
         "name": "scale",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Scale factor of the default marker."
       },
       {
         "name": "subpixelPositioning",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Position on fractional pixels. Smoother while animating, slightly blurrier at rest."
       }
     ],
     "events": [
@@ -1338,29 +1457,34 @@
       {
         "name": "anchor",
         "type": "PositionAnchor | undefined",
-        "required": false
+        "required": false,
+        "description": "Which part of the popup sits on the coordinate. Chosen automatically when unset."
       },
       {
         "name": "className",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Extra CSS class on the popup element."
       },
       {
         "name": "closeButton",
         "type": "boolean | undefined",
         "required": false,
-        "default": "true"
+        "default": "true",
+        "description": "Show the close button."
       },
       {
         "name": "closeOnClick",
         "type": "boolean | undefined",
         "required": false,
-        "default": "true"
+        "default": "true",
+        "description": "Close when the map is clicked."
       },
       {
         "name": "closeOnMove",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Close as soon as the map moves."
       },
       {
         "name": "coordinates",
@@ -1372,22 +1496,26 @@
         "name": "focusAfterOpen",
         "type": "boolean | undefined",
         "required": false,
-        "default": "true"
+        "default": "true",
+        "description": "Move keyboard focus into the popup when it opens. Leave on for accessibility unless it steals focus from a form."
       },
       {
         "name": "locationOccludedOpacity",
         "type": "string | number | undefined",
-        "required": false
+        "required": false,
+        "description": "Opacity while the anchor point is hidden behind terrain."
       },
       {
         "name": "maxWidth",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Maximum width as a CSS length, e.g. `'240px'`."
       },
       {
         "name": "offset",
         "type": "Offset | undefined",
-        "required": false
+        "required": false,
+        "description": "Pixel offset from the coordinate. A number offsets in every direction; an object offsets per anchor."
       },
       {
         "name": "open",
@@ -1399,12 +1527,14 @@
       {
         "name": "padding",
         "type": "PaddingOptions | undefined",
-        "required": false
+        "required": false,
+        "description": "Inner padding. maplibre takes a `PaddingOptions` object here, not a number."
       },
       {
         "name": "subpixelPositioning",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Position on fractional pixels."
       },
       {
         "name": "trackPointer",
@@ -1484,12 +1614,14 @@
       {
         "name": "pixelRatio",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Device pixel ratio of the image, so a 2x asset is drawn at the right size."
       },
       {
         "name": "sdf",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Treat the image as a signed distance field, which lets `icon-color` recolour it."
       }
     ],
     "events": [],
@@ -1558,7 +1690,8 @@
       {
         "name": "exaggeration",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Vertical exaggeration. `1` is true to scale; higher values make relief more legible."
       }
     ],
     "events": [],
@@ -1573,22 +1706,26 @@
       {
         "name": "sourceId",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Id the source is registered under. Layers nested inside this component bind to it automatically."
       },
       {
         "name": "animate",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Re-read the canvas every frame. Turn it off for a canvas that rarely changes."
       },
       {
         "name": "canvas",
         "type": "string | HTMLCanvasElement | undefined",
-        "required": false
+        "required": false,
+        "description": "The canvas element, or its id."
       },
       {
         "name": "coordinates",
         "type": "[[number, number], [number, number], [number, number], [number, number]] | undefined",
-        "required": false
+        "required": false,
+        "description": "The four corners of the image, clockwise from the top left. Applied through `setCoordinates`, so moving it does not recreate the source."
       }
     ],
     "events": [],
@@ -1608,77 +1745,92 @@
       {
         "name": "sourceId",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Id the source is registered under. Layers nested inside this component bind to it automatically."
       },
       {
         "name": "attribution",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Attribution text shown for this source. Usually a licence requirement of the data provider."
       },
       {
         "name": "buffer",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Buffer in pixels around each tile, so features near an edge are not clipped. Higher values cost tile size."
       },
       {
         "name": "cluster",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Cluster nearby points into aggregate features. Applied through `setClusterOptions`."
       },
       {
         "name": "clusterMaxZoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Zoom level beyond which points are no longer clustered."
       },
       {
         "name": "clusterMinPoints",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Smallest number of points that forms a cluster."
       },
       {
         "name": "clusterProperties",
         "type": "unknown",
-        "required": false
+        "required": false,
+        "description": "Aggregations computed per cluster, e.g. summing a property across the points it contains."
       },
       {
         "name": "clusterRadius",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Cluster radius in pixels."
       },
       {
         "name": "data",
         "type": "string | GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | undefined",
-        "required": false
+        "required": false,
+        "description": "The GeoJSON itself, or a URL to it. Applied through `setData`, so assigning a new value updates the source in place instead of recreating it. This type degrades to `any` unless your project includes `@types/geojson` explicitly — see the installation guide."
       },
       {
         "name": "filter",
         "type": "FilterSpecification | undefined",
-        "required": false
+        "required": false,
+        "description": "Drop features that do not match this expression while the tiles are built, before any layer sees them."
       },
       {
         "name": "generateId",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Derive a feature id from the feature index. Needed for feature state when the data carries no ids."
       },
       {
         "name": "lineMetrics",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Compute `line-progress` along lines, which line gradients need."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Maximum zoom level tiles are available for. Beyond it, the last level is overscaled."
       },
       {
         "name": "promoteId",
         "type": "PromoteIdSpecification | undefined",
-        "required": false
+        "required": false,
+        "description": "Use this property as the feature id instead of the GeoJSON `id`."
       },
       {
         "name": "tolerance",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Simplification tolerance. Higher values mean smaller tiles and coarser geometry."
       }
     ],
     "events": [],
@@ -1698,17 +1850,20 @@
       {
         "name": "sourceId",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Id the source is registered under. Layers nested inside this component bind to it automatically."
       },
       {
         "name": "coordinates",
         "type": "[[number, number], [number, number], [number, number], [number, number]] | undefined",
-        "required": false
+        "required": false,
+        "description": "The four corners of the image, clockwise from the top left. Applied through `setCoordinates`, so moving it does not recreate the source."
       },
       {
         "name": "url",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "URL of the resource. Applied through `setUrl` where maplibre supports it."
       }
     ],
     "events": [],
@@ -1728,52 +1883,62 @@
       {
         "name": "sourceId",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Id the source is registered under. Layers nested inside this component bind to it automatically."
       },
       {
         "name": "attribution",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Attribution text shown for this source. Usually a licence requirement of the data provider."
       },
       {
         "name": "bounds",
         "type": "[number, number, number, number] | undefined",
-        "required": false
+        "required": false,
+        "description": "Bounds outside which no tiles are requested, as `[west, south, east, north]`."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Maximum zoom level tiles are available for. Beyond it, the last level is overscaled."
       },
       {
         "name": "minzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Minimum zoom level tiles are available for."
       },
       {
         "name": "scheme",
         "type": "\"xyz\" | \"tms\" | undefined",
-        "required": false
+        "required": false,
+        "description": "Tile coordinate scheme: `'xyz'` (the default) or `'tms'`, which flips the y axis."
       },
       {
         "name": "tiles",
         "type": "string[] | undefined",
-        "required": false
+        "required": false,
+        "description": "Tile URL templates, e.g. `https://host/{z}/{x}/{y}.png`. Applied through `setTiles`."
       },
       {
         "name": "tileSize",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Tile size in pixels this source serves."
       },
       {
         "name": "url",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "URL of the resource. Applied through `setUrl` where maplibre supports it."
       },
       {
         "name": "volatile",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Never cache these tiles — for data that changes faster than the cache would allow."
       }
     ],
     "events": [],
@@ -1793,72 +1958,86 @@
       {
         "name": "sourceId",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Id the source is registered under. Layers nested inside this component bind to it automatically."
       },
       {
         "name": "attribution",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Attribution text shown for this source. Usually a licence requirement of the data provider."
       },
       {
         "name": "baseShift",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Offset applied to the decoded elevation. Only used with `encoding: custom`."
       },
       {
         "name": "blueFactor",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Multiplier for the blue channel. Only used with `encoding: custom`."
       },
       {
         "name": "bounds",
         "type": "[number, number, number, number] | undefined",
-        "required": false
+        "required": false,
+        "description": "Bounds outside which no tiles are requested, as `[west, south, east, north]`."
       },
       {
         "name": "encoding",
         "type": "\"terrarium\" | \"mapbox\" | \"custom\" | undefined",
-        "required": false
+        "required": false,
+        "description": "How elevation is packed into the RGB channels: `'mapbox'`, `'terrarium'` or `'custom'`."
       },
       {
         "name": "greenFactor",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Multiplier for the green channel. Only used with `encoding: custom`."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Maximum zoom level tiles are available for. Beyond it, the last level is overscaled."
       },
       {
         "name": "minzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Minimum zoom level tiles are available for."
       },
       {
         "name": "redFactor",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Multiplier for the red channel. Only used with `encoding: custom`."
       },
       {
         "name": "tiles",
         "type": "string[] | undefined",
-        "required": false
+        "required": false,
+        "description": "Tile URL templates, e.g. `https://host/{z}/{x}/{y}.png`. Applied through `setTiles`."
       },
       {
         "name": "tileSize",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Tile size in pixels this source serves."
       },
       {
         "name": "url",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "URL of the resource. Applied through `setUrl` where maplibre supports it."
       },
       {
         "name": "volatile",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Never cache these tiles — for data that changes faster than the cache would allow."
       }
     ],
     "events": [],
@@ -1878,57 +2057,68 @@
       {
         "name": "sourceId",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Id the source is registered under. Layers nested inside this component bind to it automatically."
       },
       {
         "name": "attribution",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Attribution text shown for this source. Usually a licence requirement of the data provider."
       },
       {
         "name": "bounds",
         "type": "[number, number, number, number] | undefined",
-        "required": false
+        "required": false,
+        "description": "Bounds outside which no tiles are requested, as `[west, south, east, north]`."
       },
       {
         "name": "encoding",
         "type": "\"mvt\" | \"mlt\" | undefined",
-        "required": false
+        "required": false,
+        "description": "Tile encoding, for sources that serve more than one."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Maximum zoom level tiles are available for. Beyond it, the last level is overscaled."
       },
       {
         "name": "minzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Minimum zoom level tiles are available for."
       },
       {
         "name": "promoteId",
         "type": "PromoteIdSpecification | undefined",
-        "required": false
+        "required": false,
+        "description": "Use this property as the feature id, per source layer."
       },
       {
         "name": "scheme",
         "type": "\"xyz\" | \"tms\" | undefined",
-        "required": false
+        "required": false,
+        "description": "Tile coordinate scheme: `'xyz'` (the default) or `'tms'`, which flips the y axis."
       },
       {
         "name": "tiles",
         "type": "string[] | undefined",
-        "required": false
+        "required": false,
+        "description": "Tile URL templates, e.g. `https://host/{z}/{x}/{y}.png`. Applied through `setTiles`."
       },
       {
         "name": "url",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "URL of the resource. Applied through `setUrl` where maplibre supports it."
       },
       {
         "name": "volatile",
         "type": "boolean | undefined",
-        "required": false
+        "required": false,
+        "description": "Never cache these tiles — for data that changes faster than the cache would allow."
       }
     ],
     "events": [],
@@ -1948,17 +2138,20 @@
       {
         "name": "sourceId",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Id the source is registered under. Layers nested inside this component bind to it automatically."
       },
       {
         "name": "coordinates",
         "type": "[[number, number], [number, number], [number, number], [number, number]] | undefined",
-        "required": false
+        "required": false,
+        "description": "The four corners of the image, clockwise from the top left. Applied through `setCoordinates`, so moving it does not recreate the source."
       },
       {
         "name": "urls",
         "type": "string[] | undefined",
-        "required": false
+        "required": false,
+        "description": "One URL per video format, so the browser can pick one it can play."
       }
     ],
     "events": [],
@@ -1978,12 +2171,14 @@
       {
         "name": "layerId",
         "type": "string | undefined",
-        "required": true
+        "required": true,
+        "description": "Layer id on the map. Must be unique across the style."
       },
       {
         "name": "before",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order."
       },
       {
         "name": "interactive",
@@ -1995,37 +2190,44 @@
       {
         "name": "layout",
         "type": "{ visibility?: VisibilitySpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `layout` properties for this background layer. Diffed per property, through `setLayoutProperty`."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "metadata",
         "type": "any",
-        "required": false
+        "required": false,
+        "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer."
       },
       {
         "name": "minzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "paint",
         "type": "{ \"background-color\"?: PropertyValueSpecification<string> | undefined; \"background-color-transition\"?: TransitionSpecification | undefined; \"background-pattern\"?: PropertyValueSpecification<string> | undefined; \"background-pattern-transition\"?: TransitionSpecification | undefined; \"background-opacity\"?: PropertyValueSpecification<number> | undefined; \"background-opacity-transition\"?: TransitionSpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `paint` properties for this background layer. Diffed **per property**, so changing one does not restart the others' transitions."
       },
       {
         "name": "source",
         "type": "string | Source | undefined",
-        "required": false
+        "required": false,
+        "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately."
       },
       {
         "name": "sourceLayer",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer."
       }
     ],
     "events": [
@@ -2106,17 +2308,20 @@
       {
         "name": "layerId",
         "type": "string | undefined",
-        "required": true
+        "required": true,
+        "description": "Layer id on the map. Must be unique across the style."
       },
       {
         "name": "before",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order."
       },
       {
         "name": "filter",
         "type": "FilterSpecification | undefined",
-        "required": false
+        "required": false,
+        "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`."
       },
       {
         "name": "interactive",
@@ -2128,37 +2333,44 @@
       {
         "name": "layout",
         "type": "{ \"circle-sort-key\"?: DataDrivenPropertyValueSpecification<number> | undefined; visibility?: VisibilitySpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `layout` properties for this circle layer. Diffed per property, through `setLayoutProperty`."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "metadata",
         "type": "any",
-        "required": false
+        "required": false,
+        "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer."
       },
       {
         "name": "minzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "paint",
         "type": "{ \"circle-radius\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"circle-radius-transition\"?: TransitionSpecification | undefined; \"circle-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"circle-color-transition\"?: TransitionSpecification | undefined; \"circle-blur\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"circle-blur-transition\"?: TransitionSpecification | undefined; \"circle-opacity\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"circle-opacity-transition\"?: TransitionSpecification | undefined; \"circle-translate\"?: PropertyValueSpecification<[number, number]> | undefined; \"circle-translate-transition\"?: TransitionSpecification | undefined; \"circle-translate-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"circle-pitch-scale\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"circle-pitch-alignment\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"circle-stroke-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"circle-stroke-width-transition\"?: TransitionSpecification | undefined; \"circle-stroke-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"circle-stroke-color-transition\"?: TransitionSpecification | undefined; \"circle-stroke-opacity\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"circle-stroke-opacity-transition\"?: TransitionSpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `paint` properties for this circle layer. Diffed **per property**, so changing one does not restart the others' transitions."
       },
       {
         "name": "source",
         "type": "string | Source | undefined",
-        "required": false
+        "required": false,
+        "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately."
       },
       {
         "name": "sourceLayer",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer."
       }
     ],
     "events": [
@@ -2239,17 +2451,20 @@
       {
         "name": "layerId",
         "type": "string | undefined",
-        "required": true
+        "required": true,
+        "description": "Layer id on the map. Must be unique across the style."
       },
       {
         "name": "before",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order."
       },
       {
         "name": "filter",
         "type": "FilterSpecification | undefined",
-        "required": false
+        "required": false,
+        "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`."
       },
       {
         "name": "interactive",
@@ -2261,37 +2476,44 @@
       {
         "name": "layout",
         "type": "{ visibility?: VisibilitySpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `layout` properties for this color-relief layer. Diffed per property, through `setLayoutProperty`."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "metadata",
         "type": "any",
-        "required": false
+        "required": false,
+        "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer."
       },
       {
         "name": "minzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "paint",
         "type": "{ \"color-relief-opacity\"?: PropertyValueSpecification<number> | undefined; \"color-relief-opacity-transition\"?: TransitionSpecification | undefined; \"color-relief-color\"?: ExpressionSpecification | undefined; resampling?: PropertyValueSpecification<\"linear\" | \"nearest\"> | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `paint` properties for this color-relief layer. Diffed **per property**, so changing one does not restart the others' transitions."
       },
       {
         "name": "source",
         "type": "string | Source | undefined",
-        "required": false
+        "required": false,
+        "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately."
       },
       {
         "name": "sourceLayer",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer."
       }
     ],
     "events": [
@@ -2372,17 +2594,20 @@
       {
         "name": "layerId",
         "type": "string | undefined",
-        "required": true
+        "required": true,
+        "description": "Layer id on the map. Must be unique across the style."
       },
       {
         "name": "before",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order."
       },
       {
         "name": "filter",
         "type": "FilterSpecification | undefined",
-        "required": false
+        "required": false,
+        "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`."
       },
       {
         "name": "interactive",
@@ -2394,37 +2619,44 @@
       {
         "name": "layout",
         "type": "{ \"fill-sort-key\"?: DataDrivenPropertyValueSpecification<number> | undefined; visibility?: VisibilitySpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `layout` properties for this fill layer. Diffed per property, through `setLayoutProperty`."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "metadata",
         "type": "any",
-        "required": false
+        "required": false,
+        "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer."
       },
       {
         "name": "minzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "paint",
         "type": "{ \"fill-antialias\"?: PropertyValueSpecification<boolean> | undefined; \"fill-opacity\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"fill-opacity-transition\"?: TransitionSpecification | undefined; \"fill-layer-opacity\"?: PropertyValueSpecification<number> | undefined; \"fill-layer-opacity-transition\"?: TransitionSpecification | undefined; \"fill-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"fill-color-transition\"?: TransitionSpecification | undefined; \"fill-outline-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"fill-outline-color-transition\"?: TransitionSpecification | undefined; \"fill-translate\"?: PropertyValueSpecification<[number, number]> | undefined; \"fill-translate-transition\"?: TransitionSpecification | undefined; \"fill-translate-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"fill-pattern\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"fill-pattern-transition\"?: TransitionSpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `paint` properties for this fill layer. Diffed **per property**, so changing one does not restart the others' transitions."
       },
       {
         "name": "source",
         "type": "string | Source | undefined",
-        "required": false
+        "required": false,
+        "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately."
       },
       {
         "name": "sourceLayer",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer."
       }
     ],
     "events": [
@@ -2505,17 +2737,20 @@
       {
         "name": "layerId",
         "type": "string | undefined",
-        "required": true
+        "required": true,
+        "description": "Layer id on the map. Must be unique across the style."
       },
       {
         "name": "before",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order."
       },
       {
         "name": "filter",
         "type": "FilterSpecification | undefined",
-        "required": false
+        "required": false,
+        "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`."
       },
       {
         "name": "interactive",
@@ -2527,37 +2762,44 @@
       {
         "name": "layout",
         "type": "{ visibility?: VisibilitySpecification | undefined; \"fill-extrusion-rounded-corner-distance\"?: number | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `layout` properties for this fill-extrusion layer. Diffed per property, through `setLayoutProperty`."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "metadata",
         "type": "any",
-        "required": false
+        "required": false,
+        "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer."
       },
       {
         "name": "minzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "paint",
         "type": "{ \"fill-extrusion-opacity\"?: PropertyValueSpecification<number> | undefined; \"fill-extrusion-opacity-transition\"?: TransitionSpecification | undefined; \"fill-extrusion-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"fill-extrusion-color-transition\"?: TransitionSpecification | undefined; \"fill-extrusion-translate\"?: PropertyValueSpecification<[number, number]> | undefined; \"fill-extrusion-translate-transition\"?: TransitionSpecification | undefined; \"fill-extrusion-translate-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"fill-extrusion-pattern\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"fill-extrusion-pattern-transition\"?: TransitionSpecification | undefined; \"fill-extrusion-height\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"fill-extrusion-height-transition\"?: TransitionSpecification | undefined; \"fill-extrusion-base\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"fill-extrusion-base-transition\"?: TransitionSpecification | undefined; \"fill-extrusion-vertical-gradient\"?: PropertyValueSpecification<boolean> | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `paint` properties for this fill-extrusion layer. Diffed **per property**, so changing one does not restart the others' transitions."
       },
       {
         "name": "source",
         "type": "string | Source | undefined",
-        "required": false
+        "required": false,
+        "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately."
       },
       {
         "name": "sourceLayer",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer."
       }
     ],
     "events": [
@@ -2638,17 +2880,20 @@
       {
         "name": "layerId",
         "type": "string | undefined",
-        "required": true
+        "required": true,
+        "description": "Layer id on the map. Must be unique across the style."
       },
       {
         "name": "before",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order."
       },
       {
         "name": "filter",
         "type": "FilterSpecification | undefined",
-        "required": false
+        "required": false,
+        "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`."
       },
       {
         "name": "interactive",
@@ -2660,37 +2905,44 @@
       {
         "name": "layout",
         "type": "{ visibility?: VisibilitySpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `layout` properties for this heatmap layer. Diffed per property, through `setLayoutProperty`."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "metadata",
         "type": "any",
-        "required": false
+        "required": false,
+        "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer."
       },
       {
         "name": "minzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "paint",
         "type": "{ \"heatmap-radius\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"heatmap-radius-transition\"?: TransitionSpecification | undefined; \"heatmap-weight\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"heatmap-intensity\"?: PropertyValueSpecification<number> | undefined; \"heatmap-intensity-transition\"?: TransitionSpecification | undefined; \"heatmap-color\"?: ExpressionSpecification | undefined; \"heatmap-opacity\"?: PropertyValueSpecification<number> | undefined; \"heatmap-opacity-transition\"?: TransitionSpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `paint` properties for this heatmap layer. Diffed **per property**, so changing one does not restart the others' transitions."
       },
       {
         "name": "source",
         "type": "string | Source | undefined",
-        "required": false
+        "required": false,
+        "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately."
       },
       {
         "name": "sourceLayer",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer."
       }
     ],
     "events": [
@@ -2771,17 +3023,20 @@
       {
         "name": "layerId",
         "type": "string | undefined",
-        "required": true
+        "required": true,
+        "description": "Layer id on the map. Must be unique across the style."
       },
       {
         "name": "before",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order."
       },
       {
         "name": "filter",
         "type": "FilterSpecification | undefined",
-        "required": false
+        "required": false,
+        "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`."
       },
       {
         "name": "interactive",
@@ -2793,37 +3048,44 @@
       {
         "name": "layout",
         "type": "{ visibility?: VisibilitySpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `layout` properties for this hillshade layer. Diffed per property, through `setLayoutProperty`."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "metadata",
         "type": "any",
-        "required": false
+        "required": false,
+        "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer."
       },
       {
         "name": "minzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "paint",
         "type": "{ \"hillshade-illumination-direction\"?: PropertyValueSpecification<NumberArraySpecification> | undefined; \"hillshade-illumination-altitude\"?: PropertyValueSpecification<NumberArraySpecification> | undefined; \"hillshade-illumination-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"hillshade-exaggeration\"?: PropertyValueSpecification<number> | undefined; \"hillshade-exaggeration-transition\"?: TransitionSpecification | undefined; \"hillshade-shadow-color\"?: PropertyValueSpecification<ColorArraySpecification> | undefined; \"hillshade-shadow-color-transition\"?: TransitionSpecification | undefined; \"hillshade-highlight-color\"?: PropertyValueSpecification<ColorArraySpecification> | undefined; \"hillshade-highlight-color-transition\"?: TransitionSpecification | undefined; \"hillshade-accent-color\"?: PropertyValueSpecification<string> | undefined; \"hillshade-accent-color-transition\"?: TransitionSpecification | undefined; \"hillshade-method\"?: PropertyValueSpecification<\"standard\" | \"basic\" | \"combined\" | \"igor\" | \"multidirectional\"> | undefined; resampling?: PropertyValueSpecification<\"linear\" | \"nearest\"> | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `paint` properties for this hillshade layer. Diffed **per property**, so changing one does not restart the others' transitions."
       },
       {
         "name": "source",
         "type": "string | Source | undefined",
-        "required": false
+        "required": false,
+        "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately."
       },
       {
         "name": "sourceLayer",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer."
       }
     ],
     "events": [
@@ -2904,17 +3166,20 @@
       {
         "name": "layerId",
         "type": "string | undefined",
-        "required": true
+        "required": true,
+        "description": "Layer id on the map. Must be unique across the style."
       },
       {
         "name": "before",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order."
       },
       {
         "name": "filter",
         "type": "FilterSpecification | undefined",
-        "required": false
+        "required": false,
+        "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`."
       },
       {
         "name": "interactive",
@@ -2926,37 +3191,44 @@
       {
         "name": "layout",
         "type": "{ \"line-cap\"?: DataDrivenPropertyValueSpecification<\"round\" | \"butt\" | \"square\"> | undefined; \"line-join\"?: DataDrivenPropertyValueSpecification<\"round\" | \"bevel\" | \"miter\"> | undefined; \"line-miter-limit\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-round-limit\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-sort-key\"?: DataDrivenPropertyValueSpecification<number> | undefined; visibility?: VisibilitySpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `layout` properties for this line layer. Diffed per property, through `setLayoutProperty`."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "metadata",
         "type": "any",
-        "required": false
+        "required": false,
+        "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer."
       },
       {
         "name": "minzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "paint",
         "type": "{ \"line-opacity\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-opacity-transition\"?: TransitionSpecification | undefined; \"line-layer-opacity\"?: PropertyValueSpecification<number> | undefined; \"line-layer-opacity-transition\"?: TransitionSpecification | undefined; \"line-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"line-color-transition\"?: TransitionSpecification | undefined; \"line-translate\"?: PropertyValueSpecification<[number, number]> | undefined; \"line-translate-transition\"?: TransitionSpecification | undefined; \"line-translate-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"line-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-width-transition\"?: TransitionSpecification | undefined; \"line-gap-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-gap-width-transition\"?: TransitionSpecification | undefined; \"line-offset\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-offset-transition\"?: TransitionSpecification | undefined; \"line-blur\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"line-blur-transition\"?: TransitionSpecification | undefined; \"line-dasharray\"?: DataDrivenPropertyValueSpecification<number[]> | undefined; \"line-dasharray-transition\"?: TransitionSpecification | undefined; \"line-pattern\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"line-pattern-transition\"?: TransitionSpecification | undefined; \"line-gradient\"?: ExpressionSpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `paint` properties for this line layer. Diffed **per property**, so changing one does not restart the others' transitions."
       },
       {
         "name": "source",
         "type": "string | Source | undefined",
-        "required": false
+        "required": false,
+        "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately."
       },
       {
         "name": "sourceLayer",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer."
       }
     ],
     "events": [
@@ -3037,17 +3309,20 @@
       {
         "name": "layerId",
         "type": "string | undefined",
-        "required": true
+        "required": true,
+        "description": "Layer id on the map. Must be unique across the style."
       },
       {
         "name": "before",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order."
       },
       {
         "name": "filter",
         "type": "FilterSpecification | undefined",
-        "required": false
+        "required": false,
+        "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`."
       },
       {
         "name": "interactive",
@@ -3059,37 +3334,44 @@
       {
         "name": "layout",
         "type": "{ visibility?: VisibilitySpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `layout` properties for this raster layer. Diffed per property, through `setLayoutProperty`."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "metadata",
         "type": "any",
-        "required": false
+        "required": false,
+        "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer."
       },
       {
         "name": "minzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "paint",
         "type": "{ \"raster-opacity\"?: PropertyValueSpecification<number> | undefined; \"raster-opacity-transition\"?: TransitionSpecification | undefined; \"raster-hue-rotate\"?: PropertyValueSpecification<number> | undefined; \"raster-hue-rotate-transition\"?: TransitionSpecification | undefined; \"raster-brightness-min\"?: PropertyValueSpecification<number> | undefined; \"raster-brightness-min-transition\"?: TransitionSpecification | undefined; \"raster-brightness-max\"?: PropertyValueSpecification<number> | undefined; \"raster-brightness-max-transition\"?: TransitionSpecification | undefined; \"raster-saturation\"?: PropertyValueSpecification<number> | undefined; \"raster-saturation-transition\"?: TransitionSpecification | undefined; \"raster-contrast\"?: PropertyValueSpecification<number> | undefined; \"raster-contrast-transition\"?: TransitionSpecification | undefined; resampling?: PropertyValueSpecification<\"linear\" | \"nearest\"> | undefined; \"raster-resampling\"?: PropertyValueSpecification<\"linear\" | \"nearest\"> | undefined; \"raster-fade-duration\"?: PropertyValueSpecification<number> | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `paint` properties for this raster layer. Diffed **per property**, so changing one does not restart the others' transitions."
       },
       {
         "name": "source",
         "type": "string | Source | undefined",
-        "required": false
+        "required": false,
+        "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately."
       },
       {
         "name": "sourceLayer",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer."
       }
     ],
     "events": [
@@ -3170,17 +3452,20 @@
       {
         "name": "layerId",
         "type": "string | undefined",
-        "required": true
+        "required": true,
+        "description": "Layer id on the map. Must be unique across the style."
       },
       {
         "name": "before",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Insert this layer beneath the layer with this id. Without it, layers are appended in mount order."
       },
       {
         "name": "filter",
         "type": "FilterSpecification | undefined",
-        "required": false
+        "required": false,
+        "description": "Expression deciding which features of the source this layer draws. Applied through `setFilter`."
       },
       {
         "name": "interactive",
@@ -3192,37 +3477,44 @@
       {
         "name": "layout",
         "type": "{ \"symbol-placement\"?: PropertyValueSpecification<\"line\" | \"point\" | \"line-center\"> | undefined; \"symbol-spacing\"?: PropertyValueSpecification<number> | undefined; \"symbol-avoid-edges\"?: PropertyValueSpecification<boolean> | undefined; \"symbol-sort-key\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"symbol-z-order\"?: PropertyValueSpecification<\"source\" | \"auto\" | \"viewport-y\"> | undefined; \"icon-allow-overlap\"?: PropertyValueSpecification<boolean> | undefined; \"icon-overlap\"?: PropertyValueSpecification<\"never\" | \"always\" | \"cooperative\"> | undefined; \"icon-ignore-placement\"?: PropertyValueSpecification<boolean> | undefined; \"icon-optional\"?: PropertyValueSpecification<boolean> | undefined; \"icon-rotation-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\"> | undefined; \"icon-size\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-text-fit\"?: PropertyValueSpecification<\"none\" | \"width\" | \"height\" | \"both\"> | undefined; \"icon-text-fit-padding\"?: PropertyValueSpecification<[number, number, number, number]> | undefined; \"icon-image\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"icon-rotate\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-padding\"?: DataDrivenPropertyValueSpecification<PaddingSpecification> | undefined; \"icon-keep-upright\"?: PropertyValueSpecification<boolean> | undefined; \"icon-offset\"?: DataDrivenPropertyValueSpecification<[number, number]> | undefined; \"icon-anchor\"?: DataDrivenPropertyValueSpecification<\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\"> | undefined; \"icon-pitch-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\"> | undefined; \"text-pitch-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\"> | undefined; \"text-rotation-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\" | \"viewport-glyph\"> | undefined; \"text-field\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"text-font\"?: DataDrivenPropertyValueSpecification<string[]> | undefined; \"text-size\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-max-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-line-height\"?: PropertyValueSpecification<number> | undefined; \"text-letter-spacing\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-justify\"?: DataDrivenPropertyValueSpecification<\"center\" | \"auto\" | \"right\" | \"left\"> | undefined; \"text-radial-offset\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-variable-anchor\"?: PropertyValueSpecification<(\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\")[]> | undefined; \"text-variable-anchor-offset\"?: DataDrivenPropertyValueSpecification<VariableAnchorOffsetCollectionSpecification> | undefined; \"text-anchor\"?: DataDrivenPropertyValueSpecification<\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\"> | undefined; \"text-max-angle\"?: PropertyValueSpecification<number> | undefined; \"text-writing-mode\"?: PropertyValueSpecification<(\"horizontal\" | \"vertical\")[]> | undefined; \"text-rotate\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-padding\"?: PropertyValueSpecification<number> | undefined; \"text-keep-upright\"?: PropertyValueSpecification<boolean> | undefined; \"text-transform\"?: DataDrivenPropertyValueSpecification<\"none\" | \"uppercase\" | \"lowercase\"> | undefined; \"text-offset\"?: DataDrivenPropertyValueSpecification<[number, number]> | undefined; \"text-allow-overlap\"?: PropertyValueSpecification<boolean> | undefined; \"text-overlap\"?: PropertyValueSpecification<\"never\" | \"always\" | \"cooperative\"> | undefined; \"text-ignore-placement\"?: PropertyValueSpecification<boolean> | undefined; \"text-optional\"?: PropertyValueSpecification<boolean> | undefined; visibility?: VisibilitySpecification | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `layout` properties for this symbol layer. Diffed per property, through `setLayoutProperty`."
       },
       {
         "name": "maxzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer at and above this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "metadata",
         "type": "any",
-        "required": false
+        "required": false,
+        "description": "Arbitrary data carried on the layer. Has no maplibre setter, so changing it recreates the layer."
       },
       {
         "name": "minzoom",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Hide the layer below this zoom level. Applied through `setLayerZoomRange`."
       },
       {
         "name": "paint",
         "type": "{ \"icon-opacity\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-opacity-transition\"?: TransitionSpecification | undefined; \"icon-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"icon-color-transition\"?: TransitionSpecification | undefined; \"icon-halo-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"icon-halo-color-transition\"?: TransitionSpecification | undefined; \"icon-halo-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-halo-width-transition\"?: TransitionSpecification | undefined; \"icon-halo-blur\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-halo-blur-transition\"?: TransitionSpecification | undefined; \"icon-translate\"?: PropertyValueSpecification<[number, number]> | undefined; \"icon-translate-transition\"?: TransitionSpecification | undefined; \"icon-translate-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; \"text-opacity\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-opacity-transition\"?: TransitionSpecification | undefined; \"text-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"text-color-transition\"?: TransitionSpecification | undefined; \"text-halo-color\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"text-halo-color-transition\"?: TransitionSpecification | undefined; \"text-halo-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-halo-width-transition\"?: TransitionSpecification | undefined; \"text-halo-blur\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-halo-blur-transition\"?: TransitionSpecification | undefined; \"text-translate\"?: PropertyValueSpecification<[number, number]> | undefined; \"text-translate-transition\"?: TransitionSpecification | undefined; \"text-translate-anchor\"?: PropertyValueSpecification<\"map\" | \"viewport\"> | undefined; } | undefined",
-        "required": false
+        "required": false,
+        "description": "maplibre `paint` properties for this symbol layer. Diffed **per property**, so changing one does not restart the others' transitions."
       },
       {
         "name": "source",
         "type": "string | Source | undefined",
-        "required": false
+        "required": false,
+        "description": "Source id, or a maplibre `Source` instance. Optional inside an `<MglSource>` (or any component using `useSource()`), which provides its id. Only a string id participates in source-readiness tracking — pass a `Source` object and the layer adds itself immediately."
       },
       {
         "name": "sourceLayer",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Layer within a vector source to draw. Required for vector and some raster-dem sources. Mapped to maplibre's `source-layer`, which is not a valid identifier. Has no setter either, so changing it recreates the layer."
       }
     ],
     "events": [
@@ -3304,49 +3596,58 @@
         "name": "autoZoom",
         "type": "boolean | undefined",
         "required": false,
-        "default": "true"
+        "default": "true",
+        "description": "Zoom to the feature after it is drawn or loaded."
       },
       {
         "name": "defaultMode",
         "type": "DrawMode | undefined",
         "required": false,
-        "default": "DrawMode.POLYGON"
+        "default": "DrawMode.POLYGON",
+        "description": "Mode to start in when drawing begins."
       },
       {
         "name": "minAreaColor",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Colour of the hatch pattern drawn for an area below `minAreaSize`."
       },
       {
         "name": "minAreaLabel",
         "type": "string | undefined",
-        "required": false
+        "required": false,
+        "description": "Label shown on an area below `minAreaSize`."
       },
       {
         "name": "minAreaSize",
         "type": "number | undefined",
-        "required": false
+        "required": false,
+        "description": "Smallest acceptable area. Below it, the feature is marked `tooSmall` and hatched."
       },
       {
         "name": "mode",
         "type": "DrawMode | undefined",
         "required": false,
-        "default": "DrawMode.POLYGON"
+        "default": "DrawMode.POLYGON",
+        "description": "Active drawing mode. Two-way bindable, so the control reflects a mode set from code."
       },
       {
         "name": "model",
         "type": "DrawModel | undefined",
-        "required": false
+        "required": false,
+        "description": "The drawn feature. Two-way bindable with `v-model` — always a closed `Feature<Polygon>`."
       },
       {
         "name": "pointerPrecision",
         "type": "PointerPrecisionOption | undefined",
-        "required": false
+        "required": false,
+        "description": "Grab radius in pixels for vertices and midpoints. Defaults to 24 for mouse and 36 for touch."
       },
       {
         "name": "position",
         "type": "Position | undefined",
-        "required": false
+        "required": false,
+        "description": "Corner of the map the control is placed in."
       }
     ],
     "events": [
