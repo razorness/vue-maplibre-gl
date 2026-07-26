@@ -5,12 +5,12 @@ survive a style switch:
 
 ```vue
 <MglMap map-style="…">
-	<MglRasterDemSource source-id="terrain-dem" :options="{ url: demUrl, tileSize: 256 }" />
+	<MglRasterDemSource source-id="terrain-dem" :url="demUrl" :tile-size="256" />
 	<MglTerrain source="terrain-dem" :exaggeration="1.4" />
-	<MglSky :options="{ 'sky-color': '#8ec5fc' }" />
-	<MglLight :options="{ anchor: 'viewport', intensity: 0.4 }" />
+	<MglSky :sky="{ 'sky-color': '#8ec5fc' }" />
+	<MglLight :light="{ anchor: 'viewport', intensity: 0.4 }" />
 	<MglProjection type="globe" />
-	<MglImage id="pin" :url="pinUrl" />
+	<MglImage id="pin" :image="pinUrl" />
 	<MglGlobalState :state="{ highlight: 'red' }" />
 </MglMap>
 ```

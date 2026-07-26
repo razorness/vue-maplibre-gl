@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import vue from '@vitejs/plugin-vue';
+import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
 import { packageAlias } from './alias';
 
@@ -41,6 +42,37 @@ export default defineConfig({
 					name: 'ssr',
 					environment: 'node',
 					include: ['test/ssr/**/*.spec.ts']
+				}
+			},
+			{
+				plugins: [vue()],
+				resolve: { alias },
+				test: {
+					name: 'browser',
+					include: ['test/browser/**/*.spec.ts'],
+					/*
+					 * No `setupFiles`: this project must run against the *real* maplibre, which is its whole
+					 * purpose. Everything else mocks it, so nothing else can catch an API drift in a bump.
+					 */
+					browser: {
+						enabled: true,
+						/*
+						 * vitest 4 takes a provider *factory* here rather than the old `'playwright'` string.
+						 */
+						provider: playwright({
+							launchOptions: {
+								/*
+								 * Headless Chromium has no GPU, and maplibre refuses to start without a WebGL
+								 * context. SwiftShader renders in software; `--enable-unsafe-swiftshader` is what
+								 * permits it since Chrome 120 stopped falling back silently.
+								 */
+								args: ['--enable-unsafe-swiftshader', '--disable-gpu-sandbox']
+							}
+						}),
+						headless: true,
+						screenshotFailures: false,
+						instances: [{ browser: 'chromium' }]
+					}
 				}
 			}
 		],

@@ -77,6 +77,28 @@ jobs:
         if: matrix.node == 24
         run: pnpm test:coverage || true
 
+  browser:
+    name: Browser smoke tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # `--with-deps` installs the system libraries the Chromium build needs (libnspr4, libnss3,
+      # libasound2 and friends); without them the binary exits before Playwright can talk to it.
+      - name: Install Chromium
+        run: pnpm --filter vue-maplibre-gl exec playwright install chromium --with-deps
+
+      # Real maplibre, real WebGL through SwiftShader. The only job that would notice maplibre changing
+      # the shape of its API, since every other test mocks it.
+      - name: Smoke tests
+        run: pnpm test:browser
+
   build:
     name: Build and package
     runs-on: ubuntu-latest

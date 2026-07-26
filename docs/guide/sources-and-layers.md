@@ -15,7 +15,7 @@ Put a `tiles` array on a `geojson` source and it is a type error where you wrote
 The named components are thin wrappers over exactly those two:
 
 ```vue
-<MglGeoJsonSource source-id="places" :options="{ data }" />
+<MglGeoJsonSource source-id="places" :data="data" />
 <MglFillLayer layer-id="fill" :paint="{ 'fill-color': '#f00' }" />
 ```
 
@@ -38,7 +38,7 @@ anything: the paint change goes through `setPaintProperty` per property, the dat
 A layer inside a source needs no `source` prop:
 
 ```vue
-<MglGeoJsonSource source-id="places" :options="{ data }">
+<MglGeoJsonSource source-id="places" :data="data">
 	<MglCircleLayer layer-id="dots" :paint="{ 'circle-radius': 5 }" />
 </MglGeoJsonSource>
 ```

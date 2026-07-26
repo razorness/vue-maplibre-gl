@@ -32,7 +32,7 @@ A source holds the data, a layer draws it. Nest the layer inside the source and 
 ```vue
 <template>
   <MglMap map-style="https://demotiles.maplibre.org/style.json" :zoom="3" style="height: 360px">
-    <MglGeoJsonSource source-id="places" :options="{ data: places }">
+    <MglGeoJsonSource source-id="places" :data="places">
       <MglCircleLayer layer-id="places-circles" :paint="{ 'circle-radius': 6, 'circle-color': '#2f7fd8' }" @click="onClick" />
     </MglGeoJsonSource>
   </MglMap>

@@ -70,7 +70,7 @@ const LAYERS: Array<[string, Component, string, Record<string, unknown>]> = [
 describe.each(LAYERS)('%s', (_name, component, type, props) => {
 	it(`adds a ${type} layer with its flat props collected into options`, async () => {
 		const map = await mountMap(() => [
-			h(MglGeoJsonSource, { sourceId: 'src', options: { data: { type: 'FeatureCollection', features: [] } } }, () => [
+			h(MglGeoJsonSource, { sourceId: 'src', data: { type: 'FeatureCollection', features: [] } }, () => [
 				h(component as never, { layerId: 'l', minzoom: 3, maxzoom: 9, ...props } as never)
 			])
 		]);
@@ -100,7 +100,7 @@ const SOURCES: Array<[string, Component, string, Record<string, unknown>]> = [
 			canvas: 'c'
 		}
 	],
-	['MglGeoJsonSource', MglGeoJsonSource, 'geojson', { options: { data: { type: 'FeatureCollection', features: [] } } }],
+	['MglGeoJsonSource', MglGeoJsonSource, 'geojson', { data: { type: 'FeatureCollection', features: [] } }],
 	[
 		'MglImageSource',
 		MglImageSource,
@@ -164,7 +164,7 @@ describe('layer wrappers forward listeners', () => {
 	it('binds a click handler through to the map', async () => {
 		let clicked = 0;
 		const map = await mountMap(() => [
-			h(MglGeoJsonSource, { sourceId: 'src', options: { data: { type: 'FeatureCollection', features: [] } } }, () => [
+			h(MglGeoJsonSource, { sourceId: 'src', data: { type: 'FeatureCollection', features: [] } }, () => [
 				h(MglFillLayer, { layerId: 'l', paint: { 'fill-color': '#f00' }, onClick: () => clicked++ } as never)
 			])
 		]);

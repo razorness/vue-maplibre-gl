@@ -7,7 +7,7 @@
 					The point of the demo: this source and layer are added by the components, thrown away by
 					the style switch, and re-added afterwards — without losing the paint properties below.
 				-->
-				<MglGeoJsonSource source-id="switch-line" :options="{ data }">
+				<MglGeoJsonSource source-id="switch-line" :data="data">
 					<MglLineLayer layer-id="switch-line" :paint="{ 'line-color': '#e4572e', 'line-width': 4 }" />
 				</MglGeoJsonSource>
 			</MglMap>

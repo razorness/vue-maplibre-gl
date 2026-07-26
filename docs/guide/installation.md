@@ -62,7 +62,7 @@ GeoJSON type to `any`, quietly:
 
 ```ts
 // without the reference: `data` is `any`, this compiles
-<MglGeoJsonSource source-id="x" :options="{ data: { type: 'Nonsense' } }" />
+<MglGeoJsonSource source-id="x" :data="{ type: 'Nonsense' }" />
 ```
 
 `@types/geojson` is therefore an **optional peer dependency** — you choose:

@@ -355,13 +355,15 @@ accepted, and `erasableSyntaxOnly` is satisfied. Do not reintroduce enums or par
 
 ## Tests
 
-`pnpm test` runs two vitest projects; `pnpm test:coverage` adds the 100 % gate (**not met yet** — see
-below). `pnpm test:browser` is configured as a script but the `browser` project is not written yet.
+`pnpm test` runs the `unit` and `ssr` projects; `pnpm test:coverage` adds the 100 % gate (**not met yet**
+— see below); `pnpm test:browser` runs the third project, which needs a Chromium download
+(`playwright install chromium --with-deps`).
 
-| Project | Environment                | Purpose                                                     |
-| ------- | -------------------------- | ----------------------------------------------------------- |
-| `unit`  | jsdom + `test/fake-map.ts` | the coverage gate: lifecycle, diffing, registries, teardown |
-| `ssr`   | node, **no DOM**           | proves the package imports and renders server-side          |
+| Project   | Environment                      | Purpose                                                     |
+| --------- | -------------------------------- | ----------------------------------------------------------- |
+| `unit`    | jsdom + `test/fake-map.ts`       | the coverage gate: lifecycle, diffing, registries, teardown |
+| `ssr`     | node, **no DOM**                 | proves the package imports and renders server-side          |
+| `browser` | real Chromium, **real maplibre** | catches maplibre API drift, which no mocked test ever can   |
 
 - **`test/fake-map.ts`** implements exactly the maplibre surface this library uses, fires events
   **synchronously**, and keeps real style state. It _throws_ when a source is removed while a layer still
@@ -376,8 +378,24 @@ below). `pnpm test:browser` is configured as a script but the `browser` project 
 - The `ssr` project is the only place a server-side DOM access can be caught; jsdom provides `window`, so
   a unit test never will.
 
-Coverage is at ~41 %. The bulk of what is missing is `src/plugins/draw` (~1 %), which lands with the draw
-plugin phase, plus the named layer/source wrappers and most controls.
+### The `browser` project
+
+Seven smoke tests, deliberately few. They exist for the one thing the other two cannot do: notice when
+maplibre changes the shape of its API, because everything else mocks it. Three things to know:
+
+- **It must not have `setupFiles`.** The whole point is the real `maplibre-gl`.
+- **Software WebGL.** Headless Chromium has no GPU and maplibre will not start without a context, so the
+  launch args carry `--enable-unsafe-swiftshader`.
+- **Never wait for `map.loaded()`.** It also requires the map to be _idle_, and under a software renderer
+  it stays dirty, so it never returns true — every test timed out on it while the library was working.
+  Wait for the `@map:load` event instead.
+
+No tile server is involved (`test/browser/style.ts` holds complete inline styles), so the suite runs
+offline.
+
+Coverage is at ~79 %, up from 41 %. What is left below 60 % is `circleStatic.mode.ts`, `circle.mode.ts`,
+`frameRateControl.ts` and the deprecated `useDisposableLayer.ts`. Whether 100 % is the right target is an
+open question: some of the remaining branches need real touch events or a real GPU.
 
 ## Draw plugin (`src/plugins/draw/`)
 

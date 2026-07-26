@@ -17,6 +17,7 @@
     "lint:fix": "oxlint --type-aware --fix && eslint . --fix && pnpm format",
     "test": "pnpm --filter vue-maplibre-gl test",
     "test:coverage": "pnpm --filter vue-maplibre-gl test:coverage",
+    "test:browser": "pnpm --filter vue-maplibre-gl test:browser",
     "docs:dev": "pnpm --filter docs dev",
     "docs:build": "pnpm --filter docs build",
     "upgrade": "npx taze major -I -r",

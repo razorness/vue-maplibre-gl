@@ -14,7 +14,7 @@
 		<ClientOnly>
 			<MglMap :map-style="demoStyle" :center="[7.1, 50.7]" :zoom="4" class="demo-map" style="height: 340px">
 				<MglNavigationControl position="top-right" />
-				<MglGeoJsonSource source-id="demo-points" :options="{ data }">
+				<MglGeoJsonSource source-id="demo-points" :data="data">
 					<MglCircleLayer
 						layer-id="demo-circles"
 						:paint="{ 'circle-radius': radius, 'circle-color': color, 'circle-stroke-width': 1, 'circle-stroke-color': '#fff' }"
