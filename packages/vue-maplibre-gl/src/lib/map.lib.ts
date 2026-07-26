@@ -1,6 +1,7 @@
 import type { Map, MapEventType, MapOptions, MarkerOptions } from 'maplibre-gl';
 import type { ComponentPublicInstance } from 'vue';
 import type { MglEvent } from 'types';
+import type { AssertNever } from 'types/exhaustive';
 import { keysOf, keysOfExcept } from 'types/exhaustive';
 
 export type MapEventHandler = (e: any) => void;
@@ -11,6 +12,89 @@ export type MapEventHandler = (e: any) => void;
  * Derived from maplibre's `MapEventType`, so it cannot drift out of sync.
  */
 export type MglMapEmitName = `map:${keyof MapEventType}`;
+
+/**
+ * Payload type per `map:*` event, as `defineEmits` needs it.
+ *
+ * Spelled out rather than derived with a mapped type over `MapEventType`, for the same reason
+ * `MglLayerEmits` is: Vue's SFC compiler has its own, much more limited type resolver than tsc and
+ * cannot evaluate a mapped type over a type imported from a `.d.ts` in node_modules. `vue-tsc` accepts
+ * it, `vite build` then fails in `extractRuntimeEmits` — the runtime emits array is generated at
+ * compile time.
+ *
+ * Writing it out is what gives consumers a typed payload: with the previous runtime array
+ * (`defineEmits([...MAP_EMIT_NAMES])`) every handler received `any`. The two assertions below keep the
+ * literal from drifting away from maplibre.
+ */
+export interface MglMapEmits {
+	'map:boxzoomcancel': [ev: MglEvent<MapEventType['boxzoomcancel']>];
+	'map:boxzoomend': [ev: MglEvent<MapEventType['boxzoomend']>];
+	'map:boxzoomstart': [ev: MglEvent<MapEventType['boxzoomstart']>];
+	'map:click': [ev: MglEvent<MapEventType['click']>];
+	'map:contextmenu': [ev: MglEvent<MapEventType['contextmenu']>];
+	'map:cooperativegestureprevented': [ev: MglEvent<MapEventType['cooperativegestureprevented']>];
+	'map:data': [ev: MglEvent<MapEventType['data']>];
+	'map:dataabort': [ev: MglEvent<MapEventType['dataabort']>];
+	'map:dataloading': [ev: MglEvent<MapEventType['dataloading']>];
+	'map:dblclick': [ev: MglEvent<MapEventType['dblclick']>];
+	'map:drag': [ev: MglEvent<MapEventType['drag']>];
+	'map:dragend': [ev: MglEvent<MapEventType['dragend']>];
+	'map:dragstart': [ev: MglEvent<MapEventType['dragstart']>];
+	/** maplibre reported an error. Failed async source updates surface here too, rather than being dropped. */
+	'map:error': [ev: MglEvent<MapEventType['error']>];
+	/** Rendering has settled: no transitions running and every tile loaded. */
+	'map:idle': [ev: MglEvent<MapEventType['idle']>];
+	/** The style has loaded and the map is ready. The usual place to touch the raw maplibre map. */
+	'map:load': [ev: MglEvent<MapEventType['load']>];
+	'map:mousedown': [ev: MglEvent<MapEventType['mousedown']>];
+	'map:mousemove': [ev: MglEvent<MapEventType['mousemove']>];
+	'map:mouseout': [ev: MglEvent<MapEventType['mouseout']>];
+	'map:mouseover': [ev: MglEvent<MapEventType['mouseover']>];
+	'map:mouseup': [ev: MglEvent<MapEventType['mouseup']>];
+	'map:move': [ev: MglEvent<MapEventType['move']>];
+	'map:moveend': [ev: MglEvent<MapEventType['moveend']>];
+	'map:movestart': [ev: MglEvent<MapEventType['movestart']>];
+	'map:pitch': [ev: MglEvent<MapEventType['pitch']>];
+	'map:pitchend': [ev: MglEvent<MapEventType['pitchend']>];
+	'map:pitchstart': [ev: MglEvent<MapEventType['pitchstart']>];
+	'map:projectiontransition': [ev: MglEvent<MapEventType['projectiontransition']>];
+	'map:remove': [ev: MglEvent<MapEventType['remove']>];
+	'map:render': [ev: MglEvent<MapEventType['render']>];
+	'map:resize': [ev: MglEvent<MapEventType['resize']>];
+	'map:roll': [ev: MglEvent<MapEventType['roll']>];
+	'map:rollend': [ev: MglEvent<MapEventType['rollend']>];
+	'map:rollstart': [ev: MglEvent<MapEventType['rollstart']>];
+	'map:rotate': [ev: MglEvent<MapEventType['rotate']>];
+	'map:rotateend': [ev: MglEvent<MapEventType['rotateend']>];
+	'map:rotatestart': [ev: MglEvent<MapEventType['rotatestart']>];
+	'map:sourcedata': [ev: MglEvent<MapEventType['sourcedata']>];
+	'map:sourcedataabort': [ev: MglEvent<MapEventType['sourcedataabort']>];
+	'map:sourcedataloading': [ev: MglEvent<MapEventType['sourcedataloading']>];
+	/** A style finished loading — fires again after every style switch. */
+	'map:style.load': [ev: MglEvent<MapEventType['style.load']>];
+	'map:styledata': [ev: MglEvent<MapEventType['styledata']>];
+	'map:styledataloading': [ev: MglEvent<MapEventType['styledataloading']>];
+	'map:styleimagemissing': [ev: MglEvent<MapEventType['styleimagemissing']>];
+	'map:terrain': [ev: MglEvent<MapEventType['terrain']>];
+	'map:touchcancel': [ev: MglEvent<MapEventType['touchcancel']>];
+	'map:touchend': [ev: MglEvent<MapEventType['touchend']>];
+	'map:touchmove': [ev: MglEvent<MapEventType['touchmove']>];
+	'map:touchstart': [ev: MglEvent<MapEventType['touchstart']>];
+	/** The WebGL context was lost. The component tears the map down and rebuilds it by itself. */
+	'map:webglcontextlost': [ev: MglEvent<MapEventType['webglcontextlost']>];
+	/** The WebGL context came back. */
+	'map:webglcontextrestored': [ev: MglEvent<MapEventType['webglcontextrestored']>];
+	'map:wheel': [ev: MglEvent<MapEventType['wheel']>];
+	'map:zoom': [ev: MglEvent<MapEventType['zoom']>];
+	'map:zoomend': [ev: MglEvent<MapEventType['zoomend']>];
+	'map:zoomstart': [ev: MglEvent<MapEventType['zoomstart']>];
+}
+
+/** Proves {@link MglMapEmits} declares every maplibre map event. Exported only to satisfy `noUnusedLocals`. */
+export type _MapEmitsCoverEveryEvent = AssertNever<Exclude<MglMapEmitName, keyof MglMapEmits>>;
+
+/** The other direction: no declared emit that maplibre does not have. */
+export type _MapEmitsHaveNoExtras = AssertNever<Exclude<keyof MglMapEmits, MglMapEmitName>>;
 
 /**
  * Keys that exist on `MapOptions` but must not become an `MglMap` prop:

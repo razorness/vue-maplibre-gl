@@ -793,133 +793,34 @@
           "js": {
             "events": [
               {
-                "name": "map:data"
-              },
-              {
-                "name": "map:click"
-              },
-              {
-                "name": "map:dblclick"
-              },
-              {
-                "name": "map:mousedown"
-              },
-              {
-                "name": "map:mouseup"
-              },
-              {
-                "name": "map:mousemove"
-              },
-              {
-                "name": "map:mouseover"
-              },
-              {
-                "name": "map:mouseout"
-              },
-              {
-                "name": "map:contextmenu"
-              },
-              {
-                "name": "map:touchstart"
-              },
-              {
-                "name": "map:touchend"
-              },
-              {
-                "name": "map:touchcancel"
-              },
-              {
-                "name": "map:remove"
-              },
-              {
-                "name": "map:error"
-              },
-              {
-                "name": "map:load"
-              },
-              {
-                "name": "map:idle"
-              },
-              {
-                "name": "map:render"
-              },
-              {
-                "name": "map:resize"
-              },
-              {
-                "name": "map:webglcontextlost"
-              },
-              {
-                "name": "map:webglcontextrestored"
-              },
-              {
-                "name": "map:dataloading"
-              },
-              {
-                "name": "map:sourcedataloading"
-              },
-              {
-                "name": "map:styledataloading"
-              },
-              {
-                "name": "map:sourcedata"
-              },
-              {
-                "name": "map:styledata"
-              },
-              {
-                "name": "map:style.load"
-              },
-              {
-                "name": "map:styleimagemissing"
-              },
-              {
-                "name": "map:dataabort"
-              },
-              {
-                "name": "map:sourcedataabort"
-              },
-              {
                 "name": "map:boxzoomcancel"
-              },
-              {
-                "name": "map:boxzoomstart"
               },
               {
                 "name": "map:boxzoomend"
               },
               {
-                "name": "map:touchmove"
+                "name": "map:boxzoomstart"
               },
               {
-                "name": "map:movestart"
+                "name": "map:click"
               },
               {
-                "name": "map:move"
+                "name": "map:contextmenu"
               },
               {
-                "name": "map:moveend"
+                "name": "map:cooperativegestureprevented"
               },
               {
-                "name": "map:zoomstart"
+                "name": "map:data"
               },
               {
-                "name": "map:zoom"
+                "name": "map:dataabort"
               },
               {
-                "name": "map:zoomend"
+                "name": "map:dataloading"
               },
               {
-                "name": "map:rotatestart"
-              },
-              {
-                "name": "map:rotate"
-              },
-              {
-                "name": "map:rotateend"
-              },
-              {
-                "name": "map:dragstart"
+                "name": "map:dblclick"
               },
               {
                 "name": "map:drag"
@@ -928,7 +829,40 @@
                 "name": "map:dragend"
               },
               {
-                "name": "map:pitchstart"
+                "name": "map:dragstart"
+              },
+              {
+                "name": "map:error"
+              },
+              {
+                "name": "map:idle"
+              },
+              {
+                "name": "map:load"
+              },
+              {
+                "name": "map:mousedown"
+              },
+              {
+                "name": "map:mousemove"
+              },
+              {
+                "name": "map:mouseout"
+              },
+              {
+                "name": "map:mouseover"
+              },
+              {
+                "name": "map:mouseup"
+              },
+              {
+                "name": "map:move"
+              },
+              {
+                "name": "map:moveend"
+              },
+              {
+                "name": "map:movestart"
               },
               {
                 "name": "map:pitch"
@@ -937,7 +871,19 @@
                 "name": "map:pitchend"
               },
               {
-                "name": "map:rollstart"
+                "name": "map:pitchstart"
+              },
+              {
+                "name": "map:projectiontransition"
+              },
+              {
+                "name": "map:remove"
+              },
+              {
+                "name": "map:render"
+              },
+              {
+                "name": "map:resize"
               },
               {
                 "name": "map:roll"
@@ -946,22 +892,79 @@
                 "name": "map:rollend"
               },
               {
-                "name": "map:wheel"
+                "name": "map:rollstart"
+              },
+              {
+                "name": "map:rotate"
+              },
+              {
+                "name": "map:rotateend"
+              },
+              {
+                "name": "map:rotatestart"
+              },
+              {
+                "name": "map:sourcedata"
+              },
+              {
+                "name": "map:sourcedataabort"
+              },
+              {
+                "name": "map:sourcedataloading"
+              },
+              {
+                "name": "map:style.load"
+              },
+              {
+                "name": "map:styledata"
+              },
+              {
+                "name": "map:styledataloading"
+              },
+              {
+                "name": "map:styleimagemissing"
               },
               {
                 "name": "map:terrain"
               },
               {
-                "name": "map:cooperativegestureprevented"
+                "name": "map:touchcancel"
               },
               {
-                "name": "map:projectiontransition"
+                "name": "map:touchend"
               },
               {
-                "name": "update:bounds"
+                "name": "map:touchmove"
+              },
+              {
+                "name": "map:touchstart"
+              },
+              {
+                "name": "map:webglcontextlost"
+              },
+              {
+                "name": "map:webglcontextrestored"
+              },
+              {
+                "name": "map:wheel"
+              },
+              {
+                "name": "map:zoom"
+              },
+              {
+                "name": "map:zoomend"
+              },
+              {
+                "name": "map:zoomstart"
+              },
+              {
+                "name": "update:center"
               },
               {
                 "name": "update:zoom"
+              },
+              {
+                "name": "update:bearing"
               },
               {
                 "name": "update:pitch"
@@ -970,10 +973,7 @@
                 "name": "update:roll"
               },
               {
-                "name": "update:center"
-              },
-              {
-                "name": "update:bearing"
+                "name": "update:bounds"
               }
             ],
             "properties": [
@@ -1773,7 +1773,7 @@
               "required": false,
               "value": {
                 "kind": "expression",
-                "type": "\"map\" | \"auto\" | \"viewport\" | undefined"
+                "type": "\"auto\" | \"map\" | \"viewport\" | undefined"
               }
             },
             {
@@ -1791,7 +1791,7 @@
               "required": false,
               "value": {
                 "kind": "expression",
-                "type": "\"map\" | \"auto\" | \"viewport\" | undefined"
+                "type": "\"auto\" | \"map\" | \"viewport\" | undefined"
               }
             },
             {
@@ -1819,13 +1819,13 @@
                 "name": "click"
               },
               {
-                "name": "dragstart"
-              },
-              {
                 "name": "drag"
               },
               {
                 "name": "dragend"
+              },
+              {
+                "name": "dragstart"
               },
               {
                 "name": "update:coordinates"
@@ -4343,7 +4343,7 @@
               "required": false,
               "value": {
                 "kind": "expression",
-                "type": "{ \"symbol-placement\"?: PropertyValueSpecification<\"line\" | \"point\" | \"line-center\"> | undefined; \"symbol-spacing\"?: PropertyValueSpecification<number> | undefined; \"symbol-avoid-edges\"?: PropertyValueSpecification<boolean> | undefined; \"symbol-sort-key\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"symbol-z-order\"?: PropertyValueSpecification<\"source\" | \"auto\" | \"viewport-y\"> | undefined; \"icon-allow-overlap\"?: PropertyValueSpecification<boolean> | undefined; \"icon-overlap\"?: PropertyValueSpecification<\"never\" | \"always\" | \"cooperative\"> | undefined; \"icon-ignore-placement\"?: PropertyValueSpecification<boolean> | undefined; \"icon-optional\"?: PropertyValueSpecification<boolean> | undefined; \"icon-rotation-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\"> | undefined; \"icon-size\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-text-fit\"?: PropertyValueSpecification<\"none\" | \"width\" | \"height\" | \"both\"> | undefined; \"icon-text-fit-padding\"?: PropertyValueSpecification<[number, number, number, number]> | undefined; \"icon-image\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"icon-rotate\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-padding\"?: DataDrivenPropertyValueSpecification<PaddingSpecification> | undefined; \"icon-keep-upright\"?: PropertyValueSpecification<boolean> | undefined; \"icon-offset\"?: DataDrivenPropertyValueSpecification<[number, number]> | undefined; \"icon-anchor\"?: DataDrivenPropertyValueSpecification<\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\"> | undefined; \"icon-pitch-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\"> | undefined; \"text-pitch-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\"> | undefined; \"text-rotation-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\" | \"viewport-glyph\"> | undefined; \"text-field\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"text-font\"?: DataDrivenPropertyValueSpecification<string[]> | undefined; \"text-size\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-max-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-line-height\"?: PropertyValueSpecification<number> | undefined; \"text-letter-spacing\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-justify\"?: DataDrivenPropertyValueSpecification<\"center\" | \"auto\" | \"right\" | \"left\"> | undefined; \"text-radial-offset\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-variable-anchor\"?: PropertyValueSpecification<(\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\")[]> | undefined; \"text-variable-anchor-offset\"?: DataDrivenPropertyValueSpecification<VariableAnchorOffsetCollectionSpecification> | undefined; \"text-anchor\"?: DataDrivenPropertyValueSpecification<\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\"> | undefined; \"text-max-angle\"?: PropertyValueSpecification<number> | undefined; \"text-writing-mode\"?: PropertyValueSpecification<(\"horizontal\" | \"vertical\")[]> | undefined; \"text-rotate\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-padding\"?: PropertyValueSpecification<number> | undefined; \"text-keep-upright\"?: PropertyValueSpecification<boolean> | undefined; \"text-transform\"?: DataDrivenPropertyValueSpecification<\"none\" | \"uppercase\" | \"lowercase\"> | undefined; \"text-offset\"?: DataDrivenPropertyValueSpecification<[number, number]> | undefined; \"text-allow-overlap\"?: PropertyValueSpecification<boolean> | undefined; \"text-overlap\"?: PropertyValueSpecification<\"never\" | \"always\" | \"cooperative\"> | undefined; \"text-ignore-placement\"?: PropertyValueSpecification<boolean> | undefined; \"text-optional\"?: PropertyValueSpecification<boolean> | undefined; visibility?: VisibilitySpecification | undefined; } | undefined"
+                "type": "{ \"symbol-placement\"?: PropertyValueSpecification<\"line\" | \"point\" | \"line-center\"> | undefined; \"symbol-spacing\"?: PropertyValueSpecification<number> | undefined; \"symbol-avoid-edges\"?: PropertyValueSpecification<boolean> | undefined; \"symbol-sort-key\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"symbol-z-order\"?: PropertyValueSpecification<\"source\" | \"auto\" | \"viewport-y\"> | undefined; \"icon-allow-overlap\"?: PropertyValueSpecification<boolean> | undefined; \"icon-overlap\"?: PropertyValueSpecification<\"never\" | \"always\" | \"cooperative\"> | undefined; \"icon-ignore-placement\"?: PropertyValueSpecification<boolean> | undefined; \"icon-optional\"?: PropertyValueSpecification<boolean> | undefined; \"icon-rotation-alignment\"?: PropertyValueSpecification<\"auto\" | \"map\" | \"viewport\"> | undefined; \"icon-size\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-text-fit\"?: PropertyValueSpecification<\"none\" | \"width\" | \"height\" | \"both\"> | undefined; \"icon-text-fit-padding\"?: PropertyValueSpecification<[number, number, number, number]> | undefined; \"icon-image\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"icon-rotate\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-padding\"?: DataDrivenPropertyValueSpecification<PaddingSpecification> | undefined; \"icon-keep-upright\"?: PropertyValueSpecification<boolean> | undefined; \"icon-offset\"?: DataDrivenPropertyValueSpecification<[number, number]> | undefined; \"icon-anchor\"?: DataDrivenPropertyValueSpecification<\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\"> | undefined; \"icon-pitch-alignment\"?: PropertyValueSpecification<\"auto\" | \"map\" | \"viewport\"> | undefined; \"text-pitch-alignment\"?: PropertyValueSpecification<\"auto\" | \"map\" | \"viewport\"> | undefined; \"text-rotation-alignment\"?: PropertyValueSpecification<\"auto\" | \"map\" | \"viewport\" | \"viewport-glyph\"> | undefined; \"text-field\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"text-font\"?: DataDrivenPropertyValueSpecification<string[]> | undefined; \"text-size\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-max-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-line-height\"?: PropertyValueSpecification<number> | undefined; \"text-letter-spacing\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-justify\"?: DataDrivenPropertyValueSpecification<\"center\" | \"auto\" | \"right\" | \"left\"> | undefined; \"text-radial-offset\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-variable-anchor\"?: PropertyValueSpecification<(\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\")[]> | undefined; \"text-variable-anchor-offset\"?: DataDrivenPropertyValueSpecification<VariableAnchorOffsetCollectionSpecification> | undefined; \"text-anchor\"?: DataDrivenPropertyValueSpecification<\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\"> | undefined; \"text-max-angle\"?: PropertyValueSpecification<number> | undefined; \"text-writing-mode\"?: PropertyValueSpecification<(\"horizontal\" | \"vertical\")[]> | undefined; \"text-rotate\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-padding\"?: PropertyValueSpecification<number> | undefined; \"text-keep-upright\"?: PropertyValueSpecification<boolean> | undefined; \"text-transform\"?: DataDrivenPropertyValueSpecification<\"none\" | \"uppercase\" | \"lowercase\"> | undefined; \"text-offset\"?: DataDrivenPropertyValueSpecification<[number, number]> | undefined; \"text-allow-overlap\"?: PropertyValueSpecification<boolean> | undefined; \"text-overlap\"?: PropertyValueSpecification<\"never\" | \"always\" | \"cooperative\"> | undefined; \"text-ignore-placement\"?: PropertyValueSpecification<boolean> | undefined; \"text-optional\"?: PropertyValueSpecification<boolean> | undefined; visibility?: VisibilitySpecification | undefined; } | undefined"
               }
             },
             {

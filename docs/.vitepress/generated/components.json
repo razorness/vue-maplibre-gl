@@ -566,248 +566,248 @@
     ],
     "events": [
       {
-        "name": "map:data",
-        "type": "any[]"
-      },
-      {
-        "name": "map:click",
-        "type": "any[]"
-      },
-      {
-        "name": "map:dblclick",
-        "type": "any[]"
-      },
-      {
-        "name": "map:mousedown",
-        "type": "any[]"
-      },
-      {
-        "name": "map:mouseup",
-        "type": "any[]"
-      },
-      {
-        "name": "map:mousemove",
-        "type": "any[]"
-      },
-      {
-        "name": "map:mouseover",
-        "type": "any[]"
-      },
-      {
-        "name": "map:mouseout",
-        "type": "any[]"
-      },
-      {
-        "name": "map:contextmenu",
-        "type": "any[]"
-      },
-      {
-        "name": "map:touchstart",
-        "type": "any[]"
-      },
-      {
-        "name": "map:touchend",
-        "type": "any[]"
-      },
-      {
-        "name": "map:touchcancel",
-        "type": "any[]"
-      },
-      {
-        "name": "map:remove",
-        "type": "any[]"
-      },
-      {
-        "name": "map:error",
-        "type": "any[]"
-      },
-      {
-        "name": "map:load",
-        "type": "any[]"
-      },
-      {
-        "name": "map:idle",
-        "type": "any[]"
-      },
-      {
-        "name": "map:render",
-        "type": "any[]"
-      },
-      {
-        "name": "map:resize",
-        "type": "any[]"
-      },
-      {
-        "name": "map:webglcontextlost",
-        "type": "any[]"
-      },
-      {
-        "name": "map:webglcontextrestored",
-        "type": "any[]"
-      },
-      {
-        "name": "map:dataloading",
-        "type": "any[]"
-      },
-      {
-        "name": "map:sourcedataloading",
-        "type": "any[]"
-      },
-      {
-        "name": "map:styledataloading",
-        "type": "any[]"
-      },
-      {
-        "name": "map:sourcedata",
-        "type": "any[]"
-      },
-      {
-        "name": "map:styledata",
-        "type": "any[]"
-      },
-      {
-        "name": "map:style.load",
-        "type": "any[]"
-      },
-      {
-        "name": "map:styleimagemissing",
-        "type": "any[]"
-      },
-      {
-        "name": "map:dataabort",
-        "type": "any[]"
-      },
-      {
-        "name": "map:sourcedataabort",
-        "type": "any[]"
-      },
-      {
         "name": "map:boxzoomcancel",
-        "type": "any[]"
-      },
-      {
-        "name": "map:boxzoomstart",
-        "type": "any[]"
+        "type": "[ev: MglEvent<MapBoxZoomEvent, ComponentPublicInstance>]"
       },
       {
         "name": "map:boxzoomend",
-        "type": "any[]"
+        "type": "[ev: MglEvent<MapBoxZoomEvent, ComponentPublicInstance>]"
       },
       {
-        "name": "map:touchmove",
-        "type": "any[]"
+        "name": "map:boxzoomstart",
+        "type": "[ev: MglEvent<MapBoxZoomEvent, ComponentPublicInstance>]"
       },
       {
-        "name": "map:movestart",
-        "type": "any[]"
+        "name": "map:click",
+        "type": "[ev: MglEvent<MapMouseEvent, ComponentPublicInstance>]"
       },
       {
-        "name": "map:move",
-        "type": "any[]"
-      },
-      {
-        "name": "map:moveend",
-        "type": "any[]"
-      },
-      {
-        "name": "map:zoomstart",
-        "type": "any[]"
-      },
-      {
-        "name": "map:zoom",
-        "type": "any[]"
-      },
-      {
-        "name": "map:zoomend",
-        "type": "any[]"
-      },
-      {
-        "name": "map:rotatestart",
-        "type": "any[]"
-      },
-      {
-        "name": "map:rotate",
-        "type": "any[]"
-      },
-      {
-        "name": "map:rotateend",
-        "type": "any[]"
-      },
-      {
-        "name": "map:dragstart",
-        "type": "any[]"
-      },
-      {
-        "name": "map:drag",
-        "type": "any[]"
-      },
-      {
-        "name": "map:dragend",
-        "type": "any[]"
-      },
-      {
-        "name": "map:pitchstart",
-        "type": "any[]"
-      },
-      {
-        "name": "map:pitch",
-        "type": "any[]"
-      },
-      {
-        "name": "map:pitchend",
-        "type": "any[]"
-      },
-      {
-        "name": "map:rollstart",
-        "type": "any[]"
-      },
-      {
-        "name": "map:roll",
-        "type": "any[]"
-      },
-      {
-        "name": "map:rollend",
-        "type": "any[]"
-      },
-      {
-        "name": "map:wheel",
-        "type": "any[]"
-      },
-      {
-        "name": "map:terrain",
-        "type": "any[]"
+        "name": "map:contextmenu",
+        "type": "[ev: MglEvent<MapMouseEvent, ComponentPublicInstance>]"
       },
       {
         "name": "map:cooperativegestureprevented",
-        "type": "any[]"
+        "type": "[ev: MglEvent<MapLibreEvent<TouchEvent | WheelEvent> & { gestureType: \"wheel_zoom\" | \"touch_pan\"; }, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:data",
+        "type": "[ev: MglEvent<MapSourceDataEvent | MapStyleDataEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:dataabort",
+        "type": "[ev: MglEvent<MapSourceDataEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:dataloading",
+        "type": "[ev: MglEvent<MapSourceDataEvent | MapStyleDataEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:dblclick",
+        "type": "[ev: MglEvent<MapMouseEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:drag",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:dragend",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:dragstart",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:error",
+        "type": "[ev: MglEvent<ErrorEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:idle",
+        "type": "[ev: MglEvent<MapLibreEvent<unknown>, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:load",
+        "type": "[ev: MglEvent<MapLibreEvent<unknown>, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:mousedown",
+        "type": "[ev: MglEvent<MapMouseEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:mousemove",
+        "type": "[ev: MglEvent<MapMouseEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:mouseout",
+        "type": "[ev: MglEvent<MapMouseEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:mouseover",
+        "type": "[ev: MglEvent<MapMouseEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:mouseup",
+        "type": "[ev: MglEvent<MapMouseEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:move",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:moveend",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:movestart",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:pitch",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:pitchend",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:pitchstart",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
       },
       {
         "name": "map:projectiontransition",
-        "type": "any[]"
+        "type": "[ev: MglEvent<MapProjectionEvent, ComponentPublicInstance>]"
       },
       {
-        "name": "update:bounds",
-        "type": "any[]"
+        "name": "map:remove",
+        "type": "[ev: MglEvent<MapLibreEvent<unknown>, ComponentPublicInstance>]"
       },
       {
-        "name": "update:zoom",
-        "type": "any[]"
+        "name": "map:render",
+        "type": "[ev: MglEvent<MapLibreEvent<unknown>, ComponentPublicInstance>]"
       },
       {
-        "name": "update:pitch",
-        "type": "any[]"
+        "name": "map:resize",
+        "type": "[ev: MglEvent<MapLibreEvent<unknown>, ComponentPublicInstance>]"
       },
       {
-        "name": "update:roll",
-        "type": "any[]"
+        "name": "map:roll",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:rollend",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:rollstart",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:rotate",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:rotateend",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:rotatestart",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:sourcedata",
+        "type": "[ev: MglEvent<MapSourceDataEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:sourcedataabort",
+        "type": "[ev: MglEvent<MapSourceDataEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:sourcedataloading",
+        "type": "[ev: MglEvent<MapSourceDataEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:style.load",
+        "type": "[ev: MglEvent<MapStyleLoadEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:styledata",
+        "type": "[ev: MglEvent<MapStyleDataEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:styledataloading",
+        "type": "[ev: MglEvent<MapStyleDataEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:styleimagemissing",
+        "type": "[ev: MglEvent<MapStyleImageMissingEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:terrain",
+        "type": "[ev: MglEvent<MapTerrainEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:touchcancel",
+        "type": "[ev: MglEvent<MapTouchEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:touchend",
+        "type": "[ev: MglEvent<MapTouchEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:touchmove",
+        "type": "[ev: MglEvent<MapTouchEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:touchstart",
+        "type": "[ev: MglEvent<MapTouchEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:webglcontextlost",
+        "type": "[ev: MglEvent<MapContextEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:webglcontextrestored",
+        "type": "[ev: MglEvent<MapContextEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:wheel",
+        "type": "[ev: MglEvent<MapWheelEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:zoom",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:zoomend",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
+      },
+      {
+        "name": "map:zoomstart",
+        "type": "[ev: MglEvent<MapMovementEvent, ComponentPublicInstance>]"
       },
       {
         "name": "update:center",
-        "type": "any[]"
+        "type": "[value: LngLat]"
+      },
+      {
+        "name": "update:zoom",
+        "type": "[value: number]"
       },
       {
         "name": "update:bearing",
-        "type": "any[]"
+        "type": "[value: number]"
+      },
+      {
+        "name": "update:pitch",
+        "type": "[value: number]"
+      },
+      {
+        "name": "update:roll",
+        "type": "[value: number]"
+      },
+      {
+        "name": "update:bounds",
+        "type": "[value: LngLatBounds]"
       }
     ],
     "slots": [
@@ -1384,7 +1384,7 @@
       },
       {
         "name": "pitchAlignment",
-        "type": "\"map\" | \"auto\" | \"viewport\" | undefined",
+        "type": "\"auto\" | \"map\" | \"viewport\" | undefined",
         "required": false,
         "description": "Whether the marker tilts with the `map` or stays flat against the `viewport`."
       },
@@ -1396,7 +1396,7 @@
       },
       {
         "name": "rotationAlignment",
-        "type": "\"map\" | \"auto\" | \"viewport\" | undefined",
+        "type": "\"auto\" | \"map\" | \"viewport\" | undefined",
         "required": false,
         "description": "Whether `rotation` is relative to the `map` or the `viewport`."
       },
@@ -1419,15 +1419,15 @@
         "type": "[marker: Marker]"
       },
       {
-        "name": "dragstart",
-        "type": "[marker: Marker]"
-      },
-      {
         "name": "drag",
         "type": "[marker: Marker]"
       },
       {
         "name": "dragend",
+        "type": "[marker: Marker]"
+      },
+      {
+        "name": "dragstart",
         "type": "[marker: Marker]"
       },
       {
@@ -3489,7 +3489,7 @@
       },
       {
         "name": "layout",
-        "type": "{ \"symbol-placement\"?: PropertyValueSpecification<\"line\" | \"point\" | \"line-center\"> | undefined; \"symbol-spacing\"?: PropertyValueSpecification<number> | undefined; \"symbol-avoid-edges\"?: PropertyValueSpecification<boolean> | undefined; \"symbol-sort-key\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"symbol-z-order\"?: PropertyValueSpecification<\"source\" | \"auto\" | \"viewport-y\"> | undefined; \"icon-allow-overlap\"?: PropertyValueSpecification<boolean> | undefined; \"icon-overlap\"?: PropertyValueSpecification<\"never\" | \"always\" | \"cooperative\"> | undefined; \"icon-ignore-placement\"?: PropertyValueSpecification<boolean> | undefined; \"icon-optional\"?: PropertyValueSpecification<boolean> | undefined; \"icon-rotation-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\"> | undefined; \"icon-size\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-text-fit\"?: PropertyValueSpecification<\"none\" | \"width\" | \"height\" | \"both\"> | undefined; \"icon-text-fit-padding\"?: PropertyValueSpecification<[number, number, number, number]> | undefined; \"icon-image\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"icon-rotate\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-padding\"?: DataDrivenPropertyValueSpecification<PaddingSpecification> | undefined; \"icon-keep-upright\"?: PropertyValueSpecification<boolean> | undefined; \"icon-offset\"?: DataDrivenPropertyValueSpecification<[number, number]> | undefined; \"icon-anchor\"?: DataDrivenPropertyValueSpecification<\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\"> | undefined; \"icon-pitch-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\"> | undefined; \"text-pitch-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\"> | undefined; \"text-rotation-alignment\"?: PropertyValueSpecification<\"map\" | \"auto\" | \"viewport\" | \"viewport-glyph\"> | undefined; \"text-field\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"text-font\"?: DataDrivenPropertyValueSpecification<string[]> | undefined; \"text-size\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-max-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-line-height\"?: PropertyValueSpecification<number> | undefined; \"text-letter-spacing\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-justify\"?: DataDrivenPropertyValueSpecification<\"center\" | \"auto\" | \"right\" | \"left\"> | undefined; \"text-radial-offset\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-variable-anchor\"?: PropertyValueSpecification<(\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\")[]> | undefined; \"text-variable-anchor-offset\"?: DataDrivenPropertyValueSpecification<VariableAnchorOffsetCollectionSpecification> | undefined; \"text-anchor\"?: DataDrivenPropertyValueSpecification<\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\"> | undefined; \"text-max-angle\"?: PropertyValueSpecification<number> | undefined; \"text-writing-mode\"?: PropertyValueSpecification<(\"horizontal\" | \"vertical\")[]> | undefined; \"text-rotate\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-padding\"?: PropertyValueSpecification<number> | undefined; \"text-keep-upright\"?: PropertyValueSpecification<boolean> | undefined; \"text-transform\"?: DataDrivenPropertyValueSpecification<\"none\" | \"uppercase\" | \"lowercase\"> | undefined; \"text-offset\"?: DataDrivenPropertyValueSpecification<[number, number]> | undefined; \"text-allow-overlap\"?: PropertyValueSpecification<boolean> | undefined; \"text-overlap\"?: PropertyValueSpecification<\"never\" | \"always\" | \"cooperative\"> | undefined; \"text-ignore-placement\"?: PropertyValueSpecification<boolean> | undefined; \"text-optional\"?: PropertyValueSpecification<boolean> | undefined; visibility?: VisibilitySpecification | undefined; } | undefined",
+        "type": "{ \"symbol-placement\"?: PropertyValueSpecification<\"line\" | \"point\" | \"line-center\"> | undefined; \"symbol-spacing\"?: PropertyValueSpecification<number> | undefined; \"symbol-avoid-edges\"?: PropertyValueSpecification<boolean> | undefined; \"symbol-sort-key\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"symbol-z-order\"?: PropertyValueSpecification<\"source\" | \"auto\" | \"viewport-y\"> | undefined; \"icon-allow-overlap\"?: PropertyValueSpecification<boolean> | undefined; \"icon-overlap\"?: PropertyValueSpecification<\"never\" | \"always\" | \"cooperative\"> | undefined; \"icon-ignore-placement\"?: PropertyValueSpecification<boolean> | undefined; \"icon-optional\"?: PropertyValueSpecification<boolean> | undefined; \"icon-rotation-alignment\"?: PropertyValueSpecification<\"auto\" | \"map\" | \"viewport\"> | undefined; \"icon-size\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-text-fit\"?: PropertyValueSpecification<\"none\" | \"width\" | \"height\" | \"both\"> | undefined; \"icon-text-fit-padding\"?: PropertyValueSpecification<[number, number, number, number]> | undefined; \"icon-image\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"icon-rotate\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"icon-padding\"?: DataDrivenPropertyValueSpecification<PaddingSpecification> | undefined; \"icon-keep-upright\"?: PropertyValueSpecification<boolean> | undefined; \"icon-offset\"?: DataDrivenPropertyValueSpecification<[number, number]> | undefined; \"icon-anchor\"?: DataDrivenPropertyValueSpecification<\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\"> | undefined; \"icon-pitch-alignment\"?: PropertyValueSpecification<\"auto\" | \"map\" | \"viewport\"> | undefined; \"text-pitch-alignment\"?: PropertyValueSpecification<\"auto\" | \"map\" | \"viewport\"> | undefined; \"text-rotation-alignment\"?: PropertyValueSpecification<\"auto\" | \"map\" | \"viewport\" | \"viewport-glyph\"> | undefined; \"text-field\"?: DataDrivenPropertyValueSpecification<string> | undefined; \"text-font\"?: DataDrivenPropertyValueSpecification<string[]> | undefined; \"text-size\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-max-width\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-line-height\"?: PropertyValueSpecification<number> | undefined; \"text-letter-spacing\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-justify\"?: DataDrivenPropertyValueSpecification<\"center\" | \"auto\" | \"right\" | \"left\"> | undefined; \"text-radial-offset\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-variable-anchor\"?: PropertyValueSpecification<(\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\")[]> | undefined; \"text-variable-anchor-offset\"?: DataDrivenPropertyValueSpecification<VariableAnchorOffsetCollectionSpecification> | undefined; \"text-anchor\"?: DataDrivenPropertyValueSpecification<\"center\" | \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\" | \"top\" | \"bottom\" | \"right\" | \"left\"> | undefined; \"text-max-angle\"?: PropertyValueSpecification<number> | undefined; \"text-writing-mode\"?: PropertyValueSpecification<(\"horizontal\" | \"vertical\")[]> | undefined; \"text-rotate\"?: DataDrivenPropertyValueSpecification<number> | undefined; \"text-padding\"?: PropertyValueSpecification<number> | undefined; \"text-keep-upright\"?: PropertyValueSpecification<boolean> | undefined; \"text-transform\"?: DataDrivenPropertyValueSpecification<\"none\" | \"uppercase\" | \"lowercase\"> | undefined; \"text-offset\"?: DataDrivenPropertyValueSpecification<[number, number]> | undefined; \"text-allow-overlap\"?: PropertyValueSpecification<boolean> | undefined; \"text-overlap\"?: PropertyValueSpecification<\"never\" | \"always\" | \"cooperative\"> | undefined; \"text-ignore-placement\"?: PropertyValueSpecification<boolean> | undefined; \"text-optional\"?: PropertyValueSpecification<boolean> | undefined; visibility?: VisibilitySpecification | undefined; } | undefined",
         "required": false,
         "description": "maplibre `layout` properties for this symbol layer. Diffed per property, through `setLayoutProperty`."
       },

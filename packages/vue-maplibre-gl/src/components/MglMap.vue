@@ -10,20 +10,22 @@
 import type { MapEventType } from 'maplibre-gl';
 import { computed, getCurrentInstance, useTemplateRef } from 'vue';
 import { mapProps } from 'components/mapProps';
-import { CAMERA_MODEL_EMITS, useCameraModel } from 'composable/useCameraModel';
+import { useCameraModel, type MglCameraEmits } from 'composable/useCameraModel';
 import { useMglMap, type MglMapOptions } from 'composable/useMglMap';
-import { MapLib } from 'lib/map.lib';
+import { MapLib, type MglMapEmits } from 'lib/map.lib';
 
 defineOptions({ name: 'MglMap' });
 
 /*
- * Props and emits are imported runtime declarations, not type-only ones. That is deliberate: the prop set
- * has to stay a single value so `mapProps.ts` can assert with `AssertNever` that it covers every maplibre
- * `MapOptions` key, and the emit list has to stay derived from `MapLib.MAP_EVENT_TYPES`. Vue's SFC
- * compiler passes a runtime declaration straight through; a type declaration could reference neither.
+ * `props` is an imported *runtime* declaration on purpose: the prop set has to stay a single value so
+ * `mapProps.ts` can assert with `AssertNever` that it covers every maplibre `MapOptions` key.
+ *
+ * `emits` is the opposite — a *type*, so handlers get a real `MglEvent<…>` payload instead of the `any`
+ * the previous runtime array produced. Both interfaces are spelled out and guarded by `AssertNever`
+ * pairs of their own, so neither can drift from maplibre.
  */
 const props = defineProps(mapProps);
-const emit = defineEmits([...MapLib.MAP_EMIT_NAMES, ...CAMERA_MODEL_EMITS]);
+const emit = defineEmits<MglMapEmits & MglCameraEmits>();
 
 defineSlots<{
 	/** Rendered only once the map object exists, so children can assume `map.value` is set. */

@@ -1,4 +1,5 @@
 import type { LngLat, LngLatBounds, Map as MaplibreMap, Subscription } from 'maplibre-gl';
+import type { AssertNever } from 'types/exhaustive';
 
 /**
  * The camera properties `MglMap` supports two-way binding for:
@@ -25,6 +26,28 @@ export const CAMERA_MODEL_EMITS = [
 	'update:roll',
 	'update:bounds'
 ] as const satisfies ReadonlyArray<`update:${CameraModelKey}`>;
+
+/**
+ * Payload type per camera `update:*` event.
+ *
+ * Spelled out for the same reason as {@link MglMapEmits}: the SFC compiler generates the runtime emits
+ * array at compile time and cannot evaluate a mapped type. The assertions below tie it to
+ * {@link CameraModel}, so adding a camera property without an emit stops compiling.
+ */
+export interface MglCameraEmits {
+	'update:center': [value: CameraModel['center']];
+	'update:zoom': [value: CameraModel['zoom']];
+	'update:bearing': [value: CameraModel['bearing']];
+	'update:pitch': [value: CameraModel['pitch']];
+	'update:roll': [value: CameraModel['roll']];
+	'update:bounds': [value: CameraModel['bounds']];
+}
+
+/** Proves every camera property has an emit. Exported only to satisfy `noUnusedLocals`. */
+export type _CameraEmitsAreComplete = AssertNever<Exclude<`update:${CameraModelKey}`, keyof MglCameraEmits>>;
+
+/** The other direction: no emit for a property that is not a camera model. */
+export type _CameraEmitsHaveNoExtras = AssertNever<Exclude<keyof MglCameraEmits, `update:${CameraModelKey}`>>;
 
 /** maplibre getter per camera property. */
 const READERS: { [K in CameraModelKey]: (map: MaplibreMap) => CameraModel[K] } = {
