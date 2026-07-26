@@ -3,7 +3,7 @@
 		<ClientOnly>
 			<MglMap :map-style="demoStyle" :center="[7.1, 50.7]" :zoom="5" class="demo-map" style="height: 320px">
 				<!-- a marker with its own markup, and a popup nested inside it -->
-				<MglMarker v-model:coordinates="dragged" :options="{ draggable: true }">
+				<MglMarker v-model:coordinates="dragged" draggable>
 					<div class="demo-pin">⚑</div>
 					<template #popup>
 						<strong>Drag me</strong>
@@ -13,7 +13,7 @@
 				</MglMarker>
 
 				<!-- the default maplibre marker, with a standalone popup -->
-				<MglMarker :coordinates="[13.4, 52.52]" :options="{ color: '#c0392b' }" />
+				<MglMarker :coordinates="[13.4, 52.52]" color="#c0392b" />
 				<MglPopup :coordinates="[13.4, 52.52]" :offset="[0, -32]">Berlin</MglPopup>
 			</MglMap>
 		</ClientOnly>

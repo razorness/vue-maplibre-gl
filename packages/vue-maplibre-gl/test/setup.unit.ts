@@ -70,9 +70,16 @@ vi.mock('maplibre-gl', () => {
 		private lngLat: unknown;
 		popup: unknown;
 		removed = false;
+		added = false;
 		element?: HTMLElement;
+		draggable = false;
+		/** Handlers per event, so a test can drive `dragend` and check the v-model follows. */
+		readonly handlers = new Map<string, Array<(payload: unknown) => void>>();
 		constructor(options: { element?: HTMLElement } = {}) {
 			this.element = options.element;
+		}
+		fire(event: string, payload: unknown = {}) {
+			for (const handler of this.handlers.get(event) ?? []) handler({ type: event, target: this, ...(payload as object) });
 		}
 		setLngLat(v: unknown) {
 			this.lngLat = v;
@@ -82,6 +89,7 @@ vi.mock('maplibre-gl', () => {
 			return this.lngLat;
 		}
 		addTo() {
+			this.added = true;
 			return this;
 		}
 		remove() {
@@ -92,10 +100,14 @@ vi.mock('maplibre-gl', () => {
 			this.popup = p;
 			return this;
 		}
-		on() {
+		on(event: string, handler: (payload: unknown) => void) {
+			const list = this.handlers.get(event) ?? [];
+			list.push(handler);
+			this.handlers.set(event, list);
 			return this;
 		}
-		setDraggable() {
+		setDraggable(v: boolean) {
+			this.draggable = v;
 			return this;
 		}
 		setOffset() {
@@ -138,7 +150,13 @@ vi.mock('maplibre-gl', () => {
 		isOpen() {
 			return this.opened;
 		}
-		setLngLat() {
+		lngLat: unknown;
+		readonly handlers = new Map<string, Array<(payload: unknown) => void>>();
+		fire(event: string, payload: unknown = {}) {
+			for (const handler of this.handlers.get(event) ?? []) handler({ type: event, target: this, ...(payload as object) });
+		}
+		setLngLat(v: unknown) {
+			this.lngLat = v;
 			return this;
 		}
 		setText() {
@@ -157,7 +175,10 @@ vi.mock('maplibre-gl', () => {
 		trackPointer() {
 			return this;
 		}
-		on() {
+		on(event: string, handler: (payload: unknown) => void) {
+			const list = this.handlers.get(event) ?? [];
+			list.push(handler);
+			this.handlers.set(event, list);
 			return this;
 		}
 

@@ -10,6 +10,12 @@
 
 Without a slot you get maplibre's default marker. With one, your markup replaces it entirely.
 
+::: tip Marker and popup take flat props
+Unlike `MglSource` and `MglLayer`, these two have no `options` prop — every maplibre marker and popup
+option is its own prop (`draggable`, `color`, `offset`, `anchor`, `closeButton`, …). See the
+[API reference](/api/marker-popup).
+:::
+
 The slot content is rendered into a **detached** element that is handed to maplibre as the marker's
 `element`. maplibre then owns that node — it positions it, applies transforms and removes it. That is why
 the content is teleported rather than rendered as a normal child, and why you cannot reach it through the
@@ -20,7 +26,7 @@ component's own DOM subtree.
 ## Dragging
 
 ```vue
-<MglMarker v-model:coordinates="coords" :options="{ draggable: true }" @dragend="onDragEnd" />
+<MglMarker v-model:coordinates="coords" draggable @dragend="onDragEnd" />
 ```
 
 `v-model:coordinates` follows the drag. Events: `click`, `dragstart`, `drag`, `dragend`.
