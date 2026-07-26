@@ -1,5 +1,7 @@
 # vue-maplibre-gl — monorepo
 
+**[Documentation and live examples →](https://razorness.github.io/vue-maplibre-gl/)**
+
 Vue 3 components for [maplibre-gl](https://maplibre.org/). This repository is a pnpm workspace;
 the published package lives in [`packages/vue-maplibre-gl`](./packages/vue-maplibre-gl).
 

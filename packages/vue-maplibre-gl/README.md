@@ -4,17 +4,26 @@
 [![npm](https://img.shields.io/npm/dm/vue-maplibre-gl?style=flat-square)](https://www.npmjs.com/package/vue-maplibre-gl)
 [![size](https://img.shields.io/bundlephobia/minzip/vue-maplibre-gl?label=size&style=flat-square)](https://bundlephobia.com/package/vue-maplibre-gl)
 [![vue3](https://img.shields.io/badge/vue-3.x-brightgreen.svg?style=flat-square)](https://vuejs.org/)
-[![MaplibreGL-JS](https://img.shields.io/badge/Maplibre%20GL%20JS-5.x-brightgreen?style=flat-square)](https://maplibre.org/projects/maplibre-gl-js/)
+[![MaplibreGL-JS](https://img.shields.io/badge/Maplibre%20GL%20JS-6.x-brightgreen?style=flat-square)](https://maplibre.org/projects/maplibre-gl-js/)
 [![TypeScript](https://img.shields.io/badge/-TypeScript-informational?style=flat-square)](https://www.typescriptlang.org/)
 
-A small Vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js). Only additional dependency is [mitt](https://github.com/developit/mitt).
+A Vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js). Only additional dependency is [mitt](https://github.com/developit/mitt).
+
+**[Documentation and live examples →](https://razorness.github.io/vue-maplibre-gl/)**
 
 ## Features
 
-- Supports MapLibre GL JS v5.x
-- Typescript support
+- Supports MapLibre GL JS **v6.x** — see the [migration guide](https://razorness.github.io/vue-maplibre-gl/migration) if you are coming from v5
+- ESM only, tree-shakeable, SSR-safe
+- Props are named after and derived from maplibre's own option types, with compile-time proof that the lists are complete
+- Generic `<MglSource type="…">` / `<MglLayer type="…">` whose `options` narrow by kind, plus the named components as thin wrappers
+- Every feature available as a composable as well as a component
+- Option changes apply to the live map (`paint`, `layout`, `filter`, zoom range, source data), rather than only at creation
+- Two-way camera binding: `v-model:center|zoom|bearing|pitch|roll|bounds`
+- Themeable with plain CSS custom properties in a cascade layer; Tailwind v4 compatible
+- `web-types.json` for JetBrains IDEs, generated from the components themselves
 - Components for map, controls, sources, markers and layers
-- ⚠ NEW: Simple Draw Control to draw: polygon, circle and circle (static to camera viewport)
+- Simple Draw Control to draw: polygon, circle and circle (static to camera viewport), behind the `./draw` entry
 - Support for custom controls
 - Customizable style switch which reloads sources and layers automatically
 - Frame rate control included
