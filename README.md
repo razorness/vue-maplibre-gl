@@ -103,7 +103,7 @@ Add CSS:
 </template>
 ```
 
-You can use the draw plugin without using the `MglDrawComponent`. See [src/components/controls/draw.control.ts](src/components/controls/draw.control.ts) to get an example.
+You can use the draw plugin without using the `MglDrawComponent`. See [src/plugins/draw/draw.control.ts](src/plugins/draw/draw.control.ts) to get an example.
 
 ## Modes
 
